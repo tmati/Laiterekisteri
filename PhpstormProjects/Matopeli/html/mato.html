@@ -1,0 +1,65 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Matopeli</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/testi.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <h3 class="masthead-brand">Ranked Snake Game</h3>
+            <nav class="nav nav-masthead justify-content-center ">
+                <a class="nav-link active" href="#">Snake</a>
+                <a class="nav-link" href="leaderboard.html">Leaderboard</a>
+                <a class="nav-link" href="#">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main" class="inner cover">
+            <canvas id="myCanvas" width="600" height="400" style="background-color: black";  ></canvas>
+            <div id="overlay">
+                <button id="startNappi" class="btn btn-lg btn-secondary">Start Game</button>
+            </div>
+        <div id="overlay2">
+            <h1 class="cover-heading">You Died!</h1>
+            <p id="score"></p>
+            <button id="pelaaUudestaan" class="btn btn-lg btn-secondary">Play Again</button>
+            <button id="tallennaTiedot" class="btn btn-lg btn-secondary">Save Score</button>
+        </div>
+        <form id="scoreForm">
+            <div class="form-row align-items-center">
+                <div class=col-auto" id="scoreInput">
+                    <input type="text" class="form-control" id="inlineFormInputName" placeholder="Username">
+                </div>
+                <div class="col-auto my-1">
+                    <button type="submit" class="btn btn-lg btn-secondary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+            <p>By: Tommi Väyrynen - Jukka Holopainen - Kimmo karjalainen</p>
+        </div>
+    </footer>
+</div>
+
+
+
+<script src="js/matopeli.js"></script>
+<script src="js/overlay.js"></script>
+
+</body>
+</html>
