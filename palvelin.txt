@@ -1,0 +1,20 @@
+Hostname: tommivay-001
+IP: 10.114.32.10
+Netmask: 255.255.255.0
+Gateway: 10.114.32.1
+DNS: 193.167.197.100
+DNS: 195.148.144.100
+Domain: educloud.metropolia.fi
+
+For a preinstalled virtual machine plese use following to login to your virtual server:
+Login: Administrator in Windows, root in Linux
+Password: myS9MBVr
+
+Yhteinen tunnus : ryhma
+salasana: kissatkoiria
+
+marjadb käyttäjä jota käytetään
+käyttäjä: dbuser
+salasana: dbuser
+
+https://netbeans.org/community/releases/73/cpp-setup-instructions.html#compilers_windows
