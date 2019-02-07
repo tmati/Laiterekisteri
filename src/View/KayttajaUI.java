@@ -23,6 +23,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
@@ -99,11 +100,13 @@ public class KayttajaUI extends Application {
             }
         });
         
-        Text lainausKuvaus = new Text();
+        TextArea lainausKuvaus = new TextArea();
         lainausKuvaus.setText("Lainaukset");
+        lainausKuvaus.setEditable(false);
         
-        Text tavaranKuvaus = new Text();
+        TextArea tavaranKuvaus = new TextArea();
         tavaranKuvaus.setText("Resurssin desc.");
+        tavaranKuvaus.setEditable(false);
         
         Resource resurssi = new Resource(7, "nimi", "tyypi", 0, "kuvaus");
         //TableView table = new TableView();
