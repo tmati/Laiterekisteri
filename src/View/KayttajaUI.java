@@ -145,14 +145,6 @@ public class KayttajaUI extends Application {
         table.setItems(data);
         TableRow cell = new TableRow();
 
-        table.setOnMousePressed(new EventHandler<MouseEvent>() {
-            
-            @Override
-            public void handle(MouseEvent event) {
-                cell.setOnMouseClicked(this);
-                System.out.println("Rivi " + cell);
-            }
-        });
 
         table.addEventFilter(MouseEvent.MOUSE_PRESSED, (event) -> {
             if(event.isShortcutDown() || event.isShiftDown())
@@ -163,7 +155,7 @@ public class KayttajaUI extends Application {
         table.getFocusModel().focusedCellProperty().addListener((obs, oldVal, newVal) -> {
 
             if(newVal.getTableColumn() != null){
-                System.out.println("Selected row index: "+ newVal.getRow() + table.getColumns().get(0).getCellObservableValue(newVal.getRow()).getValue());
+                System.out.println("Selected row index: "+ newVal.getRow() + " " + table.getColumns().get(0).getCellObservableValue(newVal.getRow()).getValue());
             }
         });
 
