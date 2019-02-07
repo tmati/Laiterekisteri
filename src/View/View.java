@@ -23,15 +23,6 @@ public class View extends Application {
        Parent root = FXMLLoader.load(getClass().getResource("Loginwindow.fxml"));
        Scene scene = new Scene(root);
         
-    
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-
-        //set Stage boundaries to visible bounds of the main screen
-        /*stage.setX(primaryScreenBounds.getMinX());
-        stage.setY(primaryScreenBounds.getMinY());
-        stage.setWidth(primaryScreenBounds.getWidth());
-        stage.setHeight(primaryScreenBounds.getHeight());
-        */
         stage.setTitle("Laiterekisteri");
         stage.setScene(scene);
         stage.setResizable(true);

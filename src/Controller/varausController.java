@@ -64,12 +64,14 @@ public class varausController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Aikaformaatti
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        //Uusi SpinnerValueFactory-olio. Näitä tarvitaan joka spinnerille.
         SpinnerValueFactory mistaFactory = new SpinnerValueFactory<LocalTime>() {{
             setConverter(new LocalTimeStringConverter(formatter,null));
         }
             
-            
+            //Toiminta spinneriä alaspäin klikattaessa.
             @Override
             public void decrement(int steps) {
                 if (getValue() == null) {
@@ -81,7 +83,8 @@ public class varausController implements Initializable {
                     
                 }
             }
-
+            
+            //Spinneriä ylöspäin klikatessa.
             @Override
             public void increment(int steps) {
                 if (getValue() == null) {
@@ -94,7 +97,7 @@ public class varausController implements Initializable {
             }
             
         };
-        
+            //Mihin - Spinnerin factory
                 SpinnerValueFactory mihinFactory = new SpinnerValueFactory<LocalTime>() {{
             setConverter(new LocalTimeStringConverter(formatter,null));
         }
@@ -127,11 +130,15 @@ public class varausController implements Initializable {
         //TODO Tähän varattavan tuotteen nimi jotakin kautta.
         itemLabel.setText("TESTINGGGG");
         
+        //ValueFactoryiden määrittäminen spinnereilleen.
         mistaSpinner.setValueFactory(mistaFactory);
         mihinSpinner.setValueFactory(mihinFactory);
     }
         
-
+    /**
+     * TODO varauksen tallettaminen tietokantaan. Ei voi tehdä ennenkuin tietokanta toimii.
+     * @param event 
+     */
     @FXML
     private void varausNappiPainettu(ActionEvent event) {
         //Vie tietokantaan:
@@ -159,6 +166,10 @@ public class varausController implements Initializable {
         Boolean palautettu = false;
     }
 
+    /**
+     * Sulkee popup-näkymän.
+     * @param event 
+     */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
     Popup popup = (Popup) sulkuNappi.getScene().getWindow();
