@@ -19,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -151,6 +152,24 @@ public class KayttajaUI extends Application {
                 cell.setOnMouseClicked(this);
                 System.out.println("Rivi " + cell);
             }
+        });
+
+        table.addEventFilter(MouseEvent.MOUSE_PRESSED, (event) -> {
+            if(event.isShortcutDown() || event.isShiftDown())
+                event.consume();
+        });
+
+
+        table.getFocusModel().focusedCellProperty().addListener((obs, oldVal, newVal) -> {
+
+            if(newVal.getTableColumn() != null){
+                System.out.println("Selected row index: "+ newVal.getRow() + table.getColumns().get(0).getCellObservableValue(newVal.getRow()).getValue());
+            }
+        });
+
+        table.addEventFilter(MouseEvent.MOUSE_PRESSED, (event) -> {
+            if(event.isShortcutDown() || event.isShiftDown())
+                event.consume();
         });
         
         //kalenteri
