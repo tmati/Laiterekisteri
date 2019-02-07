@@ -1,0 +1,3 @@
+username - otp2019kevat-r11
+password - kissatkoiria
+url - http://inno-jenkinsnew.educloud.metropolia.fi
