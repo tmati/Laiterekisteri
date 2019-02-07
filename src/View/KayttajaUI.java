@@ -38,12 +38,14 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author jukka
+ * @author jukka holopainen
  */
 public class KayttajaUI extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        
+        // Logout nappi
         Button logout = new Button();
         logout.setText("Logout");
         logout.setMaxSize(60, 10);
@@ -55,6 +57,7 @@ public class KayttajaUI extends Application {
             }
         });
         
+        //Hakukentta
         TextField field = new TextField(); 
         field.setMinSize(80, 10);
         field.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -67,6 +70,7 @@ public class KayttajaUI extends Application {
             }
         });
         
+        //hakunappi
         Button search = new Button();
         search.setText("Search");
         search.setMaxSize(60, 10);
@@ -78,6 +82,7 @@ public class KayttajaUI extends Application {
             }
         });
         
+        //varaus nappi
         Button reservation = new Button();
         reservation.setText("Reservation");
         reservation.setMaxSize(100, 10);
@@ -89,6 +94,7 @@ public class KayttajaUI extends Application {
             }
         });
         
+        //kayttajanimi
         Text nimi = new Text();
         nimi.setText("Username");
         nimi.setStyle("-fx-font: 18 arial;");
@@ -100,25 +106,24 @@ public class KayttajaUI extends Application {
             }
         });
         
+        //kuvaus lainauksesta alue
         TextArea lainausKuvaus = new TextArea();
         lainausKuvaus.setText("Lainaukset");
         lainausKuvaus.setEditable(false);
         
+        //kuvaus tavarasta alue
         TextArea tavaranKuvaus = new TextArea();
         tavaranKuvaus.setText("Resurssin desc.");
         tavaranKuvaus.setEditable(false);
         
+        //lista resurseista
         Resource resurssi = new Resource(7, "nimi", "tyypi", 0, "kuvaus");
-        //TableView table = new TableView();
         ObservableList<Model.Resource> data = FXCollections.observableArrayList(
                 resurssi,resurssi);
         
-        
         TableView<Model.Resource> table = new TableView<Model.Resource>();
         table.setMinSize(270, 500);
-            
-            
-    
+   
         TableColumn name = new TableColumn("Name");
         name.setMinWidth(100);
         name.setCellValueFactory(new PropertyValueFactory<Model.Resource, String>("nimi"));
@@ -148,6 +153,7 @@ public class KayttajaUI extends Application {
             }
         });
         
+        //kalenteri
         DatePicker datePicker = new DatePicker(LocalDate.now());
         DatePickerSkin datePickerSkin = new DatePickerSkin(datePicker);
         Node popupContent = datePickerSkin.getPopupContent();
@@ -159,9 +165,8 @@ public class KayttajaUI extends Application {
                 System.out.println("Kalenteri päivä " + selectedDate);
             }
         });
-        
-        
-        
+    
+        //tavaroiden laitaminen grid panniin
         GridPane grid = new GridPane();
         grid.add(nimi, 0, 0);
         grid.add(logout, 2, 0);
