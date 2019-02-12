@@ -17,7 +17,7 @@ Nimi VARCHAR(40) NOT NULL,
 Tyyppi VARCHAR(40) NOT NULL,
 Luvanvaraisuus INT NOT NULL,
 Kuvaus VARCHAR(400) NOT NULL,
-PRIMARY KEY (Id, Nimi)
+PRIMARY KEY (Id)
 );
 CREATE TABLE Varaukset
 (
@@ -32,5 +32,5 @@ Nimi VARCHAR(40) NOT NULL,
 Hyvaksytty BIT,
 PRIMARY KEY (VarausID),
 FOREIGN KEY (Id) REFERENCES Kayttaja(Id),
-FOREIGN KEY (ResurssiId, Nimi) REFERENCES Resurssit(Id, Nimi)
+FOREIGN KEY (ResurssiId) REFERENCES Resurssit(Id)
 );
