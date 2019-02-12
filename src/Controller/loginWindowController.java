@@ -24,8 +24,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Popup;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -47,9 +47,10 @@ public class loginWindowController implements Initializable {
     @FXML
     private ImageView logoView;
     @FXML
-    private AnchorPane anchorPane;
-    @FXML
     private Button testBtn;
+    
+    @FXML
+    private ImageView bgView;
     
     private boolean loginPossible;
     /**
@@ -57,7 +58,12 @@ public class loginWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+
+        
         Image image = new Image(getClass().getResourceAsStream("/res/Metro.png"));
+        bgView.setFitWidth(Screen.getPrimary().getVisualBounds().getWidth());
+        bgView.setFitHeight(Screen.getPrimary().getVisualBounds().getHeight());
         logoView.setImage(image);
         centerImage(logoView);
     }
@@ -130,6 +136,22 @@ public class loginWindowController implements Initializable {
         loginProcess();
     }
     
+    /**
+     * Sisäänkirjautuminen
+     * @param userName username-kentän sisältö
+     * @param passWord password-kentän sisältö
+     * @return true jos käyttäjä/salasanapari on oikea.
+     */
+    private boolean login(String userName, String passWord) {
+        /*TODO etsi tietokannasta nimeä vastaava käyttäjä ja sen salasana.
+        Vertaa niitä
+        Palauta true jos täsmää
+        Palauta false ja heitä joku herja jos: 
+        Käyttäjää ei löydy.
+        Salasana on väärä.
+        */
+        return false;
+    }
     
     /**
      * TODO Login-painikkeen painamisen jälkeen tapahtuva toiminta. Puutteellinen ilman tietokantaa.

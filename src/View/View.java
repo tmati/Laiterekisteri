@@ -22,6 +22,14 @@ public class View extends Application {
     public void start(Stage stage) throws Exception {
        Parent root = FXMLLoader.load(getClass().getResource("Loginwindow.fxml"));
        Scene scene = new Scene(root);
+       
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        stage.setX(bounds.getMinX());
+        stage.setY(bounds.getMinY());
+        stage.setWidth(bounds.getWidth());
+        stage.setHeight(bounds.getHeight());
         
         stage.setTitle("Laiterekisteri");
         stage.setScene(scene);
