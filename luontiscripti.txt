@@ -30,7 +30,7 @@ KayttajaId INT NOT NULL,
 ResurssiId INT NOT NULL,
 Nimi VARCHAR(40) NOT NULL,
 Hyvaksytty BIT,
-PRIMARY KEY (VarausID),
+PRIMARY KEY (Id),
 FOREIGN KEY (KayttajaId) REFERENCES Kayttaja(Id),
 FOREIGN KEY (ResurssiId) REFERENCES Resurssit(Id)
 );
