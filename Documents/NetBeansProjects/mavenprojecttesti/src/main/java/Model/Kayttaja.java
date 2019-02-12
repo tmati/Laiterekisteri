@@ -1,12 +1,16 @@
-package com.mycompany.mavenprojecttesti;
-// Generated Feb 11, 2019 2:17:32 PM by Hibernate Tools 4.3.1
+package Model;
+// Generated Feb 12, 2019 2:31:28 PM by Hibernate Tools 4.3.1
 
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -18,32 +22,33 @@ import javax.persistence.Table;
 )
 public class Kayttaja  implements java.io.Serializable {
 
-    @Id
-   @GeneratedValue(strategy=IDENTITY)
-    @Column(name = "id")
+
      private Integer id;
-    
-    @Column(name ="nimi")
      private String nimi;
-    
-    @Column(name ="salasana")
      private String salasana;
-    
-    @Column(name = "valtuudet")
      private int valtuudet;
+     private Set<Varaukset> varauksets = new HashSet<Varaukset>(0);
 
     public Kayttaja() {
-        super();
     }
 
+	
     public Kayttaja(String nimi, String salasana, int valtuudet) {
-        super();
+        this.nimi = nimi;
+        this.salasana = salasana;
+        this.valtuudet = valtuudet;
+    }
+    public Kayttaja(String nimi, String salasana, int valtuudet, Set<Varaukset> varauksets) {
        this.nimi = nimi;
        this.salasana = salasana;
        this.valtuudet = valtuudet;
+       this.varauksets = varauksets;
     }
    
- 
+     @Id @GeneratedValue(strategy=IDENTITY)
+
+    
+    @Column(name="Id", unique=true, nullable=false)
     public Integer getId() {
         return this.id;
     }
@@ -52,6 +57,8 @@ public class Kayttaja  implements java.io.Serializable {
         this.id = id;
     }
 
+    
+    @Column(name="Nimi", nullable=false, length=40)
     public String getNimi() {
         return this.nimi;
     }
@@ -61,6 +68,7 @@ public class Kayttaja  implements java.io.Serializable {
     }
 
     
+    @Column(name="Salasana", nullable=false, length=40)
     public String getSalasana() {
         return this.salasana;
     }
@@ -69,13 +77,23 @@ public class Kayttaja  implements java.io.Serializable {
         this.salasana = salasana;
     }
 
-
+    
+    @Column(name="Valtuudet", nullable=false)
     public int getValtuudet() {
         return this.valtuudet;
     }
     
     public void setValtuudet(int valtuudet) {
         this.valtuudet = valtuudet;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="kayttaja")
+    public Set<Varaukset> getVarauksets() {
+        return this.varauksets;
+    }
+    
+    public void setVarauksets(Set<Varaukset> varauksets) {
+        this.varauksets = varauksets;
     }
 
 

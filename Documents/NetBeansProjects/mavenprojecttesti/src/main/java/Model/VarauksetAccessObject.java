@@ -59,7 +59,7 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
         try {
 
             s.load(haettu, id);
-            System.out.println(haettu.getVarausId());
+            System.out.println(haettu.getId());
             s.getTransaction().commit();
         } catch (Exception e) {
             if (transaktio != null) {
@@ -103,7 +103,7 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
         try {
             s = sf.openSession();
             s.beginTransaction();
-            Varaukset päivitettävä = (Varaukset) s.get(Varaukset.class, varaus.getVarausId());
+            Varaukset päivitettävä = (Varaukset) s.get(Varaukset.class, varaus.getId());
             if (päivitettävä != null) {
                 päivitettävä.setHyvaksytty(varaus.getHyvaksytty());
                 s.saveOrUpdate(päivitettävä);
@@ -131,7 +131,7 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             s = sf.openSession();
             s.beginTransaction();
             Varaukset valittu = readVaraus(id);
-            Varaukset poistettava = (Varaukset) s.get(Varaukset.class, valittu.getVarausId());
+            Varaukset poistettava = (Varaukset) s.get(Varaukset.class, valittu.getId());
             if (poistettava != null) {
                 s.delete(poistettava);
             } else {

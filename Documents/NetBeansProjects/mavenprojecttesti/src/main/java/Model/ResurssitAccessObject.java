@@ -49,7 +49,7 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
     }
 
     @Override
-    public Resurssit readResurssi(ResurssitId id) {
+    public Resurssit readResurssi(int id) {
         Session s = sf.openSession();
         Transaction transaktio = null;
 
@@ -59,7 +59,7 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
         try {
 
             s.load(haettu, id);
-            System.out.println(haettu.getNimi());
+            System.out.println(haettu.getId());
             s.getTransaction().commit();
         } catch (Exception e) {
             if (transaktio != null) {
@@ -124,7 +124,8 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
         return true;
     }
 
-    public boolean deleteResurssi(ResurssitId id) {
+    @Override
+    public boolean deleteResurssi(int id) {
         Session s = sf.openSession();
         Transaction tran = null;
         try {

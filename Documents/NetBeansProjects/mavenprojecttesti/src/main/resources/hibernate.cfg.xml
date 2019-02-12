@@ -46,8 +46,8 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/laiterekisteri?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">asd</property>
-    <mapping class="com.mycompany.mavenprojecttesti.Kayttaja"/>
-    <mapping class="com.mycompany.mavenprojecttesti.MainApp"/>
-    <mapping class="com.mycompany.mavenprojecttesti.FXMLController"/>
+    <mapping resource="Model/Kayttaja.hbm.xml"/>
+    <mapping resource="Model/Resurssit.hbm.xml"/>
+    <mapping resource="Model/Varaukset.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

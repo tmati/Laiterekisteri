@@ -13,11 +13,11 @@ public interface ResurssitDAO_IF {
 
     public abstract boolean createResurssi(Resurssit resurssi);
 
-    public abstract Resurssit readResurssi(ResurssitId id);
+    public abstract Resurssit readResurssi(int id);
 
     public abstract Resurssit[] readResurssit();
 
     public abstract boolean updateResurssi(Resurssit resurssi);
 
-    public abstract boolean deleteResurssi(ResurssitId id);
+    public abstract boolean deleteResurssi(int id);
 }
