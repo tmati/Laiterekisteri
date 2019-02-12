@@ -1,0 +1,36 @@
+drop database if exists laiterekisteri;
+create database laiterekisteri;
+use laiterekisteri;
+CREATE TABLE Kayttaja
+(
+Nimi VARCHAR(40) NOT NULL,
+Id INT NOT NULL,
+Salasana CHAR(40) NOT NULL,
+Valtuudet INT NOT NULL,
+PRIMARY KEY (Id)
+);
+CREATE TABLE Resurssit
+(
+Id INT NOT NULL,
+Status BIT NOT NULL,
+Nimi VARCHAR(40) NOT NULL,
+Tyyppi VARCHAR(40) NOT NULL,
+Luvanvaraisuus INT NOT NULL,
+Kuvaus VARCHAR(400) NOT NULL,
+PRIMARY KEY (Id, Nimi)
+);
+CREATE TABLE Varaukset
+(
+VarausID INT NOT NULL,
+Alkupvm DATE NOT NULL,
+Paattymispvm DATE NOT NULL,
+Kuvaus VARCHAR(40) NOT NULL,
+Palautettu BIT NOT NULL,
+Id INT NOT NULL,
+ResurssiId INT NOT NULL,
+Nimi VARCHAR(40) NOT NULL,
+Hyvaksytty BIT,
+PRIMARY KEY (VarausID),
+FOREIGN KEY (Id) REFERENCES Kayttaja(Id),
+FOREIGN KEY (ResurssiId, Nimi) REFERENCES Resurssit(Id, Nimi)
+);
