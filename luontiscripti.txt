@@ -6,7 +6,7 @@ CREATE TABLE Kayttaja
 Nimi VARCHAR(40) NOT NULL,
 Id INT NOT NULL,
 Salasana CHAR(40) NOT NULL,
-valtuudet INT NOT NULL,
+Valtuudet INT NOT NULL,
 PRIMARY KEY (Id)
 );
 CREATE TABLE Resurssit
@@ -21,14 +21,15 @@ PRIMARY KEY (Id, Nimi)
 );
 CREATE TABLE Varaukset
 (
-varausID INT NOT NULL,
-alkupvm DATE NOT NULL,
-paattymispvm DATE NOT NULL,
-kuvaus VARCHAR(40) NOT NULL,
-palautettu BIT NOT NULL,
+VarausID INT NOT NULL,
+Alkupvm DATE NOT NULL,
+Paattymispvm DATE NOT NULL,
+Kuvaus VARCHAR(40) NOT NULL,
+Palautettu BIT NOT NULL,
 Id INT NOT NULL,
 ResurssiId INT NOT NULL,
 Nimi VARCHAR(40) NOT NULL,
+Hyvaksytty BIT,
 PRIMARY KEY (varausID),
 FOREIGN KEY (Id) REFERENCES Kayttaja(Id),
 FOREIGN KEY (ResurssiId, Nimi) REFERENCES Resurssit(Id, Nimi)
