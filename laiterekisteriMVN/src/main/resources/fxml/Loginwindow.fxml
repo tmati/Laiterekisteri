@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handle" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.loginWindowController">
+   <children>
+      <ImageView fx:id="bgView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../bgLarge.png" />
+         </image>
+      </ImageView>
+      <VBox layoutX="670.0" prefHeight="1080.0" prefWidth="480.0">
+         <children>
+            <AnchorPane prefHeight="1080.0" prefWidth="480.0">
+               <children>
+                  <ImageView fx:id="logoView" fitHeight="187.0" fitWidth="475.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="281.0" fitWidth="475.0" layoutX="3.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../logins.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="usernameField" layoutX="16.0" layoutY="430.0" onKeyPressed="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextField>
+                  <PasswordField fx:id="passwordField" layoutX="18.0" layoutY="582.0" onKeyPressed="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Salasana">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </PasswordField>
+                  <ImageView fx:id="loginActive" fitHeight="106.0" fitWidth="476.0" layoutX="3.0" layoutY="794.0" onMouseClicked="#loginAttempt" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../loginActive.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="loginInactive" fitHeight="131.0" fitWidth="476.0" layoutX="2.0" layoutY="794.0" onMouseClicked="#herjaaPuuttuvasta" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../loginInactive.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+         <padding>
+            <Insets left="50.0" right="50.0" />
+         </padding>
+      </VBox>
+      <Button fx:id="testBtn" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#test" text="Button" />
+   </children>
+</AnchorPane>
