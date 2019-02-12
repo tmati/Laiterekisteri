@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 12, 2019 2:31:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Model.Kayttaja" table="kayttaja" catalog="laiterekisteri" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="Id" />
+            <generator class="identity" />
+        </id>
+        <property name="nimi" type="string">
+            <column name="Nimi" length="40" not-null="true" />
+        </property>
+        <property name="salasana" type="string">
+            <column name="Salasana" length="40" not-null="true" />
+        </property>
+        <property name="valtuudet" type="int">
+            <column name="Valtuudet" not-null="true" />
+        </property>
+        <set name="varauksets" table="varaukset" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="KayttajaId" not-null="true" />
+            </key>
+            <one-to-many class="Model.Varaukset" />
+        </set>
+    </class>
+</hibernate-mapping>
