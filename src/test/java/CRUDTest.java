@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import Model.JUnitTestiluokka;
 import Model.Kayttaja;
 import Model.KayttajaAccessObject;
 import org.junit.After;
@@ -22,9 +23,9 @@ public class CRUDTest {
    @Test
    public void nakoisTesti(){
         
-        KayttajaAccessObject dao = new KayttajaAccessObject();
-        Kayttaja k = dao.testi(1);
-        Kayttaja k2 = dao.testi(2);
+        JUnitTestiluokka t = new JUnitTestiluokka();
+        Kayttaja k = t.testi(1);
+        Kayttaja k2 = t.testi(2);
         
         assertEquals("Jokke", k.getNimi());
         assertEquals("Jakke", k2.getNimi());

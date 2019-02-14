@@ -21,6 +21,5 @@ public interface KayttajaDAO_IF {
 
     public abstract boolean deleteKayttaja(String tunnus);
     
-    public abstract Kayttaja testi(int id);
 
 }

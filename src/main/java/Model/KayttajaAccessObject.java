@@ -154,15 +154,5 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
 
     }
 
-    public Kayttaja testi(int id) {
-
-        Kayttaja k = new Kayttaja("Jokke", "passu", 1);
-        Kayttaja j = new Kayttaja("Jakke", "p4ssu", 2);
-        if (id == 1) {
-            return k;
-        } else {
-            return j;
-
-        }
-    }
+   
 }
