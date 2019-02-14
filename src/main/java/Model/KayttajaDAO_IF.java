@@ -20,5 +20,6 @@ public interface KayttajaDAO_IF {
     public abstract boolean updateKayttaja(Kayttaja kayttaja);
 
     public abstract boolean deleteKayttaja(String tunnus);
+    
 
 }

@@ -154,4 +154,5 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
 
     }
 
+   
 }
