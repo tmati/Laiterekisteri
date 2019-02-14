@@ -8,7 +8,7 @@ Domain: educloud.metropolia.fi
 
 For a preinstalled virtual machine plese use following to login to your virtual server:
 Login: Administrator in Windows, root in Linux
-Password: myS9MBVr
+Password: kissatkoiria
 
 Yhteinen tunnus : ryhma
 salasana: kissatkoiria
