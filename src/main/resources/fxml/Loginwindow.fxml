@@ -29,12 +29,12 @@
                               <Image url="@../logins.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="usernameField" layoutX="16.0" layoutY="430.0" onKeyPressed="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi">
+                        <TextField fx:id="usernameField" layoutX="16.0" layoutY="430.0" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextField>
-                        <PasswordField fx:id="passwordField" layoutX="18.0" layoutY="582.0" onKeyPressed="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Salasana">
+                        <PasswordField fx:id="passwordField" layoutX="18.0" layoutY="582.0" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Salasana">
                            <font>
                               <Font size="20.0" />
                            </font>
