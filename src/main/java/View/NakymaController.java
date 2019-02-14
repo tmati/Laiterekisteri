@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package View;
 
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import java.net.URL;
