@@ -110,7 +110,7 @@ public class loginWindowController implements Initializable {
     @FXML
     private void test(MouseEvent event) throws IOException {
         KayttajaAccessObject dao = new KayttajaAccessObject();
-        Kayttaja testi = new Kayttaja("Jokke", "passu", 1);        
+        Kayttaja testi = new Kayttaja("Jokke", "passu", 1);       
         dao.createKayttaja(testi);
         Popup popup = new Popup();
         Object source = event.getSource();
