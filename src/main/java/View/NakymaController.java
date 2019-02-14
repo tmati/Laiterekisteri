@@ -104,7 +104,7 @@ public class NakymaController implements Initializable {
     @FXML
     private AnchorPane kalenteriAnchorPane;
     
-    
+    Popup popup;
     /**
      * Initializes the controller class.
      */
@@ -122,7 +122,8 @@ public class NakymaController implements Initializable {
      * @throws IOException 
      */
     public void varausNappiPainettu(MouseEvent event) throws IOException {
-        Popup popup = new Popup();
+        if(popup == null || !popup.isShowing()){
+        popup = new Popup();
         Object source = event.getSource();
         Node node = (Node) source;
         Scene scene = node.getScene();
@@ -130,7 +131,7 @@ public class NakymaController implements Initializable {
         Stage stage = (Stage) window;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Varausikkuna.fxml"));
         popup.getContent().add((Parent) loader.load());
-        popup.show(window);
+        popup.show(window);}
     }
     
     /**
