@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -25,10 +24,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Popup;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import Model.KayttajaAccessObject;
 
 /**
@@ -112,15 +109,7 @@ public class loginWindowController implements Initializable {
         KayttajaAccessObject dao = new KayttajaAccessObject();
         Kayttaja testi = new Kayttaja("Jokke", "passu", 1);        
         dao.createKayttaja(testi);
-        Popup popup = new Popup();
-        Object source = event.getSource();
-        Node node = (Node) source;
-        Scene scene = node.getScene();
-        Window window = scene.getWindow();
-        Stage stage = (Stage) window;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Varausikkuna.fxml"));
-        popup.getContent().add((Parent) loader.load());
-        popup.show(window);
+
     }
     
     /**

@@ -6,12 +6,10 @@
 package View;
 
 
-import Model.Kayttaja;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -29,12 +27,11 @@ public class View extends Application {
        
 
        
-        Screen screen = Screen.getPrimary();
-        stage.setMaximized(true);
+       /*Screen screen = Screen.getPrimary();
+        stage.setMaximized(true);*/
         
         stage.setTitle("Laiterekisteri");
         stage.setScene(scene);
-        stage.setResizable(true);
         stage.show();
     }
     

@@ -18,37 +18,37 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.NakymaController">
+<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.NakymaController">
    <children>
-      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../bgLarge.png" />
-         </image>
-      </ImageView>
-      <AnchorPane prefHeight="1080.0" prefWidth="1920.0">
+      <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
+            <ImageView pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../bgLarge.png" />
+               </image>
+            </ImageView>
             <Label fx:id="usernameLabel" alignment="CENTER_RIGHT" layoutX="1327.0" layoutY="45.0" prefHeight="54.0" prefWidth="442.0" text="USERINFO" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <Button fx:id="LogoutBtn" layoutX="1784.0" layoutY="52.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="79.0" text="LOGOUT">
+            <Button fx:id="LogoutBtn" layoutX="1784.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="35.0" prefWidth="79.0" text="LOGOUT">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
             <ImageView fx:id="logoView" fitHeight="138.0" fitWidth="483.0" layoutX="67.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
-            <TextField fx:id="searchBar" layoutX="690.0" layoutY="141.0" prefHeight="39.0" prefWidth="819.0" promptText="Etsi...">
+            <TextField fx:id="searchBar" layoutX="64.0" layoutY="222.0" prefHeight="39.0" prefWidth="1149.0" promptText="Etsi...">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <Label fx:id="bizName" alignment="CENTER" layoutX="694.0" layoutY="45.0" prefHeight="54.0" prefWidth="780.0" text="YRITYS OY" textFill="WHITE">
+            <Label fx:id="bizName" layoutX="587.0" layoutY="133.0" prefHeight="54.0" prefWidth="624.0" text="YRITYS OY" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="categorySelect" layoutX="1529.0" layoutY="143.0" prefHeight="35.0" prefWidth="239.0" value="NIMI">
+            <ChoiceBox fx:id="categorySelect" layoutX="1240.0" layoutY="224.0" prefHeight="35.0" prefWidth="169.0" value="NIMI">
                 <items>
                 <FXCollections fx:factory="observableArrayList">
             <String fx:value="NIMI" />
@@ -56,7 +56,7 @@
                 </FXCollections>
                 </items>
             </ChoiceBox>
-            <Button fx:id="searchBtn" layoutX="1784.0" layoutY="143.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="79.0" text="HAE">
+            <Button fx:id="searchBtn" layoutX="1435.0" layoutY="224.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="79.0" text="HAE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -111,12 +111,12 @@
               </tabs>
             </TabPane>
             <DatePicker fx:id="datePicker" disable="true" layoutX="1533.0" layoutY="286.0" opacity="0.0" prefHeight="35.0" prefWidth="330.0" />
-            <Button fx:id="varausBtn" layoutX="1592.0" layoutY="950.0" mnemonicParsing="false" text="TEE VARAUS">
+            <Button fx:id="varausBtn" layoutX="1582.0" layoutY="286.0" mnemonicParsing="false" onMouseClicked="#varausNappiPainettu" text="TEE VARAUS">
                <font>
                   <Font name="System Bold" size="37.0" />
                </font>
             </Button>
-            <TitledPane fx:id="kalenteriPane" alignment="CENTER" animated="false" layoutX="1567.0" layoutY="286.0" prefHeight="257.0" prefWidth="270.0" text="KALENTERI" textAlignment="CENTER">
+            <TitledPane fx:id="kalenteriPane" alignment="CENTER" animated="false" layoutX="1582.0" layoutY="403.0" prefHeight="257.0" prefWidth="270.0" text="KALENTERI" textAlignment="CENTER">
               <content>
                 <AnchorPane fx:id="kalenteriAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="281.0" />
               </content>

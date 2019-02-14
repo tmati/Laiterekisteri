@@ -6,22 +6,19 @@
 package View;
 
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
+import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import static javafx.collections.FXCollections.observableArrayList;
-import static javafx.collections.FXCollections.observableArrayList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -30,8 +27,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.Popup;
 
 /**
  * FXML Controller class
@@ -113,5 +114,34 @@ public class NakymaController implements Initializable {
         DatePickerSkin DPS = new DatePickerSkin(new DatePicker());
         Node calContent = DPS.getPopupContent();
         kalenteriAnchorPane.getChildren().add(calContent);
-            }
+    }
+    
+    /**
+     * Avaa varaus-popupin
+     * @param event
+     * @throws IOException 
+     */
+    public void varausNappiPainettu(MouseEvent event) throws IOException {
+        Popup popup = new Popup();
+        Object source = event.getSource();
+        Node node = (Node) source;
+        Scene scene = node.getScene();
+        Window window = scene.getWindow();
+        Stage stage = (Stage) window;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Varausikkuna.fxml"));
+        popup.getContent().add((Parent) loader.load());
+        popup.show(window);
+    }
+    
+    /**
+     * Kirjaa käyttäjän ulos ja siirtyy kirjautumisnäkymään.
+     * @param event
+     * @throws IOException 
+     */
+    public void logout(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
+        Stage stage = (Stage) LogoutBtn.getScene().getWindow();
+        Scene scene = new Scene((Parent) loader.load());
+        stage.setScene(scene);
+    }
 }
