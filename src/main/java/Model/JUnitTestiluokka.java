@@ -16,8 +16,8 @@ public class JUnitTestiluokka {
     
      public Kayttaja testi(int id) {
 
-        Kayttaja k = new Kayttaja("Jokke", "passu", 1);
-        Kayttaja j = new Kayttaja("Jakke", "p4ssu", 2);
+        Kayttaja k = new Kayttaja("Jokke", "passu","tunnus","sposti1", 1);
+        Kayttaja j = new Kayttaja("Jakke", "p4ssu","tunnus","sposti", 2);
         if (id == 1) {
             return k;
         } else {

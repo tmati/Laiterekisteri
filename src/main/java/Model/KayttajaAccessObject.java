@@ -108,7 +108,10 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
             if (päivitettävä != null) {
                 päivitettävä.setSalasana(kayttaja.getSalasana());
                 päivitettävä.setNimi(kayttaja.getNimi());
-                s.saveOrUpdate(päivitettävä);
+                päivitettävä.setKayttajatunnus(kayttaja.getKayttajatunnus());
+                päivitettävä.setSahkoposti(kayttaja.getSahkoposti());
+                päivitettävä.setSalasana(kayttaja.getSalasana());
+                päivitettävä.setValtuudet(kayttaja.getValtuudet());
             } else {
                 System.out.println("Ei löytynyt päivitettävää!");
             }
