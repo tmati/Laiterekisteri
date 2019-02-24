@@ -7,7 +7,9 @@
 import Model.JUnitTestiluokka;
 import Model.Kayttaja;
 import Model.KayttajaAccessObject;
+import Model.Resurssit;
 import Model.ResurssitAccessObject;
+import Model.Varaukset;
 import Model.VarauksetAccessObject;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,20 +17,25 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
  * @author Tommi
  */
-public class CRUDTest {
+@Ignore public class CRUDTest {
 
     KayttajaAccessObject kayttajaDAO = new KayttajaAccessObject();
     VarauksetAccessObject varausDAO = new VarauksetAccessObject();
     ResurssitAccessObject resurssiDAO = new ResurssitAccessObject();
 
     Kayttaja k = new Kayttaja("jUnitTesti", "jUnitTesti", "jUnitTesti", "jUnitTesti", 1);
+    Resurssit r = new Resurssit(false,"jUnitTesti", "jUnitTesti", 1, "jUnitTesti");
+    Varaukset v = new Varaukset();
+    
     Kayttaja[] kayttajat = null;
-
+    
+    
     @Test
     public void CreateKayttajaTest() {
         boolean testi = kayttajaDAO.createKayttaja(k);
@@ -62,6 +69,17 @@ public class CRUDTest {
     public void DeleteKayttajaTest() {
         boolean tulos = kayttajaDAO.deleteKayttaja("jUnitTesti");
         assertEquals(true, tulos);
+    }
+    
+    @Test 
+    public void CreateResurssiTest(){
+        boolean tulos = resurssiDAO.createResurssi(r);
+        assertEquals(true, tulos);
+    }
+    
+    @Test
+    public void ReadResurssiTest(){
+        Resurssit haettu = resurssiDAO.readResurssi(1);
     }
 
     @Test

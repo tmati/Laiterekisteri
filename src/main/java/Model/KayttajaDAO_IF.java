@@ -13,13 +13,13 @@ public interface KayttajaDAO_IF {
 
     public abstract boolean createKayttaja(Kayttaja kayttaja);
 
-    public abstract Kayttaja readKayttaja(String nimi);
+    public abstract Kayttaja readKayttaja(int id);
 
     public abstract Kayttaja[] readKayttajat();
 
     public abstract boolean updateKayttaja(Kayttaja kayttaja);
 
-    public abstract boolean deleteKayttaja(String tunnus);
+    public abstract boolean deleteKayttaja(int id);
     
 
 }
