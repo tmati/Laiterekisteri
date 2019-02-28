@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VarausAdminController">
+   <center>
+      <AnchorPane BorderPane.alignment="CENTER">
+         <children>
+            <ImageView pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0">
+               <image>
+                  <Image url="@../bgLarge.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="usernameLabel" alignment="CENTER_RIGHT" layoutX="1327.0" layoutY="45.0" prefHeight="54.0" prefWidth="442.0" text="USERINFO" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <Button fx:id="LogoutBtn" layoutX="1784.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="35.0" prefWidth="79.0" text="LOGOUT">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Label fx:id="bizName" alignment="CENTER" contentDisplay="CENTER" layoutX="648.0" layoutY="108.0" prefHeight="54.0" prefWidth="624.0" text="YRITYS OY" textFill="WHITE" AnchorPane.leftAnchor="648.0" AnchorPane.rightAnchor="648.0">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <TableView fx:id="kaikkiTableView" editable="true" layoutX="67.0" layoutY="269.0" prefHeight="674.0" prefWidth="1782.0">
+               <columns>
+                  <TableColumn fx:id="nimiColumn" prefWidth="288.80003356933594" resizable="false" text="VARAAJAN NIMI" />
+                  <TableColumn fx:id="valmistajaColumn" prefWidth="355.20001220703125" resizable="false" text="TAVARA" />
+                  <TableColumn fx:id="tyyppiColumn" minWidth="0.0" prefWidth="300.0" resizable="false" text="ALKUPVM" />
+                  <TableColumn prefWidth="300.0" resizable="false" text="PÄÄTTYMISPVM" />
+                  <TableColumn fx:id="kuvausColumn" prefWidth="609.60009765625" resizable="false" text="KUVAUS" />
+               </columns>
+            </TableView>
+            <DatePicker fx:id="datePicker" disable="true" layoutX="1533.0" layoutY="286.0" opacity="0.0" prefHeight="35.0" prefWidth="330.0" />
+            <Button fx:id="takaisinBtn" layoutX="67.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#takaisinBtnPainettu" prefHeight="35.0" prefWidth="97.0" text="TAKAISIN">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="hyvaksyBtn" layoutX="704.0" layoutY="968.0" mnemonicParsing="false" onMouseClicked="#hyvaksyBtnPainettu" prefHeight="71.0" prefWidth="260.0" text="HYVÄKSY" textFill="#17b50f">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="takaisinBtn11" layoutX="1067.0" layoutY="968.0" mnemonicParsing="false" onMouseClicked="#hylkaaBtnPainettu" prefHeight="71.0" prefWidth="260.0" text="HYLKÄÄ" textFill="#e50606">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

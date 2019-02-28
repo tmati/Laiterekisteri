@@ -90,7 +90,7 @@ public class NakymaController implements Initializable {
     @FXML
     private TableColumn<?, ?> alkupvmColumn;
     @FXML
-    private TableColumn<?, ?> paattumispvmColumn;
+    private TableColumn<?, ?> paattymispvmColumn;
     @FXML
     private TableColumn<?, ?> varausidColumn;
     @FXML
@@ -103,7 +103,8 @@ public class NakymaController implements Initializable {
     private TitledPane kalenteriPane;
     @FXML
     private AnchorPane kalenteriAnchorPane;
-    
+    @FXML
+    private Button hallinnoiBtn;
     
     /**
      * Initializes the controller class.
@@ -122,6 +123,7 @@ public class NakymaController implements Initializable {
      * @throws IOException 
      */
     public void varausNappiPainettu(MouseEvent event) throws IOException {
+        System.out.println("Luodaan uusi varausikkuna");
         Popup popup = new Popup();
         Object source = event.getSource();
         Node node = (Node) source;
@@ -139,9 +141,32 @@ public class NakymaController implements Initializable {
      * @throws IOException 
      */
     public void logout(MouseEvent event) throws IOException {
+        System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
         Scene scene = new Scene((Parent) loader.load());
         stage.setScene(scene);
+    }
+    
+    /**
+     * Siirtyy varausten hallintanäkymään
+     * TODO Näytä vain jos tarpeeksi oikeuksia
+     * @param event
+     * @throws IOException 
+     */
+    public void hallinnoiBtnPainettu(MouseEvent event) throws IOException {
+        System.out.println("Hallinoidaan varauksia!");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/VarausAdmin.fxml"));
+        Stage stage = (Stage) LogoutBtn.getScene().getWindow();
+        Scene scene = new Scene ((Parent) loader.load());
+        stage.setScene(scene);
+    }
+    
+    public void henkilostoBtnPainettu (MouseEvent event) throws IOException {
+        System.out.println("Hallinoidaan henkilöstöä!");
+        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/HenkilostoAdmin.fxml"));
+        Stage stage = (Stage) hallinnoiBtn.getScene().getWindow();
+        Scene scene = new Scene ((Parent) loader.load());
+        stage.setScene(scene);*/
     }
 }
