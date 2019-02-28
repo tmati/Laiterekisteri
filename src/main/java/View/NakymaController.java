@@ -106,8 +106,6 @@ public class NakymaController implements Initializable {
     @FXML
     private Button hallinnoiBtn;
     
-
-    
     Popup popup;
     /**
      * Initializes the controller class.
