@@ -74,7 +74,7 @@ public class varausController implements Initializable {
             @Override
             public void decrement(int steps) {
                 if (getValue() == null) {
-                    setValue(LocalTime.now());
+                    setValue(LocalTime.NOON);
                 } else {
                     LocalTime time = (LocalTime) getValue();
                     setValue(time.minusMinutes(time.getMinute()));
@@ -87,7 +87,7 @@ public class varausController implements Initializable {
             @Override
             public void increment(int steps) {
                 if (getValue() == null) {
-                    setValue(LocalTime.now());
+                    setValue(LocalTime.NOON);
                 } else {
                     LocalTime time = (LocalTime) getValue();
                     setValue(time.minusMinutes(time.getMinute()));
@@ -105,7 +105,7 @@ public class varausController implements Initializable {
             @Override
             public void decrement(int steps) {
                 if (getValue() == null) {
-                    setValue(LocalTime.now());
+                    setValue(LocalTime.NOON);
                 } else {
                     LocalTime time = (LocalTime) getValue();
                     setValue(time.minusHours(steps));
@@ -116,7 +116,7 @@ public class varausController implements Initializable {
             @Override
             public void increment(int steps) {
                 if (getValue() == null) {
-                    setValue(LocalTime.now());
+                    setValue(LocalTime.NOON);
                 } else {
                     LocalTime time = (LocalTime) getValue();
                     setValue(time.plusHours(steps));
