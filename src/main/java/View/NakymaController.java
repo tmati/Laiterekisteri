@@ -166,9 +166,9 @@ public class NakymaController implements Initializable {
     
     public void henkilostoBtnPainettu (MouseEvent event) throws IOException {
         System.out.println("Hallinoidaan henkilöstöä!");
-        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/HenkilostoAdmin.fxml"));
-        Stage stage = (Stage) hallinnoiBtn.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KayttajaAdmin.fxml"));
+        Stage stage = (Stage) LogoutBtn.getScene().getWindow();
         Scene scene = new Scene ((Parent) loader.load());
-        stage.setScene(scene);*/
+        stage.setScene(scene);
     }
 }

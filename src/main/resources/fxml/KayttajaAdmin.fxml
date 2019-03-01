@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.KayttajaAdminController">
+   <center>
+      <AnchorPane BorderPane.alignment="CENTER">
+         <children>
+            <ImageView pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0">
+               <image>
+                  <Image url="@../bgLarge.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="usernameLabel" alignment="CENTER_RIGHT" layoutX="1327.0" layoutY="45.0" prefHeight="54.0" prefWidth="442.0" text="USERINFO" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <Button fx:id="LogoutBtn" layoutX="1784.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="35.0" prefWidth="79.0" text="LOGOUT">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Label fx:id="bizName" alignment="CENTER" contentDisplay="CENTER" layoutX="648.0" layoutY="108.0" prefHeight="54.0" prefWidth="624.0" text="YRITYS OY" textFill="WHITE" AnchorPane.leftAnchor="648.0" AnchorPane.rightAnchor="648.0">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <TableView fx:id="kayttajaTableView" editable="true" layoutX="489.0" layoutY="181.0" prefHeight="761.0" prefWidth="942.0" AnchorPane.leftAnchor="489.0" AnchorPane.rightAnchor="489.0">
+               <columns>
+                  <TableColumn fx:id="nimiColumn" onEditCommit="#nimiEditCommit" prefWidth="365.60003662109375" resizable="false" text="NIMI" />
+                  <TableColumn fx:id="emailColumn" onEditCommit="#emailEditCommit" prefWidth="447.199951171875" resizable="false" text="SÄHKÖPOSTI" />
+                  <TableColumn fx:id="valtuudetColumn" onEditCommit="#valtuudetEditCommit" prefWidth="132.800048828125" resizable="false" text="VALTUUDET" />
+               </columns>
+            </TableView>
+            <DatePicker fx:id="datePicker" disable="true" layoutX="1533.0" layoutY="286.0" opacity="0.0" prefHeight="35.0" prefWidth="330.0" />
+            <Button fx:id="takaisinBtn" layoutX="67.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#takaisinBtnPainettu" prefHeight="35.0" prefWidth="97.0" text="TAKAISIN">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="tallennaBtn" layoutX="749.0" layoutY="965.0" mnemonicParsing="false" onMouseClicked="#tallennaBtnPainettu" prefHeight="71.0" prefWidth="446.0" text="TALLENNA MUUTOKSET">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="lisaaBtn" layoutX="1514.0" layoutY="304.0" mnemonicParsing="false" onMouseClicked="#lisaaBtnPainettu" prefHeight="71.0" prefWidth="336.0" text="LISÄÄ KÄYTTÄJÄ">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="muutaBtn" layoutX="1514.0" layoutY="397.0" mnemonicParsing="false" onMouseClicked="#muutaBtnPainettu" prefHeight="71.0" prefWidth="336.0" text="MUUTA TIETOJA">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="poistaBtn" layoutX="1514.0" layoutY="488.0" mnemonicParsing="false" onMouseClicked="#poistaBtnPainettu" prefHeight="71.0" prefWidth="336.0" text="POISTA KÄYTTÄJÄ">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
