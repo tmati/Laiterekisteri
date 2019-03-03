@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-import Model.JUnitTestiluokka;
+
 import Model.Kayttaja;
 import Model.KayttajaAccessObject;
 import Model.Resurssit;
@@ -23,8 +23,8 @@ import org.junit.Ignore;
  *
  * @author Tommi
  */
-@Ignore
-public class CRUDTest {
+
+@Ignore public class CRUDTest {
 
     KayttajaAccessObject kayttajaDAO = new KayttajaAccessObject();
     int r = (int) (Math.random() * 100000);
@@ -36,7 +36,16 @@ public class CRUDTest {
     String kayttajatunnus = String.valueOf(r2);
     String sposti = String.valueOf(r3);
     Kayttaja k = new Kayttaja(nimi, salasana, kayttajatunnus, sposti, 1);
+    Kayttaja k1 = null;
     Kayttaja[] kayttajat = null;
+
+    @After
+    public void loppuToimet() {
+        kayttajaDAO.deleteKayttaja(k.getId());
+        kayttajaDAO.deleteKayttaja(k1.getId());
+        resurssiDAO.deleteResurssi(res.getId());
+        resurssiDAO.deleteResurssi(res1.getId());
+    }
 
     @Test
     public void kayttajaDAOTest() {
@@ -60,7 +69,7 @@ public class CRUDTest {
         kayttajat = kayttajaDAO.readKayttajat();
         assertEquals("readKayttajat(): lista väärin",
                 k.getId(), kayttajat[kayttajat.length - 1].getId());
-        Kayttaja k1 = new Kayttaja("testi", "testi", "testi", "testi", 1);
+        k1 = new Kayttaja("testi", "testi", "testi", "testi", 1);
         kayttajaDAO.createKayttaja(k1);
         Kayttaja[] kayttajat2 = kayttajaDAO.readKayttajat();
         assertTrue("readKayttajat(): lista väärin",
@@ -98,6 +107,7 @@ public class CRUDTest {
 
     ResurssitAccessObject resurssiDAO = new ResurssitAccessObject();
     Resurssit res = new Resurssit(true, "resurssitesti", "resurssitesti", 1, "resurssitesti");
+    Resurssit res1 = null;
     Resurssit[] resurssit = null;
 
     @Test
@@ -122,7 +132,7 @@ public class CRUDTest {
         resurssit = resurssiDAO.readResurssit();
         assertEquals("readResurssit(): lista väärin",
                 res.getId(), resurssit[resurssit.length - 1].getId());
-        Resurssit res1 = new Resurssit(true, "testi", "testi", 1, "testi");
+        res1 = new Resurssit(true, "testi", "testi", 1, "testi");
         resurssiDAO.createResurssi(res1);
         Resurssit[] resurssit2 = resurssiDAO.readResurssit();
         assertTrue("readResurssit(): lista väärin",
@@ -154,21 +164,11 @@ public class CRUDTest {
                 resurssiDAO.deleteResurssi(res1.getId()));
         assertFalse("deleteResurssi(): väittää poistaneen olemattoman resurssin",
                 resurssiDAO.deleteResurssi(99999969));
-        
-        
 
     }
 
-
     @Test
-    public void nakoisTesti() {
-
-        JUnitTestiluokka t = new JUnitTestiluokka();
-        Kayttaja k = t.testi(1);
-        Kayttaja k2 = t.testi(2);
-
-        assertEquals("Jokke", k.getNimi());
-        assertEquals("Jakke", k2.getNimi());
+    public void varausDAOTest() {
 
     }
 
