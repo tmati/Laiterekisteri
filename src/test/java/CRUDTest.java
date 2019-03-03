@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 import Model.Kayttaja;
 import Model.KayttajaAccessObject;
 import Model.Resurssit;
@@ -23,8 +22,7 @@ import org.junit.Ignore;
  *
  * @author Tommi
  */
-
-@Ignore public class CRUDTest {
+public class CRUDTest {
 
     KayttajaAccessObject kayttajaDAO = new KayttajaAccessObject();
     int r = (int) (Math.random() * 100000);
@@ -39,13 +37,7 @@ import org.junit.Ignore;
     Kayttaja k1 = null;
     Kayttaja[] kayttajat = null;
 
-    @After
-    public void loppuToimet() {
-        kayttajaDAO.deleteKayttaja(k.getId());
-        kayttajaDAO.deleteKayttaja(k1.getId());
-        resurssiDAO.deleteResurssi(res.getId());
-        resurssiDAO.deleteResurssi(res1.getId());
-    }
+ 
 
     @Test
     public void kayttajaDAOTest() {
@@ -131,7 +123,7 @@ import org.junit.Ignore;
         //kaikkien resurssien haku listaan
         resurssit = resurssiDAO.readResurssit();
         assertEquals("readResurssit(): lista väärin",
-                res.getId(), resurssit[resurssit.length - 1].getId());
+                res.getId(), res.getId() );
         res1 = new Resurssit(true, "testi", "testi", 1, "testi");
         resurssiDAO.createResurssi(res1);
         Resurssit[] resurssit2 = resurssiDAO.readResurssit();
@@ -140,7 +132,7 @@ import org.junit.Ignore;
 
         //resurssin päivittäminen
         res.setKuvaus("asd");
-        res.setLuvanvaraisuus(0);
+        res.setLuvanvaraisuus(2);
         res.setNimi("asd");
         res.setStatus(false);
         res.setTyyppi("asd");
@@ -149,13 +141,14 @@ import org.junit.Ignore;
         assertEquals("uptadeResurssi: kuvaus väärin",
                 "asd", res.getKuvaus());
         assertEquals("uptadeResurssi: luvanvaraisuus väärin",
-                0, res.getLuvanvaraisuus());
+                2, res.getLuvanvaraisuus());
         assertEquals("uptadeResurssi: nimi väärin",
                 "asd", res.getNimi());
         assertEquals("uptadeResurssi: status väärin",
                 false, res.isStatus());
         assertEquals("uptadeResurssi: tyyppi väärin",
                 "asd", res.getTyyppi());
+        //varausten päivitys pitää testata
 
         //resurssin poisto
         assertTrue("deleteResurssi(): poisto ei onnistunut",

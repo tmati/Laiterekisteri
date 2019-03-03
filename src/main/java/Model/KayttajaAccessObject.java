@@ -79,7 +79,7 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
             s = sf.openSession();
             s.beginTransaction();
             @SuppressWarnings("unchecked")
-            List<Kayttaja> result = s.createQuery("from kayttaja").list();
+            List<Kayttaja> result = s.createQuery("from Kayttaja").list();
             kayttajat = result.toArray(new Kayttaja[result.size()]);
             s.getTransaction().commit();
         } catch (Exception e) {
@@ -102,7 +102,7 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
             s = sf.openSession();
             s.beginTransaction();
 
-            Kayttaja päivitettävä = (Kayttaja) s.get(Kayttaja.class, kayttaja.getNimi());
+            Kayttaja päivitettävä = (Kayttaja)s.get(Kayttaja.class, kayttaja.getId());
             if (päivitettävä != null) {
                 päivitettävä.setSalasana(kayttaja.getSalasana());
                 päivitettävä.setNimi(kayttaja.getNimi());

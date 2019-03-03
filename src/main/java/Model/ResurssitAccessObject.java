@@ -81,7 +81,7 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
             s = sf.openSession();
             s.beginTransaction();
             @SuppressWarnings("unchecked")
-            List<Resurssit> result = s.createQuery("from resurssit").list();
+            List<Resurssit> result = s.createQuery("from Resurssit").list();
             resurssit = result.toArray(new Resurssit[result.size()]);
             s.getTransaction().commit();
         } catch (Exception e) {
@@ -105,7 +105,12 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
             s.beginTransaction();
             Resurssit päivitettävä = (Resurssit) s.get(Resurssit.class, resurssi.getId());
             if (päivitettävä != null) {
+                päivitettävä.setLuvanvaraisuus(resurssi.getLuvanvaraisuus());
                 päivitettävä.setKuvaus(resurssi.getKuvaus());
+                päivitettävä.setNimi(resurssi.getNimi());
+                päivitettävä.setTyyppi(resurssi.getTyyppi());
+                päivitettävä.setStatus(resurssi.isStatus());
+                päivitettävä.setVarauksets(resurssi.getVarauksets());
                 s.saveOrUpdate(päivitettävä);
             } else {
                 System.out.println("Ei löytynyt päivitettävää!");
