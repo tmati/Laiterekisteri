@@ -9,7 +9,7 @@ Salasana CHAR(40) NOT NULL,
 Valtuudet INT NOT NULL,
 PRIMARY KEY (Id),
 Kayttajatunnus VARCHAR(40) NOT NULL,
-Sahkoposti VARCHAR(80) NOT NULL,
+Sahkoposti VARCHAR(80) NOT NULL
 );
 CREATE TABLE Resurssit
 (
