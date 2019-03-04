@@ -9,8 +9,6 @@ import Model.Kayttaja;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,14 +18,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 /**
@@ -84,13 +79,12 @@ public class KayttajaAdminController implements Initializable {
         kayttajaTableView.getItems().add(K);
     }    
 
-    @FXML
-    private void logout(MouseEvent event) throws IOException {
+    public void logout(MouseEvent event) throws IOException {
         System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
-        Scene scene = new Scene((Parent) loader.load());
-        stage.setScene(scene);
+        Parent root = loader.load();
+        stage.getScene().setRoot(root);
     }
 
     @FXML
@@ -104,13 +98,13 @@ public class KayttajaAdminController implements Initializable {
 
     @FXML
     private void tallennaBtnPainettu(MouseEvent event) {
-        //TODO
+        //TODO Lopputoimet tietokantaan
         System.out.println("Tallennus");
     }
 
     @FXML
     private void lisaaBtnPainettu(MouseEvent event) {
-        //TODO
+        //TODO Avaa uuden käyttäjän luontipopupin.
         System.out.println("Lisää uusi");
     }
 
@@ -131,12 +125,13 @@ public class KayttajaAdminController implements Initializable {
     private void nimiEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
         Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
         J.setNimi(event.getNewValue());
+        System.out.println("Uusi nimi: " + J.getNimi());
     }
 
     @FXML
     private void emailEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
         /*Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
-        J.setNimi(event.getNewValue());*/
+        J.setEmail(event.getNewValue());*/
     }
 
     @FXML
