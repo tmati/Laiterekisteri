@@ -23,9 +23,10 @@ import java.util.Date;
  *
  * @author Tommi
  */
+
 public class CRUDTest {
 
-    KayttajaAccessObject kayttajaDAO = new KayttajaAccessObject();
+   
     int r = (int) (Math.random() * 100000);
     int r1 = (int) (Math.random() * 100000);
     int r2 = (int) (Math.random() * 100000);
@@ -42,6 +43,7 @@ public class CRUDTest {
 
     @Test
     public void kayttajaDAOTest() {
+         KayttajaAccessObject kayttajaDAO = new KayttajaAccessObject();
         //uuden käyttäjän luonti
         assertTrue("createKayttaja(): Uuden käyttäjän luominen ei onnistunut",
                 kayttajaDAO.createKayttaja(k));
@@ -97,13 +99,15 @@ public class CRUDTest {
 
     }
 
-    ResurssitAccessObject resurssiDAO = new ResurssitAccessObject();
+    
     Resurssit res = new Resurssit(true, "resurssitesti", "resurssitesti", 1, "resurssitesti");
     Resurssit res1 = null;
     Resurssit[] resurssit = null;
+    
 
     @Test
     public void resurssiDAOTest() {
+        ResurssitAccessObject resurssiDAO = new ResurssitAccessObject();
         //uuden resurssin luonti
         assertTrue("createResurssi(): Uuden resurssin luominen ei onnistunut",
                 resurssiDAO.createResurssi(res));
@@ -163,8 +167,7 @@ public class CRUDTest {
     
    // Varaukset varaus = new Varaukset(k1,res1,date,date,"varaustesti",false,"varaustesti");
     
-    
-    @Ignore
+   
     @Test
     public void varausDAOTest() {
         //uuden varauksen luominen

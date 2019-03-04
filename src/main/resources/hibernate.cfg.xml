@@ -43,11 +43,7 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-<<<<<<< HEAD
-    <property name="hibernate.connection.url">jdbc:mysql://10.114.32.10:3306/laiterekisteri?</property>
-=======
-    <property name="hibernate.connection.url">jdbc:mysql://10.114.32.10:3306/laiterekisteri?zeroDateTimeBehavior=convertToNull</property>
->>>>>>> 414f653105319c464029a61f0198e4907490b05a
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:2206/laiterekisteri?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">dbuser</property>
     <property name="hibernate.connection.password">dbuser</property>
     <mapping resource="Model/Resurssit.hbm.xml"/>
