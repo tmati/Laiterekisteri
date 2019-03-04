@@ -35,13 +35,13 @@
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <TableView fx:id="kaikkiTableView" editable="true" layoutX="67.0" layoutY="269.0" prefHeight="674.0" prefWidth="1782.0">
+            <TableView fx:id="varauksetTableView" editable="true" layoutX="67.0" layoutY="269.0" prefHeight="674.0" prefWidth="1782.0">
                <columns>
-                  <TableColumn fx:id="nimiColumn" prefWidth="288.80003356933594" resizable="false" text="VARAAJAN NIMI" />
-                  <TableColumn fx:id="valmistajaColumn" prefWidth="355.20001220703125" resizable="false" text="TAVARA" />
-                  <TableColumn fx:id="tyyppiColumn" minWidth="0.0" prefWidth="300.0" resizable="false" text="ALKUPVM" />
-                  <TableColumn prefWidth="300.0" resizable="false" text="PÄÄTTYMISPVM" />
-                  <TableColumn fx:id="kuvausColumn" prefWidth="609.60009765625" resizable="false" text="KUVAUS" />
+                  <TableColumn fx:id="nimiColumn" onEditCommit="#nimiEditCommit" prefWidth="288.80003356933594" resizable="false" text="VARAAJAN NIMI" />
+                  <TableColumn fx:id="tavaraColumn" onEditCommit="#tavaraEditCommit" prefWidth="355.20001220703125" resizable="false" text="TAVARA" />
+                  <TableColumn fx:id="alkupvmColumn" minWidth="0.0" onEditCommit="#alkupvmEditCommit" prefWidth="300.0" resizable="false" text="ALKUPVM" />
+                  <TableColumn fx:id="paattymispvmColumn" onEditCommit="#paattymispvmEditCommit" prefWidth="300.0" resizable="false" text="PÄÄTTYMISPVM" />
+                  <TableColumn fx:id="kuvausColumn" onEditCommit="#kuvausEditCommit" prefWidth="609.60009765625" resizable="false" text="KUVAUS" />
                </columns>
             </TableView>
             <DatePicker fx:id="datePicker" disable="true" layoutX="1533.0" layoutY="286.0" opacity="0.0" prefHeight="35.0" prefWidth="330.0" />
@@ -55,7 +55,7 @@
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="takaisinBtn11" layoutX="1067.0" layoutY="968.0" mnemonicParsing="false" onMouseClicked="#hylkaaBtnPainettu" prefHeight="71.0" prefWidth="260.0" text="HYLKÄÄ" textFill="#e50606">
+            <Button fx:id="hylkaaBtn" layoutX="1067.0" layoutY="968.0" mnemonicParsing="false" onMouseClicked="#hylkaaBtnPainettu" prefHeight="71.0" prefWidth="260.0" text="HYLKÄÄ" textFill="#e50606">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>

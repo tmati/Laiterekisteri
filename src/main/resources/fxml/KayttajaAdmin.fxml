@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.KayttajaAdminController">
+<BorderPane prefHeight="${screen.visualBounds.height}" prefWidth="${screen.visualBounds.height}" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.KayttajaAdminController">
    <center>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
@@ -58,12 +58,7 @@
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="muutaBtn" layoutX="1514.0" layoutY="397.0" mnemonicParsing="false" onMouseClicked="#muutaBtnPainettu" prefHeight="71.0" prefWidth="336.0" text="MUUTA TIETOJA">
-               <font>
-                  <Font name="System Bold" size="32.0" />
-               </font>
-            </Button>
-            <Button fx:id="poistaBtn" layoutX="1514.0" layoutY="488.0" mnemonicParsing="false" onMouseClicked="#poistaBtnPainettu" prefHeight="71.0" prefWidth="336.0" text="POISTA KÄYTTÄJÄ">
+            <Button fx:id="poistaBtn" layoutX="1514.0" layoutY="387.0" mnemonicParsing="false" onMouseClicked="#poistaBtnPainettu" prefHeight="71.0" prefWidth="336.0" text="POISTA KÄYTTÄJÄ">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>

@@ -24,7 +24,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import Model.KayttajaAccessObject;
 
@@ -47,31 +46,28 @@ public class loginWindowController implements Initializable {
     private ImageView logoView;
     @FXML
     private Button testBtn;
-    
+
     @FXML
     private ImageView bgView;
-    
+
     private boolean loginPossible;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
 
-        
         Image image = new Image(getClass().getResourceAsStream("/Metro.png"));
-        bgView.setFitWidth(Screen.getPrimary().getVisualBounds().getWidth());
-        bgView.setFitHeight(Screen.getPrimary().getVisualBounds().getHeight());
         logoView.setImage(image);
         centerImage(logoView);
         
     }
-    
-    
+
     /**
      * Keskittää kuvan imageviewissä. Netistä haettu.
-     * @param i 
+     *
+     * @param i
      */
     public void centerImage(ImageView i) {
         Image img = i.getImage();
@@ -83,7 +79,7 @@ public class loginWindowController implements Initializable {
             double ratioY = i.getFitHeight() / img.getHeight();
 
             double reducCoeff = 0;
-            if(ratioX >= ratioY) {
+            if (ratioX >= ratioY) {
                 reducCoeff = ratioY;
             } else {
                 reducCoeff = ratioX;
@@ -97,42 +93,48 @@ public class loginWindowController implements Initializable {
 
         }
     }
-    
+
     /**
-     * Testi popup-ikkunan näyttämistä ja jatkokehittämistä varten. Tähän pitää muuttaa sisäänkirjautuneen käyttäjän näkymä kohteeksi kun valmistuu.
-     * Nyt tämä ajetaan vain tavallisesta painikkeesta login-ikkunassa
+     * Testi popup-ikkunan näyttämistä ja jatkokehittämistä varten. Tähän pitää
+     * muuttaa sisäänkirjautuneen käyttäjän näkymä kohteeksi kun valmistuu. Nyt
+     * tämä ajetaan vain tavallisesta painikkeesta login-ikkunassa
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     private void test(MouseEvent event) throws IOException {
         KayttajaAccessObject dao = new KayttajaAccessObject();
-        Kayttaja testi = new Kayttaja("Jokke", "passu", 1);       
+        Kayttaja testi = new Kayttaja("Jokke", "passu", 1);
         dao.createKayttaja(testi);
 
     }
-    
+
     /**
-     * Heittää herjan jos käyttäjä yrittää kirjautua asettamatta vaadittavia tietoja.
-     * @param event 
+     * Heittää herjan jos käyttäjä yrittää kirjautua asettamatta vaadittavia
+     * tietoja.
+     *
+     * @param event
      */
     @FXML
     private void herjaaPuuttuvasta(MouseEvent event) {
         Alert alert = new Alert(AlertType.WARNING, "Tunnus tai salasana puuttuu!");
         alert.showAndWait();
     }
-    
+
     /**
      * Hiirieventti login-painikkeen klikkaamiseen.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void loginAttempt(MouseEvent event) {
         loginProcess();
     }
-    
+
     /**
      * Sisäänkirjautuminen
+     *
      * @param userName username-kentän sisältö
      * @param passWord password-kentän sisältö
      * @return true jos käyttäjä/salasanapari on oikea.
@@ -144,12 +146,13 @@ public class loginWindowController implements Initializable {
         Palauta false ja heitä joku herja jos: 
         Käyttäjää ei löydy.
         Salasana on väärä.
-        */
+         */
         return false;
     }
-    
+
     /**
-     * TODO Login-painikkeen painamisen jälkeen tapahtuva toiminta. Puutteellinen ilman tietokantaa.
+     * TODO Login-painikkeen painamisen jälkeen tapahtuva toiminta.
+     * Puutteellinen ilman tietokantaa.
      */
     private void loginProcess() {
         if (loginPossible) {
@@ -168,11 +171,12 @@ public class loginWindowController implements Initializable {
             //väärä käyttäjätunnus tai salasana ---- tämä siis Login-metodiin liittyvä else
         }
     }
-    
+
     /**
      * Enter-painikkeen painaminen login-näkymässä.
+     *
      * @param ke
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     private void handle(KeyEvent ke) throws IOException {
@@ -184,15 +188,17 @@ public class loginWindowController implements Initializable {
             alert.showAndWait();
         }
     }
-    
+
     /**
-     * Tarkastaa login-kenttien sisällön ja muuttaa kirjautumispainikkeen aktiivisuutta sen mukaan.
+     * Tarkastaa login-kenttien sisällön ja muuttaa kirjautumispainikkeen
+     * aktiivisuutta sen mukaan.
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
-    @FXML 
-    private void checkVal (KeyEvent event) throws IOException {
-        if(!usernameField.getText().trim().equals("")  && !passwordField.getText().trim().equals("")) {
+    @FXML
+    private void checkVal(KeyEvent event) throws IOException {
+        if (!usernameField.getText().trim().equals("") && !passwordField.getText().trim().equals("")) {
             loginInactive.setOpacity(0);
             loginInactive.setDisable(true);
             loginPossible = true;
@@ -201,5 +207,5 @@ public class loginWindowController implements Initializable {
             loginInactive.setDisable(false);
             loginPossible = false;
         }
-    } 
+    }
 }

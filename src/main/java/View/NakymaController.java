@@ -5,9 +5,12 @@
  */
 package View;
 
+import Model.Resurssit;
+import Model.Varaukset;
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +29,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -33,6 +38,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.Popup;
+import javafx.util.converter.DateStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 /**
  * FXML Controller class
@@ -64,19 +71,21 @@ public class NakymaController implements Initializable {
     @FXML
     private StackPane kaikkiStack;
     @FXML
-    private TableView<?> kaikkiTableView;
+    private TableView<Resurssit> kaikkiTableView;
     @FXML
-    private TableColumn<?, ?> idColumn;
+    private TableColumn idColumn;
     @FXML
-    private TableColumn<?, ?> nimiColumn;
+    private TableColumn nimiColumn;
     @FXML
-    private TableColumn<?, ?> valmistajaColumn;
+    private TableColumn valmistajaColumn;
     @FXML
-    private TableColumn<?, ?> tyyppiColumn;
+    private TableColumn tyyppiColumn;
     @FXML
-    private TableColumn<?, ?> kuvausColumn;
+    private TableColumn luvanvaraisuusColumn;
     @FXML
-    private TableColumn<?, ?> tilaColumn;
+    private TableColumn kuvausColumn;
+    @FXML
+    private TableColumn tilaColumn;
     @FXML
     private Tab omatTab;
     @FXML
@@ -84,34 +93,87 @@ public class NakymaController implements Initializable {
     @FXML
     private StackPane omatStack;
     @FXML
-    private TableView<?> omatTable;
+    private TableView<Varaukset> omatTable;
     @FXML
-    private TableColumn<?, ?> laiteidColumn;
+    private TableColumn laiteidColumn;
     @FXML
-    private TableColumn<?, ?> alkupvmColumn;
+    private TableColumn alkupvmColumn;
     @FXML
-    private TableColumn<?, ?> paattymispvmColumn;
+    private TableColumn paattymispvmColumn;
     @FXML
-    private TableColumn<?, ?> varausidColumn;
+    private TableColumn varausidColumn;
     @FXML
-    private TableColumn<?, ?> varauskuvausColumn;
+    private TableColumn varauskuvausColumn;
     @FXML
-    private TableColumn<?, ?> palautettuColumn;
+    private TableColumn palautettuColumn;
+    @FXML
+    private TableColumn laitenimiColumn;
     @FXML
     private Button varausBtn;
     @FXML
     private TitledPane kalenteriPane;
     @FXML
     private AnchorPane kalenteriAnchorPane;
-    @FXML
-    private Button hallinnoiBtn;
     
     Popup popup;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private Button hallnnoiBtn;
+    @FXML
+    private Button henkilostoBtn;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        //Resurssitaulun columnien live-edit
+        idColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("ID"));
+        idColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        
+        nimiColumn.setCellValueFactory(new PropertyValueFactory<Resurssit,String>("Nimi"));
+        nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+        valmistajaColumn.setCellValueFactory(new PropertyValueFactory<Resurssit,String>("Valmistaja"));
+        valmistajaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+        tyyppiColumn.setCellValueFactory(new PropertyValueFactory<Resurssit,String>("Tyyppi"));
+        tyyppiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+        kuvausColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, String>("Kuvaus"));
+        kuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+        luvanvaraisuusColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("Luvanvaraisuus"));
+        luvanvaraisuusColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        
+        tilaColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, String>("Saatavilla"));
+        tilaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+        //Omat varaukset -taulun live-edit
+        laiteidColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Integer>("LaiteID"));
+        kuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        
+        laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("Varauksella olevan laitteen nimi"));
+        laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+        alkupvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("Varauksen alkupäivämäärä"));
+        alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter()));
+        
+        paattymispvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("Varauksen päättymispäivämäärä"));
+        paattymispvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter()));
+        
+        varausidColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Integer>("Varauksen ID"));
+        varausidColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        
+        varauskuvausColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("Varauksen kuvaus"));
+        varauskuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+        palautettuColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("Varauksen palautuminen"));
+        alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+        
+        
         categorySelect.setTooltip(new Tooltip("Hakukriteeri"));
         DatePickerSkin DPS = new DatePickerSkin(new DatePicker());
         Node calContent = DPS.getPopupContent();
@@ -123,6 +185,7 @@ public class NakymaController implements Initializable {
      * @param event
      * @throws IOException 
      */
+    @FXML
     public void varausNappiPainettu(MouseEvent event) throws IOException {
 
         if(popup == null || !popup.isShowing()){
@@ -134,7 +197,8 @@ public class NakymaController implements Initializable {
         Stage stage = (Stage) window;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Varausikkuna.fxml"));
         popup.getContent().add((Parent) loader.load());
-        popup.show(window);}
+        popup.show(window);
+        }
     }
     
     /**
@@ -142,12 +206,13 @@ public class NakymaController implements Initializable {
      * @param event
      * @throws IOException 
      */
+    @FXML
     public void logout(MouseEvent event) throws IOException {
         System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
-        Scene scene = new Scene((Parent) loader.load());
-        stage.setScene(scene);
+        Parent root = loader.load();
+        stage.getScene().setRoot(root);
     }
     
     /**
@@ -156,6 +221,7 @@ public class NakymaController implements Initializable {
      * @param event
      * @throws IOException 
      */
+    @FXML
     public void hallinnoiBtnPainettu(MouseEvent event) throws IOException {
         System.out.println("Hallinoidaan varauksia!");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/VarausAdmin.fxml"));
@@ -163,12 +229,106 @@ public class NakymaController implements Initializable {
         Scene scene = new Scene ((Parent) loader.load());
         stage.setScene(scene);
     }
-    
+    /**
+     * Siirtyy henkilöstön hallintanäkymään
+     * TODO Näytä vain jos tarpeeksi oikeuksia.
+     * @param event
+     * @throws IOException 
+     */
+    @FXML
     public void henkilostoBtnPainettu (MouseEvent event) throws IOException {
         System.out.println("Hallinoidaan henkilöstöä!");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KayttajaAdmin.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
         Scene scene = new Scene ((Parent) loader.load());
         stage.setScene(scene);
+    }
+    
+    
+    //Resurssit
+    @FXML
+    private void idOnEditCommit(TableColumn.CellEditEvent<Resurssit, Integer> event) {
+        Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
+        R.setId(event.getNewValue());
+        System.out.println("Uusi ID: " + R.getId());
+    }
+
+    @FXML
+    private void nimiOnEditCommit(TableColumn.CellEditEvent<Resurssit, String> event) {
+        Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
+        R.setNimi(event.getNewValue());
+        System.out.println("Uusi nimi: " + R.getNimi());
+    }
+
+    @FXML
+    private void valmistajaOnEditCommit(TableColumn.CellEditEvent<Resurssit, String> event) {
+        Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
+        //R.setValmistaja(event.getNewValue());
+        //System.out.println("Uusi valmistaja: " + R.getValmistaja());
+    }
+
+    @FXML
+    private void tyyppiOnEditCommit(TableColumn.CellEditEvent<Resurssit, String> event) {
+        Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
+        R.setTyyppi(event.getNewValue());
+        System.out.println("Uusi Tyyppi: " + R.getTyyppi());
+    }
+
+    @FXML
+    private void luvanvaraisuusOnEditCommit(TableColumn.CellEditEvent<Resurssit, Integer> event) {
+        Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
+        R.setLuvanvaraisuus(event.getNewValue());
+        System.out.println("Uusi luvanvaraisuusarvo: " + R.getLuvanvaraisuus());
+    }
+
+    @FXML
+    private void kuvausOnEditCommit(TableColumn.CellEditEvent<Resurssit, String> event) {
+        Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
+        R.setKuvaus(event.getNewValue());
+        System.out.println("Uusi kuvaus: " + R.getKuvaus());
+    }
+
+    //Varaukset
+    
+    @FXML
+    private void laiteidOneEditCommit(TableColumn.CellEditEvent<Varaukset, Resurssit> event) {
+        Varaukset V = omatTable.getSelectionModel().getSelectedItem();
+        V.setResurssit(event.getNewValue());
+        System.out.println("Uusi ID:" + V.getResurssit().getId() + " " + V.getResurssit().getNimi());
+    }
+
+    @FXML
+    private void laitenimiOnEditCommit(TableColumn.CellEditEvent<Varaukset, String> event) {
+        Varaukset V = omatTable.getSelectionModel().getSelectedItem();
+        V.setNimi(event.getNewValue());
+        System.out.println("Uusi Nimi:" + V.getNimi());
+    }
+    
+    @FXML
+    private void alkupvmOnEditCommit(TableColumn.CellEditEvent<Varaukset, Date> event) {
+        Varaukset V = omatTable.getSelectionModel().getSelectedItem();
+        V.setAlkupvm(event.getNewValue());
+        System.out.println("Uusi alkupäivämäärä:" + V.getAlkupvm().toString());
+    }
+
+    @FXML
+    private void paattymispvmOnEditCommit(TableColumn.CellEditEvent<Varaukset, Date> event) {
+        Varaukset V = omatTable.getSelectionModel().getSelectedItem();
+        V.setPaattymispvm(event.getNewValue());
+        System.out.println("Uusi ID:" + V.getPaattymispvm());
+    }
+
+    @FXML
+    private void varausidOnEditCommit(TableColumn.CellEditEvent<Varaukset, Integer> event) {
+        Varaukset V = omatTable.getSelectionModel().getSelectedItem();
+        V.setId(event.getNewValue());
+        System.out.println("Uusi ID:" + V.getId());
+    }
+
+    @FXML
+    private void palautettuOnEditCommit(TableColumn.CellEditEvent<Varaukset, Boolean> event) {
+        Varaukset V = omatTable.getSelectionModel().getSelectedItem();
+        V.setPalautettu(event.getNewValue());
+        System.out.println("Palautettu:" + V.isPalautettu());
     }
 }

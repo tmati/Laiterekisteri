@@ -138,6 +138,7 @@ public class KayttajaAdminController implements Initializable {
     private void valtuudetEditCommit(TableColumn.CellEditEvent<Kayttaja, Integer> event) {
         Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
         J.setValtuudet(event.getNewValue());
+        System.out.println("Uudet valtuudet: " + J.getValtuudet());
     }
     
 }

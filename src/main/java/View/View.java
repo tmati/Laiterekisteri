@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -22,14 +23,9 @@ public class View extends Application {
     @Override
     public void start(Stage stage) throws Exception {
        
-       Parent root = FXMLLoader.load(getClass().getResource("/fxml/Loginwindow.fxml"));
-       Scene scene = new Scene(root);
-       
-
-       
-       /*Screen screen = Screen.getPrimary();
-        stage.setMaximized(true);*/
-        
+        stage.setMaximized(true);
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Loginwindow.fxml"));
+        Scene scene = new Scene(root);
         stage.setTitle("Laiterekisteri");
         stage.setScene(scene);
         stage.show();

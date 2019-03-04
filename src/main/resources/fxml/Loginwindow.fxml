@@ -6,59 +6,71 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.loginWindowController">
-   <center>
-      <AnchorPane fx:id="anchorPane" onKeyPressed="#handle" BorderPane.alignment="CENTER">
+
+<HBox id="bgHbox" alignment="CENTER" onKeyPressed="#handle" prefHeight="569.0" prefWidth="476.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.loginWindowController">
+   <children>
+      <VBox alignment="CENTER">
          <children>
-            <ImageView fx:id="bgView" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../bgLarge.png" />
-               </image>
-            </ImageView>
-            <VBox AnchorPane.bottomAnchor="179.20000000000005" AnchorPane.leftAnchor="670.0" AnchorPane.rightAnchor="670.8" AnchorPane.topAnchor="0.0">
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <VBox.margin>
+                  <Insets bottom="30.0" />
+               </VBox.margin>
+            </VBox>
+            <ImageView fx:id="logoView" fitHeight="187.0" fitWidth="475.0" pickOnBounds="true" preserveRatio="true" />
+            <VBox prefHeight="107.0" prefWidth="476.0">
                <children>
-                  <AnchorPane>
-                     <children>
-                        <ImageView fx:id="logoView" fitHeight="187.0" fitWidth="475.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fitHeight="281.0" fitWidth="475.0" layoutX="3.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../logins.png" />
-                           </image>
-                        </ImageView>
-                        <TextField fx:id="usernameField" layoutX="16.0" layoutY="430.0" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </TextField>
-                        <PasswordField fx:id="passwordField" layoutX="18.0" layoutY="582.0" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Salasana">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </PasswordField>
-                        <ImageView fx:id="loginActive" fitHeight="106.0" fitWidth="476.0" layoutX="3.0" layoutY="794.0" onMouseClicked="#loginAttempt" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../loginActive.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="loginInactive" fitHeight="131.0" fitWidth="476.0" layoutX="2.0" layoutY="794.0" onMouseClicked="#herjaaPuuttuvasta" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../loginInactive.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
+                  <TextField fx:id="usernameField" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets bottom="30.0" top="100.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <PasswordField fx:id="passwordField" alignment="TOP_LEFT" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Salasana">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </PasswordField>
                </children>
                <padding>
-                  <Insets left="50.0" right="50.0" />
+                  <Insets bottom="150.0" top="75.0" />
                </padding>
             </VBox>
-            <Button fx:id="testBtn" mnemonicParsing="false" onMouseClicked="#test" text="Button" />
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="loginActive" fitHeight="106.0" fitWidth="476.0" onMouseClicked="#loginAttempt" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../loginActive.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="loginInactive" fitHeight="156.0" fitWidth="476.0" onMouseClicked="#herjaaPuuttuvasta" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../loginInactive.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin>
+            </StackPane>
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="testBtn" alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#test" text="Button" />
+               </children>
+            </StackPane>
          </children>
-      </AnchorPane>
-   </center>
-</BorderPane>
+         <padding>
+            <Insets top="50.0" />
+         </padding>
+      </VBox>
+   </children>
+</HBox>
