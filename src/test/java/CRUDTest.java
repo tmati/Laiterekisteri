@@ -23,7 +23,7 @@ import java.util.Date;
  *
  * @author Tommi
  */
-
+@Ignore
 public class CRUDTest {
 
    
