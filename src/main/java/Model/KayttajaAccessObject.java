@@ -49,7 +49,7 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
     }
 
     @Override
-    public Kayttaja readKayttaja(String nimi) {
+    public Kayttaja readKayttaja(int id) {
         Session s = sf.openSession();
         Transaction transaktio = null;
 
@@ -57,9 +57,7 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
         s.beginTransaction();
         Kayttaja haettu = new Kayttaja();
         try {
-
-            s.load(haettu, nimi);
-            System.out.println(haettu.getNimi());
+            s.load(haettu, id);
             s.getTransaction().commit();
         } catch (Exception e) {
             if (transaktio != null) {
@@ -81,7 +79,7 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
             s = sf.openSession();
             s.beginTransaction();
             @SuppressWarnings("unchecked")
-            List<Kayttaja> result = s.createQuery("from kayttaja").list();
+            List<Kayttaja> result = s.createQuery("from Kayttaja").list();
             kayttajat = result.toArray(new Kayttaja[result.size()]);
             s.getTransaction().commit();
         } catch (Exception e) {
@@ -104,11 +102,14 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
             s = sf.openSession();
             s.beginTransaction();
 
-            Kayttaja päivitettävä = (Kayttaja) s.get(Kayttaja.class, kayttaja.getNimi());
+            Kayttaja päivitettävä = (Kayttaja)s.get(Kayttaja.class, kayttaja.getId());
             if (päivitettävä != null) {
                 päivitettävä.setSalasana(kayttaja.getSalasana());
                 päivitettävä.setNimi(kayttaja.getNimi());
-                s.saveOrUpdate(päivitettävä);
+                päivitettävä.setKayttajatunnus(kayttaja.getKayttajatunnus());
+                päivitettävä.setSahkoposti(kayttaja.getSahkoposti());
+                päivitettävä.setSalasana(kayttaja.getSalasana());
+                päivitettävä.setValtuudet(kayttaja.getValtuudet());
             } else {
                 System.out.println("Ei löytynyt päivitettävää!");
             }
@@ -126,14 +127,17 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
         return true;
     }
 
-    public boolean deleteKayttaja(String nimi) {
+    @Override
+    public boolean deleteKayttaja(int id) {
+
         Session s = sf.openSession();
         Transaction tran = null;
+
         try {
             s = sf.openSession();
             s.beginTransaction();
-            Kayttaja valittu = readKayttaja(nimi);
-            Kayttaja poistettava = (Kayttaja) s.get(Kayttaja.class, valittu.getNimi());
+            Kayttaja valittu = readKayttaja(id);
+            Kayttaja poistettava = (Kayttaja) s.get(Kayttaja.class, valittu.getId());
             if (poistettava != null) {
                 s.delete(poistettava);
             } else {
@@ -141,6 +145,7 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
+
             if (tran != null) {
                 tran.rollback();
             }
@@ -150,9 +155,9 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
         } finally {
             s.close();
         }
+
         return true;
 
     }
 
-   
 }

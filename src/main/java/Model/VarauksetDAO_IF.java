@@ -11,7 +11,7 @@ package Model;
  */
 public interface VarauksetDAO_IF {
 
-    public abstract boolean createVaraus(Varaukset resurssi);
+    public abstract boolean createVaraus(Varaukset varaus);
 
     public abstract Varaukset readVaraus(int id);
 

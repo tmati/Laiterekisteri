@@ -65,7 +65,7 @@ public class KayttajaAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        Kayttaja K = new Kayttaja("Testi", "tESTI", 1);
+        Kayttaja K = new Kayttaja("Testi", "tESTI","testi","testi", 1);
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("Nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
