@@ -17,6 +17,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
+import java.util.Date;
 
 /**
  *
@@ -90,8 +91,7 @@ public class CRUDTest {
         //käyttäjän poistaminen
         assertTrue("deleteKayttaja(): Käyttäjän poisto ei onnistunut.",
                 kayttajaDAO.deleteKayttaja(k1.getId()));
-        assertTrue("deleteKayttaja(): Käyttäjän poisto ei onnistunut.",
-                kayttajaDAO.deleteKayttaja(k.getId()));
+       
         assertFalse("deleteKayttaja(): poisti olemattoman käyttän",
                 kayttajaDAO.deleteKayttaja(999999969));
 
@@ -153,16 +153,22 @@ public class CRUDTest {
         //resurssin poisto
         assertTrue("deleteResurssi(): poisto ei onnistunut",
                 resurssiDAO.deleteResurssi(res.getId()));
-        assertTrue("deleteResurssi(): poisto ei onnistunut",
-                resurssiDAO.deleteResurssi(res1.getId()));
+        
         assertFalse("deleteResurssi(): väittää poistaneen olemattoman resurssin",
                 resurssiDAO.deleteResurssi(99999969));
 
     }
 
+   // Date date = new Date();
+    
+   // Varaukset varaus = new Varaukset(k1,res1,date,date,"varaustesti",false,"varaustesti");
+    
+    
+    @Ignore
     @Test
     public void varausDAOTest() {
-
+        //uuden varauksen luominen
+        
     }
 
 }
