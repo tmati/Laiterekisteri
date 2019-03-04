@@ -15,14 +15,15 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.NakymaController">
-   <children>
-      <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.NakymaController">
+   <center>
+      <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <ImageView pickOnBounds="true" preserveRatio="true">
+            <ImageView pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0">
                <image>
                   <Image url="@../bgLarge.png" />
                </image>
@@ -61,7 +62,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <TabPane fx:id="tabPane" layoutX="67.0" layoutY="286.0" prefHeight="750.0" prefWidth="1446.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="tabPane" layoutX="67.0" layoutY="286.0" prefHeight="716.0" prefWidth="1446.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab fx:id="kaikkiTab" text="Kaikki ">
                   <content>
@@ -71,12 +72,12 @@
                                  <children>
                                     <TableView fx:id="kaikkiTableView" prefHeight="721.0" prefWidth="1446.0">
                                       <columns>
-                                          <TableColumn fx:id="idColumn" prefWidth="64.0" text="ID" />
-                                        <TableColumn fx:id="nimiColumn" prefWidth="288.80003356933594" text="NIMI" />
-                                        <TableColumn fx:id="valmistajaColumn" prefWidth="236.79998779296875" text="VALMISTAJA" />
-                                          <TableColumn fx:id="tyyppiColumn" minWidth="0.0" prefWidth="242.39996337890625" text="TYYPPI" />
-                                          <TableColumn prefWidth="168.8001708984375" text="LUVANVARAISUUS" />
-                                          <TableColumn fx:id="kuvausColumn" prefWidth="381.599853515625" text="KUVAUS" />
+                                          <TableColumn fx:id="idColumn" prefWidth="64.0" resizable="false" text="ID" />
+                                        <TableColumn fx:id="nimiColumn" prefWidth="288.80003356933594" resizable="false" text="NIMI" />
+                                        <TableColumn fx:id="valmistajaColumn" prefWidth="236.79998779296875" resizable="false" text="VALMISTAJA" />
+                                          <TableColumn fx:id="tyyppiColumn" minWidth="0.0" prefWidth="242.39996337890625" resizable="false" text="TYYPPI" />
+                                          <TableColumn prefWidth="168.8001708984375" resizable="false" text="LUVANVARAISUUS" />
+                                          <TableColumn fx:id="kuvausColumn" prefWidth="381.599853515625" resizable="false" text="KUVAUS" />
                                           <TableColumn fx:id="tilaColumn" prefWidth="64.0001220703125" text="TILA" />
                                       </columns>
                                     </TableView>
@@ -94,12 +95,12 @@
                                  <children>
                                     <TableView fx:id="omatTable" prefHeight="721.0" prefWidth="200.0">
                                       <columns>
-                                        <TableColumn fx:id="laiteidColumn" prefWidth="75.0" text="LAITEID" />
-                                        <TableColumn fx:id="alkupvmColumn" prefWidth="190.40003967285156" text="VARAUKSEN ALKUPVM" />
-                                          <TableColumn fx:id="paattumispvmColumn" prefWidth="253.60003662109375" text="VARAUKSEN PÄÄTTYMISPVM" />
-                                          <TableColumn fx:id="varausidColumn" prefWidth="99.2000732421875" text="VARAUSID" />
-                                          <TableColumn fx:id="varauskuvausColumn" prefWidth="689.60009765625" text="KUVAUS" />
-                                          <TableColumn fx:id="palautettuColumn" minWidth="0.0" prefWidth="137.599853515625" text="PALAUTETTU" />
+                                        <TableColumn fx:id="laiteidColumn" prefWidth="75.0" resizable="false" text="LAITEID" />
+                                        <TableColumn fx:id="alkupvmColumn" prefWidth="190.40003967285156" resizable="false" text="VARAUKSEN ALKUPVM" />
+                                          <TableColumn fx:id="paattymispvmColumn" prefWidth="253.60003662109375" resizable="false" text="VARAUKSEN PÄÄTTYMISPVM" />
+                                          <TableColumn fx:id="varausidColumn" prefWidth="99.2000732421875" resizable="false" text="VARAUSID" />
+                                          <TableColumn fx:id="varauskuvausColumn" prefWidth="689.60009765625" resizable="false" text="KUVAUS" />
+                                          <TableColumn fx:id="palautettuColumn" minWidth="0.0" prefWidth="137.599853515625" resizable="false" text="PALAUTETTU" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -116,7 +117,7 @@
                   <Font name="System Bold" size="37.0" />
                </font>
             </Button>
-            <TitledPane fx:id="kalenteriPane" alignment="CENTER" animated="false" layoutX="1582.0" layoutY="403.0" prefHeight="257.0" prefWidth="270.0" text="KALENTERI" textAlignment="CENTER">
+            <TitledPane fx:id="kalenteriPane" alignment="CENTER" animated="false" layoutX="1582.0" layoutY="448.0" prefHeight="257.0" prefWidth="270.0" text="KALENTERI" textAlignment="CENTER">
               <content>
                 <AnchorPane fx:id="kalenteriAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="281.0" />
               </content>
@@ -124,7 +125,17 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </TitledPane>
+            <Button fx:id="hallnnoiBtn" layoutX="1583.0" layoutY="386.0" mnemonicParsing="false" onMouseClicked="#hallinnoiBtnPainettu" text="HALLINNOI VARAUKSIA">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Button>
+            <Button fx:id="henkilostoBtn" layoutX="1581.0" layoutY="721.0" mnemonicParsing="false" onMouseClicked="#henkilostoBtnPainettu" text="HALLINNOI HENKILÖITÄ">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
-   </children>
-</AnchorPane>
+   </center>
+</BorderPane>

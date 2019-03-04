@@ -7,12 +7,13 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handle" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.loginWindowController">
-   <children>
-      <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.loginWindowController">
+   <center>
+      <AnchorPane fx:id="anchorPane" onKeyPressed="#handle" BorderPane.alignment="CENTER">
          <children>
             <ImageView fx:id="bgView" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -29,12 +30,12 @@
                               <Image url="@../logins.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="usernameField" layoutX="16.0" layoutY="430.0" onKeyPressed="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi">
+                        <TextField fx:id="usernameField" layoutX="16.0" layoutY="430.0" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextField>
-                        <PasswordField fx:id="passwordField" layoutX="18.0" layoutY="582.0" onKeyPressed="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Salasana">
+                        <PasswordField fx:id="passwordField" layoutX="18.0" layoutY="582.0" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Salasana">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -59,5 +60,5 @@
             <Button fx:id="testBtn" mnemonicParsing="false" onMouseClicked="#test" text="Button" />
          </children>
       </AnchorPane>
-   </children>
-</AnchorPane>
+   </center>
+</BorderPane>

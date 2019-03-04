@@ -90,7 +90,7 @@ public class NakymaController implements Initializable {
     @FXML
     private TableColumn<?, ?> alkupvmColumn;
     @FXML
-    private TableColumn<?, ?> paattumispvmColumn;
+    private TableColumn<?, ?> paattymispvmColumn;
     @FXML
     private TableColumn<?, ?> varausidColumn;
     @FXML
@@ -103,8 +103,10 @@ public class NakymaController implements Initializable {
     private TitledPane kalenteriPane;
     @FXML
     private AnchorPane kalenteriAnchorPane;
+    @FXML
+    private Button hallinnoiBtn;
     
-    
+    Popup popup;
     /**
      * Initializes the controller class.
      */
@@ -122,7 +124,9 @@ public class NakymaController implements Initializable {
      * @throws IOException 
      */
     public void varausNappiPainettu(MouseEvent event) throws IOException {
-        Popup popup = new Popup();
+
+        if(popup == null || !popup.isShowing()){
+        popup = new Popup();
         Object source = event.getSource();
         Node node = (Node) source;
         Scene scene = node.getScene();
@@ -130,7 +134,7 @@ public class NakymaController implements Initializable {
         Stage stage = (Stage) window;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Varausikkuna.fxml"));
         popup.getContent().add((Parent) loader.load());
-        popup.show(window);
+        popup.show(window);}
     }
     
     /**
@@ -139,9 +143,32 @@ public class NakymaController implements Initializable {
      * @throws IOException 
      */
     public void logout(MouseEvent event) throws IOException {
+        System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
         Scene scene = new Scene((Parent) loader.load());
+        stage.setScene(scene);
+    }
+    
+    /**
+     * Siirtyy varausten hallintanäkymään
+     * TODO Näytä vain jos tarpeeksi oikeuksia
+     * @param event
+     * @throws IOException 
+     */
+    public void hallinnoiBtnPainettu(MouseEvent event) throws IOException {
+        System.out.println("Hallinoidaan varauksia!");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/VarausAdmin.fxml"));
+        Stage stage = (Stage) LogoutBtn.getScene().getWindow();
+        Scene scene = new Scene ((Parent) loader.load());
+        stage.setScene(scene);
+    }
+    
+    public void henkilostoBtnPainettu (MouseEvent event) throws IOException {
+        System.out.println("Hallinoidaan henkilöstöä!");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KayttajaAdmin.fxml"));
+        Stage stage = (Stage) LogoutBtn.getScene().getWindow();
+        Scene scene = new Scene ((Parent) loader.load());
         stage.setScene(scene);
     }
 }
