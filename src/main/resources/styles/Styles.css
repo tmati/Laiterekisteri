@@ -1,7 +1,7 @@
 .button {
     -fx-font-weight: bold;
 }
-#bgHbox{
+#bgPane{
     -fx-background-image: url("..//bgLarge.png");
     -fx-background-repeat: stretch;
 }

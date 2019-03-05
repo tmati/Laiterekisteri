@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<HBox id="bgHbox" alignment="CENTER" onKeyPressed="#handle" prefHeight="569.0" prefWidth="476.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.loginWindowController">
+<HBox id="bgPane" alignment="CENTER" onKeyPressed="#handle" prefHeight="569.0" prefWidth="476.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.loginWindowController">
    <children>
       <VBox alignment="CENTER">
          <children>
@@ -21,8 +20,8 @@
                   <Insets bottom="30.0" />
                </VBox.margin>
             </VBox>
-            <ImageView fx:id="logoView" fitHeight="187.0" fitWidth="475.0" pickOnBounds="true" preserveRatio="true" />
-            <VBox prefHeight="107.0" prefWidth="476.0">
+            <ImageView fx:id="logoView" fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
+            <VBox alignment="CENTER" prefHeight="107.0" prefWidth="476.0">
                <children>
                   <TextField fx:id="usernameField" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi">
                      <font>
@@ -40,12 +39,17 @@
                         <Font size="20.0" />
                      </font>
                   </PasswordField>
+                  <Button fx:id="testBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#test" prefHeight="26.0" prefWidth="99.0" text="Button">
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
                <padding>
                   <Insets bottom="150.0" top="75.0" />
                </padding>
             </VBox>
-            <StackPane prefHeight="150.0" prefWidth="200.0">
+            <StackPane alignment="TOP_CENTER" prefHeight="150.0" prefWidth="200.0">
                <children>
                   <ImageView fx:id="loginActive" fitHeight="106.0" fitWidth="476.0" onMouseClicked="#loginAttempt" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -59,13 +63,8 @@
                   </ImageView>
                </children>
                <VBox.margin>
-                  <Insets bottom="50.0" />
+                  <Insets top="-100.0" />
                </VBox.margin>
-            </StackPane>
-            <StackPane prefHeight="150.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="testBtn" alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#test" text="Button" />
-               </children>
             </StackPane>
          </children>
          <padding>

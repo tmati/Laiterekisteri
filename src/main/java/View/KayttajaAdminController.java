@@ -9,9 +9,12 @@ import Model.Kayttaja;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,6 +25,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -58,6 +63,8 @@ public class KayttajaAdminController implements Initializable {
     private Button poistaBtn;
     @FXML
     private DatePicker datePicker;
+    @FXML 
+    private GridPane bgPane;
 
     /**
      * Initializes the controller class.
@@ -65,14 +72,15 @@ public class KayttajaAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+        
         Kayttaja K = new Kayttaja("Testi", "tESTI","testi","testi", 1);
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("Nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        /** TODO LISÄÄ EMAIL KÄYTTÄJÄÄN
         emailColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("Sähköposti"));
         emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        **/
         
         valtuudetColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("Valtuudet"));
         valtuudetColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
@@ -92,8 +100,8 @@ public class KayttajaAdminController implements Initializable {
         System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
-        Scene scene = new Scene((Parent) loader.load());
-        stage.setScene(scene);
+        Parent root = loader.load();
+        stage.getScene().setRoot(root);
     }
 
     @FXML

@@ -31,6 +31,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -113,7 +114,7 @@ public class NakymaController implements Initializable {
     @FXML
     private TitledPane kalenteriPane;
     @FXML
-    private AnchorPane kalenteriAnchorPane;
+    private StackPane kalenteriStackPane;
     
     Popup popup;
     @FXML
@@ -127,6 +128,9 @@ public class NakymaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
+        logoView.setImage(image);
         
         //Resurssitaulun columnien live-edit
         idColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("ID"));
@@ -172,12 +176,11 @@ public class NakymaController implements Initializable {
         palautettuColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("Varauksen palautuminen"));
         alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        
-        
         categorySelect.setTooltip(new Tooltip("Hakukriteeri"));
         DatePickerSkin DPS = new DatePickerSkin(new DatePicker());
         Node calContent = DPS.getPopupContent();
-        kalenteriAnchorPane.getChildren().add(calContent);
+        
+        kalenteriStackPane.getChildren().add(calContent);
     }
     
     /**
@@ -226,24 +229,24 @@ public class NakymaController implements Initializable {
         System.out.println("Hallinoidaan varauksia!");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/VarausAdmin.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
-        Scene scene = new Scene ((Parent) loader.load());
-        stage.setScene(scene);
+        Parent root = loader.load();
+        stage.getScene().setRoot(root);
     }
     /**
      * Siirtyy henkilöstön hallintanäkymään
      * TODO Näytä vain jos tarpeeksi oikeuksia.
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
-    public void henkilostoBtnPainettu (MouseEvent event) throws IOException {
+    public void henkilostoBtnPainettu(MouseEvent event) throws IOException {
         System.out.println("Hallinoidaan henkilöstöä!");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KayttajaAdmin.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
-        Scene scene = new Scene ((Parent) loader.load());
-        stage.setScene(scene);
+        Parent root = loader.load();
+        stage.getScene().setRoot(root);
     }
-    
+
     
     //Resurssit
     @FXML

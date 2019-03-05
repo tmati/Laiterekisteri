@@ -46,7 +46,6 @@ public class loginWindowController implements Initializable {
     private ImageView logoView;
     @FXML
     private Button testBtn;
-
     @FXML
     private ImageView bgView;
 
@@ -58,7 +57,7 @@ public class loginWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        Image image = new Image(getClass().getResourceAsStream("/Metro.png"));
+        Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
         logoView.setImage(image);
         centerImage(logoView);
         
@@ -161,9 +160,9 @@ public class loginWindowController implements Initializable {
             try {
                 //if (Login(userName, passWord)) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
-                Stage stage = (Stage) loginActive.getScene().getWindow();
-                Scene scene = new Scene((Parent) loader.load());
-                stage.setScene(scene);
+                Stage stage = (Stage) logoView.getScene().getWindow();
+                Parent root = loader.load();
+                stage.getScene().setRoot(root);
             } catch (IOException e) {
                 e.printStackTrace();
             }

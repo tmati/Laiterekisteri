@@ -96,8 +96,8 @@ public class VarausAdminController implements Initializable {
         System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
-        Scene scene = new Scene((Parent) loader.load());
-        stage.setScene(scene);
+        Parent root = loader.load();
+        stage.getScene().setRoot(root);
     }
 
     @FXML
