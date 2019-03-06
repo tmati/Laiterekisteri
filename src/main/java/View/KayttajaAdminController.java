@@ -9,12 +9,11 @@ import Model.Kayttaja;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,8 +25,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Popup;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.converter.IntegerStringConverter;
 
 /**
@@ -65,6 +66,7 @@ public class KayttajaAdminController implements Initializable {
     private DatePicker datePicker;
     @FXML 
     private GridPane bgPane;
+    Popup popup;
 
     /**
      * Initializes the controller class.
@@ -111,9 +113,18 @@ public class KayttajaAdminController implements Initializable {
     }
 
     @FXML
-    private void lisaaBtnPainettu(MouseEvent event) {
-        //TODO Avaa uuden käyttäjän luontipopupin.
-        System.out.println("Lisää uusi");
+    private void lisaaBtnPainettu(MouseEvent event) throws IOException {
+        if (popup == null || !popup.isShowing()) {
+            popup = new Popup();
+            Object source = event.getSource();
+            Node node = (Node) source;
+            Scene scene = node.getScene();
+            Window window = scene.getWindow();
+            Stage stage = (Stage) window;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/uusiKayttaja.fxml"));
+            popup.getContent().add((Parent) loader.load());
+            popup.show(window);
+        }
     }
 
     @FXML
@@ -147,6 +158,5 @@ public class KayttajaAdminController implements Initializable {
         Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
         J.setValtuudet(event.getNewValue());
         System.out.println("Uudet valtuudet: " + J.getValtuudet());
-    }
-    
+    }    
 }
