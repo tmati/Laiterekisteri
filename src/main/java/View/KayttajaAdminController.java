@@ -66,6 +66,8 @@ public class KayttajaAdminController implements Initializable {
     private DatePicker datePicker;
     @FXML 
     private GridPane bgPane;
+    @FXML
+    private TableColumn kayttajatunnusColumn;
     Popup popup;
 
     /**
@@ -84,8 +86,11 @@ public class KayttajaAdminController implements Initializable {
         emailColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("Sähköposti"));
         emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        valtuudetColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("Valtuudet"));
+        valtuudetColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, Integer>("Valtuudet"));
         valtuudetColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        
+        kayttajatunnusColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("Käyttäjätunnus"));
+        kayttajatunnusColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         kayttajaTableView.getItems().add(K);
     }    
 
@@ -158,5 +163,12 @@ public class KayttajaAdminController implements Initializable {
         Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
         J.setValtuudet(event.getNewValue());
         System.out.println("Uudet valtuudet: " + J.getValtuudet());
-    }    
+    }
+    
+    @FXML
+    private void kayttajatunnusEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
+        Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
+        J.setKayttajatunnus(event.getNewValue());
+        System.out.println("Uusi tunnus: " + J.getKayttajatunnus());
+    }
 }

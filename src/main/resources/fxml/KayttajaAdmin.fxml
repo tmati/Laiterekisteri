@@ -29,9 +29,10 @@
    <children>
       <TableView fx:id="kayttajaTableView" editable="true" prefHeight="802.0" prefWidth="1392.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <columns>
-            <TableColumn fx:id="nimiColumn" onEditCommit="#nimiEditCommit" prefWidth="583.1999953985214" resizable="false" text="NIMI" />
-            <TableColumn fx:id="emailColumn" onEditCommit="#emailEditCommit" prefWidth="610.4000244140625" resizable="false" text="SÄHKÖPOSTI" />
-            <TableColumn fx:id="valtuudetColumn" onEditCommit="#valtuudetEditCommit" prefWidth="170.39990234375" resizable="false" text="VALTUUDET" />
+            <TableColumn fx:id="nimiColumn" onEditCommit="#nimiEditCommit" prefWidth="484.79999083280563" resizable="false" text="NIMI" />
+            <TableColumn fx:id="kayttajatunnusColumn" onEditCommit="#kayttajatunnusEditCommit" prefWidth="173.60003662109375" text="KÄYTTÄJÄTUNNUS" />
+            <TableColumn fx:id="emailColumn" onEditCommit="#emailEditCommit" prefWidth="396.7999267578125" resizable="false" text="SÄHKÖPOSTI" />
+            <TableColumn fx:id="valtuudetColumn" onEditCommit="#valtuudetEditCommit" prefWidth="316.0" resizable="false" text="VALTUUDET" />
          </columns>
       </TableView>
       <VBox prefHeight="824.0" prefWidth="331.0" spacing="25.0" GridPane.columnIndex="3" GridPane.rowIndex="2">

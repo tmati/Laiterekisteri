@@ -39,11 +39,6 @@
             <Font size="16.0" />
          </font>
       </TextField>
-      <Label layoutX="-109.0" layoutY="220.0" text="TYYPPI" textFill="WHITE">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
       <Label fx:id="uusisalasanaLabel" layoutX="19.0" layoutY="196.0" text="UUSI SALASANA" textFill="WHITE">
          <font>
             <Font size="18.0" />
