@@ -76,20 +76,18 @@ public class KayttajaAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
-        
         Kayttaja K = new Kayttaja("Testi", "tESTI","testi","testi", 1);
-        nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("Nimi"));
+        //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
+        nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        emailColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("Sähköposti"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("sahkoposti"));
         emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        valtuudetColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, Integer>("Valtuudet"));
+        valtuudetColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, Integer>("valtuudet"));
         valtuudetColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         
-        kayttajatunnusColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("Käyttäjätunnus"));
+        kayttajatunnusColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("kayttajatunnus"));
         kayttajatunnusColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         kayttajaTableView.getItems().add(K);
     }    
@@ -133,17 +131,10 @@ public class KayttajaAdminController implements Initializable {
     }
 
     @FXML
-    private void muutaBtnPainettu(MouseEvent event) {
-        //TODO
-        System.out.println("Muutetaan riviä");
-    }
-
-    @FXML
     private void poistaBtnPainettu(MouseEvent event) {
         //TODO
         System.out.println("Poistetaan rivi");
     }
-    
     
     @FXML
     private void nimiEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
