@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 3, 2019 5:42:44 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Mar 6, 2019 4:26:26 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Model.Kayttaja" table="Kayttaja" catalog="laiterekisteri" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
@@ -14,14 +14,14 @@
         <property name="salasana" type="string">
             <column name="Salasana" length="40" not-null="true" />
         </property>
+        <property name="valtuudet" type="int">
+            <column name="Valtuudet" not-null="true" />
+        </property>
         <property name="kayttajatunnus" type="string">
             <column name="Kayttajatunnus" length="40" not-null="true" />
         </property>
         <property name="sahkoposti" type="string">
             <column name="Sahkoposti" length="80" not-null="true" />
-        </property>
-        <property name="valtuudet" type="int">
-            <column name="Valtuudet" not-null="true" />
         </property>
         <set name="varauksets" table="Varaukset" inverse="true" lazy="true" fetch="select">
             <key>

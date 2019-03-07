@@ -10,6 +10,7 @@ import Model.Varaukset;
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -308,16 +309,16 @@ public class NakymaController implements Initializable {
     }
     
     @FXML
-    private void alkupvmOnEditCommit(TableColumn.CellEditEvent<Varaukset, Date> event) {
+    private void alkupvmOnEditCommit(TableColumn.CellEditEvent<Varaukset, LocalDateTime> event) {
         Varaukset V = omatTable.getSelectionModel().getSelectedItem();
-        V.setAlkupvm(event.getNewValue());
+        V.setAlkuAika(event.getNewValue());
         System.out.println("Uusi alkupäivämäärä:" + V.getAlkupvm().toString());
     }
 
     @FXML
-    private void paattymispvmOnEditCommit(TableColumn.CellEditEvent<Varaukset, Date> event) {
+    private void paattymispvmOnEditCommit(TableColumn.CellEditEvent<Varaukset, LocalDateTime> event) {
         Varaukset V = omatTable.getSelectionModel().getSelectedItem();
-        V.setPaattymispvm(event.getNewValue());
+        V.setLoppuAika(event.getNewValue());
         System.out.println("Uusi ID:" + V.getPaattymispvm());
     }
 

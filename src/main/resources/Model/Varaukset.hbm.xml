@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 3, 2019 5:42:44 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Mar 6, 2019 4:26:26 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Model.Varaukset" table="Varaukset" catalog="laiterekisteri" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
@@ -14,11 +14,11 @@
         <many-to-one name="resurssit" class="Model.Resurssit" fetch="select">
             <column name="ResurssiId" not-null="true" />
         </many-to-one>
-        <property name="alkupvm" type="date">
-            <column name="Alkupvm" length="10" not-null="true" />
+        <property name="alkupvm" type="timestamp">
+            <column name="Alkupvm" length="26" not-null="true" />
         </property>
-        <property name="paattymispvm" type="date">
-            <column name="Paattymispvm" length="10" not-null="true" />
+        <property name="paattymispvm" type="timestamp">
+            <column name="Paattymispvm" length="26" not-null="true" />
         </property>
         <property name="kuvaus" type="string">
             <column name="Kuvaus" length="40" not-null="true" />

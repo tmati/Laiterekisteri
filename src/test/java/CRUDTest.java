@@ -10,23 +10,22 @@ import Model.Resurssit;
 import Model.ResurssitAccessObject;
 import Model.Varaukset;
 import Model.VarauksetAccessObject;
-import org.junit.After;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
-import java.util.Date;
 
 /**
  *
  * @author Tommi
  */
-@Ignore
 public class CRUDTest {
 
-   
     int r = (int) (Math.random() * 100000);
     int r1 = (int) (Math.random() * 100000);
     int r2 = (int) (Math.random() * 100000);
@@ -39,11 +38,9 @@ public class CRUDTest {
     Kayttaja k1 = null;
     Kayttaja[] kayttajat = null;
 
- 
-
     @Test
     public void kayttajaDAOTest() {
-         KayttajaAccessObject kayttajaDAO = new KayttajaAccessObject();
+        KayttajaAccessObject kayttajaDAO = new KayttajaAccessObject();
         //uuden käyttäjän luonti
         assertTrue("createKayttaja(): Uuden käyttäjän luominen ei onnistunut",
                 kayttajaDAO.createKayttaja(k));
@@ -67,7 +64,7 @@ public class CRUDTest {
         k1 = new Kayttaja("testi", "testi", "testi", "testi", 1);
         kayttajaDAO.createKayttaja(k1);
         Kayttaja[] kayttajat2 = kayttajaDAO.readKayttajat();
-        assertTrue("readKayttajat(): lista väärin",
+        assertTrue("readKayttajat(): lista haku ei onnistunut",
                 kayttajat.length < kayttajat2.length);
 
         //Käyttäjän päivittäminen
@@ -92,18 +89,19 @@ public class CRUDTest {
 
         //käyttäjän poistaminen
         assertTrue("deleteKayttaja(): Käyttäjän poisto ei onnistunut.",
+                kayttajaDAO.deleteKayttaja(k.getId()));
+
+        assertTrue("deleteKayttaja(): Käyttäjän poisto ei onnistunut.",
                 kayttajaDAO.deleteKayttaja(k1.getId()));
-       
+
         assertFalse("deleteKayttaja(): poisti olemattoman käyttän",
                 kayttajaDAO.deleteKayttaja(999999969));
 
     }
 
-    
     Resurssit res = new Resurssit(true, "resurssitesti", "resurssitesti", 1, "resurssitesti");
     Resurssit res1 = null;
     Resurssit[] resurssit = null;
-    
 
     @Test
     public void resurssiDAOTest() {
@@ -126,8 +124,6 @@ public class CRUDTest {
 
         //kaikkien resurssien haku listaan
         resurssit = resurssiDAO.readResurssit();
-        assertEquals("readResurssit(): lista väärin",
-                res.getId(), res.getId() );
         res1 = new Resurssit(true, "testi", "testi", 1, "testi");
         resurssiDAO.createResurssi(res1);
         Resurssit[] resurssit2 = resurssiDAO.readResurssit();
@@ -152,26 +148,109 @@ public class CRUDTest {
                 false, res.isStatus());
         assertEquals("uptadeResurssi: tyyppi väärin",
                 "asd", res.getTyyppi());
-        //varausten päivitys pitää testata
 
         //resurssin poisto
         assertTrue("deleteResurssi(): poisto ei onnistunut",
                 resurssiDAO.deleteResurssi(res.getId()));
-        
+        assertTrue("deleteResurssi(): poisto ei onnistunut",
+                resurssiDAO.deleteResurssi(res1.getId()));
+
         assertFalse("deleteResurssi(): väittää poistaneen olemattoman resurssin",
                 resurssiDAO.deleteResurssi(99999969));
 
     }
 
-   // Date date = new Date();
-    
-   // Varaukset varaus = new Varaukset(k1,res1,date,date,"varaustesti",false,"varaustesti");
-    
-   
+    LocalDate aloitusPV = LocalDate.parse("2019-04-01");
+    LocalTime aloitusAika = LocalTime.parse("10:00");
+    LocalDate lopetusPV = LocalDate.parse("2019-04-02");
+    LocalTime lopetusAika = LocalTime.parse("16:00");
+
+    LocalDateTime aloitus = LocalDateTime.of(aloitusPV, aloitusAika);
+    LocalDateTime lopetus = LocalDateTime.of(lopetusPV, lopetusAika);
+
     @Test
     public void varausDAOTest() {
+        KayttajaAccessObject kayttajaDAO = new KayttajaAccessObject();
+        ResurssitAccessObject resurssiDAO = new ResurssitAccessObject();
+        VarauksetAccessObject varausDAO = new VarauksetAccessObject();
+        Kayttaja kayttaja = new Kayttaja("varaustesti", "varaustesti", "varaustesti", "varaustesti", 1);
+        Resurssit resurssi = new Resurssit(true, "varaustesti", "varaustesti", 1, "varaustesti");
+        kayttajaDAO.createKayttaja(kayttaja);
+        resurssiDAO.createResurssi(resurssi);
+        Varaukset varaus = new Varaukset(kayttaja, resurssi, aloitus, lopetus, "varaustesti", false, "varaustesti");
+        Varaukset var = null;
+
         //uuden varauksen luominen
-        
+        assertTrue("createVaraus(): Uuden resurssin luominen ei onnistunut",
+                varausDAO.createVaraus(varaus));
+
+        //Varauksen haku
+        assertTrue("readVaraus: Haku ei onnistunut",
+                (var = varausDAO.readVaraus(varaus.getId())) != null);
+        assertEquals("readVaraus: id väärä",
+                var.getId(), varaus.getId());
+        assertEquals("readVaraus: alkuAika väärä",
+                var.getAlkuAika(), varaus.getAlkuAika());
+        assertEquals("readVaraus: loppuAika väärä",
+                var.getLoppuAika(), varaus.getLoppuAika());
+        assertEquals("readVaraus: kuvaus väärä",
+                var.getKuvaus(), varaus.getKuvaus());
+        assertEquals("readVaraus: palautuksen status väärä",
+                var.isPalautettu(), varaus.isPalautettu());
+        assertEquals("readVaraus: nimi väärä",
+                var.getNimi(), varaus.getNimi());
+        assertEquals("readVaraus: käyttäjä väärä",
+                var.getKayttaja().getId(), varaus.getKayttaja().getId());
+        assertEquals("readVaraus: resurssi väärä",
+                var.getResurssit().getId(), var.getResurssit().getId());
+
+        //Kaikkien varauksien haku listaan
+        Varaukset[] varaukset = varausDAO.readVaraukset();
+        Varaukset var1 = new Varaukset(kayttaja, resurssi, aloitus, lopetus, "varaustesti1", false, "varaustesti1");
+        varausDAO.createVaraus(var1);
+        Varaukset[] varaukset1 = varausDAO.readVaraukset();
+        assertTrue("readVaraukset(): lista ei päivittynyt oikein",
+                varaukset.length < varaukset1.length);
+
+        //Varauksen päivittäminen
+        aloitusAika = LocalTime.parse("11:00");
+        lopetusAika = LocalTime.parse("14:00");
+        LocalDateTime aloitus = LocalDateTime.of(aloitusPV, aloitusAika);
+        LocalDateTime lopetus = LocalDateTime.of(lopetusPV, lopetusAika);
+        var.setAlkuAika(aloitus);
+        var.setLoppuAika(lopetus);
+        var.setHyvaksytty(false);
+        var.setKuvaus("asd");
+        var.setNimi("varaustestiä");
+        var.setPalautettu(true);
+        assertTrue("updateVaraus: päivitys ei onnistunut",
+                varausDAO.updateVaraus(var));
+        varaus = varausDAO.readVaraus(var.getId());
+        assertEquals("updateVaraus: aloitusAika väärin",
+                varaus.getAlkuAika(), var.getAlkuAika());
+        assertEquals("updateVaraus: lopetusAika väärin",
+                varaus.getLoppuAika(), var.getLoppuAika());
+        assertEquals("updateVaraus: id väärin",
+                varaus.getId(), var.getId());
+        assertEquals("updateVaraus: kuvaus väärin",
+                varaus.getKuvaus(), var.getKuvaus());
+        assertEquals("updateVaraus: palautettu status väärin",
+                varaus.isPalautettu(), var.isPalautettu());
+        assertEquals("updateVaraus: nimi väärin",
+                varaus.getNimi(), var.getNimi());
+        assertEquals("updateVaraus: hyvaksytty status väärin",
+                varaus.getHyvaksytty(), var.getHyvaksytty());
+
+        System.out.println(varaus.getKayttaja().getNimi());
+
+        //varauksen poisto
+        assertTrue("deleteVaraus: varauksen poisto ei onnistunut",
+                varausDAO.deleteVaraus(var.getId()));
+        assertTrue("deleteVaraus: varauksen poisto ei onnistunut",
+                varausDAO.deleteVaraus(var1.getId()));
+        kayttajaDAO.deleteKayttaja(kayttaja.getId());
+        resurssiDAO.deleteResurssi(resurssi.getId());
+
     }
 
 }

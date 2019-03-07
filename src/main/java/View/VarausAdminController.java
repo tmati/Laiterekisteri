@@ -9,6 +9,7 @@ import Model.Resurssit;
 import Model.Varaukset;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -125,16 +126,16 @@ public class VarausAdminController implements Initializable {
     }
     
     @FXML
-    private void alkupvmEditCommit(TableColumn.CellEditEvent<Varaukset, Date> event) {
+    private void alkupvmEditCommit(TableColumn.CellEditEvent<Varaukset, LocalDateTime> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
-        V.setAlkupvm(event.getNewValue());
+        V.setAlkuAika(event.getNewValue());
         System.out.println("Uusi alkupvm: " + V.getAlkupvm().toString());
     }
     
     @FXML
-    private void paattymispvmEditCommit(TableColumn.CellEditEvent<Varaukset, Date> event) {
+    private void paattymispvmEditCommit(TableColumn.CellEditEvent<Varaukset, LocalDateTime> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
-        V.setPaattymispvm(event.getNewValue());
+        V.setLoppuAika(event.getNewValue());
         System.out.println("Uusi päättymispvm: " + V.getPaattymispvm().toString());
     }
     
