@@ -14,7 +14,7 @@ import Model.VarauksetAccessObject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import org.junit.AfterClass;
+
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -24,6 +24,8 @@ import org.junit.Ignore;
  *
  * @author Tommi
  */
+
+@Ignore
 public class CRUDTest {
 
     int r = (int) (Math.random() * 100000);
