@@ -5,6 +5,7 @@
  */
 package View;
 
+import Model.Varaukset;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;

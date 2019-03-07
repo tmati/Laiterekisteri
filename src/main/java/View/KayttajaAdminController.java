@@ -9,12 +9,11 @@ import Model.Kayttaja;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,8 +25,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Popup;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.converter.IntegerStringConverter;
 
 /**
@@ -65,6 +66,9 @@ public class KayttajaAdminController implements Initializable {
     private DatePicker datePicker;
     @FXML 
     private GridPane bgPane;
+    @FXML
+    private TableColumn kayttajatunnusColumn;
+    Popup popup;
 
     /**
      * Initializes the controller class.
@@ -72,18 +76,19 @@ public class KayttajaAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
-        
         Kayttaja K = new Kayttaja("Testi", "tESTI","testi","testi", 1);
-        nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("Nimi"));
+        //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
+        nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        emailColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("Sähköposti"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("sahkoposti"));
         emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        valtuudetColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("Valtuudet"));
+        valtuudetColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, Integer>("valtuudet"));
         valtuudetColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        
+        kayttajatunnusColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("kayttajatunnus"));
+        kayttajatunnusColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         kayttajaTableView.getItems().add(K);
     }    
 
@@ -111,15 +116,18 @@ public class KayttajaAdminController implements Initializable {
     }
 
     @FXML
-    private void lisaaBtnPainettu(MouseEvent event) {
-        //TODO Avaa uuden käyttäjän luontipopupin.
-        System.out.println("Lisää uusi");
-    }
-
-    @FXML
-    private void muutaBtnPainettu(MouseEvent event) {
-        //TODO
-        System.out.println("Muutetaan riviä");
+    private void lisaaBtnPainettu(MouseEvent event) throws IOException {
+        if (popup == null || !popup.isShowing()) {
+            popup = new Popup();
+            Object source = event.getSource();
+            Node node = (Node) source;
+            Scene scene = node.getScene();
+            Window window = scene.getWindow();
+            Stage stage = (Stage) window;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/uusiKayttaja.fxml"));
+            popup.getContent().add((Parent) loader.load());
+            popup.show(window);
+        }
     }
 
     @FXML
@@ -127,7 +135,6 @@ public class KayttajaAdminController implements Initializable {
         //TODO
         System.out.println("Poistetaan rivi");
     }
-    
     
     @FXML
     private void nimiEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
@@ -149,4 +156,10 @@ public class KayttajaAdminController implements Initializable {
         System.out.println("Uudet valtuudet: " + J.getValtuudet());
     }
     
+    @FXML
+    private void kayttajatunnusEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
+        Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
+        J.setKayttajatunnus(event.getNewValue());
+        System.out.println("Uusi tunnus: " + J.getKayttajatunnus());
+    }
 }

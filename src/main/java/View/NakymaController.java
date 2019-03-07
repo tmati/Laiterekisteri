@@ -116,6 +116,8 @@ public class NakymaController implements Initializable {
     private TitledPane kalenteriPane;
     @FXML
     private StackPane kalenteriStackPane;
+    @FXML
+    private Button lisaaresurssiBtn;
     
     Popup popup;
     @FXML
@@ -124,6 +126,8 @@ public class NakymaController implements Initializable {
     private Button hallnnoiBtn;
     @FXML
     private Button henkilostoBtn;
+    @FXML
+    private Button salasananvaihtoBtn;
     /**
      * Initializes the controller class.
      */
@@ -205,6 +209,44 @@ public class NakymaController implements Initializable {
         }
     }
     
+    /**
+     * Avaa lisää resurssi-popupin
+     * @param event
+     * @throws IOException 
+     */
+    @FXML
+    public void lisaaresurssiNappiPainettu(MouseEvent event) throws IOException {
+        if (popup == null || !popup.isShowing()) {
+            popup = new Popup();
+            Object source = event.getSource();
+            Node node = (Node) source;
+            Scene scene = node.getScene();
+            Window window = scene.getWindow();
+            Stage stage = (Stage) window;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/uusiResurssi.fxml"));
+            popup.getContent().add((Parent) loader.load());
+            popup.show(window);
+        }
+    }
+    /**
+     * Avaa vaihda salasana-popupin
+     * @param event
+     * @throws IOException 
+     */
+    @FXML
+    public void salasananvaihtoNappiPainettu(MouseEvent event) throws IOException {
+        if (popup == null || !popup.isShowing()) {
+            popup = new Popup();
+            Object source = event.getSource();
+            Node node = (Node) source;
+            Scene scene = node.getScene();
+            Window window = scene.getWindow();
+            Stage stage = (Stage) window;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SalasananvaihtoIkkuna.fxml"));
+            popup.getContent().add((Parent) loader.load());
+            popup.show(window);
+        }
+    }
     /**
      * Kirjaa käyttäjän ulos ja siirtyy kirjautumisnäkymään.
      * @param event
