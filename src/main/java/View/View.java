@@ -6,6 +6,7 @@
 package View;
 
 
+import Model.Kayttaja;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,6 +25,9 @@ public class View extends Application {
      * @param stage
      * @throws Exception 
      */
+    public static Kayttaja loggedIn = null;
+    public static String BizName = "Long beach Skateboards";
+    
     @Override
     public void start(Stage stage) throws Exception {
        

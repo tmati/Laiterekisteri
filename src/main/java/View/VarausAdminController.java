@@ -7,6 +7,7 @@ package View;
 
 import Model.Resurssit;
 import Model.Varaukset;
+import Model.VarauksetAccessObject;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -82,6 +83,8 @@ public class VarausAdminController implements Initializable {
         
         kuvausColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("kuvaus"));
         kuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+
     }    
 
     public void logout(MouseEvent event) throws IOException {
@@ -90,6 +93,7 @@ public class VarausAdminController implements Initializable {
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
         Parent root = loader.load();
         stage.getScene().setRoot(root);
+        View.loggedIn = null;
     }
 
     @FXML

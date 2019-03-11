@@ -56,7 +56,7 @@ public class loginWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
         logoView.setImage(image);
         centerImage(logoView);
@@ -155,16 +155,30 @@ public class loginWindowController implements Initializable {
      */
     private void loginProcess() {
         if (loginPossible) {
+            KayttajaAccessObject KAO = new KayttajaAccessObject();
             String userName = usernameField.getText();
             String passWord = passwordField.getText();
-            try {
-                //if (Login(userName, passWord)) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
-                Stage stage = (Stage) logoView.getScene().getWindow();
-                Parent root = loader.load();
-                stage.getScene().setRoot(root);
-            } catch (IOException e) {
-                e.printStackTrace();
+            Kayttaja[] users = KAO.readKayttajat();
+
+            for (Kayttaja user : users) {
+                if (user.getKayttajatunnus().equals(userName)) {
+                    if (user.getSalasana().equals(passWord)) {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
+                            Stage stage = (Stage) logoView.getScene().getWindow();
+                            //Käyttäjätietojen tallennus
+                            View.loggedIn = user;
+                            Parent root = loader.load();
+                            stage.getScene().setRoot(root);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+
+                        }
+                    }
+                    } else {
+                    Alert alert = new Alert(AlertType.WARNING, "Väärä käyttäjätunnus tai salasana");
+                }
+
             }
         } else {
             //väärä käyttäjätunnus tai salasana ---- tämä siis Login-metodiin liittyvä else

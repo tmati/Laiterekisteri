@@ -6,13 +6,13 @@
 package View;
 
 import Model.Kayttaja;
+import Model.KayttajaAccessObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,7 +26,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.converter.IntegerStringConverter;
@@ -76,7 +75,8 @@ public class KayttajaAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        Kayttaja K = new Kayttaja("Testi", "tESTI","testi","testi", 1);
+        KayttajaAccessObject KAO = new KayttajaAccessObject();
+        
         //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -89,7 +89,8 @@ public class KayttajaAdminController implements Initializable {
         
         kayttajatunnusColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("kayttajatunnus"));
         kayttajatunnusColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        kayttajaTableView.getItems().add(K);
+        Kayttaja[] users = KAO.readKayttajat();
+        kayttajaTableView.getItems().addAll(users);
     }  
     
     /**
@@ -104,6 +105,7 @@ public class KayttajaAdminController implements Initializable {
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
         Parent root = loader.load();
         stage.getScene().setRoot(root);
+        View.loggedIn = null;
     }
 
     /**
