@@ -67,19 +67,19 @@ public class VarausAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
   
-        nimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset,String>("Varaajan nimi"));
+        nimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset,String>("kayttaja"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        tavaraColumn.setCellValueFactory(new PropertyValueFactory<Varaukset,Resurssit>("Varattava tavara"));
+        tavaraColumn.setCellValueFactory(new PropertyValueFactory<Varaukset,Resurssit>("resurssit"));
         tavaraColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        alkupvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("Varauksen alkupäivämäärä"));
+        alkupvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("alkupvm"));
         alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter()));
         
-        paattymispvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("Varauksen päättymispäivämäärä"));
+        paattymispvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("paattymispvm"));
         paattymispvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter()));
         
-        kuvausColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("Varauksen kuvaus"));
+        kuvausColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("kuvaus"));
         kuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
     }    
 

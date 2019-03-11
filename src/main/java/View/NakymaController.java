@@ -137,47 +137,47 @@ public class NakymaController implements Initializable {
         logoView.setImage(image);
         
         //Resurssitaulun columnien live-edit
-        idColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("ID"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("id"));
         idColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         
-        nimiColumn.setCellValueFactory(new PropertyValueFactory<Resurssit,String>("Nimi"));
+        nimiColumn.setCellValueFactory(new PropertyValueFactory<Resurssit,String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
         valmistajaColumn.setCellValueFactory(new PropertyValueFactory<Resurssit,String>("Valmistaja"));
         valmistajaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        tyyppiColumn.setCellValueFactory(new PropertyValueFactory<Resurssit,String>("Tyyppi"));
+        tyyppiColumn.setCellValueFactory(new PropertyValueFactory<Resurssit,String>("tyyppi"));
         tyyppiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        kuvausColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, String>("Kuvaus"));
+        kuvausColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, String>("kuvaus"));
         kuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        luvanvaraisuusColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("Luvanvaraisuus"));
+        luvanvaraisuusColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("luvanvaraisuus"));
         luvanvaraisuusColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         
-        tilaColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, String>("Saatavilla"));
+        tilaColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, String>("status"));
         tilaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
         //Omat varaukset -taulun live-edit
-        laiteidColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Integer>("LaiteID"));
+        laiteidColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("id"));
         kuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         
-        laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("Varauksella olevan laitteen nimi"));
+        laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
         laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        alkupvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("Varauksen alkupäivämäärä"));
+        alkupvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("alkupvm"));
         alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter()));
         
-        paattymispvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("Varauksen päättymispäivämäärä"));
+        paattymispvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("paattymispvm"));
         paattymispvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter()));
         
-        varausidColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Integer>("Varauksen ID"));
+        varausidColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Integer>("id"));
         varausidColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         
-        varauskuvausColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("Varauksen kuvaus"));
+        varauskuvausColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("kuvaus"));
         varauskuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
-        palautettuColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("Varauksen palautuminen"));
+        palautettuColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("palautettu"));
         alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         
         categorySelect.setTooltip(new Tooltip("Hakukriteeri"));
@@ -291,41 +291,66 @@ public class NakymaController implements Initializable {
 
     
     //Resurssit
+    
+    /**
+     * Toiminnallisuus ID-columnin muokkaamisen päättyessä
+     * @param event 
+     */
     @FXML
     private void idOnEditCommit(TableColumn.CellEditEvent<Resurssit, Integer> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setId(event.getNewValue());
         System.out.println("Uusi ID: " + R.getId());
     }
-
+    
+    /**
+     * Toiminnallisuus nimi-columnin muokkaamisen päättyessä.
+     * @param event 
+     */
     @FXML
     private void nimiOnEditCommit(TableColumn.CellEditEvent<Resurssit, String> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setNimi(event.getNewValue());
         System.out.println("Uusi nimi: " + R.getNimi());
     }
-
+    
+    /**
+     * Toiminnallisuus valmistaja-columnin muokkaamisen päättyessä.
+     * @param event 
+     */
     @FXML
     private void valmistajaOnEditCommit(TableColumn.CellEditEvent<Resurssit, String> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         //R.setValmistaja(event.getNewValue());
         //System.out.println("Uusi valmistaja: " + R.getValmistaja());
     }
-
+    
+    /**
+     * Toiminnallisuus tyyppi-columnin muokkaamisen päättyessä.
+     * @param event 
+     */
     @FXML
     private void tyyppiOnEditCommit(TableColumn.CellEditEvent<Resurssit, String> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setTyyppi(event.getNewValue());
         System.out.println("Uusi Tyyppi: " + R.getTyyppi());
     }
-
+    
+    /**
+     * Toiminnallisuus luvanvaraisuus-columnin muokkaamisen päättyessä.
+     * @param event 
+     */
     @FXML
     private void luvanvaraisuusOnEditCommit(TableColumn.CellEditEvent<Resurssit, Integer> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setLuvanvaraisuus(event.getNewValue());
         System.out.println("Uusi luvanvaraisuusarvo: " + R.getLuvanvaraisuus());
     }
-
+    
+    /**
+     * Toiminnallisuus kuvaus-columnin muokkaamisen päättyessä.
+     * @param event 
+     */
     @FXML
     private void kuvausOnEditCommit(TableColumn.CellEditEvent<Resurssit, String> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
@@ -335,6 +360,10 @@ public class NakymaController implements Initializable {
 
     //Varaukset
     
+    /**
+     * Toiminnallisuus laiteid-columin muokkaamisen päättyessä.
+     * @param event 
+     */
     @FXML
     private void laiteidOneEditCommit(TableColumn.CellEditEvent<Varaukset, Resurssit> event) {
         Varaukset V = omatTable.getSelectionModel().getSelectedItem();
@@ -342,6 +371,10 @@ public class NakymaController implements Initializable {
         System.out.println("Uusi ID:" + V.getResurssit().getId() + " " + V.getResurssit().getNimi());
     }
 
+    /**
+     * Toiminnallisuus laitenimi-columnin muokkaamisen päättyessä.
+     * @param event 
+     */
     @FXML
     private void laitenimiOnEditCommit(TableColumn.CellEditEvent<Varaukset, String> event) {
         Varaukset V = omatTable.getSelectionModel().getSelectedItem();
@@ -349,6 +382,10 @@ public class NakymaController implements Initializable {
         System.out.println("Uusi Nimi:" + V.getNimi());
     }
     
+    /**
+     * Toiminnallisuus alkupvm-columnin muokkaamisen päättyessä.
+     * @param event 
+     */
     @FXML
     private void alkupvmOnEditCommit(TableColumn.CellEditEvent<Varaukset, Date> event) {
         Varaukset V = omatTable.getSelectionModel().getSelectedItem();
@@ -356,20 +393,32 @@ public class NakymaController implements Initializable {
         System.out.println("Uusi alkupäivämäärä:" + V.getAlkupvm().toString());
     }
 
+    /**
+     * Toiminnallisuus paattymispvm-columnin muokkaamisen päättyessä.
+     * @param event 
+     */
     @FXML
     private void paattymispvmOnEditCommit(TableColumn.CellEditEvent<Varaukset, Date> event) {
         Varaukset V = omatTable.getSelectionModel().getSelectedItem();
         V.setPaattymispvm(event.getNewValue());
         System.out.println("Uusi ID:" + V.getPaattymispvm());
     }
-
+    
+    /**
+     * Toiminnallisuus varausid-columnin muokkaamisen päättyessä.
+     * @param event 
+     */
     @FXML
     private void varausidOnEditCommit(TableColumn.CellEditEvent<Varaukset, Integer> event) {
         Varaukset V = omatTable.getSelectionModel().getSelectedItem();
         V.setId(event.getNewValue());
         System.out.println("Uusi ID:" + V.getId());
     }
-
+    
+    /**
+     * Toiminnallisuus palautettu-columnin muokkaamisen päättyessä.
+     * @param event 
+     */
     @FXML
     private void palautettuOnEditCommit(TableColumn.CellEditEvent<Varaukset, Boolean> event) {
         Varaukset V = omatTable.getSelectionModel().getSelectedItem();

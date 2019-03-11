@@ -55,7 +55,11 @@ public class SalasananvaihtoController implements Initializable {
         //Hae käyttäjän nimi tähän
         usernameLabel.setText("");
     }    
-
+    
+    /**
+     * Käsittelee salasanan vaihtoa popup-ikkunassa.
+     * @param event 
+     */
     @FXML
     private void vaihdasalasanaNappiPainettu(MouseEvent event) {
         //Sisään kirjautuneena oleva käyttäjä tähän
@@ -77,7 +81,11 @@ public class SalasananvaihtoController implements Initializable {
            
     }
     }
-
+    
+    /**
+     * Sulkee popupin.
+     * @param event 
+     */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();

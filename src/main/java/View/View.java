@@ -19,7 +19,11 @@ import javafx.stage.Stage;
  */
 public class View extends Application {
 
-    
+    /**
+     * Laukaisee sovelluksen.
+     * @param stage
+     * @throws Exception 
+     */
     @Override
     public void start(Stage stage) throws Exception {
        

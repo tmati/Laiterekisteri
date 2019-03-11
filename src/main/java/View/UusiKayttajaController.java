@@ -82,7 +82,11 @@ public class UusiKayttajaController implements Initializable {
         }
         return true;
     }
-
+    
+    /**
+     * Luo uuden käyttäjän annettujen ehtojen täsmätessä. Herjaa jos ehdot ei täsmää.
+     * @param event 
+     */
     @FXML
     private void luokayttajaNappiPainettu(MouseEvent event) {
         //Sähköpostin pitää olla uniikki. Tarkasta tietokannasta.
@@ -98,7 +102,11 @@ public class UusiKayttajaController implements Initializable {
             virheLabel.setOpacity(100);
         }
     }
-
+    
+    /**
+     * Sulkee popupin.
+     * @param event 
+     */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();

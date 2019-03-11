@@ -90,8 +90,14 @@ public class KayttajaAdminController implements Initializable {
         kayttajatunnusColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("kayttajatunnus"));
         kayttajatunnusColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         kayttajaTableView.getItems().add(K);
-    }    
-
+    }  
+    
+    /**
+     * Logout. Palauttaa käyttäjän kirjautumisnäkymään ja kirjaa tämän ulos.
+     * @param event
+     * @throws IOException 
+     */
+    @FXML
     public void logout(MouseEvent event) throws IOException {
         System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
@@ -100,6 +106,11 @@ public class KayttajaAdminController implements Initializable {
         stage.getScene().setRoot(root);
     }
 
+    /**
+     * Käyttäjän painaessa takaisin - painiketta tämä palautetaan takaisin päänäkymään.
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void takaisinBtnPainettu(MouseEvent event) throws IOException {
         System.out.println("Logout");
@@ -108,13 +119,19 @@ public class KayttajaAdminController implements Initializable {
         Parent root = loader.load();
         stage.getScene().setRoot(root);
     }
-
+    
+    
     @FXML
     private void tallennaBtnPainettu(MouseEvent event) {
         //TODO Lopputoimet tietokantaan
         System.out.println("Tallennus");
     }
-
+    
+    /**
+     * Avaa uuden käyttäjän lisäämisnäkymän.
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void lisaaBtnPainettu(MouseEvent event) throws IOException {
         if (popup == null || !popup.isShowing()) {
@@ -129,26 +146,42 @@ public class KayttajaAdminController implements Initializable {
             popup.show(window);
         }
     }
-
+    
+    /**
+     * Poistaa valitun rivin tietokannasta.
+     * @param event 
+     */
     @FXML
     private void poistaBtnPainettu(MouseEvent event) {
         //TODO
         System.out.println("Poistetaan rivi");
     }
     
+    /**
+     * Toiminnallisuus nimi-columnin muokkaamisen päättyessä.
+     * @param event 
+     */
     @FXML
     private void nimiEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
         Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
         J.setNimi(event.getNewValue());
         System.out.println("Uusi nimi: " + J.getNimi());
     }
-
+    
+    /**
+     * Toiminnalisuus sähköposticolumnin muokkaamisen päättyessä
+     * @param event 
+     */
     @FXML
     private void emailEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
         /*Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
         J.setEmail(event.getNewValue());*/
     }
-
+    
+    /**
+     * Toiminnallisuus valtuudet-columnin muokkaamisen päättyessä.
+     * @param event 
+     */
     @FXML
     private void valtuudetEditCommit(TableColumn.CellEditEvent<Kayttaja, Integer> event) {
         Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
@@ -156,6 +189,10 @@ public class KayttajaAdminController implements Initializable {
         System.out.println("Uudet valtuudet: " + J.getValtuudet());
     }
     
+    /**
+     * Toiminnallisuus käyttäjätunnus-columnin muokkaamisen päättyessä.
+     * @param event 
+     */
     @FXML
     private void kayttajatunnusEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
         Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
