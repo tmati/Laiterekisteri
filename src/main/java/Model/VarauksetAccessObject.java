@@ -6,6 +6,7 @@
 package Model;
 
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,9 +16,9 @@ import org.hibernate.Transaction;
  * @author Tommi
  */
 public class VarauksetAccessObject implements VarauksetDAO_IF {
-
+    
     SessionFactory sf = null;
-
+    
     public VarauksetAccessObject() {
         try {
             sf = HibernateUtil.getSessionFactory();
@@ -25,12 +26,12 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             e.printStackTrace();
         }
     }
-
+    
     @Override
     public boolean createVaraus(Varaukset varaus) {
         Session s = sf.openSession();
         Transaction tran = null;
-
+        
         try {
             tran = s.beginTransaction();
             s.saveOrUpdate(varaus);
@@ -45,21 +46,21 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             s.close();
         }
         return true;
-
+        
     }
-
+    
     @Override
     public Varaukset readVaraus(int id) {
         Session s = sf.openSession();
         Transaction transaktio = null;
-
+        
         s = sf.openSession();
         s.beginTransaction();
         Varaukset haettu = new Varaukset();
         try {
-
             s.load(haettu, id);
-            System.out.println(haettu.getId());
+            Hibernate.initialize(haettu.getKayttaja());
+            Hibernate.initialize(haettu.getResurssit());
             s.getTransaction().commit();
         } catch (Exception e) {
             if (transaktio != null) {
@@ -71,7 +72,7 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
         }
         return haettu;
     }
-
+    
     @Override
     public Varaukset[] readVaraukset() {
         Session s = sf.openSession();
@@ -81,7 +82,7 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             s = sf.openSession();
             s.beginTransaction();
             @SuppressWarnings("unchecked")
-            List<Varaukset> result = s.createQuery("from varaukset").list();
+            List<Varaukset> result = s.createQuery("from Varaukset").list();
             varaukset = result.toArray(new Varaukset[result.size()]);
             s.getTransaction().commit();
         } catch (Exception e) {
@@ -89,13 +90,13 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
                 tran.rollback();
             }
             e.printStackTrace();
-
+            
         } finally {
             s.close();
         }
         return varaukset;
     }
-
+    
     @Override
     public boolean updateVaraus(Varaukset varaus) {
         Session s = sf.openSession();
@@ -106,9 +107,16 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             Varaukset päivitettävä = (Varaukset) s.get(Varaukset.class, varaus.getId());
             if (päivitettävä != null) {
                 päivitettävä.setHyvaksytty(varaus.getHyvaksytty());
+                päivitettävä.setKayttaja(varaus.getKayttaja());
+                päivitettävä.setResurssit(varaus.getResurssit());
+                päivitettävä.setAlkupvm(varaus.getAlkupvm());
+                päivitettävä.setPaattymispvm(varaus.getPaattymispvm());
+                päivitettävä.setKuvaus(varaus.getKuvaus());
+                päivitettävä.setPalautettu(varaus.isPalautettu());
+                päivitettävä.setNimi(varaus.getNimi());
                 s.saveOrUpdate(päivitettävä);
             } else {
-                System.out.println("Ei löytynyt päivitettävää!");
+                System.out.println("Ei löytynyt päivitettävää");
             }
             s.getTransaction().commit();
         } catch (Exception e) {
@@ -117,13 +125,13 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             }
             e.printStackTrace();
             return false;
-
+            
         } finally {
             s.close();
         }
         return true;
     }
-
+    
     public boolean deleteVaraus(int id) {
         Session s = sf.openSession();
         Transaction tran = null;
@@ -144,12 +152,12 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             }
             e.printStackTrace();
             return false;
-
+            
         } finally {
             s.close();
         }
         return true;
-
+        
     }
-
+    
 }
