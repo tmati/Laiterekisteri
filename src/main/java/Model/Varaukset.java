@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
 )
 public class Varaukset implements java.io.Serializable {
 
-    private Integer id;
+    private int id;
     private Kayttaja kayttaja;
     private Resurssit resurssit;
     private Timestamp alkupvm;
@@ -44,7 +44,7 @@ public class Varaukset implements java.io.Serializable {
         this.paattymispvm = Timestamp.valueOf(paattymispvm);
         this.kuvaus = kuvaus;
         this.palautettu = palautettu;
-        this.nimi = nimi;
+        this.nimi = resurssit.getNimi();
     }
 
     public Varaukset(Kayttaja kayttaja, Resurssit resurssit, LocalDateTime alkupvm, LocalDateTime paattymispvm, String kuvaus, boolean palautettu, String nimi, Boolean hyvaksytty) {
@@ -54,7 +54,7 @@ public class Varaukset implements java.io.Serializable {
         this.paattymispvm = Timestamp.valueOf(paattymispvm);
         this.kuvaus = kuvaus;
         this.palautettu = palautettu;
-        this.nimi = nimi;
+        this.nimi = resurssit.getNimi();
         this.hyvaksytty = hyvaksytty;
     }
 

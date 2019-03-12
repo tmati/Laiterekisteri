@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -28,7 +27,7 @@ import javafx.stage.Stage;
 import Model.KayttajaAccessObject;
 
 /**
- * FXML Controller class
+ * Kirjautumisikkunan toiminnallisuus.
  *
  * @author tmati
  */
@@ -56,7 +55,7 @@ public class loginWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
         logoView.setImage(image);
         centerImage(logoView);
@@ -94,22 +93,6 @@ public class loginWindowController implements Initializable {
     }
 
     /**
-     * Testi popup-ikkunan näyttämistä ja jatkokehittämistä varten. Tähän pitää
-     * muuttaa sisäänkirjautuneen käyttäjän näkymä kohteeksi kun valmistuu. Nyt
-     * tämä ajetaan vain tavallisesta painikkeesta login-ikkunassa
-     *
-     * @param event
-     * @throws IOException
-     */
-    @FXML
-    private void test(MouseEvent event) throws IOException {
-        KayttajaAccessObject dao = new KayttajaAccessObject();
-        Kayttaja testi = new Kayttaja("Jokke", "passu","testi","testi", 1);       
-        dao.createKayttaja(testi);
-
-    }
-
-    /**
      * Heittää herjan jos käyttäjä yrittää kirjautua asettamatta vaadittavia
      * tietoja.
      *
@@ -138,16 +121,7 @@ public class loginWindowController implements Initializable {
      * @param passWord password-kentän sisältö
      * @return true jos käyttäjä/salasanapari on oikea.
      */
-    private boolean login(String userName, String passWord) {
-        /*TODO etsi tietokannasta nimeä vastaava käyttäjä ja sen salasana.
-        Vertaa niitä
-        Palauta true jos täsmää
-        Palauta false ja heitä joku herja jos: 
-        Käyttäjää ei löydy.
-        Salasana on väärä.
-         */
-        return false;
-    }
+
 
     /**
      * TODO Login-painikkeen painamisen jälkeen tapahtuva toiminta.
@@ -155,20 +129,34 @@ public class loginWindowController implements Initializable {
      */
     private void loginProcess() {
         if (loginPossible) {
+            KayttajaAccessObject KAO = new KayttajaAccessObject();
             String userName = usernameField.getText();
             String passWord = passwordField.getText();
-            try {
-                //if (Login(userName, passWord)) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
-                Stage stage = (Stage) logoView.getScene().getWindow();
-                Parent root = loader.load();
-                stage.getScene().setRoot(root);
-            } catch (IOException e) {
-                e.printStackTrace();
+            Kayttaja[] users = KAO.readKayttajat();
+
+            for (Kayttaja user : users) {
+                if (user.getKayttajatunnus().equals(userName)) {
+                    if (user.getSalasana().equals(passWord)) {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
+                            Stage stage = (Stage) logoView.getScene().getWindow();
+                            //Käyttäjätietojen tallennus
+                            View.loggedIn = user;
+                            Parent root = loader.load();
+                            stage.getScene().setRoot(root);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+
+                        }
+                    } else {
+                        Alert alert = new Alert(AlertType.WARNING, "Väärä käyttäjätunnus tai salasana");
+                        alert.showAndWait();
+                    }
+                    
+                }
+
             }
-        } else {
-            //väärä käyttäjätunnus tai salasana ---- tämä siis Login-metodiin liittyvä else
-        }
+        } 
     }
 
     /**

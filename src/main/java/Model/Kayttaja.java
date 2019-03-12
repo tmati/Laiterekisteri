@@ -106,7 +106,7 @@ public class Kayttaja implements java.io.Serializable {
         this.sahkoposti = sahkoposti;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "kayttaja")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "kayttaja")
     public Set<Varaukset> getVarauksets() {
         return this.varauksets;
     }

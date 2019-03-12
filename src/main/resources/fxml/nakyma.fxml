@@ -36,10 +36,10 @@
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="52.79999389648438" minHeight="10.0" prefHeight="49.59999084472656" valignment="BOTTOM" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="150.00000610351563" minHeight="0.0" prefHeight="16.80000915527343" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="312.80000000000007" minHeight="0.0" prefHeight="85.59998779296878" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="615.0000122070312" minHeight="10.0" prefHeight="615.0000122070312" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="95.80002441406248" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="150.00000610351563" minHeight="0.0" prefHeight="27.99999389648437" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="312.80000000000007" minHeight="0.0" prefHeight="75.20000610351562" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="615.0000122070312" minHeight="10.0" prefHeight="559.8000122070313" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="95.80002441406248" minHeight="0.0" prefHeight="54.999987792968795" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <Label fx:id="usernameLabel" alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="454.0" text="USERINFO" textFill="WHITE" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.halignment="RIGHT">
@@ -86,15 +86,14 @@
                <content>
                   <StackPane fx:id="kaikkiStack" prefHeight="722.0" prefWidth="1446.0">
                      <children>
-                        <TableView fx:id="kaikkiTableView" prefHeight="408.0" prefWidth="1478.0">
+                        <TableView fx:id="kaikkiTableView" editable="true" prefHeight="408.0" prefWidth="1478.0">
                            <columns>
                               <TableColumn fx:id="idColumn" onEditCommit="#idOnEditCommit" prefWidth="64.0" resizable="false" text="ID" />
-                              <TableColumn fx:id="nimiColumn" onEditCommit="#nimiOnEditCommit" prefWidth="288.80003356933594" resizable="false" text="NIMI" />
-                              <TableColumn fx:id="valmistajaColumn" onEditCommit="#valmistajaOnEditCommit" prefWidth="236.79998779296875" resizable="false" text="VALMISTAJA" />
-                              <TableColumn fx:id="tyyppiColumn" minWidth="0.0" onEditCommit="#tyyppiOnEditCommit" prefWidth="242.39996337890625" resizable="false" text="TYYPPI" />
+                              <TableColumn fx:id="nimiColumn" onEditCommit="#nimiOnEditCommit" prefWidth="356.79998779296875" resizable="false" text="NIMI" />
+                              <TableColumn fx:id="tyyppiColumn" minWidth="0.0" onEditCommit="#tyyppiOnEditCommit" prefWidth="175.20001220703125" resizable="false" text="TYYPPI" />
                               <TableColumn fx:id="luvanvaraisuusColumn" onEditCommit="#luvanvaraisuusOnEditCommit" prefWidth="168.8001708984375" resizable="false" text="LUVANVARAISUUS" />
-                              <TableColumn fx:id="kuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="366.39996337890625" resizable="false" text="KUVAUS" />
-                              <TableColumn fx:id="tilaColumn" maxWidth="118.4000244140625" prefWidth="118.4000244140625" text="TILA" />
+                              <TableColumn fx:id="kuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="628.8001098632812" resizable="false" text="KUVAUS" />
+                              <TableColumn fx:id="tilaColumn" maxWidth="355.99995117187495" onEditCommit="#tilaOnEditCommit" prefWidth="86.39990234375" text="TILA" />
                            </columns>
                         </TableView>
                      </children>
@@ -105,15 +104,15 @@
                <content>
                   <StackPane fx:id="omatStack" prefHeight="719.0" prefWidth="1446.0">
                      <children>
-                        <TableView fx:id="omatTable" prefHeight="408.0" prefWidth="1505.0">
+                        <TableView fx:id="omatTable" editable="true" prefHeight="408.0" prefWidth="1505.0">
                            <columns>
                               <TableColumn fx:id="laiteidColumn" onEditCommit="#laiteidOneEditCommit" prefWidth="75.0" resizable="false" text="LAITEID" />
                               <TableColumn fx:id="laitenimiColumn" onEditCommit="#laitenimiOnEditCommit" prefWidth="369.6000518798828" text="LAITTEEN NIMI" />
                               <TableColumn fx:id="alkupvmColumn" onEditCommit="#alkupvmOnEditCommit" prefWidth="199.19998168945312" resizable="false" text="VARAUKSEN ALKUPVM" />
                               <TableColumn fx:id="paattymispvmColumn" onEditCommit="#paattymispvmOnEditCommit" prefWidth="220.800048828125" resizable="false" text="VARAUKSEN PÄÄTTYMISPVM" />
                               <TableColumn fx:id="varausidColumn" onEditCommit="#varausidOnEditCommit" prefWidth="112.7999267578125" resizable="false" text="VARAUSID" />
-                              <TableColumn fx:id="varauskuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="416.79998779296875" resizable="false" text="KUVAUS" />
-                              <TableColumn fx:id="palautettuColumn" maxWidth="96.0" minWidth="0.0" onEditCommit="#palautettuOnEditCommit" prefWidth="96.0" resizable="false" text="PALAUTETTU" />
+                              <TableColumn fx:id="varauskuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="385.60015869140625" resizable="false" text="KUVAUS" />
+                              <TableColumn fx:id="palautettuColumn" maxWidth="127.199951171875" minWidth="0.0" onEditCommit="#palautettuOnEditCommit" prefWidth="117.5999755859375" resizable="false" text="PALAUTETTU" />
                            </columns>
                         </TableView>
                      </children>
@@ -161,6 +160,14 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </Button>
+            <Button fx:id="poistaresurssiBtn" mnemonicParsing="false" onMouseClicked="#poistaresurssiNappiPainettu" prefHeight="39.0" prefWidth="348.0" text="POISTA RESURSSI">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </Button>
          </children>
          <padding>
             <Insets left="10.0" right="10.0" />
@@ -190,6 +197,7 @@
             <Insets top="5.0" />
          </GridPane.margin>
       </HBox>
+      <Button fx:id="updateBtn" mnemonicParsing="false" onMouseClicked="#updateBtnPainettu" text="PÄIVITÄ TAULUKKO" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
    </children>
    <padding>
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

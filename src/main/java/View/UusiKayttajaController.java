@@ -6,6 +6,7 @@
 package View;
 
 import Model.Kayttaja;
+import Model.KayttajaAccessObject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -19,7 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
 
 /**
- * FXML Controller class
+ * Uuden käyttäjän luontipopupin toiminnallisuus
  *
  * @author tmati
  */
@@ -73,32 +74,66 @@ public class UusiKayttajaController implements Initializable {
      * @param vertailukohde Verrattava syöte. Iteroi tässä koko tietokannan läpi.
      * @return true jos uniikki
      */    
-    boolean uniikkiusTarkastus(String tarkastettavaSyote, String vertailuKohde) {
-        if (vertailuKohde.equals(tarkastettavaSyote)) {
-            virheLabel.setText(vertailuKohde + " on jo varattu. Kokeile toista syötettä.");
-            virheLabel.setDisable(false);
-            virheLabel.setOpacity(100);
-            return false;
+    boolean emailTarkastus(String tarkastettavaSyote) {
+        KayttajaAccessObject KAO = new KayttajaAccessObject();
+        Kayttaja[] kayttajat = KAO.readKayttajat();
+        for (Kayttaja kayttaja : kayttajat) {
+            if (kayttaja.getSahkoposti().equals(tarkastettavaSyote)) {
+                virheLabel.setText("Sähköposti on jo varattu. Kokeile toista osoitetta.");
+                virheLabel.setDisable(false);
+                virheLabel.setOpacity(100);
+                return false;
+            }
         }
         return true;
     }
-
+    
+        /**
+     * TODO Hae käyttäjät tietokannasta ja vertaa niiden tunnuksia 
+     * @param tarkastettavaSyote uuden käyttäjän parametri
+     * @param vertailukohde Verrattava syöte. Iteroi tässä koko tietokannan läpi.
+     * @return true jos uniikki
+     */    
+    boolean usernameTarkastus(String tarkastettavaSyote) {
+        KayttajaAccessObject KAO = new KayttajaAccessObject();
+        Kayttaja[] kayttajat = KAO.readKayttajat();
+        for (Kayttaja kayttaja : kayttajat) {
+            if (kayttaja.getKayttajatunnus().equals(tarkastettavaSyote)) {
+                virheLabel.setText("Käyttäjätunnus on jo varattu. Kokeile toista tunnusta.");
+                virheLabel.setDisable(false);
+                virheLabel.setOpacity(100);
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Luo uuden käyttäjän annettujen ehtojen täsmätessä. Herjaa jos ehdot ei täsmää.
+     * @param event 
+     */
     @FXML
     private void luokayttajaNappiPainettu(MouseEvent event) {
         //Sähköpostin pitää olla uniikki. Tarkasta tietokannasta.
-        String placeHolder = "1234567";
-        if (nimiTextField.getText() != null && emailTextField.getText() != null && salasanaTextField.getText() != null && kayttajatunnusTextField.getText() != null && !valtuudetChoiceBox.getValue().equals("Valitse...") && uniikkiusTarkastus(emailTextField.getText(), placeHolder) && uniikkiusTarkastus(kayttajatunnusTextField.getText(), placeHolder)) {
+        if (nimiTextField.getText() != null && emailTextField.getText() != null && salasanaTextField.getText() != null && kayttajatunnusTextField.getText() != null && !valtuudetChoiceBox.getValue().equals("Valitse...") && emailTarkastus(emailTextField.getText()) && usernameTarkastus(kayttajatunnusTextField.getText())) {
             Kayttaja J = new Kayttaja(nimiTextField.getText(), salasanaTextField.getText(), kayttajatunnusTextField.getText(), emailTextField.getText(), tulkitseChoiceBox(valtuudetChoiceBox));
             System.out.println(J.getNimi() + " | " + J.getSalasana() + " | " + J.getKayttajatunnus() + " | " + J.getSahkoposti() + " | " + J.getValtuudet());
+            KayttajaAccessObject KAO = new KayttajaAccessObject();
+            KAO.createKayttaja(J);
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
             popup.hide();
+            
         } else {
             virheLabel.setText("Tietoja puuttuu. Täytä kaikki kohdat ja yritä uudelleen.");
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
         }
     }
-
+    
+    /**
+     * Sulkee popupin.
+     * @param event 
+     */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();

@@ -5,9 +5,13 @@
  */
 package View;
 
+import Model.Resurssit;
 import Model.Varaukset;
+import Model.VarauksetAccessObject;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -26,7 +30,7 @@ import javafx.stage.Popup;
 import javafx.util.converter.LocalTimeStringConverter;
 
 /**
- * FXML Controller class
+ * Varaus-popupin toiminnot.
  *
  * @author tmati
  */
@@ -128,7 +132,7 @@ public class varausController implements Initializable {
         
         
         //TODO Tähän varattavan tuotteen nimi jotakin kautta.
-        itemLabel.setText("TESTINGGGG");
+        itemLabel.setText(View.booking.getNimi());
         
         //ValueFactoryiden määrittäminen spinnereilleen.
         mistaSpinner.setValueFactory(mistaFactory);
@@ -136,26 +140,25 @@ public class varausController implements Initializable {
     }
         
     /**
-     * TODO varauksen tallettaminen tietokantaan. Ei voi tehdä ennenkuin tietokanta toimii.
+     * 
      * @param event 
      */
     @FXML
     private void varausNappiPainettu(ActionEvent event) {
-        //Vie tietokantaan:
-        /*
-        KäyttäjäID
-        LaiteID
-        */
-        
-        //Alkaen
         LocalDate startDate = mistaDp.getValue();
         LocalTime startTime = (LocalTime) mistaSpinner.getValue();
+        
+        LocalDateTime startStamp = LocalDateTime.of(startDate, startTime);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Timestamp ts1 = Timestamp.valueOf(startStamp.format(dtf));
         
         System.out.println("Alku: " + startDate.toString() + " | " + startTime.truncatedTo(ChronoUnit.MINUTES).toString());
         
         //Loppuen
         LocalDate endDate = mihinDp.getValue();
         LocalTime endTime = (LocalTime) mihinSpinner.getValue();
+        LocalDateTime endStamp = LocalDateTime.of(endDate, endTime);
+        Timestamp ts2 = Timestamp.valueOf(endStamp.format(dtf));
         
         System.out.println("Loppu: " + endDate.toString() + " | " + endTime.truncatedTo(ChronoUnit.MINUTES).toString());
         
@@ -163,7 +166,12 @@ public class varausController implements Initializable {
         String info = lisatiedotTextbox.getText();
         System.out.println(info);
         
-        Boolean palautettu = false;
+        
+        Varaukset V = new Varaukset(View.loggedIn, View.booking, startStamp, endStamp, info, false, View.booking.getNimi(), false);
+        VarauksetAccessObject VAO = new VarauksetAccessObject();
+        VAO.createVaraus(V);
+        View.booking = null;
+        
     }
 
     /**

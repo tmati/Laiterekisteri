@@ -21,7 +21,7 @@ import javax.persistence.Table;
 )
 public class Resurssit implements java.io.Serializable {
 
-    private Integer id;
+    private int id;
     private boolean status;
     private String nimi;
     private String tyyppi;
