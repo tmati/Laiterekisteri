@@ -28,6 +28,16 @@ public class KayttajaController {
         return kayttajaDAO.readKayttaja(id);
     }
     
+    public boolean vieUusiKayttajaTietokantaan(Kayttaja kayttaja){
+        return kayttajaDAO.createKayttaja(kayttaja);
+    }
+    
+    public boolean paivitaKayttaja(Kayttaja kayttaja){
+        return kayttajaDAO.updateKayttaja(kayttaja);
+    }
+    
+    
+    
     
 
 }
