@@ -1,8 +1,9 @@
 /**
- * 
+ *
  */
 package View;
 
+import Controller.Controller;
 import Model.Kayttaja;
 import Model.KayttajaAccessObject;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -30,6 +32,7 @@ import javafx.util.converter.IntegerStringConverter;
 
 /**
  * Käyttäjänäkymään liittyvät toiminnot.
+ *
  * @author tmati
  */
 public class KayttajaAdminController implements Initializable {
@@ -60,7 +63,7 @@ public class KayttajaAdminController implements Initializable {
     private Button poistaBtn;
     @FXML
     private DatePicker datePicker;
-    @FXML 
+    @FXML
     private GridPane bgPane;
     @FXML
     private TableColumn kayttajatunnusColumn;
@@ -68,44 +71,43 @@ public class KayttajaAdminController implements Initializable {
     @FXML
     private Button updateBtn;
 
+    private Controller kontrolleri;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        KayttajaAccessObject KAO = new KayttajaAccessObject();
-        
+        kontrolleri = new Controller();
+
         //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
-        nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("nimi"));
+        nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        
-        emailColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja,String>("sahkoposti"));
+
+        emailColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("sahkoposti"));
         emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        
+
         valtuudetColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, Integer>("valtuudet"));
         valtuudetColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        
+
         kayttajatunnusColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("kayttajatunnus"));
         kayttajatunnusColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        Kayttaja[] users = KAO.readKayttajat();
-        kayttajaTableView.getItems().addAll(users);
+        kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
         bizName.setText(View.BizName);
         usernameLabel.setText(View.loggedIn.getNimi());
-    }  
-    
+    }
+
     @FXML
     public void updateBtnPainettu(MouseEvent event) {
-        KayttajaAccessObject KAO = new KayttajaAccessObject();
         kayttajaTableView.getItems().clear();
-        Kayttaja[] users = KAO.readKayttajat();
-        kayttajaTableView.getItems().addAll(users);
+        kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
     }
-    
+
     /**
      * Logout. Palauttaa käyttäjän kirjautumisnäkymään ja kirjaa tämän ulos.
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     public void logout(MouseEvent event) throws IOException {
@@ -118,9 +120,11 @@ public class KayttajaAdminController implements Initializable {
     }
 
     /**
-     * Käyttäjän painaessa takaisin - painiketta tämä palautetaan takaisin päänäkymään.
+     * Käyttäjän painaessa takaisin - painiketta tämä palautetaan takaisin
+     * päänäkymään.
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     private void takaisinBtnPainettu(MouseEvent event) throws IOException {
@@ -130,18 +134,18 @@ public class KayttajaAdminController implements Initializable {
         Parent root = loader.load();
         stage.getScene().setRoot(root);
     }
-    
-    
+
     @FXML
     private void tallennaBtnPainettu(MouseEvent event) {
         //TODO Lopputoimet tietokantaan
         System.out.println("Tallennus");
     }
-    
+
     /**
      * Avaa uuden käyttäjän lisäämisnäkymän.
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     private void lisaaBtnPainettu(MouseEvent event) throws IOException {
@@ -157,35 +161,33 @@ public class KayttajaAdminController implements Initializable {
             popup.show(window);
         }
     }
-    
+
     /**
      * Poistaa valitun rivin tietokannasta.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void poistaBtnPainettu(MouseEvent event) {
-        KayttajaAccessObject KAO = new KayttajaAccessObject();
         Kayttaja K = kayttajaTableView.getSelectionModel().getSelectedItem();
-        KAO.deleteKayttaja(K.getId());
-        Kayttaja[] users = KAO.readKayttajat();
-        kayttajaTableView.getItems().clear();
-        kayttajaTableView.getItems().addAll(users);
+        kontrolleri.poistaKayttaja(K.getId());
+        this.updateBtnPainettu(event);
         System.out.println("Poistetaan rivi");
     }
 
     /**
      * Toiminnallisuus nimi-columnin muokkaamisen päättyessä.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void nimiEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
         Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
         J.setNimi(event.getNewValue());
         System.out.println("Uusi nimi: " + J.getNimi());
-        KayttajaAccessObject KAO = new KayttajaAccessObject();
-        KAO.updateKayttaja(J);
+        kontrolleri.paivitaKayttaja(J);
     }
-    
+
     /**
      * Toiminnalisuus sähköposticolumnin muokkaamisen päättyessä
      *
@@ -193,24 +195,30 @@ public class KayttajaAdminController implements Initializable {
      */
     @FXML
     private void emailEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
-        Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
-        J.setSahkoposti(event.getNewValue());
-        System.out.println("Uusi email: " + J.getSahkoposti());
-        KayttajaAccessObject KAO = new KayttajaAccessObject();
-        KAO.updateKayttaja(J);
+        if (!kontrolleri.tarkistaEmail(event.getNewValue())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Sähköposti on jo käytössä!");
+            alert.showAndWait();
+            kayttajaTableView.getItems().clear();
+            kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
+        } else {
+            Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
+            J.setSahkoposti(event.getNewValue());
+            System.out.println("Uusi email: " + J.getSahkoposti());
+            kontrolleri.paivitaKayttaja(J);
+        }
     }
-    
+
     /**
      * Toiminnallisuus valtuudet-columnin muokkaamisen päättyessä.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void valtuudetEditCommit(TableColumn.CellEditEvent<Kayttaja, Integer> event) {
         Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
         J.setValtuudet(event.getNewValue());
         System.out.println("Uudet valtuudet: " + J.getValtuudet());
-        KayttajaAccessObject KAO = new KayttajaAccessObject();
-        KAO.updateKayttaja(J);
+        kontrolleri.paivitaKayttaja(J);
     }
 
     /**
@@ -220,10 +228,16 @@ public class KayttajaAdminController implements Initializable {
      */
     @FXML
     private void kayttajatunnusEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
-        Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
-        J.setKayttajatunnus(event.getNewValue());
-        System.out.println("Uusi tunnus: " + J.getKayttajatunnus());
-        KayttajaAccessObject KAO = new KayttajaAccessObject();
-        KAO.updateKayttaja(J);
+        if (!kontrolleri.tarkistaUsername(event.getNewValue())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Käyttäjätunnus on jo käytössä!");
+            alert.showAndWait();
+            kayttajaTableView.getItems().clear();
+            kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
+        } else {
+            Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
+            J.setKayttajatunnus(event.getNewValue());
+            System.out.println("Uusi tunnus: " + J.getKayttajatunnus());
+            kontrolleri.paivitaKayttaja(J);
+        }
     }
 }

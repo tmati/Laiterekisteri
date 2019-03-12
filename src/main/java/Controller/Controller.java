@@ -7,17 +7,23 @@ package Controller;
 
 import Model.Kayttaja;
 import Model.KayttajaAccessObject;
+import Model.ResurssitAccessObject;
+import Model.VarauksetAccessObject;
+import Model.KayttajaTarkistus;
 
 /**
  *
  * @author Tommi
  */
-public class KayttajaController {
+public class Controller {
 
     private KayttajaAccessObject kayttajaDAO;
-
-    public KayttajaController() {
+    private ResurssitAccessObject resurssiDAO;
+    private VarauksetAccessObject varausDAO;
+    private KayttajaTarkistus kayttajaTarkistus;
+    public Controller() {
         kayttajaDAO = new KayttajaAccessObject();
+        kayttajaTarkistus = new KayttajaTarkistus(this);
     }
     
     public Kayttaja[] haeKaikkiKayttajat(){
@@ -34,6 +40,18 @@ public class KayttajaController {
     
     public boolean paivitaKayttaja(Kayttaja kayttaja){
         return kayttajaDAO.updateKayttaja(kayttaja);
+    }
+    
+    public boolean poistaKayttaja(int id){
+        return kayttajaDAO.deleteKayttaja(id);
+    }
+    
+    public boolean tarkistaUsername(String username){
+        return kayttajaTarkistus.usernameTarkastus(username);
+    }
+    
+    public boolean tarkistaEmail(String email){
+        return kayttajaTarkistus.emailTarkastus(email);
     }
     
     
