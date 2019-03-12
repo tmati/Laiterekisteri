@@ -7,15 +7,15 @@ package View;
 
 
 import Model.Kayttaja;
+import Model.Resurssit;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
- *
+ *Sovelluksen laukaisu.
  * @author tmati
  */
 public class View extends Application {
@@ -27,6 +27,7 @@ public class View extends Application {
      */
     public static Kayttaja loggedIn = null;
     public static String BizName = "Long beach Skateboards";
+    public static Resurssit booking = null;
     
     @Override
     public void start(Stage stage) throws Exception {

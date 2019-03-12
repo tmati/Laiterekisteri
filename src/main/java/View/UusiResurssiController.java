@@ -6,6 +6,7 @@
 package View;
 
 import Model.Resurssit;
+import Model.ResurssitAccessObject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -20,7 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
 
 /**
- * FXML Controller class
+ * Uuden resurssin luomiseen liittyvä toiminnalisuus. Toteutus Popup-ikkunassa.
  *
  * @author tmati
  */
@@ -80,7 +81,8 @@ public class UusiResurssiController implements Initializable {
             System.out.println("Luodaan uusi resurssi!");
             Resurssit R = new Resurssit(false, nimiTextField.getText(), tyyppiTextField.getText(), tulkitseChoiceBox(LuvanvaraisuusChoiceBox), kuvausTextbox.getText());
             System.out.println(R.getNimi() + " | " + R.getTyyppi() + " | " + R.getLuvanvaraisuus() + " | " + R.getKuvaus());
-            //RAO.createResurssi(R);
+            ResurssitAccessObject RAO = new ResurssitAccessObject();
+            RAO.createResurssi(R);
             virheLabel.setDisable(true);
             virheLabel.setOpacity(0);
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();

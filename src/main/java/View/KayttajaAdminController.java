@@ -1,7 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * 
  */
 package View;
 
@@ -31,8 +29,7 @@ import javafx.stage.Window;
 import javafx.util.converter.IntegerStringConverter;
 
 /**
- * FXML Controller class
- *
+ * Käyttäjänäkymään liittyvät toiminnot.
  * @author tmati
  */
 public class KayttajaAdminController implements Initializable {
@@ -68,6 +65,8 @@ public class KayttajaAdminController implements Initializable {
     @FXML
     private TableColumn kayttajatunnusColumn;
     Popup popup;
+    @FXML
+    private Button updateBtn;
 
     /**
      * Initializes the controller class.
@@ -91,7 +90,17 @@ public class KayttajaAdminController implements Initializable {
         kayttajatunnusColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         Kayttaja[] users = KAO.readKayttajat();
         kayttajaTableView.getItems().addAll(users);
+        bizName.setText(View.BizName);
+        usernameLabel.setText(View.loggedIn.getNimi());
     }  
+    
+    @FXML
+    public void updateBtnPainettu(MouseEvent event) {
+        KayttajaAccessObject KAO = new KayttajaAccessObject();
+        kayttajaTableView.getItems().clear();
+        Kayttaja[] users = KAO.readKayttajat();
+        kayttajaTableView.getItems().addAll(users);
+    }
     
     /**
      * Logout. Palauttaa käyttäjän kirjautumisnäkymään ja kirjaa tämän ulos.
@@ -155,10 +164,15 @@ public class KayttajaAdminController implements Initializable {
      */
     @FXML
     private void poistaBtnPainettu(MouseEvent event) {
-        //TODO
+        KayttajaAccessObject KAO = new KayttajaAccessObject();
+        Kayttaja K = kayttajaTableView.getSelectionModel().getSelectedItem();
+        KAO.deleteKayttaja(K.getId());
+        Kayttaja[] users = KAO.readKayttajat();
+        kayttajaTableView.getItems().clear();
+        kayttajaTableView.getItems().addAll(users);
         System.out.println("Poistetaan rivi");
     }
-    
+
     /**
      * Toiminnallisuus nimi-columnin muokkaamisen päättyessä.
      * @param event 
@@ -168,16 +182,22 @@ public class KayttajaAdminController implements Initializable {
         Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
         J.setNimi(event.getNewValue());
         System.out.println("Uusi nimi: " + J.getNimi());
+        KayttajaAccessObject KAO = new KayttajaAccessObject();
+        KAO.updateKayttaja(J);
     }
     
     /**
      * Toiminnalisuus sähköposticolumnin muokkaamisen päättyessä
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void emailEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
-        /*Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
-        J.setEmail(event.getNewValue());*/
+        Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
+        J.setSahkoposti(event.getNewValue());
+        System.out.println("Uusi email: " + J.getSahkoposti());
+        KayttajaAccessObject KAO = new KayttajaAccessObject();
+        KAO.updateKayttaja(J);
     }
     
     /**
@@ -189,16 +209,21 @@ public class KayttajaAdminController implements Initializable {
         Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
         J.setValtuudet(event.getNewValue());
         System.out.println("Uudet valtuudet: " + J.getValtuudet());
+        KayttajaAccessObject KAO = new KayttajaAccessObject();
+        KAO.updateKayttaja(J);
     }
-    
+
     /**
      * Toiminnallisuus käyttäjätunnus-columnin muokkaamisen päättyessä.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void kayttajatunnusEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
         Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
         J.setKayttajatunnus(event.getNewValue());
         System.out.println("Uusi tunnus: " + J.getKayttajatunnus());
+        KayttajaAccessObject KAO = new KayttajaAccessObject();
+        KAO.updateKayttaja(J);
     }
 }

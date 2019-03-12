@@ -6,6 +6,7 @@
 package View;
 
 import Model.Kayttaja;
+import Model.KayttajaAccessObject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -18,7 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
 
 /**
- * FXML Controller class
+ * Salasanan vaihdon ohjaintoiminnot
  *
  * @author tmati
  */
@@ -63,9 +64,10 @@ public class SalasananvaihtoController implements Initializable {
     @FXML
     private void vaihdasalasanaNappiPainettu(MouseEvent event) {
         //Sisään kirjautuneena oleva käyttäjä tähän
-        Kayttaja loggedIn = new Kayttaja();
-        if (vanhasalasanaTextField.getText().equals(loggedIn.getSalasana()) && uusisalasana1TextField.getText().equals(uusisalasana2TextField.getText())) {
-            loggedIn.setSalasana(uusisalasana2TextField.getText());
+        KayttajaAccessObject KAO = new KayttajaAccessObject();
+        if (vanhasalasanaTextField.getText().equals(View.loggedIn.getSalasana()) && uusisalasana1TextField.getText().equals(uusisalasana2TextField.getText())) {
+            View.loggedIn.setSalasana(uusisalasana2TextField.getText());
+            KAO.updateKayttaja(View.loggedIn);
             virheLabel.setDisable(true);
             virheLabel.setOpacity(0);
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
@@ -74,7 +76,7 @@ public class SalasananvaihtoController implements Initializable {
             virheLabel.setText("Uusi salasana ei täsmää tekstikentissä.");
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
-        } else if (!vanhasalasanaTextField.getText().equals(loggedIn.getSalasana())) {
+        } else if (!vanhasalasanaTextField.getText().equals(View.loggedIn.getSalasana())) {
             virheLabel.setText("Vanha salasana väärin.");
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
