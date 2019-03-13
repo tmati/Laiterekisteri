@@ -75,6 +75,8 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -97,6 +99,10 @@ public class KayttajaAdminController implements Initializable {
         usernameLabel.setText(View.loggedIn.getNimi());
     }
 
+    /**
+     * Päivittää napin ulkonäön.
+     * @param event
+     */
     @FXML
     public void updateBtnPainettu(MouseEvent event) {
         kayttajaTableView.getItems().clear();

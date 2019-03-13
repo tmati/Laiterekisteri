@@ -29,9 +29,20 @@ public class Resurssit implements java.io.Serializable {
     private String kuvaus;
     private Set<Varaukset> varauksets = new HashSet<Varaukset>(0);
 
+    /**
+     * Tyhjä konstuktori.
+     */
     public Resurssit() {
     }
 
+    /**
+     * Konstruktori ilman varausta.
+     * @param status
+     * @param nimi
+     * @param tyyppi
+     * @param luvanvaraisuus
+     * @param kuvaus
+     */
     public Resurssit(boolean status, String nimi, String tyyppi, int luvanvaraisuus, String kuvaus) {
         this.status = status;
         this.nimi = nimi;
@@ -40,6 +51,15 @@ public class Resurssit implements java.io.Serializable {
         this.kuvaus = kuvaus;
     }
 
+    /**
+     * Konstruktori varausksella.
+     * @param status
+     * @param nimi
+     * @param tyyppi
+     * @param luvanvaraisuus
+     * @param kuvaus
+     * @param varauksets
+     */
     public Resurssit(boolean status, String nimi, String tyyppi, int luvanvaraisuus, String kuvaus, Set<Varaukset> varauksets) {
         this.status = status;
         this.nimi = nimi;
@@ -49,6 +69,10 @@ public class Resurssit implements java.io.Serializable {
         this.varauksets = varauksets;
     }
 
+    /**
+     *
+     * @return
+     */
     @Id
     @GeneratedValue(strategy = IDENTITY)
 
@@ -57,60 +81,112 @@ public class Resurssit implements java.io.Serializable {
         return this.id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     @Column(name = "Status", nullable = false)
     public boolean isStatus() {
         return this.status;
     }
 
+    /**
+     *
+     * @param status
+     */
     public void setStatus(boolean status) {
         this.status = status;
     }
 
+    /**
+     *
+     * @return
+     */
     @Column(name = "Nimi", nullable = false, length = 40)
     public String getNimi() {
         return this.nimi;
     }
 
+    /**
+     *
+     * @param nimi
+     */
     public void setNimi(String nimi) {
         this.nimi = nimi;
     }
 
+    /**
+     *
+     * @return
+     */
     @Column(name = "Tyyppi", nullable = false, length = 40)
     public String getTyyppi() {
         return this.tyyppi;
     }
 
+    /**
+     *
+     * @param tyyppi
+     */
     public void setTyyppi(String tyyppi) {
         this.tyyppi = tyyppi;
     }
 
+    /**
+     *
+     * @return
+     */
     @Column(name = "Luvanvaraisuus", nullable = false)
     public int getLuvanvaraisuus() {
         return this.luvanvaraisuus;
     }
 
+    /**
+     *
+     * @param luvanvaraisuus
+     */
     public void setLuvanvaraisuus(int luvanvaraisuus) {
         this.luvanvaraisuus = luvanvaraisuus;
     }
 
+    /**
+     *
+     * @return
+     */
     @Column(name = "Kuvaus", nullable = false, length = 400)
     public String getKuvaus() {
         return this.kuvaus;
     }
 
+    /**
+     *
+     * @param kuvaus
+     */
     public void setKuvaus(String kuvaus) {
         this.kuvaus = kuvaus;
     }
 
+    /**
+     *
+     * @return
+     */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "resurssit")
     public Set<Varaukset> getVarauksets() {
         return this.varauksets;
     }
 
+    /**
+     *
+     * @param varauksets
+     */
     public void setVarauksets(Set<Varaukset> varauksets) {
         this.varauksets = varauksets;
     }

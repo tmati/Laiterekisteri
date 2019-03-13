@@ -68,6 +68,8 @@ public class VarausAdminController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -117,6 +119,10 @@ public class VarausAdminController implements Initializable {
 
     }    
 
+    /**
+     * Päivittää napin ulkonäön.
+     * @param event
+     */
     public void updateBtnPainettu(MouseEvent event) {
         varauksetTableView.getItems().clear();
         VarauksetAccessObject VAO = new VarauksetAccessObject();

@@ -6,18 +6,42 @@
 package Model;
 
 /**
- *
+ * Rajapinta Resurssi DAO:n
  * @author Tommi
  */
 public interface ResurssitDAO_IF {
 
+    /**
+     *
+     * @param resurssi
+     * @return
+     */
     public abstract boolean createResurssi(Resurssit resurssi);
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public abstract Resurssit readResurssi(int id);
 
+    /**
+     *
+     * @return
+     */
     public abstract Resurssit[] readResurssit();
 
+    /**
+     *
+     * @param resurssi
+     * @return
+     */
     public abstract boolean updateResurssi(Resurssit resurssi);
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public abstract boolean deleteResurssi(int id);
 }

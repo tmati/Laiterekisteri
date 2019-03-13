@@ -15,6 +15,10 @@ public class KayttajaTarkistus {
 
     private Controller kontrolleri;
 
+    /**
+     * Konstruktori
+     * @param kontrolleri
+     */
     public KayttajaTarkistus(Controller kontrolleri) {
         this.kontrolleri = kontrolleri;
     }
