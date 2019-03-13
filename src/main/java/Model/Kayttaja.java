@@ -37,7 +37,7 @@ public class Kayttaja implements java.io.Serializable {
 
     /**
      * Konstruktio ilman ensimmäistä varausta.
-     * @param nimi
+     * @param nimi 
      * @param salasana
      * @param kayttajatunnus
      * @param sahkoposti

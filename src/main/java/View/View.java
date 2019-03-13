@@ -22,7 +22,7 @@ public class View extends Application {
 
     /**
      * Laukaisee sovelluksen.
-     * @throws Exception 
+     * 
      */
     public static Kayttaja loggedIn = null;
 

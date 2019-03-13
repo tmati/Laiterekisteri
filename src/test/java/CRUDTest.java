@@ -40,6 +40,9 @@ public class CRUDTest {
     Kayttaja k1 = null;
     Kayttaja[] kayttajat = null;
 
+    /**
+     *
+     */
     @Test
     public void kayttajaDAOTest() {
         KayttajaAccessObject kayttajaDAO = new KayttajaAccessObject();
@@ -105,6 +108,9 @@ public class CRUDTest {
     Resurssit res1 = null;
     Resurssit[] resurssit = null;
 
+    /**
+     *
+     */
     @Test
     public void resurssiDAOTest() {
         ResurssitAccessObject resurssiDAO = new ResurssitAccessObject();
@@ -170,6 +176,9 @@ public class CRUDTest {
     LocalDateTime aloitus = LocalDateTime.of(aloitusPV, aloitusAika);
     LocalDateTime lopetus = LocalDateTime.of(lopetusPV, lopetusAika);
 
+    /**
+     *
+     */
     @Test
     public void varausDAOTest() {
         KayttajaAccessObject kayttajaDAO = new KayttajaAccessObject();
