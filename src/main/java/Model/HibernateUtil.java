@@ -30,6 +30,10 @@ public class HibernateUtil {
         }
     }
     
+    /**
+     * Palauttaa Session tehtaan.
+     * @return
+     */
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }

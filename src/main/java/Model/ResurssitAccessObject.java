@@ -11,13 +11,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
- *
+ * Resursien DAO
  * @author Tommi
  */
 public class ResurssitAccessObject implements ResurssitDAO_IF {
 
     SessionFactory sf = null;
 
+    /**
+     * Konstuktori
+     */
     public ResurssitAccessObject() {
         try {
             sf = HibernateUtil.getSessionFactory();
@@ -26,6 +29,11 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
         }
     }
 
+    /**
+     * Luo Resursin tietokantaan.
+     * @param resurssi
+     * @return
+     */
     @Override
     public boolean createResurssi(Resurssit resurssi) {
         Session s = sf.openSession();
@@ -48,6 +56,11 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
 
     }
 
+    /**
+     * Lukee resursin tietokannasta id:n perusteella.
+     * @param id
+     * @return
+     */
     @Override
     public Resurssit readResurssi(int id) {
         Session s = sf.openSession();
@@ -72,6 +85,10 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
         return haettu;
     }
 
+    /**
+     * lukee resursit tietokannasta.
+     * @return
+     */
     @Override
     public Resurssit[] readResurssit() {
         Session s = sf.openSession();
@@ -96,6 +113,11 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
         return resurssit;
     }
 
+    /**
+     * Päivittää resurssin.
+     * @param resurssi
+     * @return
+     */
     @Override
     public boolean updateResurssi(Resurssit resurssi) {
         Session s = sf.openSession();
@@ -129,6 +151,11 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
         return true;
     }
 
+    /**
+     * Poistaa resursin id:n avulla tietokannasta.
+     * @param id
+     * @return
+     */
     @Override
     public boolean deleteResurssi(int id) {
         Session s = sf.openSession();

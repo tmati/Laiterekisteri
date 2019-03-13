@@ -22,11 +22,18 @@ public class View extends Application {
 
     /**
      * Laukaisee sovelluksen.
-     * @param stage
      * @throws Exception 
      */
     public static Kayttaja loggedIn = null;
+
+    /**
+     * Yrityksen nimi
+     */
     public static String BizName = "Long beach Skateboards";
+
+    /**
+     * Resurssit
+     */
     public static Resurssit booking = null;
     
     @Override

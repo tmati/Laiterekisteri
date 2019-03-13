@@ -34,9 +34,22 @@ public class Varaukset implements java.io.Serializable {
     private String nimi;
     private Boolean hyvaksytty;
 
+    /**
+     * Konstuktori
+     */
     public Varaukset() {
     }
 
+    /**
+     * Konstuktori ilman hyväksyttyä
+     * @param kayttaja
+     * @param resurssit
+     * @param alkupvm
+     * @param paattymispvm
+     * @param kuvaus
+     * @param palautettu
+     * @param nimi
+     */
     public Varaukset(Kayttaja kayttaja, Resurssit resurssit, LocalDateTime alkupvm, LocalDateTime paattymispvm, String kuvaus, boolean palautettu, String nimi) {
         this.kayttaja = kayttaja;
         this.resurssit = resurssit;
@@ -47,6 +60,17 @@ public class Varaukset implements java.io.Serializable {
         this.nimi = resurssit.getNimi();
     }
 
+    /**
+     * Konstuktori hyväksytyn kanssa
+     * @param kayttaja
+     * @param resurssit
+     * @param alkupvm
+     * @param paattymispvm
+     * @param kuvaus
+     * @param palautettu
+     * @param nimi
+     * @param hyvaksytty
+     */
     public Varaukset(Kayttaja kayttaja, Resurssit resurssit, LocalDateTime alkupvm, LocalDateTime paattymispvm, String kuvaus, boolean palautettu, String nimi, Boolean hyvaksytty) {
         this.kayttaja = kayttaja;
         this.resurssit = resurssit;
@@ -58,6 +82,10 @@ public class Varaukset implements java.io.Serializable {
         this.hyvaksytty = hyvaksytty;
     }
 
+    /**
+     *
+     * @return
+     */
     @Id
     @GeneratedValue(strategy = IDENTITY)
 
@@ -66,99 +94,184 @@ public class Varaukset implements java.io.Serializable {
         return this.id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "KayttajaId", nullable = false)
     public Kayttaja getKayttaja() {
         return this.kayttaja;
     }
 
+    /**
+     *
+     * @param kayttaja
+     */
     public void setKayttaja(Kayttaja kayttaja) {
         this.kayttaja = kayttaja;
     }
 
+    /**
+     *
+     * @return
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ResurssiId", nullable = false)
     public Resurssit getResurssit() {
         return this.resurssit;
     }
 
+    /**
+     *
+     * @param resurssit
+     */
     public void setResurssit(Resurssit resurssit) {
         this.resurssit = resurssit;
     }
 
+    /**
+     *
+     * @return
+     */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "Alkupvm", nullable = false, length = 26)
     public Timestamp getAlkupvm() {
         return this.alkupvm;
     }
 
+    /**
+     *
+     * @param alkupvm
+     */
     public void setAlkupvm(Timestamp alkupvm) {
         this.alkupvm = alkupvm;
     }
 
+    /**
+     *
+     * @return
+     */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "Paattymispvm", nullable = false, length = 26)
     public Timestamp getPaattymispvm() {
         return this.paattymispvm;
     }
 
+    /**
+     *
+     * @param paattymispvm
+     */
     public void setPaattymispvm(Timestamp paattymispvm) {
         this.paattymispvm = paattymispvm;
     }
 
+    /**
+     *
+     * @return
+     */
     @Column(name = "Kuvaus", nullable = false, length = 40)
     public String getKuvaus() {
         return this.kuvaus;
     }
 
+    /**
+     *
+     * @param kuvaus
+     */
     public void setKuvaus(String kuvaus) {
         this.kuvaus = kuvaus;
     }
 
+    /**
+     *
+     * @return
+     */
     @Column(name = "Palautettu", nullable = false)
     public boolean isPalautettu() {
         return this.palautettu;
     }
 
+    /**
+     *
+     * @param palautettu
+     */
     public void setPalautettu(boolean palautettu) {
         this.palautettu = palautettu;
     }
 
+    /**
+     *
+     * @return
+     */
     @Column(name = "Nimi", nullable = false, length = 40)
     public String getNimi() {
         return this.nimi;
     }
 
+    /**
+     *
+     * @param nimi
+     */
     public void setNimi(String nimi) {
         this.nimi = nimi;
     }
 
+    /**
+     *
+     * @return
+     */
     @Column(name = "Hyvaksytty")
     public Boolean getHyvaksytty() {
         return this.hyvaksytty;
     }
 
+    /**
+     *
+     * @param hyvaksytty
+     */
     public void setHyvaksytty(Boolean hyvaksytty) {
         this.hyvaksytty = hyvaksytty;
     }
 
     //käytä näitä purkka settereitä ja gettereitä jos käytät localDateTime
+
+    /**
+     *
+     * @param alkupvm
+     */
     public void setAlkuAika(LocalDateTime alkupvm) {
         this.alkupvm = Timestamp.valueOf(alkupvm);
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDateTime getAlkuAika() {
         return this.alkupvm.toLocalDateTime();
     }
 
+    /**
+     *
+     * @param paattymispvm
+     */
     public void setLoppuAika(LocalDateTime paattymispvm) {
         this.paattymispvm = Timestamp.valueOf(paattymispvm);
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDateTime getLoppuAika() {
         return this.paattymispvm.toLocalDateTime();
     }

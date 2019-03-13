@@ -142,6 +142,8 @@ public class NakymaController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Transactional
     public void initialize(URL url, ResourceBundle rb) {
@@ -248,6 +250,11 @@ public class NakymaController implements Initializable {
 
     }
     
+    /**
+     * Päivittää miltä nappi näytää kun se on painettu.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void updateBtnPainettu(MouseEvent event) throws IOException {
          ResurssitAccessObject RAO = new ResurssitAccessObject();

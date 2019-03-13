@@ -11,13 +11,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
- *
+ * Käyttäjän DAO
  * @author Tommi
  */
 public class KayttajaAccessObject implements KayttajaDAO_IF {
 
     SessionFactory sf = null;
 
+    /**
+     * konstuktori
+     */
     public KayttajaAccessObject() {
         try {
             sf = HibernateUtil.getSessionFactory();
@@ -26,6 +29,11 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
         }
     }
 
+    /**
+     * Luo uuden käyttäjän.
+     * @param kayttaja
+     * @return
+     */
     @Override
     public boolean createKayttaja(Kayttaja kayttaja) {
         Session s = sf.openSession();
@@ -48,6 +56,11 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
 
     }
 
+    /**
+     * Lukee käytäjän käytäjän id:n perusteella.
+     * @param id
+     * @return
+     */
     @Override
     public Kayttaja readKayttaja(int id) {
         Session s = sf.openSession();
@@ -70,6 +83,10 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
         return haettu;
     }
 
+    /**
+     * Lukee kaikki käyttäjät tietokannasta.
+     * @return
+     */
     @Override
     public Kayttaja[] readKayttajat() {
         Session s = sf.openSession();
@@ -94,6 +111,11 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
         return kayttajat;
     }
 
+    /**
+     * Päivittää käytäjää.
+     * @param kayttaja
+     * @return
+     */
     @Override
     public boolean updateKayttaja(Kayttaja kayttaja) {
         Session s = sf.openSession();
@@ -127,6 +149,11 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
         return true;
     }
 
+    /**
+     * Poistaa käytäjän tietokannasta id:n perusteella.
+     * @param id
+     * @return
+     */
     @Override
     public boolean deleteKayttaja(int id) {
 

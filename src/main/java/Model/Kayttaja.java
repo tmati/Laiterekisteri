@@ -29,9 +29,20 @@ public class Kayttaja implements java.io.Serializable {
     private String sahkoposti;
     private Set<Varaukset> varauksets = new HashSet<Varaukset>(0);
 
+    /**
+     * Tyhjä konstruktio.
+     */
     public Kayttaja() {
     }
 
+    /**
+     * Konstruktio ilman ensimmäistä varausta.
+     * @param nimi
+     * @param salasana
+     * @param kayttajatunnus
+     * @param sahkoposti
+     * @param valtuudet
+     */
     public Kayttaja(String nimi, String salasana, String kayttajatunnus, String sahkoposti, int valtuudet) {
         this.nimi = nimi;
         this.salasana = salasana;
@@ -40,6 +51,15 @@ public class Kayttaja implements java.io.Serializable {
         this.sahkoposti = sahkoposti;
     }
 
+    /**
+     * Konstruktio varauksen kanssa.
+     * @param nimi
+     * @param salasana
+     * @param valtuudet
+     * @param kayttajatunnus
+     * @param sahkoposti
+     * @param varauksets
+     */
     public Kayttaja(String nimi, String salasana, int valtuudet, String kayttajatunnus, String sahkoposti, Set<Varaukset> varauksets) {
         this.nimi = nimi;
         this.salasana = salasana;
@@ -49,6 +69,10 @@ public class Kayttaja implements java.io.Serializable {
         this.varauksets = varauksets;
     }
 
+    /** 
+     * getteri käyttäjä id:lle
+     * @return
+     */
     @Id
     @GeneratedValue(strategy = IDENTITY)
 
@@ -57,60 +81,112 @@ public class Kayttaja implements java.io.Serializable {
         return this.id;
     }
 
+    /**
+     * setteri käyttäjä id:lle
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * getteri käyttäjä nimelle
+     * @return
+     */
     @Column(name = "Nimi", nullable = false, length = 40)
     public String getNimi() {
         return this.nimi;
     }
 
+    /**
+     * Setteri käyttäjä nimelle
+     * @param nimi
+     */
     public void setNimi(String nimi) {
         this.nimi = nimi;
     }
 
+    /**
+     * getteri käyttäjä salasanalle
+     * @return
+     */
     @Column(name = "Salasana", nullable = false, length = 40)
     public String getSalasana() {
         return this.salasana;
     }
 
+    /**
+     *  setteri käyttäjä salasanalle
+     * @param salasana
+     */
     public void setSalasana(String salasana) {
         this.salasana = salasana;
     }
 
+    /**
+     * getteri käyttäjä valtuuksille
+     * @return
+     */
     @Column(name = "Valtuudet", nullable = false)
     public int getValtuudet() {
         return this.valtuudet;
     }
 
+    /**
+     * setteri käyttäjä valtuuksille
+     * @param valtuudet
+     */
     public void setValtuudet(int valtuudet) {
         this.valtuudet = valtuudet;
     }
 
+    /**
+     * getteri käyttäjä käyttäjätunnukselle
+     * @return
+     */
     @Column(name = "Kayttajatunnus", nullable = false, length = 40)
     public String getKayttajatunnus() {
         return this.kayttajatunnus;
     }
 
+    /**
+     * setteri käyttäjä käyttäjätunnukselle
+     * @param kayttajatunnus
+     */
     public void setKayttajatunnus(String kayttajatunnus) {
         this.kayttajatunnus = kayttajatunnus;
     }
 
+    /**
+     * getteri käyttäjä sähköpostille
+     * @return
+     */
     @Column(name = "Sahkoposti", nullable = false, length = 80)
     public String getSahkoposti() {
         return this.sahkoposti;
     }
 
+    /**
+     * setteri käyttäjä sähköpostille
+     * @param sahkoposti
+     */
     public void setSahkoposti(String sahkoposti) {
         this.sahkoposti = sahkoposti;
     }
 
+    /**
+     * getteri käyttäjä varauksille
+     * @return
+     */
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "kayttaja")
     public Set<Varaukset> getVarauksets() {
         return this.varauksets;
     }
 
+    /**
+     * setteri käyttäjä varauksille
+     * @param varauksets
+     */
     public void setVarauksets(Set<Varaukset> varauksets) {
         this.varauksets = varauksets;
     }
