@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 public class View extends Application {
 
     /**
-     * Laukaisee sovelluksen.
+     * Sovelluksen käytäjän tiedot.
      * 
      */
     public static Kayttaja loggedIn = null;
