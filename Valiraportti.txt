@@ -6,8 +6,9 @@ Yritys voi lisätä ja poistaa resursseja järjestelmästä sekä muokata niitä
 tavallisia työntekijöitä, jotka voivat tehdä varauksia, esimiehiä, jotka voivat muokata, hyväksyä ja hylätä varauksia, 
 sekä ylläpitäjiä jotka voivat lisää, poistaa ja muokata kaikkia järjestelmän tietoja.  
 
-Käyttöliittymän ensimmäinen versio on toiminnassa. Tällä hetkellä se on vielä varsin yksinkertaisen näköinen, 
-mutta sitä on tarkoitus kehittää OTP2-opintojakson aikana. Tällä hetkellä käyttäjien näkymiä ei ole rajoitettu, mikä tarkoittaa, että työntekijä tason käyttäjä näkee ylläpidolle
+Käyttöliittymän ensimmäinen versio on toiminnassa. Tällä hetkellä se on vielä varsin yksinkertaisen näköinen,
+mutta sitä on tarkoitus kehittää OTP2-opintojakson aikana. Se on kuitenki pääosin toiminnallinen, eli pystymme lisäämään, hakemaan sekä
+muokkamaan tietokantaa käyttöliittymän kautta. Tällä hetkellä käyttäjien näkymiä ei ole rajoitettu, mikä tarkoittaa, että työntekijä tason käyttäjä näkee ylläpidolle
 kuuluvia osia. 
 Yhteys koulun palvelimella pyörivään tietokantaan on toiminnassa.  CRUD-operaatiot toteutettu. Sovellus hyödyntää Hibernate ORM - toiminnallisuutta tietokantakommunikaatiossa. 
 
