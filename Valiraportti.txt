@@ -1,9 +1,18 @@
 Sovellus on laiterekisteri. 
-Laiterekisterissä om yrityksille tarkoitettu esimerkiksi laitteiden tai tilojen varaus järjestelmä, jossa näkyy miten ja kenellä yrityksen resurssit ovat käytössä. 
-Yritys voi lisätä ja poistaa resursseja järjestelmästä sekä muokata niitä. Järjestelmässä on kolmen eri tason käyttäjiä, tavallisia työntekijöitä, jotka voivat tehdä varauksia, esimiehiä, jotka voivat muokata, hyväksyä ja hylätä varauksia, sekä ylläpitäjiä jotka voivat lisätä, poistaa ja muokata kaikkia järjestelmän tietoja.  
+Laiterekisteri on esimerkiksi yrityksille tarkoitettu laitteiden ja tilojen varausjärjestelmä.
+Laiterekisterillä yritys pystyy pitämään kirjanpitoa laitteiden käyttöhistoriasta, näkemään kenellä jokin laite on sillä hetkellä käytössä tai
+näkemään milloin jokin kokoustila on vapaa.
+Yritys voi lisätä ja poistaa resursseja järjestelmästä sekä muokata niitä. Järjestelmässä on kolmen eri tason käyttäjiä, 
+tavallisia työntekijöitä, jotka voivat tehdä varauksia, esimiehiä, jotka voivat muokata, hyväksyä ja hylätä varauksia, 
+sekä ylläpitäjiä jotka voivat lisää, poistaa ja muokata kaikkia järjestelmän tietoja.  
 
-Käyttöliittymän ensimmäinen versio on toiminnassa. Tällä hetkellä se on vielä varsin yksinkertaisen näköinen, mutta sitä on tarkoitus kehittää OTP2-opintojakson aikana  Yhteys koulun palvelimella pyörivään tietokantaan on toiminnassa. CRUD-operaatiot toteutettu. Sovellus hyödyntää Hibernate ORM - toiminnallisuutta tietokantakommunikaatiossa. 
+Käyttöliittymän ensimmäinen versio on toiminnassa. Tällä hetkellä se on vielä varsin yksinkertaisen näköinen, 
+mutta sitä on tarkoitus kehittää OTP2-opintojakson aikana. Tällä hetkellä käyttäjien näkymiä ei ole rajoitettu, mikä tarkoittaa, että työntekijä tason käyttäjä näkee ylläpidolle
+kuuluvia osia. 
+Yhteys koulun palvelimella pyörivään tietokantaan on toiminnassa.  CRUD-operaatiot toteutettu. Sovellus hyödyntää Hibernate ORM - toiminnallisuutta tietokantakommunikaatiossa. 
 
-Sovellus on toteutettu Maven-projektimuotoisena. Tuote on toteutettu MVC-arkkitehtuuria toteuttaen. Modeli-kansion alta löytyy tietokannan käyttämät oliorakenteet sekä niiden rajapinnat ja tietokannan käyttöön liittyvät luokat. View-kansio sisältää GUI:n käyttöön liittyvät controller-luokat ja Controller hoitaa view:in ja modelin välisen keskustelun.
+Sovellus on toteutettu Maven-projektimuotoisena. Tuote on toteutettu MVC-arkkitehtuuria toteuttaen. Modeli-kansion alta löytyy tietokannan käyttämät oliorakenteet sekä 
+niiden rajapinnat ja tietokannan käyttöön liittyvät luokat. View-kansio sisältää GUI:n käyttöön liittyvät controller-luokat ja Controller hoitaa view:in ja modelin 
+välisen keskustelun.
 
 Projektin käyttämät kuvatiedostot löytyvät src/main/resource -polun takaa ja FXML-näkymätiedostot löytyvät src/main/resource/fxml -polun takaa.
