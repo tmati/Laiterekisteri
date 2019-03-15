@@ -8,11 +8,11 @@ sekä ylläpitäjiä jotka voivat lisää, poistaa ja muokata kaikkia järjestel
 
 Käyttöliittymän ensimmäinen versio on toiminnassa. Tällä hetkellä se on vielä varsin yksinkertaisen näköinen,
 mutta sitä on tarkoitus kehittää OTP2-opintojakson aikana. Se on kuitenki pääosin toiminnallinen, eli pystymme lisäämään, hakemaan sekä
-muokkamaan tietokantaa käyttöliittymän kautta. Tällä hetkellä käyttäjien näkymiä ei ole rajoitettu, mikä tarkoittaa, että työntekijä tason käyttäjä näkee ylläpidolle
-kuuluvia osia. 
+muokkamaan tietokantaa käyttöliittymän kautta. Tällä hetkellä käyttäjien näkymiä ei ole rajoitettu, mikä tarkoittaa, että työntekijä -tason 
+käyttäjä näkee ylläpidolle kuuluvia osia. 
 Yhteys koulun palvelimella pyörivään tietokantaan on toiminnassa.  CRUD-operaatiot toteutettu. Sovellus hyödyntää Hibernate ORM - toiminnallisuutta tietokantakommunikaatiossa. 
 
-Sovellus on toteutettu Maven-projektimuotoisena. Tuote on toteutettu MVC-arkkitehtuuria toteuttaen. Modeli-kansion alta löytyy tietokannan käyttämät oliorakenteet sekä 
+Sovellus on toteutettu Maven-projektimuotoisena. Tuote on toteutettu MVC-arkkitehtuuria toteuttaen. Model-kansion alta löytyy tietokannan käyttämät oliorakenteet sekä 
 niiden rajapinnat ja tietokannan käyttöön liittyvät luokat. View-kansio sisältää GUI:n käyttöön liittyvät controller-luokat ja Controller hoitaa view:in ja modelin 
 välisen keskustelun.
 
