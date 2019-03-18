@@ -1,8 +1,11 @@
 Hallinoi henkilöitä:
-käyttäjätaulu ei päivity kun lisää käyttäjän
-ei ilmoita jos käyttäjää luodessa on sama sposti tai tunnus - korjattu
-päivittää tietokantaan jo olemassa olevan spostin tai tunnuksen - korjattu
-ei ilmoita jos käyttäjän tunnusta tai spostia yritetään päivittää jo olemassa olevilla. - korjattu
+käyttäjätaulu ei päivity kun lisää käyttäjän.
 
 Omat Varaukset Taulu:
-Näyttää kaikki järjestelmässä olevat varaukset
+Omat varaukset taulu näyttää kaikki järjestelmässä olevat varaukset, vaikka pitäisi näytää vain käytäjäkohtaiset varaukset.
+
+
+Korjattu:
+ei ilmoita jos käyttäjää luodessa on sama sposti tai tunnus. - korjattu Tommi
+päivittää tietokantaan jo olemassa olevan spostin tai tunnuksen. - korjattu Tommi
+ei ilmoita jos käyttäjän tunnusta tai spostia yritetään päivittää jo olemassa olevilla. - korjattu Tommi
