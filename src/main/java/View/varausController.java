@@ -173,7 +173,7 @@ public class varausController implements Initializable {
         VarauksetAccessObject VAO = new VarauksetAccessObject();
         VAO.createVaraus(V);
         View.booking = null;
-        
+        this.sulkuNappiPainettu(event);
     }
 
     /**

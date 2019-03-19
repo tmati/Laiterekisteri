@@ -24,7 +24,7 @@ import org.junit.Ignore;
  *
  * @author Tommi
  */
-@Ignore
+
 public class CRUDTest {
 
     int r = (int) (Math.random() * 100000);
@@ -251,8 +251,7 @@ public class CRUDTest {
         assertEquals("updateVaraus: hyvaksytty status väärin",
                 varaus.getHyvaksytty(), var.getHyvaksytty());
 
-        System.out.println(varaus.getKayttaja().getNimi());
-
+       
         //varauksen poisto
         assertTrue("deleteVaraus: varauksen poisto ei onnistunut",
                 varausDAO.deleteVaraus(var.getId()));
