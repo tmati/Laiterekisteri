@@ -5,11 +5,8 @@
  */
 package Controller;
 
-import Model.Kayttaja;
-import Model.KayttajaAccessObject;
-import Model.ResurssitAccessObject;
-import Model.VarauksetAccessObject;
-import Model.KayttajaTarkistus;
+
+import Model.*;
 
 /**
  * Controlleri
@@ -21,6 +18,7 @@ public class Controller {
     private ResurssitAccessObject resurssiDAO;
     private VarauksetAccessObject varausDAO;
     private KayttajaTarkistus kayttajaTarkistus;
+    private PasswordConverterInterface salasananVaihto = new PasswordConverter();
 
     /**
      *Controllerin konstruktio
@@ -28,6 +26,15 @@ public class Controller {
     public Controller() {
         kayttajaDAO = new KayttajaAccessObject();
         kayttajaTarkistus = new KayttajaTarkistus(this);
+    }
+    
+    /**
+     * Vie salasanan encryptattavaksi modeliin.
+     * @param password Encryptattava salasana.
+     * @return Palautaa encryptattattu salasanan.
+     */
+    public String salasananVaihto(String password){
+        return salasananVaihto.passwordConverter(password);
     }
     
     /**
