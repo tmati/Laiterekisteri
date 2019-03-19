@@ -101,7 +101,7 @@ public class Resurssit implements java.io.Serializable {
     public String getKuvaus() {
         return this.kuvaus;
     }
-
+    
     public void setKuvaus(String kuvaus) {
         this.kuvaus = kuvaus;
     }
