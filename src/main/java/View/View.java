@@ -16,10 +16,10 @@ import javafx.stage.Stage;
 
 /**
  *Sovelluksen laukaisu.
- * @author tmati
+ * @author tmati   
  */
 public class View extends Application {
-
+   
     /**
      * Laukaisee sovelluksen.
      * @param stage
@@ -47,4 +47,4 @@ public class View extends Application {
         launch(args);
     }
     
-}
+}    
