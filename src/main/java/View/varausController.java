@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.Controller;
 import Model.Resurssit;
 import Model.Varaukset;
 import Model.VarauksetAccessObject;
@@ -62,6 +63,8 @@ public class varausController implements Initializable {
     private Button sulkuNappi;
     @FXML
     private Label lisatiedotLabel;
+    
+    Controller controller;
 
     /**
      * Initializes the controller class.
@@ -70,6 +73,7 @@ public class varausController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        controller = View.controller;
         // Aikaformaatti
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         //Uusi SpinnerValueFactory-olio. Näitä tarvitaan joka spinnerille.
@@ -170,8 +174,7 @@ public class varausController implements Initializable {
         
         
         Varaukset V = new Varaukset(View.loggedIn, View.booking, startStamp, endStamp, info, false, View.booking.getNimi(), false);
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        VAO.createVaraus(V);
+        controller.luoVaraus(V);
         View.booking = null;
         this.sulkuNappiPainettu(event);
     }

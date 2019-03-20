@@ -24,11 +24,15 @@ public class ControllerTest {
 
     Controller kont = new Controller();
     KayttajaAccessObject kDAO = new KayttajaAccessObject();
+
+    /**
+     *
+     */
     @Test
     public void Controllertestit() {
         Kayttaja k = new Kayttaja("contTest","contTest","contTest","contTest",1);
         assertTrue("vieKayttajatietokantaan: ei onnistunut",
-                kont.vieUusiKayttajaTietokantaan(k));
+                kont.luoKayttaja(k));
         assertTrue("readKayttaja(): Haku ei onnistunut",
                 (k = kont.haeKayttaja(k.getId())) != null);
         assertFalse("tarkistaEmail: ei onnistunut",

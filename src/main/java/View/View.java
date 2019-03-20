@@ -6,6 +6,7 @@
 package View;
 
 
+import Controller.Controller;
 import Model.Kayttaja;
 import Model.Resurssit;
 import javafx.application.Application;
@@ -36,9 +37,12 @@ public class View extends Application {
      */
     public static Resurssit booking = null;
     
+    
+    public static Controller controller;
+    
     @Override
     public void start(Stage stage) throws Exception {
-       
+        controller = new Controller();
         stage.setMaximized(true);
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Loginwindow.fxml"));
         Scene scene = new Scene(root);

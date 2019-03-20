@@ -80,8 +80,7 @@ public class KayttajaAdminController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        kontrolleri = new Controller();
-
+        kontrolleri = View.controller;
         //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -141,11 +140,7 @@ public class KayttajaAdminController implements Initializable {
         stage.getScene().setRoot(root);
     }
 
-    @FXML
-    private void tallennaBtnPainettu(MouseEvent event) {
-        //TODO Lopputoimet tietokantaan
-        System.out.println("Tallennus");
-    }
+  
 
     /**
      * Avaa uuden käyttäjän lisäämisnäkymän.
