@@ -105,10 +105,10 @@
                      <children>
                         <TableView fx:id="omatTable" editable="true" prefHeight="408.0" prefWidth="1505.0">
                            <columns>
-                              <TableColumn fx:id="laitenimiColumn" onEditCommit="#laitenimiOnEditCommit" prefWidth="369.6000518798828" text="LAITTEEN NIMI" />
+                              <TableColumn fx:id="laitenimiColumn" prefWidth="369.6000518798828" text="LAITTEEN NIMI" />
                               <TableColumn fx:id="alkupvmColumn" onEditCommit="#alkupvmOnEditCommit" prefWidth="199.19998168945312" resizable="false" text="VARAUKSEN ALKUPVM" />
                               <TableColumn fx:id="paattymispvmColumn" onEditCommit="#paattymispvmOnEditCommit" prefWidth="204.79998779296875" resizable="false" text="VARAUKSEN PÄÄTTYMISPVM" />
-                              <TableColumn fx:id="varausidColumn" onEditCommit="#varausidOnEditCommit" prefWidth="129.60009765625" resizable="false" text="VARAUSID" />
+                              <TableColumn fx:id="varausidColumn" prefWidth="129.60009765625" resizable="false" text="VARAUSID" />
                               <TableColumn fx:id="varauskuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="486.40008544921875" resizable="false" text="KUVAUS" />
                               <TableColumn fx:id="palautettuColumn" maxWidth="197.59992675781245" minWidth="0.0" onEditCommit="#palautettuOnEditCommit" prefWidth="97.5999755859375" resizable="false" text="PALAUTETTU" />
                            </columns>

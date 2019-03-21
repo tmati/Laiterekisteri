@@ -119,8 +119,6 @@ public class VarausAdminController implements Initializable {
         Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         varauksetTableView.getItems().addAll(varaukset);
         
-    }
-
     }    
 
     /**
