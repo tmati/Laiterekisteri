@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -49,7 +50,7 @@ public class UusiKayttajaController implements Initializable {
     @FXML
     private TableView<Kayttaja> kayttajaTableView;
 
-    private Controller kontrolleri;
+    private Controller controller;
 
     /**
      * Initializes the controller class.
@@ -59,7 +60,7 @@ public class UusiKayttajaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        kontrolleri = new Controller();
+        controller = View.controller;
     }
 
     /**
@@ -94,18 +95,18 @@ public class UusiKayttajaController implements Initializable {
             virheLabel.setText("Tietoja puuttuu. Täytä kaikki kohdat ja yritä uudelleen.");
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
-        } else if (!kontrolleri.tarkistaUsername(kayttajatunnusTextField.getText())) {
+        } else if (!controller.tarkistaUsername(kayttajatunnusTextField.getText())) {
             virheLabel.setText("Käyttäjätunnus on jo varattu. Kokeile toista tunnusta.");
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
-        } else if (!kontrolleri.tarkistaEmail(emailTextField.getText())) {
+        } else if (!controller.tarkistaEmail(emailTextField.getText())) {
             virheLabel.setText("Sähköposti on jo varattu. Kokeile toista osoitetta.");
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
         } else {
             Kayttaja J = new Kayttaja(nimiTextField.getText(), salasanaTextField.getText(), kayttajatunnusTextField.getText(), emailTextField.getText(), tulkitseChoiceBox(valtuudetChoiceBox));
             System.out.println(J.getNimi() + " | " + J.getSalasana() + " | " + J.getKayttajatunnus() + " | " + J.getSahkoposti() + " | " + J.getValtuudet());
-            kontrolleri.vieUusiKayttajaTietokantaan(J);
+            controller.luoKayttaja(J);
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
             popup.hide();
         }

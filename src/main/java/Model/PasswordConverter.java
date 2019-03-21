@@ -14,6 +14,9 @@ import java.security.NoSuchAlgorithmException;
  */
 public class PasswordConverter implements PasswordConverterInterface {
 
+    /**
+     *
+     */
     public PasswordConverter() {
     }
 

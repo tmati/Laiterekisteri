@@ -251,8 +251,7 @@ public class CRUDTest {
         assertEquals("updateVaraus: hyvaksytty status väärin",
                 varaus.getHyvaksytty(), var.getHyvaksytty());
 
-        System.out.println(varaus.getKayttaja().getNimi());
-
+       
         //varauksen poisto
         assertTrue("deleteVaraus: varauksen poisto ei onnistunut",
                 varausDAO.deleteVaraus(var.getId()));

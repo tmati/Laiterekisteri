@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.Controller;
 import Model.Kayttaja;
 import Model.Resurssit;
 import Model.Varaukset;
@@ -36,7 +37,7 @@ import javafx.util.converter.DateStringConverter;
  * @author tmati
  */
 public class VarausAdminController implements Initializable {
-
+    
     @FXML
     private Label usernameLabel;
     @FXML
@@ -65,6 +66,8 @@ public class VarausAdminController implements Initializable {
     private Button hylkaaBtn;
     @FXML
     private Button updateBtn;
+    
+    private Controller controller;
 
     /**
      * Initializes the controller class.
@@ -73,13 +76,13 @@ public class VarausAdminController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        nimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset,Kayttaja>("kayttaja"));
+        controller = View.controller;
+        nimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Kayttaja>("kayttaja"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Kayttaja>() {
             public String toString(Kayttaja k) {
-               return k.getNimi();
+                return k.getNimi();
             }
-
+            
             @Override
             public Kayttaja fromString(String string) {
                 Kayttaja kayttaja = (Kayttaja) nimiColumn.getCellData(this);
@@ -88,9 +91,9 @@ public class VarausAdminController implements Initializable {
             }
         }));
         
-        tavaraColumn.setCellValueFactory(new PropertyValueFactory<Varaukset,Resurssit>("resurssit"));
+        tavaraColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Resurssit>("resurssit"));
         tavaraColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Resurssit>() {
-            public String toString (Resurssit r) {
+            public String toString(Resurssit r) {
                 return r.getNimi();
             }
             @Override
@@ -113,9 +116,10 @@ public class VarausAdminController implements Initializable {
         bizName.setText(View.BizName);
         usernameLabel.setText(View.loggedIn.getNimi());
         
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        Varaukset[] varaukset = VAO.readVaraukset();
+        Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         varauksetTableView.getItems().addAll(varaukset);
+        
+    }
 
     }    
 
@@ -125,11 +129,10 @@ public class VarausAdminController implements Initializable {
      */
     public void updateBtnPainettu(MouseEvent event) {
         varauksetTableView.getItems().clear();
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        Varaukset[] varaukset = VAO.readVaraukset();
+        Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         varauksetTableView.getItems().addAll(varaukset);
     }
-    
+
     /**
      * Kirjaa käyttäjän ulos.
      * @param event Painikkeen klikkaus
@@ -157,67 +160,44 @@ public class VarausAdminController implements Initializable {
         Parent root = loader.load();
         stage.getScene().setRoot(root);
     }
-
+    
     @FXML
     private void hyvaksyBtnPainettu(MouseEvent event) {
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
         V.setHyvaksytty(true);
-        VAO.updateVaraus(V);
+        controller.paivitaVaraus(V);
         System.out.println("Varaus hyväksytty!");
     }
-
+    
     @FXML
     private void hylkaaBtnPainettu(MouseEvent event) {
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
         V.setHyvaksytty(false);
-        VAO.updateVaraus(V);
+        controller.paivitaVaraus(V);
         System.out.println("Varaus hylätty!");
     }
     
-    @FXML
-    private void nimiEditCommit(TableColumn.CellEditEvent<Varaukset, String> event) {
-        Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
-        V.setNimi(event.getNewValue());
-        System.out.println("Uusi nimi: " + V.getNimi());
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        VAO.updateVaraus(V);
-    }
-    
-    @FXML
-    private void tavaraEditCommit(TableColumn.CellEditEvent<Varaukset, Resurssit> event) {
-        Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
-        V.setResurssit(event.getNewValue());
-        System.out.println("Uusi tavara: " + V.getResurssit().getNimi());
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        VAO.updateVaraus(V);
-    }
-
     @FXML
     private void alkupvmEditCommit(TableColumn.CellEditEvent<Varaukset, LocalDateTime> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
         V.setAlkuAika(event.getNewValue());
         System.out.println("Uusi alkupvm: " + V.getAlkupvm().toString());
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        VAO.updateVaraus(V);
+        controller.paivitaVaraus(V);
     }
-
+    
     @FXML
     private void paattymispvmEditCommit(TableColumn.CellEditEvent<Varaukset, LocalDateTime> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
         V.setLoppuAika(event.getNewValue());
         System.out.println("Uusi päättymispvm: " + V.getPaattymispvm().toString());
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        VAO.updateVaraus(V);
+        controller.paivitaVaraus(V);
     }
-
+    
     @FXML
     private void kuvausEditCommit(TableColumn.CellEditEvent<Varaukset, String> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
         V.setKuvaus(event.getNewValue());
         System.out.println("Uusi Kuvaus: " + V.getKuvaus());
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        VAO.updateVaraus(V);
+        controller.paivitaVaraus(V);
     }
 }

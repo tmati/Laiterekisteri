@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.Controller;
 import Model.Resurssit;
 import Model.ResurssitAccessObject;
 import java.net.URL;
@@ -46,6 +47,8 @@ public class UusiResurssiController implements Initializable {
     @FXML
     private Label virheLabel;
     
+    Controller controller;
+    
     //ResurssitAccessObject RAO = new ResurssitAccessObject();
 
     /**
@@ -56,6 +59,7 @@ public class UusiResurssiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        controller = View.controller;
     }    
     /**
      * Tulkitsee ChoiceBoxin valinnan resurssiparametrin kaipaamaksi numeroksi.
@@ -83,8 +87,7 @@ public class UusiResurssiController implements Initializable {
             System.out.println("Luodaan uusi resurssi!");
             Resurssit R = new Resurssit(false, nimiTextField.getText(), tyyppiTextField.getText(), tulkitseChoiceBox(LuvanvaraisuusChoiceBox), kuvausTextbox.getText());
             System.out.println(R.getNimi() + " | " + R.getTyyppi() + " | " + R.getLuvanvaraisuus() + " | " + R.getKuvaus());
-            ResurssitAccessObject RAO = new ResurssitAccessObject();
-            RAO.createResurssi(R);
+            controller.luoResurssi(R);
             virheLabel.setDisable(true);
             virheLabel.setOpacity(0);
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();

@@ -14,22 +14,25 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
  * @author Tommi
  */
-@Ignore
+
 public class ControllerTest {
 
     Controller kont = new Controller();
     KayttajaAccessObject kDAO = new KayttajaAccessObject();
+
+    /**
+     *
+     */
     @Test
     public void Controllertestit() {
         Kayttaja k = new Kayttaja("contTest","contTest","contTest","contTest",1);
         assertTrue("vieKayttajatietokantaan: ei onnistunut",
-                kont.vieUusiKayttajaTietokantaan(k));
+                kont.luoKayttaja(k));
         assertTrue("readKayttaja(): Haku ei onnistunut",
                 (k = kont.haeKayttaja(k.getId())) != null);
         assertFalse("tarkistaEmail: ei onnistunut",

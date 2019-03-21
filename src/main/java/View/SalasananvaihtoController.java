@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.Controller;
 import Model.Kayttaja;
 import Model.KayttajaAccessObject;
 import java.net.URL;
@@ -47,6 +48,8 @@ public class SalasananvaihtoController implements Initializable {
     private TextField uusisalasana2TextField;
     @FXML
     private Label uusisalasana2Label;
+    
+    Controller controller;
 
     /**
      * Initializes the controller class.
@@ -57,6 +60,7 @@ public class SalasananvaihtoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //Hae käyttäjän nimi tähän
         usernameLabel.setText("");
+        controller = View.controller;
     }    
     
     /**
@@ -66,10 +70,9 @@ public class SalasananvaihtoController implements Initializable {
     @FXML
     private void vaihdasalasanaNappiPainettu(MouseEvent event) {
         //Sisään kirjautuneena oleva käyttäjä tähän
-        KayttajaAccessObject KAO = new KayttajaAccessObject();
         if (vanhasalasanaTextField.getText().equals(View.loggedIn.getSalasana()) && uusisalasana1TextField.getText().equals(uusisalasana2TextField.getText())) {
             View.loggedIn.setSalasana(uusisalasana2TextField.getText());
-            KAO.updateKayttaja(View.loggedIn);
+            controller.paivitaKayttaja(View.loggedIn);
             virheLabel.setDisable(true);
             virheLabel.setOpacity(0);
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();

@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.Controller;
 import Model.Kayttaja;
 import Model.KayttajaAccessObject;
 import Model.Resurssit;
@@ -135,19 +136,17 @@ public class NakymaController implements Initializable {
     private Button salasananvaihtoBtn;
     @FXML
     private Button updateBtn;
+    
+    private Controller controller;
 
     /**
      * Initializes the controller class.
-     *
      * @param url
      * @param rb
      */
     @Transactional
     public void initialize(URL url, ResourceBundle rb) {
-
-        ResurssitAccessObject RAO = new ResurssitAccessObject();
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        KayttajaAccessObject KAO = new KayttajaAccessObject();
+        controller = View.controller;
         Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
         logoView.setImage(image);
 
@@ -233,31 +232,25 @@ public class NakymaController implements Initializable {
         usernameLabel.setText(View.loggedIn.getNimi());
         bizName.setText(View.BizName);
 
-        Resurssit[] resurssit = RAO.readResurssit();
+        Resurssit[] resurssit = controller.haeKaikkiResurssit();
         kaikkiTableView.getItems().addAll(resurssit);
-        Set<Varaukset> varaukset = KAO.readKayttaja(View.loggedIn.getId()).getVarauksets();
-        Varaukset[] varauksetArr = VAO.readVaraukset();
+        Varaukset[] varauksetArr = controller.haeKayttajanVaraukset(View.loggedIn);
         omatTable.getItems().addAll(varauksetArr);
 
     }
-
+    
     /**
      * Päivittää miltä nappi näytää kun se on painettu.
-     *
      * @param event
      * @throws IOException
      */
     @FXML
     public void updateBtnPainettu(MouseEvent event) throws IOException {
-        ResurssitAccessObject RAO = new ResurssitAccessObject();
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        KayttajaAccessObject KAO = new KayttajaAccessObject();
         kaikkiTableView.getItems().clear();
         omatTable.getItems().clear();
-        Resurssit[] resurssit = RAO.readResurssit();
+        Resurssit[] resurssit = controller.haeKaikkiResurssit();
         kaikkiTableView.getItems().addAll(resurssit);
-        Set<Varaukset> varaukset = KAO.readKayttaja(View.loggedIn.getId()).getVarauksets();
-        Varaukset[] varauksetArr = VAO.readVaraukset();
+        Varaukset[] varauksetArr = controller.haeKayttajanVaraukset(View.loggedIn);
         omatTable.getItems().addAll(varauksetArr);
     }
 
@@ -385,9 +378,10 @@ public class NakymaController implements Initializable {
         System.out.println("poistetaan resurssi");
         //Tähän joku dialogi jos jää aikaa
         Resurssit toDelete = kaikkiTableView.getSelectionModel().getSelectedItem();
-        ResurssitAccessObject RAO = new ResurssitAccessObject();
-        RAO.deleteResurssi(toDelete.getId());
+        controller.poistaResurssi(toDelete);
     }
+    
+   
 
     /**
      * Toiminnallisuus nimi-columnin muokkaamisen päättyessä.
@@ -399,8 +393,7 @@ public class NakymaController implements Initializable {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setNimi(event.getNewValue());
         System.out.println("Uusi nimi: " + R.getNimi());
-        ResurssitAccessObject RAO = new ResurssitAccessObject();
-        RAO.updateResurssi(R);
+        controller.paivitaResurssi(R);
     }
 
     /**
@@ -413,8 +406,7 @@ public class NakymaController implements Initializable {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setTyyppi(event.getNewValue());
         System.out.println("Uusi Tyyppi: " + R.getTyyppi());
-        ResurssitAccessObject RAO = new ResurssitAccessObject();
-        RAO.updateResurssi(R);
+        controller.paivitaResurssi(R);
     }
 
     /**
@@ -427,8 +419,7 @@ public class NakymaController implements Initializable {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setLuvanvaraisuus(event.getNewValue().intValue());
         System.out.println("Uusi luvanvaraisuusarvo: " + R.getLuvanvaraisuus());
-        ResurssitAccessObject RAO = new ResurssitAccessObject();
-        RAO.updateResurssi(R);
+        controller.paivitaResurssi(R);
     }
 
     /**
@@ -441,8 +432,7 @@ public class NakymaController implements Initializable {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setKuvaus(event.getNewValue());
         System.out.println("Uusi kuvaus: " + R.getKuvaus());
-        ResurssitAccessObject RAO = new ResurssitAccessObject();
-        RAO.updateResurssi(R);
+        controller.paivitaResurssi(R);
     }
 
     @FXML
@@ -450,23 +440,9 @@ public class NakymaController implements Initializable {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setStatus(event.getNewValue());
         System.out.println("Uusi tila: " + R.getKuvaus());
-        ResurssitAccessObject RAO = new ResurssitAccessObject();
-        RAO.updateResurssi(R);
+        controller.paivitaResurssi(R);
     }
-
-    /**
-     * Toiminnallisuus laitenimi-columnin muokkaamisen päättyessä.
-     *
-     * @param event
-     */
-    @FXML
-    private void laitenimiOnEditCommit(TableColumn.CellEditEvent<Varaukset, String> event) {
-        Varaukset V = omatTable.getSelectionModel().getSelectedItem();
-        V.setNimi(event.getNewValue());
-        System.out.println("Uusi Nimi:" + V.getNimi());
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        VAO.updateVaraus(V);
-    }
+    
 
     /**
      * Toiminnallisuus alkupvm-columnin muokkaamisen päättyessä.
@@ -478,8 +454,7 @@ public class NakymaController implements Initializable {
         Varaukset V = omatTable.getSelectionModel().getSelectedItem();
         V.setAlkupvm(event.getNewValue());
         System.out.println("Uusi alkupäivämäärä:" + V.getAlkupvm());
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        VAO.updateVaraus(V);
+        controller.paivitaVaraus(V);
     }
 
     /**
@@ -492,23 +467,9 @@ public class NakymaController implements Initializable {
         Varaukset V = omatTable.getSelectionModel().getSelectedItem();
         V.setPaattymispvm(event.getNewValue());
         System.out.println("Uusi päättymispäivä:" + V.getPaattymispvm());
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        VAO.updateVaraus(V);
+        controller.paivitaVaraus(V);
     }
 
-    /**
-     * Toiminnallisuus varausid-columnin muokkaamisen päättyessä.
-     *
-     * @param event
-     */
-    @FXML
-    private void varausidOnEditCommit(TableColumn.CellEditEvent<Varaukset, Long> event) {
-        Varaukset V = omatTable.getSelectionModel().getSelectedItem();
-        V.setId(event.getNewValue().intValue());
-        System.out.println("Uusi ID:" + V.getId());
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        VAO.updateVaraus(V);
-    }
 
     /**
      * Toiminnallisuus palautettu-columnin muokkaamisen päättyessä.
@@ -520,8 +481,7 @@ public class NakymaController implements Initializable {
         Varaukset V = omatTable.getSelectionModel().getSelectedItem();
         V.setPalautettu(event.getNewValue());
         System.out.println("Palautettu:" + V.isPalautettu());
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        VAO.updateVaraus(V);
+        controller.paivitaVaraus(V);
     }
 
     /**
