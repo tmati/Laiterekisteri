@@ -43,7 +43,7 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/laiterekisteri?zeroDateTimeBehavior=convertToNull&amp;serverTimezone=Europe/Helsinki</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:2206/laiterekisteri?zeroDateTimeBehavior=convertToNull&amp;serverTimezone=Europe/Helsinki</property>
     <property name="hibernate.connection.username">dbuser</property>
     <property name="hibernate.connection.password">dbuser</property>
     <property name="hibernate.enable_lazy_load_no_trans">true</property>
