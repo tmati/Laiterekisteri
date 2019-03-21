@@ -12,13 +12,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
- *
+ * Varauksen DAO
  * @author Tommi
  */
 public class VarauksetAccessObject implements VarauksetDAO_IF {
     
     SessionFactory sf = null;
     
+    /**
+     * Konstuktori
+     */
     public VarauksetAccessObject() {
         try {
             sf = HibernateUtil.getSessionFactory();
@@ -27,6 +30,11 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
         }
     }
     
+    /**
+     * Luo varauksen tietokantaan.
+     * @param varaus
+     * @return
+     */
     @Override
     public boolean createVaraus(Varaukset varaus) {
         Session s = sf.openSession();
@@ -49,6 +57,11 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
         
     }
     
+    /**
+     * Lukee varauksen tietokannasta.
+     * @param id
+     * @return
+     */
     @Override
     public Varaukset readVaraus(int id) {
         Session s = sf.openSession();
@@ -73,6 +86,10 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
         return haettu;
     }
     
+    /**
+     * Lukee kaikki varaukset tietokannasta.
+     * @return
+     */
     @Override
     public Varaukset[] readVaraukset() {
         Session s = sf.openSession();
@@ -97,6 +114,11 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
         return varaukset;
     }
     
+    /**
+     * Päivittää varauksen.
+     * @param varaus
+     * @return
+     */
     @Override
     public boolean updateVaraus(Varaukset varaus) {
         Session s = sf.openSession();
@@ -132,6 +154,11 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
         return true;
     }
     
+    /**
+     * Poistaa varauksen.
+     * @param id
+     * @return
+     */
     public boolean deleteVaraus(int id) {
         Session s = sf.openSession();
         Transaction tran = null;

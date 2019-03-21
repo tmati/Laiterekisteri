@@ -5,7 +5,7 @@
  */
 package View;
 
-import Model.Kayttaja;
+import Controller.Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,7 +24,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import Model.KayttajaAccessObject;
 
 /**
  * Kirjautumisikkunan toiminnallisuus.
@@ -50,8 +49,11 @@ public class loginWindowController implements Initializable {
 
     private boolean loginPossible;
 
+    private Controller controller;
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -59,13 +61,13 @@ public class loginWindowController implements Initializable {
         Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
         logoView.setImage(image);
         centerImage(logoView);
-        
+        controller = new Controller();
     }
 
     /**
      * Keskittää kuvan imageviewissä. Netistä haettu.
      *
-     * @param i
+     * @param i Kuva joka halutaan keskittää.
      */
     public void centerImage(ImageView i) {
         Image img = i.getImage();
@@ -96,7 +98,7 @@ public class loginWindowController implements Initializable {
      * Heittää herjan jos käyttäjä yrittää kirjautua asettamatta vaadittavia
      * tietoja.
      *
-     * @param event
+     * @param event Hiiren klikkaus
      */
     @FXML
     private void herjaaPuuttuvasta(MouseEvent event) {
@@ -107,56 +109,25 @@ public class loginWindowController implements Initializable {
     /**
      * Hiirieventti login-painikkeen klikkaamiseen.
      *
-     * @param event
+     * @param event Hiiren klikkaus kirjaudu-sisään painikkeeseen.
      */
     @FXML
     private void loginAttempt(MouseEvent event) {
-        loginProcess();
-    }
-
-    /**
-     * Sisäänkirjautuminen
-     *
-     * @param userName username-kentän sisältö
-     * @param passWord password-kentän sisältö
-     * @return true jos käyttäjä/salasanapari on oikea.
-     */
-
-
-    /**
-     * TODO Login-painikkeen painamisen jälkeen tapahtuva toiminta.
-     * Puutteellinen ilman tietokantaa.
-     */
-    private void loginProcess() {
-        if (loginPossible) {
-            KayttajaAccessObject KAO = new KayttajaAccessObject();
-            String userName = usernameField.getText();
-            String passWord = passwordField.getText();
-            Kayttaja[] users = KAO.readKayttajat();
-
-            for (Kayttaja user : users) {
-                if (user.getKayttajatunnus().equals(userName)) {
-                    if (user.getSalasana().equals(passWord)) {
-                        try {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
-                            Stage stage = (Stage) logoView.getScene().getWindow();
-                            //Käyttäjätietojen tallennus
-                            View.loggedIn = user;
-                            Parent root = loader.load();
-                            stage.getScene().setRoot(root);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-
-                        }
-                    } else {
-                        Alert alert = new Alert(AlertType.WARNING, "Väärä käyttäjätunnus tai salasana");
-                        alert.showAndWait();
-                    }
-                    
-                }
+        System.out.println(usernameField.getText() + " " +  passwordField.getText());
+        if (controller.login(usernameField.getText(), passwordField.getText())) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
+                Stage stage = (Stage) logoView.getScene().getWindow();
+                Parent root = loader.load();
+                stage.getScene().setRoot(root);
+            } catch (IOException e) {
+                e.printStackTrace();
 
             }
-        } 
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Väärä käyttäjätunnus tai salasana");
+            alert.showAndWait();
+        }
     }
 
     /**
@@ -169,7 +140,17 @@ public class loginWindowController implements Initializable {
     private void handle(KeyEvent ke) throws IOException {
         if (ke.getCode() == KeyCode.ENTER && loginPossible) {
             System.out.println("ENTER");
-            loginProcess();
+            if (controller.login(usernameField.getText(), passwordField.getText())) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
+                    Stage stage = (Stage) logoView.getScene().getWindow();
+                    Parent root = loader.load();
+                    stage.getScene().setRoot(root);
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+            }
         } else if (ke.getCode() == KeyCode.ENTER && !loginPossible) {
             Alert alert = new Alert(AlertType.WARNING, "Tunnus tai salasana puuttuu!");
             alert.showAndWait();

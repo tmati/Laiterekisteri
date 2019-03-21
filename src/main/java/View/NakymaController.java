@@ -85,8 +85,6 @@ public class NakymaController implements Initializable {
     @FXML
     private TableView<Resurssit> kaikkiTableView;
     @FXML
-    private TableColumn idColumn;
-    @FXML
     private TableColumn nimiColumn;
     @FXML
     private TableColumn tyyppiColumn;
@@ -104,8 +102,6 @@ public class NakymaController implements Initializable {
     private StackPane omatStack;
     @FXML
     private TableView<Varaukset> omatTable;
-    @FXML
-    private TableColumn laiteidColumn;
     @FXML
     private TableColumn alkupvmColumn;
     @FXML
@@ -142,6 +138,9 @@ public class NakymaController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Transactional
     public void initialize(URL url, ResourceBundle rb) {
@@ -153,9 +152,6 @@ public class NakymaController implements Initializable {
         logoView.setImage(image);
 
         //Resurssitaulun columnien live-edit
-        idColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("id"));
-        idColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
@@ -172,9 +168,6 @@ public class NakymaController implements Initializable {
         tilaColumn.setCellFactory(TextFieldTableCell.forTableColumn(new BooleanStringConverter()));
 
         //Omat varaukset -taulun live-edit
-        laiteidColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("id"));
-        laiteidColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-
         laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
         laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
@@ -222,7 +215,7 @@ public class NakymaController implements Initializable {
                 return null;
             }
         }));
-        
+
         varausidColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Integer>("id"));
         varausidColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
@@ -247,10 +240,16 @@ public class NakymaController implements Initializable {
         omatTable.getItems().addAll(varauksetArr);
 
     }
-    
+
+    /**
+     * Päivittää miltä nappi näytää kun se on painettu.
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void updateBtnPainettu(MouseEvent event) throws IOException {
-         ResurssitAccessObject RAO = new ResurssitAccessObject();
+        ResurssitAccessObject RAO = new ResurssitAccessObject();
         VarauksetAccessObject VAO = new VarauksetAccessObject();
         KayttajaAccessObject KAO = new KayttajaAccessObject();
         kaikkiTableView.getItems().clear();
@@ -374,11 +373,12 @@ public class NakymaController implements Initializable {
         Parent root = loader.load();
         stage.getScene().setRoot(root);
     }
-    
+
     /**
      * Poistetan resurssi
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     public void poistaresurssiNappiPainettu(MouseEvent event) throws IOException {
@@ -387,21 +387,6 @@ public class NakymaController implements Initializable {
         Resurssit toDelete = kaikkiTableView.getSelectionModel().getSelectedItem();
         ResurssitAccessObject RAO = new ResurssitAccessObject();
         RAO.deleteResurssi(toDelete.getId());
-    }
-    
-    //Resurssit
-    /**
-     * Toiminnallisuus ID-columnin muokkaamisen päättyessä
-     *
-     * @param event
-     */
-    @FXML
-    private void idOnEditCommit(TableColumn.CellEditEvent<Resurssit, Long> event) {
-        Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
-        R.setId(event.getNewValue().intValue());
-        System.out.println("Uusi ID: " + R.getId());
-        ResurssitAccessObject RAO = new ResurssitAccessObject();
-        RAO.updateResurssi(R);
     }
 
     /**
@@ -459,30 +444,14 @@ public class NakymaController implements Initializable {
         ResurssitAccessObject RAO = new ResurssitAccessObject();
         RAO.updateResurssi(R);
     }
-    
-       @FXML
+
+    @FXML
     private void tilaOnEditCommit(TableColumn.CellEditEvent<Resurssit, Boolean> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setStatus(event.getNewValue());
         System.out.println("Uusi tila: " + R.getKuvaus());
         ResurssitAccessObject RAO = new ResurssitAccessObject();
         RAO.updateResurssi(R);
-    }
-    
-
-    //Varaukset
-    /**
-     * Toiminnallisuus laiteid-columin muokkaamisen päättyessä.
-     *
-     * @param event
-     */
-    @FXML
-    private void laiteidOneEditCommit(TableColumn.CellEditEvent<Varaukset, Resurssit> event) {
-        Varaukset V = omatTable.getSelectionModel().getSelectedItem();
-        V.setResurssit(event.getNewValue());
-        System.out.println("Uusi ID:" + V.getResurssit().getId() + " " + V.getResurssit().getNimi());
-        VarauksetAccessObject VAO = new VarauksetAccessObject();
-        VAO.updateVaraus(V);
     }
 
     /**
@@ -554,14 +523,16 @@ public class NakymaController implements Initializable {
         VarauksetAccessObject VAO = new VarauksetAccessObject();
         VAO.updateVaraus(V);
     }
-    
+
     /**
-     * Hakutoiminnallisuus. Tulokset haetaan valittuna olevan välilehden ja kategorian mukaan.
-     * @param event 
+     * Hakutoiminnallisuus. Tulokset haetaan valittuna olevan välilehden ja
+     * kategorian mukaan.
+     *
+     * @param event
      */
     @FXML
     void searchFunction(KeyEvent event) {
-       /* String query = searchBar.getText();
+        /* String query = searchBar.getText();
         System.out.println(query);
         String tabText = tabPane.getSelectionModel().getSelectedItem().getText();
         System.out.println(tabText);
@@ -583,6 +554,6 @@ public class NakymaController implements Initializable {
                 kaikkiTableView.getItems().add(resurssi);
             }
         }
-        */
+         */
     }
 }

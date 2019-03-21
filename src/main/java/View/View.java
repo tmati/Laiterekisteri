@@ -21,12 +21,19 @@ import javafx.stage.Stage;
 public class View extends Application {
    
     /**
-     * Laukaisee sovelluksen.
-     * @param stage
-     * @throws Exception 
+     * Sovelluksen käytäjän tiedot.
+     * 
      */
     public static Kayttaja loggedIn = null;
+
+    /**
+     * Yrityksen nimi
+     */
     public static String BizName = "Long beach Skateboards";
+
+    /**
+     * Resurssit
+     */
     public static Resurssit booking = null;
     
     @Override

@@ -88,11 +88,10 @@
                      <children>
                         <TableView fx:id="kaikkiTableView" editable="true" prefHeight="408.0" prefWidth="1478.0">
                            <columns>
-                              <TableColumn fx:id="idColumn" onEditCommit="#idOnEditCommit" prefWidth="64.0" resizable="false" text="ID" />
                               <TableColumn fx:id="nimiColumn" onEditCommit="#nimiOnEditCommit" prefWidth="356.79998779296875" resizable="false" text="NIMI" />
                               <TableColumn fx:id="tyyppiColumn" minWidth="0.0" onEditCommit="#tyyppiOnEditCommit" prefWidth="175.20001220703125" resizable="false" text="TYYPPI" />
                               <TableColumn fx:id="luvanvaraisuusColumn" onEditCommit="#luvanvaraisuusOnEditCommit" prefWidth="168.8001708984375" resizable="false" text="LUVANVARAISUUS" />
-                              <TableColumn fx:id="kuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="628.8001098632812" resizable="false" text="KUVAUS" />
+                              <TableColumn fx:id="kuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="699.2001953125" resizable="false" text="KUVAUS" />
                               <TableColumn fx:id="tilaColumn" maxWidth="355.99995117187495" onEditCommit="#tilaOnEditCommit" prefWidth="86.39990234375" text="TILA" />
                            </columns>
                         </TableView>
@@ -106,13 +105,12 @@
                      <children>
                         <TableView fx:id="omatTable" editable="true" prefHeight="408.0" prefWidth="1505.0">
                            <columns>
-                              <TableColumn fx:id="laiteidColumn" onEditCommit="#laiteidOneEditCommit" prefWidth="75.0" resizable="false" text="LAITEID" />
                               <TableColumn fx:id="laitenimiColumn" onEditCommit="#laitenimiOnEditCommit" prefWidth="369.6000518798828" text="LAITTEEN NIMI" />
                               <TableColumn fx:id="alkupvmColumn" onEditCommit="#alkupvmOnEditCommit" prefWidth="199.19998168945312" resizable="false" text="VARAUKSEN ALKUPVM" />
-                              <TableColumn fx:id="paattymispvmColumn" onEditCommit="#paattymispvmOnEditCommit" prefWidth="220.800048828125" resizable="false" text="VARAUKSEN PÄÄTTYMISPVM" />
-                              <TableColumn fx:id="varausidColumn" onEditCommit="#varausidOnEditCommit" prefWidth="112.7999267578125" resizable="false" text="VARAUSID" />
-                              <TableColumn fx:id="varauskuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="385.60015869140625" resizable="false" text="KUVAUS" />
-                              <TableColumn fx:id="palautettuColumn" maxWidth="127.199951171875" minWidth="0.0" onEditCommit="#palautettuOnEditCommit" prefWidth="117.5999755859375" resizable="false" text="PALAUTETTU" />
+                              <TableColumn fx:id="paattymispvmColumn" onEditCommit="#paattymispvmOnEditCommit" prefWidth="204.79998779296875" resizable="false" text="VARAUKSEN PÄÄTTYMISPVM" />
+                              <TableColumn fx:id="varausidColumn" onEditCommit="#varausidOnEditCommit" prefWidth="129.60009765625" resizable="false" text="VARAUSID" />
+                              <TableColumn fx:id="varauskuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="486.40008544921875" resizable="false" text="KUVAUS" />
+                              <TableColumn fx:id="palautettuColumn" maxWidth="197.59992675781245" minWidth="0.0" onEditCommit="#palautettuOnEditCommit" prefWidth="97.5999755859375" resizable="false" text="PALAUTETTU" />
                            </columns>
                         </TableView>
                      </children>

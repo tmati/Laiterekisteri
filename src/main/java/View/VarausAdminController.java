@@ -68,6 +68,8 @@ public class VarausAdminController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -91,7 +93,7 @@ public class VarausAdminController implements Initializable {
             public String toString (Resurssit r) {
                 return r.getNimi();
             }
-            
+            @Override
             public Resurssit fromString(String string) {
                 Resurssit resurssit = (Resurssit) tavaraColumn.getCellData(this);
                 resurssit.setNimi(string);
@@ -117,6 +119,10 @@ public class VarausAdminController implements Initializable {
 
     }    
 
+    /**
+     * Päivittää napin ulkonäön.
+     * @param event Painikkeen klikkaus.
+     */
     public void updateBtnPainettu(MouseEvent event) {
         varauksetTableView.getItems().clear();
         VarauksetAccessObject VAO = new VarauksetAccessObject();
@@ -126,7 +132,7 @@ public class VarausAdminController implements Initializable {
     
     /**
      * Kirjaa käyttäjän ulos.
-     * @param event
+     * @param event Painikkeen klikkaus
      * @throws IOException 
      */
     public void logout(MouseEvent event) throws IOException {
@@ -138,6 +144,11 @@ public class VarausAdminController implements Initializable {
         View.loggedIn = null;
     }
 
+    /**
+     * palauttaa käyttäjän pääsivulle.
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void takaisinBtnPainettu(MouseEvent event) throws IOException {
         System.out.println("Logout");

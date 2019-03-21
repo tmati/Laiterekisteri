@@ -65,6 +65,8 @@ public class varausController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -140,8 +142,8 @@ public class varausController implements Initializable {
     }
         
     /**
-     * 
-     * @param event 
+     * Toiminta varausnappia painettaessa.
+     * @param event Hiiren klikkaus painikkeeseen.
      */
     @FXML
     private void varausNappiPainettu(ActionEvent event) {
@@ -176,7 +178,7 @@ public class varausController implements Initializable {
 
     /**
      * Sulkee popup-näkymän.
-     * @param event 
+     * @param event Hiiren klikkaus.
      */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
