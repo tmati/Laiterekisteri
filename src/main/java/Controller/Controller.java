@@ -7,8 +7,10 @@ package Controller;
 
 
 import Model.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 import javafx.scene.control.ChoiceBox;
+import javafx.util.Callback;
 
 
 
@@ -27,7 +29,6 @@ public class Controller {
     private KayttajanVaraukset KV;
     private LoginUtils login;
     private ChoiceboxUtils cbutils;
-    
     private DayCellFactory cellfactory;
     private VarauksenAikaLaskuriInterface aikalaskuri;
 
