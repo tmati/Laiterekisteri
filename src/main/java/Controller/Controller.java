@@ -228,7 +228,12 @@ public class Controller {
     }
     
     
-    
+      /**
+     * Kutsuu ChoiceboxUtils.tulkitseChoiceBox()
+     *
+     * @param cb choice box elementti jota tulkitaan
+     * @return choice boxia vastaavan kokonais luvun
+     */
     public int readCb(ChoiceBox cb) {
         return cbutils.tulkitseChoiceBox(cb);
 

@@ -62,7 +62,7 @@ public class ControllerTest {
         assertTrue("paivitaVaraus: ei onnistunut",
                 kont.paivitaVaraus(v));
         assertTrue("poistaVaraus: ei onnistunut",
-                kont.pa(k.getId()));
-    }
+                kont.poistaVaraus(v.getId()));
+                        }
 
 }

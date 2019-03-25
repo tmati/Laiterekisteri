@@ -144,11 +144,8 @@ public class KayttajaAdminController implements Initializable {
         Parent root = loader.load();
         stage.getScene().setRoot(root);
     }
-<<<<<<< HEAD
 
-=======
     
->>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
     /**
      * Avaa uuden käyttäjän lisäämisnäkymän.
      * @param event Hiiren klikkaus painikkeeseen.

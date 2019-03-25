@@ -118,12 +118,8 @@ public class VarausAdminController implements Initializable {
 
         Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         varauksetTableView.getItems().addAll(varaukset);
-<<<<<<< HEAD
-
     }
-=======
-    }    
->>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
+
 
     /**
      * Päivittää napin ulkonäön.
@@ -165,15 +161,11 @@ public class VarausAdminController implements Initializable {
         Parent root = loader.load();
         stage.getScene().setRoot(root);
     }
-<<<<<<< HEAD
 
-=======
-    
     /**
      * Toiminta varauksen hyväksyntänapin painalluksen jälkeen. Hyväksyy varauksen ja päivittää sen tietokantaan.
      * @param event Hiiren klikkaus painikkeeseen
      */
->>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
     @FXML
     private void hyvaksyBtnPainettu(MouseEvent event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
@@ -181,15 +173,11 @@ public class VarausAdminController implements Initializable {
         controller.paivitaVaraus(V);
         System.out.println("Varaus hyväksytty!");
     }
-<<<<<<< HEAD
-
-=======
     
     /**
      * Toiminta varauksen hylkäysnapin painalluksen jälkeen. Hylkää varauksen ja päivittää sen tietokantaan.
      * @param event Hiiren klikkaus painikkeeseen
      */
->>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
     @FXML
     private void hylkaaBtnPainettu(MouseEvent event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
@@ -197,15 +185,11 @@ public class VarausAdminController implements Initializable {
         controller.paivitaVaraus(V);
         System.out.println("Varaus hylätty!");
     }
-<<<<<<< HEAD
-
-=======
     
     /**
      * Alkupvm Taulun edit commit - toiminto. Tapahtuu kun varauksen päivämäärää muutetaan.
      * @param event Arvon muuttamisen jälkeen tapahtuva Enter-painallus
      */
->>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
     @FXML
     private void alkupvmEditCommit(TableColumn.CellEditEvent<Varaukset, LocalDateTime> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
@@ -213,15 +197,11 @@ public class VarausAdminController implements Initializable {
         System.out.println("Uusi alkupvm: " + V.getAlkupvm().toString());
         controller.paivitaVaraus(V);
     }
-<<<<<<< HEAD
-
-=======
     
     /**
      * Päättymispvm taulun edit commit - toiminto. Tapahtuu kun varauksen päivämäärää muutetaan.
      * @param event Arvon muuttumisen jälkeen tapahtuva Enter-painallus
      */
->>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
     @FXML
     private void paattymispvmEditCommit(TableColumn.CellEditEvent<Varaukset, LocalDateTime> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
@@ -229,15 +209,11 @@ public class VarausAdminController implements Initializable {
         System.out.println("Uusi päättymispvm: " + V.getPaattymispvm().toString());
         controller.paivitaVaraus(V);
     }
-<<<<<<< HEAD
 
-=======
-    
     /**
      * Kuvauksen edit commit - toiminto. Tapahtuu kun varauksen kuvausta muutetaan.
      * @param event Arvon muuttamisen jälkeen tapahtuva Enter - painallus.
      */
->>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
     @FXML
     private void kuvausEditCommit(TableColumn.CellEditEvent<Varaukset, String> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();

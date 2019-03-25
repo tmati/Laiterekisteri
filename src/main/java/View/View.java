@@ -35,10 +35,6 @@ public class View extends Application {
      */
     public static Resurssit booking = null;
 
-<<<<<<< HEAD
-    public static Controller controller;
-
-=======
     /**
      * Controller - ilmentymä
      */
@@ -49,7 +45,7 @@ public class View extends Application {
      * @param stage
      * @throws Exception Varauduttava poikkeus
      */
->>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
+
     @Override
     public void start(Stage stage) throws Exception {
         controller = new Controller();

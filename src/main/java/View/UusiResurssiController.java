@@ -60,7 +60,7 @@ public class UusiResurssiController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         controller = View.controller;
-<<<<<<< HEAD
+
     }
 
     /**
@@ -81,19 +81,11 @@ public class UusiResurssiController implements Initializable {
         return selectedOption;
     }
 
-    /**
-     * Luodaan uusi resurssi ikkunaan annetuista parametreistä. Tietojen
-     * puuttuessa heitetään herja. Onnistuneen luonnin yhteysessä suljeataan
-     * popup.
-     *
-     * @param event
-=======
-    }    
+  
 
     /**
      * Luodaan uusi resurssi ikkunaan annetuista parametreistä. Tietojen puuttuessa heitetään herja. Onnistuneen luonnin yhteysessä suljeataan popup.
      * @param event Hiiren klikkaus painikkeesta.
->>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
      */
     @FXML
     private void uusiresurssiNappiPainettu(MouseEvent event) {
@@ -105,39 +97,27 @@ public class UusiResurssiController implements Initializable {
             virheLabel.setDisable(true);
             virheLabel.setOpacity(0);
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
-<<<<<<< HEAD
             popup.hide();
 
-=======
-            popup.hide();        
->>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
         } else {
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
         }
     }
-<<<<<<< HEAD
 
-    /**
-     * Sulkee popupin.
-     *
-     * @param event
-=======
        
     /**
      * Sulkee popupin.
      * @param event Hiiren klikkaus painikkeesta.
->>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
      */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
         popup.hide();
-<<<<<<< HEAD
-    }
+
 
 }
-=======
+
     }    
-}
->>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
+
+
