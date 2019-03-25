@@ -232,7 +232,7 @@ public class NakymaController implements Initializable {
 
         categorySelect.setTooltip(new Tooltip("Hakukriteeri"));
 
-        kalenteriStackPane.getChildren().add(calContent);
+        
         usernameLabel.setText(View.loggedIn.getNimi());
         bizName.setText(View.BizName);
 
@@ -241,8 +241,10 @@ public class NakymaController implements Initializable {
         Varaukset[] varauksetArr = controller.haeKayttajanVaraukset(View.loggedIn);
         omatTable.getItems().addAll(varauksetArr);
         
+        picker = new DatePicker();
+        //Kuuntelija jos taulukosta valitaan varausta
         kaikkiTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
+            if (newSelection != null) { //Etsii resursin kaikki varaukset.
                 ArrayList<Varaukset> aVaraukset = new ArrayList<Varaukset>();
                 int resurssiId = kaikkiTableView.getSelectionModel().getSelectedItem().getId();
                 Varaukset[] varaukset = controller.haeKaikkiVaraukset();
@@ -256,7 +258,7 @@ public class NakymaController implements Initializable {
                 for(int i=0; i<aVaraukset.size(); i++){
                     varaus[i] = aVaraukset.get(i);
                 }
-               
+               // luo uuden datepickerin johon laitetaan day cell factorin
                 Callback<DatePicker, DateCell> dayCellFactory = controller.dayCellFactory(varaus); 
                 picker = new DatePicker();
                 picker.setDayCellFactory(dayCellFactory);
@@ -267,6 +269,8 @@ public class NakymaController implements Initializable {
                 kalenteriStackPane.getChildren().add(calContent);
             }
         });
+        
+        // Luodaan datepicker skin ensimmäisen kerran
         if(picker != null){
            DPS = new DatePickerSkin(picker);
        }else{

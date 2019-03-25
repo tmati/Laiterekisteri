@@ -20,13 +20,19 @@ import javafx.util.Callback;
  */
 public class DayCellFactory {
 
-    int erotusp = 0;
-    int erotusk = 0;
-    int seuraavaKuukausi = 0;
-    int liikaPaivat = 0;
-    LocalDateTime alkupvm;
-    LocalDateTime loppumispvm;
+    private int erotusp = 0;
+    private int erotusk = 0;
+    private int seuraavaKuukausi = 0;
+    private int liikaPaivat = 0;
+    private LocalDateTime alkupvm;
+    private LocalDateTime loppumispvm;
 
+    /**
+     * Muokaa datepickerin päiviä niin että varatut ovat ounaisia ja reuna päivät ovat oranseja.
+     * @param controller Kuka kutsui tätä
+     * @param varaukset lista mistä katsotaan mitkä päivät ovat varattuja
+     * @return päivät jotka ovat muokattu
+     */
     public Callback dayCellFactory(Controller controller, Varaukset[] varaukset) {
         final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
             public DateCell call(final DatePicker datePicker) {

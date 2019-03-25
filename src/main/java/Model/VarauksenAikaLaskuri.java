@@ -51,6 +51,12 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
         return erotusk;
     }
 
+    /**
+     * Laskee alkupvm ja paatymispvm erotuksen
+     * @param alkupvm alkamis päivä 
+     * @param paatymispvm loppumispäivä
+     * @return niiden kahden erotus
+     */
     public int PaivaKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm) {
         erotusk = KuukausiKesto(alkupvm, paatymispvm);
         //System.out.println("Erotusp = " + erotusp);
