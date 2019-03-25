@@ -4,6 +4,8 @@ käyttäjätaulu ei päivity kun lisää käyttäjän.
 Omat Varaukset Taulu:
 Omat varaukset taulu näyttää kaikki järjestelmässä olevat varaukset, vaikka pitäisi näytää vain käytäjäkohtaiset varaukset.
 
+Päänäkymän kalenteri:
+Kopioi kalenterin itsensä päälle.
 
 Korjattu:
 ei ilmoita jos käyttäjää luodessa on sama sposti tai tunnus. - korjattu Tommi
