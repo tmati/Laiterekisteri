@@ -60,6 +60,7 @@ public class UusiResurssiController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         controller = View.controller;
+<<<<<<< HEAD
     }
 
     /**
@@ -86,34 +87,57 @@ public class UusiResurssiController implements Initializable {
      * popup.
      *
      * @param event
+=======
+    }    
+
+    /**
+     * Luodaan uusi resurssi ikkunaan annetuista parametreistä. Tietojen puuttuessa heitetään herja. Onnistuneen luonnin yhteysessä suljeataan popup.
+     * @param event Hiiren klikkaus painikkeesta.
+>>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
      */
     @FXML
     private void uusiresurssiNappiPainettu(MouseEvent event) {
         if (nimiTextField.getText() != null && tyyppiTextField.getText() != null && !LuvanvaraisuusChoiceBox.getValue().equals("Valitse...") && kuvausTextbox.getText() != null) {
             System.out.println("Luodaan uusi resurssi!");
-            Resurssit R = new Resurssit(false, nimiTextField.getText(), tyyppiTextField.getText(), tulkitseChoiceBox(LuvanvaraisuusChoiceBox), kuvausTextbox.getText());
+            Resurssit R = new Resurssit(false, nimiTextField.getText(), tyyppiTextField.getText(), controller.readCb(LuvanvaraisuusChoiceBox), kuvausTextbox.getText());
             System.out.println(R.getNimi() + " | " + R.getTyyppi() + " | " + R.getLuvanvaraisuus() + " | " + R.getKuvaus());
             controller.luoResurssi(R);
             virheLabel.setDisable(true);
             virheLabel.setOpacity(0);
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
+<<<<<<< HEAD
             popup.hide();
 
+=======
+            popup.hide();        
+>>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
         } else {
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
         }
     }
+<<<<<<< HEAD
 
     /**
      * Sulkee popupin.
      *
      * @param event
+=======
+       
+    /**
+     * Sulkee popupin.
+     * @param event Hiiren klikkaus painikkeesta.
+>>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
      */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
         popup.hide();
+<<<<<<< HEAD
     }
 
 }
+=======
+    }    
+}
+>>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857

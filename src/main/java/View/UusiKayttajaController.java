@@ -24,7 +24,6 @@ import javafx.stage.Popup;
 
 /**
  * Uuden käyttäjän luontipopupin toiminnallisuus
- *
  * @author tmati
  */
 public class UusiKayttajaController implements Initializable {
@@ -49,7 +48,10 @@ public class UusiKayttajaController implements Initializable {
     private ChoiceBox<String> valtuudetChoiceBox;
     @FXML
     private TableView<Kayttaja> kayttajaTableView;
-
+    
+    /**
+     * Controller-ilmentymä
+     */
     private Controller controller;
 
     /**
@@ -65,6 +67,7 @@ public class UusiKayttajaController implements Initializable {
     }
 
     /**
+<<<<<<< HEAD
      * Käännetään choiceboxin arvo tietokantaan sopivaksi
      *
      * @param cb
@@ -83,14 +86,14 @@ public class UusiKayttajaController implements Initializable {
     }
 
     /**
+=======
+>>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
      * Luo uuden käyttäjän annettujen ehtojen täsmätessä. Herjaa jos ehdot ei
-     * täsmää.
-     *
-     * @param event
+     * täsmää. Tarkastaa myös sähköpostin ja käyttäjätunnuksen tietokantaa vasten (ei saa olla samat)
+     * @param event Hiiren klikkaus painikkeesta.
      */
     @FXML
     private void luokayttajaNappiPainettu(MouseEvent event) {
-        //emailTarkastus(emailTextField.getText()) && usernameTarkastus(kayttajatunnusTextField.getText())
         if (nimiTextField.getText().isEmpty() || emailTextField.getText().isEmpty() || salasanaTextField.getText().isEmpty() || kayttajatunnusTextField.getText().isEmpty() || valtuudetChoiceBox.getValue().equals("Valitse...")) {
             virheLabel.setText("Tietoja puuttuu. Täytä kaikki kohdat ja yritä uudelleen.");
             virheLabel.setDisable(false);
@@ -104,7 +107,7 @@ public class UusiKayttajaController implements Initializable {
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
         } else {
-            Kayttaja J = new Kayttaja(nimiTextField.getText(), salasanaTextField.getText(), kayttajatunnusTextField.getText(), emailTextField.getText(), tulkitseChoiceBox(valtuudetChoiceBox));
+            Kayttaja J = new Kayttaja(nimiTextField.getText(), salasanaTextField.getText(), kayttajatunnusTextField.getText(), emailTextField.getText(), controller.readCb(valtuudetChoiceBox));
             System.out.println(J.getNimi() + " | " + J.getSalasana() + " | " + J.getKayttajatunnus() + " | " + J.getSahkoposti() + " | " + J.getValtuudet());
             controller.luoKayttaja(J);
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
@@ -114,13 +117,11 @@ public class UusiKayttajaController implements Initializable {
 
     /**
      * Sulkee popupin.
-     *
-     * @param event
+     * @param event Hiiren klikkaus painikkeesta.
      */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
         popup.hide();
     }
-
 }

@@ -67,7 +67,11 @@ public class SalasananvaihtoController implements Initializable {
     /**
      * Käsittelee salasanan vaihtoa popup-ikkunassa.
      *
+<<<<<<< HEAD
      * @param event
+=======
+     * @param event Hiiren klikkaus painikkeeseen.
+>>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
      */
     @FXML
     private void vaihdasalasanaNappiPainettu(MouseEvent event) {
@@ -87,19 +91,29 @@ public class SalasananvaihtoController implements Initializable {
             virheLabel.setText("Vanha salasana väärin.");
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
         }
     }
 
     /**
      * Sulkee popupin.
      *
+<<<<<<< HEAD
      * @param event
+=======
+     * @param event Hiiren klikkaus painikkeeseen.
+>>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
      */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
         popup.hide();
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
 }
