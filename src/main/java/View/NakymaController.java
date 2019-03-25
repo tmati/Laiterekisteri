@@ -136,11 +136,12 @@ public class NakymaController implements Initializable {
     private Button salasananvaihtoBtn;
     @FXML
     private Button updateBtn;
-    
+
     private Controller controller;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -238,9 +239,10 @@ public class NakymaController implements Initializable {
         omatTable.getItems().addAll(varauksetArr);
 
     }
-    
+
     /**
      * Päivittää miltä nappi näytää kun se on painettu.
+     *
      * @param event
      * @throws IOException
      */
@@ -380,8 +382,6 @@ public class NakymaController implements Initializable {
         Resurssit toDelete = kaikkiTableView.getSelectionModel().getSelectedItem();
         controller.poistaResurssi(toDelete);
     }
-    
-   
 
     /**
      * Toiminnallisuus nimi-columnin muokkaamisen päättyessä.
@@ -442,7 +442,6 @@ public class NakymaController implements Initializable {
         System.out.println("Uusi tila: " + R.getKuvaus());
         controller.paivitaResurssi(R);
     }
-    
 
     /**
      * Toiminnallisuus alkupvm-columnin muokkaamisen päättyessä.
@@ -469,7 +468,6 @@ public class NakymaController implements Initializable {
         System.out.println("Uusi päättymispäivä:" + V.getPaattymispvm());
         controller.paivitaVaraus(V);
     }
-
 
     /**
      * Toiminnallisuus palautettu-columnin muokkaamisen päättyessä.

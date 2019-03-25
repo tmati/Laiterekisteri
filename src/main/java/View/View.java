@@ -5,7 +5,6 @@
  */
 package View;
 
-
 import Controller.Controller;
 import Model.Kayttaja;
 import Model.Resurssit;
@@ -16,14 +15,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- *Sovelluksen laukaisu.
- * @author tmati   
+ * Sovelluksen laukaisu.
+ *
+ * @author tmati
  */
 public class View extends Application {
-   
+
     /**
      * Sovelluksen käytäjän tiedot.
-     * 
+     *
      */
     public static Kayttaja loggedIn = null;
 
@@ -36,10 +36,9 @@ public class View extends Application {
      * Resurssit
      */
     public static Resurssit booking = null;
-    
-    
+
     public static Controller controller;
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         controller = new Controller();
@@ -50,12 +49,12 @@ public class View extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    
-        /**
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
     }
-    
-}    
+
+}

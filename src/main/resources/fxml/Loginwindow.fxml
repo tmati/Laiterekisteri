@@ -11,59 +11,59 @@
 <?import javafx.scene.text.Font?>
 
 <HBox id="bgPane" alignment="CENTER" onKeyPressed="#handle" prefHeight="569.0" prefWidth="476.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.loginWindowController">
-   <children>
-      <VBox alignment="CENTER">
-         <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <VBox.margin>
-                  <Insets bottom="30.0" />
-               </VBox.margin>
-            </VBox>
-            <ImageView fx:id="logoView" fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
-            <VBox alignment="CENTER" prefHeight="107.0" prefWidth="476.0">
-               <children>
-                  <TextField fx:id="usernameField" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <VBox.margin>
-                        <Insets bottom="30.0" top="100.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <PasswordField fx:id="passwordField" alignment="TOP_LEFT" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Salasana">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </PasswordField>
-               </children>
-               <padding>
-                  <Insets bottom="150.0" top="75.0" />
-               </padding>
-            </VBox>
-            <StackPane alignment="TOP_CENTER" prefHeight="150.0" prefWidth="200.0">
-               <children>
-                  <ImageView fx:id="loginActive" fitHeight="106.0" fitWidth="476.0" onMouseClicked="#loginAttempt" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../loginActive.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="loginInactive" fitHeight="156.0" fitWidth="476.0" onMouseClicked="#herjaaPuuttuvasta" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../loginInactive.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <VBox.margin>
-                  <Insets top="-100.0" />
-               </VBox.margin>
-            </StackPane>
-         </children>
-         <padding>
-            <Insets top="50.0" />
-         </padding>
-      </VBox>
-   </children>
+    <children>
+        <VBox alignment="CENTER">
+            <children>
+                <VBox prefHeight="200.0" prefWidth="100.0">
+                    <VBox.margin>
+                        <Insets bottom="30.0" />
+                    </VBox.margin>
+                </VBox>
+                <ImageView fx:id="logoView" fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
+                <VBox alignment="CENTER" prefHeight="107.0" prefWidth="476.0">
+                    <children>
+                        <TextField fx:id="usernameField" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <VBox.margin>
+                                <Insets bottom="30.0" top="100.0" />
+                            </VBox.margin>
+                        </TextField>
+                        <PasswordField fx:id="passwordField" alignment="TOP_LEFT" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Salasana">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </PasswordField>
+                    </children>
+                    <padding>
+                        <Insets bottom="150.0" top="75.0" />
+                    </padding>
+                </VBox>
+                <StackPane alignment="TOP_CENTER" prefHeight="150.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fx:id="loginActive" fitHeight="106.0" fitWidth="476.0" onMouseClicked="#loginAttempt" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../loginActive.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="loginInactive" fitHeight="156.0" fitWidth="476.0" onMouseClicked="#herjaaPuuttuvasta" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../loginInactive.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="-100.0" />
+                    </VBox.margin>
+                </StackPane>
+            </children>
+            <padding>
+                <Insets top="50.0" />
+            </padding>
+        </VBox>
+    </children>
 </HBox>

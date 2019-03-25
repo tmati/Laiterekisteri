@@ -5,11 +5,8 @@
  */
 package Controller;
 
-
 import Model.*;
 import java.util.Set;
-
-
 
 /**
  * Controlleri
@@ -34,9 +31,9 @@ public class Controller {
         kayttajaTarkistus = new KayttajaTarkistus(this);
         resurssiDAO = new ResurssitAccessObject();
         varausDAO = new VarauksetAccessObject();
-        KV = new KayttajanVaraukset();
+        KV = new KayttajanVaraukset(this);
         login = new LoginUtils(this);
-       }
+    }
 
     /**
      * Kutsuu PasswordConverterInterface.passwordConverter()
@@ -134,18 +131,20 @@ public class Controller {
     public Varaukset[] haeKaikkiVaraukset() {
         return varausDAO.readVaraukset();
     }
-    
+
     /**
      * kutsuu KayttajanVaraukset.haeKayttajanVaraukset()
+     *
      * @param kayttaja kayttaja -olio jonka varaukset haetaan
      * @return palauttaa taulukon kaikista käyttäjän varaus -olioista
      */
     public Varaukset[] haeKayttajanVaraukset(Kayttaja kayttaja) {
-        return KV.haeKayttajanVaraukset(kayttaja, this);
+        return KV.haeKayttajanVaraukset(kayttaja);
     }
 
     /**
      * Kutsuu ResurssiAccessObject.deleteResurssi()
+     *
      * @param r tietokannasta poistettava resurssi
      * @return palauttaa true jos resurssin poisto tietokannasta onnistui
      */
@@ -154,50 +153,74 @@ public class Controller {
     }
 
     /**
-     *Kutsuu ResurssiAccessObject.updateResurssi()
+     * Kutsuu ResurssiAccessObject.updateResurssi()
+     *
      * @param r päivitettävä resurssi -olio
      * @return palauttaa true jos resurssin päivitys tietokantaan onnistui
      */
-    public boolean paivitaResurssi(Resurssit r){
+    public boolean paivitaResurssi(Resurssit r) {
         return resurssiDAO.updateResurssi(r);
     }
-    
+
     /**
      * Kutsuu VarausAccessObject.updateVaraus()
+     *
      * @param v päivitettävä varaus -olio
      * @return palauttaa true jos varauksen päivitys tietokantaan onnistui
      */
-    public boolean paivitaVaraus(Varaukset v){
+    public boolean paivitaVaraus(Varaukset v) {
         return varausDAO.updateVaraus(v);
     }
-    
+
     /**
      * Kutsuu VarausAccessObject.createVaraus()
+     *
      * @param v tietokantaan vietävä varaus -olio
      * @return palauttaa true jos varauksen vienti tietokantaan onnistui
      */
-    public boolean luoVaraus(Varaukset v){
+    public boolean luoVaraus(Varaukset v) {
         return varausDAO.createVaraus(v);
     }
-    
+
     /**
      * Kutsuu ResurssiAccessObject.createResurssi()
+     *
      * @param r tietokantaan vietävä resurssi -olio
      * @return palauttaa true jos resurssin vienti tietokantaan onnistui
      */
-    public boolean luoResurssi(Resurssit r){
+    public boolean luoResurssi(Resurssit r) {
         return resurssiDAO.createResurssi(r);
     }
-    
-        /**
+
+    /**
      * Tarkistaa modelista käyttäjänimen ja salasanan.
+     *
      * @param userName
      * @param passWord
-     * @return 
+     * @return
      */
     public boolean login(String userName, String passWord) {
         System.out.println("Controller");
         return login.loginProcess(userName, passWord);
     }
 
+    /**
+     * Kutsuu VarausAccessObject.readVaraus()
+     *
+     * @param id haetun varauksen id
+     * @return palauttaa varaus-olion
+     */
+    public Varaukset haeVaraus(int id) {
+        return varausDAO.readVaraus(id);
+    }
+
+    /**
+     * Kutsuu VarausAccessObject.deleteVaraus()
+     *
+     * @param id tietokannasta poistettavan varauksen id
+     * @return palauttaa true jos varauksen poisto tietokannasta onnistui
+     */
+    public boolean poistaVaraus(int id) {
+        return varausDAO.deleteVaraus(id);
+    }
 }

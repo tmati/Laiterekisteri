@@ -11,44 +11,44 @@
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: black; -fx-background-radius: 15px;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UusiResurssiController">
-   <children>
-      <Label fx:id="itemLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="63.0" prefHeight="30.0" prefWidth="500.0" text="ANNA TIEDOT:" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Futura Bk BT Book" size="25.0" />
-         </font>
-      </Label>
-      <Button fx:id="uusiresurssiNappi" layoutX="172.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#uusiresurssiNappiPainettu" text="LUO UUSI RESURSSI">
-         <font>
-            <Font name="Futura Bk BT Book" size="15.0" />
-         </font>
-      </Button>
-      <Label fx:id="titleLabel" layoutX="143.0" layoutY="11.0" text="UUSI RESURSSI" textFill="WHITE">
-         <font>
-            <Font name="Futura Bk BT Book" size="34.0" />
-         </font>
-      </Label>
-      <TextArea fx:id="kuvausTextbox" layoutX="16.0" layoutY="287.0" prefHeight="92.0" prefWidth="472.0" promptText="Kuvaus">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextArea>
-      <Button fx:id="sulkuNappi" layoutX="445.0" layoutY="15.0" mnemonicParsing="false" onAction="#sulkuNappiPainettu" style="-fx-background-radius: 10px; -fx-background-color: WHITE;" text="X">
-         <font>
-            <Font name="Arial Black" size="15.0" />
-         </font>
-      </Button>
-      <TextField fx:id="nimiTextField" layoutX="16.0" layoutY="127.0" prefHeight="37.0" prefWidth="472.0" promptText="Nimi">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="tyyppiTextField" layoutX="17.0" layoutY="214.0" prefHeight="37.0" prefWidth="225.0" promptText="Tyyppi">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <ChoiceBox fx:id="LuvanvaraisuusChoiceBox" layoutX="261.0" layoutY="214.0" prefHeight="37.0" prefWidth="225.0" value="Valitse...">
-                      <items>
+    <children>
+        <Label fx:id="itemLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="63.0" prefHeight="30.0" prefWidth="500.0" text="ANNA TIEDOT:" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font name="Futura Bk BT Book" size="25.0" />
+            </font>
+        </Label>
+        <Button fx:id="uusiresurssiNappi" layoutX="172.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#uusiresurssiNappiPainettu" text="LUO UUSI RESURSSI">
+            <font>
+                <Font name="Futura Bk BT Book" size="15.0" />
+            </font>
+        </Button>
+        <Label fx:id="titleLabel" layoutX="143.0" layoutY="11.0" text="UUSI RESURSSI" textFill="WHITE">
+            <font>
+                <Font name="Futura Bk BT Book" size="34.0" />
+            </font>
+        </Label>
+        <TextArea fx:id="kuvausTextbox" layoutX="16.0" layoutY="287.0" prefHeight="92.0" prefWidth="472.0" promptText="Kuvaus">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </TextArea>
+        <Button fx:id="sulkuNappi" layoutX="445.0" layoutY="15.0" mnemonicParsing="false" onAction="#sulkuNappiPainettu" style="-fx-background-radius: 10px; -fx-background-color: WHITE;" text="X">
+            <font>
+                <Font name="Arial Black" size="15.0" />
+            </font>
+        </Button>
+        <TextField fx:id="nimiTextField" layoutX="16.0" layoutY="127.0" prefHeight="37.0" prefWidth="472.0" promptText="Nimi">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="tyyppiTextField" layoutX="17.0" layoutY="214.0" prefHeight="37.0" prefWidth="225.0" promptText="Tyyppi">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </TextField>
+        <ChoiceBox fx:id="LuvanvaraisuusChoiceBox" layoutX="261.0" layoutY="214.0" prefHeight="37.0" prefWidth="225.0" value="Valitse...">
+            <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Valitse..." />
                     <String fx:value="Vapaa käyttö" />
@@ -56,31 +56,31 @@
                     <String fx:value="Ylläpitäjän hyväksyttävä" />
                 </FXCollections>
             </items>
-      </ChoiceBox>
-      <Label layoutX="17.0" layoutY="100.0" text="NIMI" textFill="WHITE">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="17.0" layoutY="189.0" text="TYYPPI" textFill="WHITE">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="261.0" layoutY="189.0" text="LUVANVARAISUUS" textFill="WHITE">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="17.0" layoutY="261.0" text="KUVAUS" textFill="WHITE">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="virheLabel" alignment="CENTER" disable="true" layoutX="2.0" layoutY="415.0" opacity="0.0" prefHeight="20.0" prefWidth="500.0" text="TIETOJA PUUTTUU. TÄYTÄ LOPUT KOHDAT JA YRITÄ UUDELLEEN!" textFill="RED">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-   </children>
+        </ChoiceBox>
+        <Label layoutX="17.0" layoutY="100.0" text="NIMI" textFill="WHITE">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="17.0" layoutY="189.0" text="TYYPPI" textFill="WHITE">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="261.0" layoutY="189.0" text="LUVANVARAISUUS" textFill="WHITE">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="17.0" layoutY="261.0" text="KUVAUS" textFill="WHITE">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label fx:id="virheLabel" alignment="CENTER" disable="true" layoutX="2.0" layoutY="415.0" opacity="0.0" prefHeight="20.0" prefWidth="500.0" text="TIETOJA PUUTTUU. TÄYTÄ LOPUT KOHDAT JA YRITÄ UUDELLEEN!" textFill="RED">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+    </children>
 </Pane>

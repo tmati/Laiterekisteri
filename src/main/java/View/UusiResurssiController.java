@@ -46,13 +46,13 @@ public class UusiResurssiController implements Initializable {
     private ChoiceBox<String> LuvanvaraisuusChoiceBox;
     @FXML
     private Label virheLabel;
-    
-    Controller controller;
-    
-    //ResurssitAccessObject RAO = new ResurssitAccessObject();
 
+    Controller controller;
+
+    //ResurssitAccessObject RAO = new ResurssitAccessObject();
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -60,9 +60,11 @@ public class UusiResurssiController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         controller = View.controller;
-    }    
+    }
+
     /**
      * Tulkitsee ChoiceBoxin valinnan resurssiparametrin kaipaamaksi numeroksi.
+     *
      * @param cb Käsiteltävä choicebox.
      * @return Luvanvaraisuustasoa vastaava numeroarvo.
      */
@@ -70,16 +72,20 @@ public class UusiResurssiController implements Initializable {
         int selectedOption = -1;
         if (cb.getValue().equals("Vapaa käyttö")) {
             selectedOption = 0;
-        }else if (cb.getValue().equals("Esimiehen hyväksyttävä")) {
+        } else if (cb.getValue().equals("Esimiehen hyväksyttävä")) {
             selectedOption = 1;
-        }else if (cb.getValue().equals("Ylläpitäjän hyväksyttävä")) {
+        } else if (cb.getValue().equals("Ylläpitäjän hyväksyttävä")) {
             selectedOption = 2;
-        }  
+        }
         return selectedOption;
-    } 
+    }
+
     /**
-     * Luodaan uusi resurssi ikkunaan annetuista parametreistä. Tietojen puuttuessa heitetään herja. Onnistuneen luonnin yhteysessä suljeataan popup.
-     * @param event 
+     * Luodaan uusi resurssi ikkunaan annetuista parametreistä. Tietojen
+     * puuttuessa heitetään herja. Onnistuneen luonnin yhteysessä suljeataan
+     * popup.
+     *
+     * @param event
      */
     @FXML
     private void uusiresurssiNappiPainettu(MouseEvent event) {
@@ -92,22 +98,22 @@ public class UusiResurssiController implements Initializable {
             virheLabel.setOpacity(0);
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
             popup.hide();
-            
+
         } else {
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
         }
     }
-    
-    
+
     /**
      * Sulkee popupin.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
         popup.hide();
     }
-    
+
 }

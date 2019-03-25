@@ -75,6 +75,7 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -100,6 +101,7 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Päivittää napin ulkonäön.
+     *
      * @param event
      */
     @FXML
@@ -139,8 +141,6 @@ public class KayttajaAdminController implements Initializable {
         Parent root = loader.load();
         stage.getScene().setRoot(root);
     }
-
-  
 
     /**
      * Avaa uuden käyttäjän lisäämisnäkymän.

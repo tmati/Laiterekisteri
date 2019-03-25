@@ -37,7 +37,7 @@ import javafx.util.converter.DateStringConverter;
  * @author tmati
  */
 public class VarausAdminController implements Initializable {
-    
+
     @FXML
     private Label usernameLabel;
     @FXML
@@ -66,11 +66,12 @@ public class VarausAdminController implements Initializable {
     private Button hylkaaBtn;
     @FXML
     private Button updateBtn;
-    
+
     private Controller controller;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -82,7 +83,7 @@ public class VarausAdminController implements Initializable {
             public String toString(Kayttaja k) {
                 return k.getNimi();
             }
-            
+
             @Override
             public Kayttaja fromString(String string) {
                 Kayttaja kayttaja = (Kayttaja) nimiColumn.getCellData(this);
@@ -90,12 +91,13 @@ public class VarausAdminController implements Initializable {
                 return kayttaja;
             }
         }));
-        
+
         tavaraColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Resurssit>("resurssit"));
         tavaraColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Resurssit>() {
             public String toString(Resurssit r) {
                 return r.getNimi();
             }
+
             @Override
             public Resurssit fromString(String string) {
                 Resurssit resurssit = (Resurssit) tavaraColumn.getCellData(this);
@@ -103,26 +105,27 @@ public class VarausAdminController implements Initializable {
                 return resurssit;
             }
         }));
-        
+
         alkupvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("alkupvm"));
         alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter()));
-        
+
         paattymispvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("paattymispvm"));
         paattymispvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter()));
-        
+
         kuvausColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("kuvaus"));
         kuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        
+
         bizName.setText(View.BizName);
         usernameLabel.setText(View.loggedIn.getNimi());
-        
+
         Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         varauksetTableView.getItems().addAll(varaukset);
-        
-    }    
+
+    }
 
     /**
      * Päivittää napin ulkonäön.
+     *
      * @param event Painikkeen klikkaus.
      */
     public void updateBtnPainettu(MouseEvent event) {
@@ -133,8 +136,9 @@ public class VarausAdminController implements Initializable {
 
     /**
      * Kirjaa käyttäjän ulos.
+     *
      * @param event Painikkeen klikkaus
-     * @throws IOException 
+     * @throws IOException
      */
     public void logout(MouseEvent event) throws IOException {
         System.out.println("Logout");
@@ -147,8 +151,9 @@ public class VarausAdminController implements Initializable {
 
     /**
      * palauttaa käyttäjän pääsivulle.
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     private void takaisinBtnPainettu(MouseEvent event) throws IOException {
@@ -158,7 +163,7 @@ public class VarausAdminController implements Initializable {
         Parent root = loader.load();
         stage.getScene().setRoot(root);
     }
-    
+
     @FXML
     private void hyvaksyBtnPainettu(MouseEvent event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
@@ -166,7 +171,7 @@ public class VarausAdminController implements Initializable {
         controller.paivitaVaraus(V);
         System.out.println("Varaus hyväksytty!");
     }
-    
+
     @FXML
     private void hylkaaBtnPainettu(MouseEvent event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
@@ -174,7 +179,7 @@ public class VarausAdminController implements Initializable {
         controller.paivitaVaraus(V);
         System.out.println("Varaus hylätty!");
     }
-    
+
     @FXML
     private void alkupvmEditCommit(TableColumn.CellEditEvent<Varaukset, LocalDateTime> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
@@ -182,7 +187,7 @@ public class VarausAdminController implements Initializable {
         System.out.println("Uusi alkupvm: " + V.getAlkupvm().toString());
         controller.paivitaVaraus(V);
     }
-    
+
     @FXML
     private void paattymispvmEditCommit(TableColumn.CellEditEvent<Varaukset, LocalDateTime> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
@@ -190,7 +195,7 @@ public class VarausAdminController implements Initializable {
         System.out.println("Uusi päättymispvm: " + V.getPaattymispvm().toString());
         controller.paivitaVaraus(V);
     }
-    
+
     @FXML
     private void kuvausEditCommit(TableColumn.CellEditEvent<Varaukset, String> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();

@@ -14,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 /**
+ * Tarkistus luokka sisään kirjautumista varten
  *
  * @author tmati
  */
@@ -21,10 +22,10 @@ public class LoginUtils {
 
     private Controller kontrolleri;
 
-
     public LoginUtils(Controller kontrolleri) {
         this.kontrolleri = kontrolleri;
     }
+
     /**
      * Sisäänkirjautuminen
      *

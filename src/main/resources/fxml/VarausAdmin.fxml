@@ -12,77 +12,77 @@
 <?import javafx.scene.text.Font?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="876.0" prefWidth="1772.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VarausAdminController">
-  <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.79998779296875" minWidth="4.800003814697259" prefWidth="83.20000610351562" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.99999618530273" minWidth="0.0" prefWidth="218.39999389648438" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="520.6000244140625" minWidth="10.0" prefWidth="479.2" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="248.4000366210937" minWidth="10.0" prefWidth="170.39999999999998" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="696.0" minWidth="10.0" prefWidth="586.4000488281249" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="472.0" minWidth="0.0" prefWidth="114.4000244140625" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="0.0" prefWidth="70.40000000000009" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="239.59999389648436" minHeight="10.0" prefHeight="92.2000198364258" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="269.59998016357423" minHeight="10.0" prefHeight="269.59998016357423" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="428.7999755859375" minHeight="10.0" prefHeight="373.59996337890624" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="122.39999999999998" minHeight="10.0" prefHeight="68.00003662109373" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Label fx:id="usernameLabel" alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="457.0" text="USERINFO" textFill="WHITE" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="RIGHT">
-         <font>
-            <Font name="System Bold" size="36.0" />
-         </font>
-      </Label>
-      <Button fx:id="LogoutBtn" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="35.0" prefWidth="90.0" text="LOGOUT" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="LEFT">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="25.0" right="25.0" />
-         </GridPane.margin>
-      </Button>
-      <Label fx:id="bizName" alignment="CENTER" contentDisplay="CENTER" prefHeight="54.0" prefWidth="685.0" text="YRITYS OY" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER">
-         <font>
-            <Font name="System Bold" size="36.0" />
-         </font>
-      </Label>
-      <TableView fx:id="varauksetTableView" editable="true" prefHeight="590.0" prefWidth="1669.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1" GridPane.rowSpan="2">
-         <columns>
-            <TableColumn fx:id="nimiColumn" onEditCommit="#nimiEditCommit" prefWidth="288.80003356933594" resizable="false" text="VARAAJAN NIMI" />
-            <TableColumn fx:id="tavaraColumn" onEditCommit="#tavaraEditCommit" prefWidth="412.0000305175781" resizable="false" text="TAVARA" />
-            <TableColumn fx:id="alkupvmColumn" minWidth="0.0" onEditCommit="#alkupvmEditCommit" prefWidth="184.0" resizable="false" text="ALKUPVM" />
-            <TableColumn fx:id="paattymispvmColumn" minWidth="0.0" onEditCommit="#paattymispvmEditCommit" prefWidth="184.0" resizable="false" text="PÄÄTTYMISPVM" />
-            <TableColumn fx:id="kuvausColumn" onEditCommit="#kuvausEditCommit" prefWidth="597.600048828125" resizable="false" text="KUVAUS" />
-         </columns>
-      </TableView>
-      <Button fx:id="takaisinBtn" mnemonicParsing="false" onMouseClicked="#takaisinBtnPainettu" prefHeight="35.0" prefWidth="97.0" text="TAKAISIN" GridPane.columnIndex="1" GridPane.halignment="LEFT">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
-      </Button>
-      <Button fx:id="hyvaksyBtn" mnemonicParsing="false" onMouseClicked="#hyvaksyBtnPainettu" prefHeight="71.0" prefWidth="260.0" text="HYVÄKSY" textFill="#17b50f" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
-         <font>
-            <Font name="System Bold" size="32.0" />
-         </font>
-         <GridPane.margin>
-            <Insets top="25.0" />
-         </GridPane.margin>
-      </Button>
-      <Button fx:id="hylkaaBtn" mnemonicParsing="false" onMouseClicked="#hylkaaBtnPainettu" prefHeight="71.0" prefWidth="260.0" text="HYLKÄÄ" textFill="#e50606" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="3">
-         <font>
-            <Font name="System Bold" size="32.0" />
-         </font>
-         <GridPane.margin>
-            <Insets top="25.0" />
-         </GridPane.margin>
-      </Button>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" />
-      <Button fx:id="updateBtn" mnemonicParsing="false" onMouseClicked="#updateBtnPainettu" text="PÄIVITÄ TAULUKKO" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-   </children>
-   <padding>
-      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-   </padding>
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.79998779296875" minWidth="4.800003814697259" prefWidth="83.20000610351562" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.99999618530273" minWidth="0.0" prefWidth="218.39999389648438" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="520.6000244140625" minWidth="10.0" prefWidth="479.2" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="248.4000366210937" minWidth="10.0" prefWidth="170.39999999999998" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="696.0" minWidth="10.0" prefWidth="586.4000488281249" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="472.0" minWidth="0.0" prefWidth="114.4000244140625" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="0.0" prefWidth="70.40000000000009" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="239.59999389648436" minHeight="10.0" prefHeight="92.2000198364258" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="269.59998016357423" minHeight="10.0" prefHeight="269.59998016357423" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="428.7999755859375" minHeight="10.0" prefHeight="373.59996337890624" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="122.39999999999998" minHeight="10.0" prefHeight="68.00003662109373" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <Label fx:id="usernameLabel" alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="457.0" text="USERINFO" textFill="WHITE" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="RIGHT">
+            <font>
+                <Font name="System Bold" size="36.0" />
+            </font>
+        </Label>
+        <Button fx:id="LogoutBtn" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="35.0" prefWidth="90.0" text="LOGOUT" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="LEFT">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+            <GridPane.margin>
+                <Insets left="25.0" right="25.0" />
+            </GridPane.margin>
+        </Button>
+        <Label fx:id="bizName" alignment="CENTER" contentDisplay="CENTER" prefHeight="54.0" prefWidth="685.0" text="YRITYS OY" textFill="WHITE" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+            <font>
+                <Font name="System Bold" size="36.0" />
+            </font>
+        </Label>
+        <TableView fx:id="varauksetTableView" editable="true" prefHeight="590.0" prefWidth="1669.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1" GridPane.rowSpan="2">
+            <columns>
+                <TableColumn fx:id="nimiColumn" onEditCommit="#nimiEditCommit" prefWidth="288.80003356933594" resizable="false" text="VARAAJAN NIMI" />
+                <TableColumn fx:id="tavaraColumn" onEditCommit="#tavaraEditCommit" prefWidth="412.0000305175781" resizable="false" text="TAVARA" />
+                <TableColumn fx:id="alkupvmColumn" minWidth="0.0" onEditCommit="#alkupvmEditCommit" prefWidth="184.0" resizable="false" text="ALKUPVM" />
+                <TableColumn fx:id="paattymispvmColumn" minWidth="0.0" onEditCommit="#paattymispvmEditCommit" prefWidth="184.0" resizable="false" text="PÄÄTTYMISPVM" />
+                <TableColumn fx:id="kuvausColumn" onEditCommit="#kuvausEditCommit" prefWidth="597.600048828125" resizable="false" text="KUVAUS" />
+            </columns>
+        </TableView>
+        <Button fx:id="takaisinBtn" mnemonicParsing="false" onMouseClicked="#takaisinBtnPainettu" prefHeight="35.0" prefWidth="97.0" text="TAKAISIN" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+            <GridPane.margin>
+                <Insets />
+            </GridPane.margin>
+        </Button>
+        <Button fx:id="hyvaksyBtn" mnemonicParsing="false" onMouseClicked="#hyvaksyBtnPainettu" prefHeight="71.0" prefWidth="260.0" text="HYVÄKSY" textFill="#17b50f" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <font>
+                <Font name="System Bold" size="32.0" />
+            </font>
+            <GridPane.margin>
+                <Insets top="25.0" />
+            </GridPane.margin>
+        </Button>
+        <Button fx:id="hylkaaBtn" mnemonicParsing="false" onMouseClicked="#hylkaaBtnPainettu" prefHeight="71.0" prefWidth="260.0" text="HYLKÄÄ" textFill="#e50606" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+            <font>
+                <Font name="System Bold" size="32.0" />
+            </font>
+            <GridPane.margin>
+                <Insets top="25.0" />
+            </GridPane.margin>
+        </Button>
+        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" />
+        <Button fx:id="updateBtn" mnemonicParsing="false" onMouseClicked="#updateBtnPainettu" text="PÄIVITÄ TAULUKKO" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+    </children>
+    <padding>
+        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+    </padding>
 </GridPane>

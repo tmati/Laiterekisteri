@@ -48,11 +48,12 @@ public class SalasananvaihtoController implements Initializable {
     private TextField uusisalasana2TextField;
     @FXML
     private Label uusisalasana2Label;
-    
+
     Controller controller;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -61,11 +62,12 @@ public class SalasananvaihtoController implements Initializable {
         //Hae käyttäjän nimi tähän
         usernameLabel.setText("");
         controller = View.controller;
-    }    
-    
+    }
+
     /**
      * Käsittelee salasanan vaihtoa popup-ikkunassa.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void vaihdasalasanaNappiPainettu(MouseEvent event) {
@@ -85,18 +87,19 @@ public class SalasananvaihtoController implements Initializable {
             virheLabel.setText("Vanha salasana väärin.");
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
-           
+
+        }
     }
-    }
-    
+
     /**
      * Sulkee popupin.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
         popup.hide();
     }
-    
+
 }

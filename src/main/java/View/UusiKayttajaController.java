@@ -54,6 +54,7 @@ public class UusiKayttajaController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -80,7 +81,6 @@ public class UusiKayttajaController implements Initializable {
         }
         return selectedOption;
     }
-
 
     /**
      * Luo uuden käyttäjän annettujen ehtojen täsmätessä. Herjaa jos ehdot ei

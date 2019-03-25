@@ -50,14 +50,16 @@ public class loginWindowController implements Initializable {
     private boolean loginPossible;
 
     private Controller controller;
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
         logoView.setImage(image);
         centerImage(logoView);
@@ -113,7 +115,7 @@ public class loginWindowController implements Initializable {
      */
     @FXML
     private void loginAttempt(MouseEvent event) {
-        System.out.println(usernameField.getText() + " " +  passwordField.getText());
+        System.out.println(usernameField.getText() + " " + passwordField.getText());
         if (controller.login(usernameField.getText(), passwordField.getText())) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));

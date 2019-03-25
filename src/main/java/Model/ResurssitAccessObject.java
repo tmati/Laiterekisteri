@@ -11,7 +11,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
- * Resursien DAO
+ * Resurssi DAO
+ *
  * @author Tommi
  */
 public class ResurssitAccessObject implements ResurssitDAO_IF {
@@ -19,7 +20,7 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
     SessionFactory sf = null;
 
     /**
-     * Konstuktori
+     * Konstuktori hakee sessionfactoryn
      */
     public ResurssitAccessObject() {
         try {
@@ -30,9 +31,10 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
     }
 
     /**
-     * Luo Resursin tietokantaan.
-     * @param resurssi
-     * @return
+     * Vie resurssin tietokantaan
+     *
+     * @param resurssi resurssi joka viedään tietokantaan
+     * @return true jos tietokantaan vienti onnistui
      */
     @Override
     public boolean createResurssi(Resurssit resurssi) {
@@ -57,9 +59,10 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
     }
 
     /**
-     * Lukee resursin tietokannasta id:n perusteella.
-     * @param id
-     * @return
+     * Lukee resurssin tietokannasta id:n perusteella.
+     *
+     * @param id resurssin id
+     * @return haettu resurssi -olio
      */
     @Override
     public Resurssit readResurssi(int id) {
@@ -86,8 +89,9 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
     }
 
     /**
-     * lukee resursit tietokannasta.
-     * @return
+     * Lukee kaikki resurssit tietokannasta
+     *
+     * @return taulukko kaikista resursseista
      */
     @Override
     public Resurssit[] readResurssit() {
@@ -114,9 +118,10 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
     }
 
     /**
-     * Päivittää resurssin.
-     * @param resurssi
-     * @return
+     * Päivittää resurssin tietokantaan
+     *
+     * @param resurssi päivitettävä resurssi
+     * @return true jos resurssin päivitys onnistui
      */
     @Override
     public boolean updateResurssi(Resurssit resurssi) {
@@ -152,9 +157,10 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
     }
 
     /**
-     * Poistaa resursin id:n avulla tietokannasta.
-     * @param id
-     * @return
+     * Poistaa resurssin id:n avulla tietokannasta
+     *
+     * @param id poistettavan resurssin id
+     * @return true jos resurssin poisto onnistui
      */
     @Override
     public boolean deleteResurssi(int id) {

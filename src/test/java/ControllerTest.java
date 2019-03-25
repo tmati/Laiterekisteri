@@ -7,6 +7,7 @@
 import Controller.Controller;
 import Model.Kayttaja;
 import Model.KayttajaAccessObject;
+import Model.Varaukset;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -16,22 +17,21 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * Testi -luokka Controller -luokalle
  *
  * @author Tommi
  */
-
 public class ControllerTest {
 
     Controller kont = new Controller();
-    KayttajaAccessObject kDAO = new KayttajaAccessObject();
 
     /**
-     *
+     * Kayttaja -olion käsittelyyn liittyvät testit
      */
     @Test
-    public void Controllertestit() {
-        Kayttaja k = new Kayttaja("contTest","contTest","contTest","contTest",1);
-        assertTrue("vieKayttajatietokantaan: ei onnistunut",
+    public void ControllerKayttajaTestit() {
+        Kayttaja k = new Kayttaja("contTest", "contTest", "contTest", "contTest", 1);
+        assertTrue("luoKayttaja: ei onnistunut",
                 kont.luoKayttaja(k));
         assertTrue("readKayttaja(): Haku ei onnistunut",
                 (k = kont.haeKayttaja(k.getId())) != null);
@@ -42,11 +42,25 @@ public class ControllerTest {
         k.setValtuudet(2);
         assertTrue("paivitaKayttaja: ei onnistunut",
                 kont.paivitaKayttaja(k));
-         assertTrue("poistaKayttaja: ei onnistunut",
+        assertTrue("poistaKayttaja: ei onnistunut",
                 kont.poistaKayttaja(k.getId()));
         assertTrue("haeKaikkiKayttajat: ei onnistunut",
                 kont.haeKaikkiKayttajat() != null);
-        
+
+    }
+
+    @Test
+    void ControllerVarausTestit() {
+        Varaukset v = new Varaukset();
+        assertTrue("luoVaraus: ei onnistunut",
+                kont.luoVaraus(v));
+        assertTrue("readVaraus(): Haku ei onnistunut",
+                (v = kont.haeVaraus(v.getId())) != null);
+        v.setKuvaus("asd");
+        assertTrue("paivitaVaraus: ei onnistunut",
+                kont.paivitaVaraus(v));
+        assertTrue("poistaVaraus: ei onnistunut",
+                kont.pa(k.getId()));
     }
 
 }
