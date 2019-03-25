@@ -33,7 +33,6 @@ import javafx.util.converter.DateStringConverter;
 
 /**
  * Varausten tarkasteluun käytettävän näkymän toiminnot
- *
  * @author tmati
  */
 public class VarausAdminController implements Initializable {
@@ -68,7 +67,6 @@ public class VarausAdminController implements Initializable {
     private Button updateBtn;
     
     private Controller controller;
-
     /**
      * Initializes the controller class.
      * @param url
@@ -118,7 +116,6 @@ public class VarausAdminController implements Initializable {
         
         Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         varauksetTableView.getItems().addAll(varaukset);
-        
     }    
 
     /**
@@ -159,6 +156,10 @@ public class VarausAdminController implements Initializable {
         stage.getScene().setRoot(root);
     }
     
+    /**
+     * Toiminta varauksen hyväksyntänapin painalluksen jälkeen. Hyväksyy varauksen ja päivittää sen tietokantaan.
+     * @param event Hiiren klikkaus painikkeeseen
+     */
     @FXML
     private void hyvaksyBtnPainettu(MouseEvent event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
@@ -167,6 +168,10 @@ public class VarausAdminController implements Initializable {
         System.out.println("Varaus hyväksytty!");
     }
     
+    /**
+     * Toiminta varauksen hylkäysnapin painalluksen jälkeen. Hylkää varauksen ja päivittää sen tietokantaan.
+     * @param event Hiiren klikkaus painikkeeseen
+     */
     @FXML
     private void hylkaaBtnPainettu(MouseEvent event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
@@ -175,6 +180,10 @@ public class VarausAdminController implements Initializable {
         System.out.println("Varaus hylätty!");
     }
     
+    /**
+     * Alkupvm Taulun edit commit - toiminto. Tapahtuu kun varauksen päivämäärää muutetaan.
+     * @param event Arvon muuttamisen jälkeen tapahtuva Enter-painallus
+     */
     @FXML
     private void alkupvmEditCommit(TableColumn.CellEditEvent<Varaukset, LocalDateTime> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
@@ -183,6 +192,10 @@ public class VarausAdminController implements Initializable {
         controller.paivitaVaraus(V);
     }
     
+    /**
+     * Päättymispvm taulun edit commit - toiminto. Tapahtuu kun varauksen päivämäärää muutetaan.
+     * @param event Arvon muuttumisen jälkeen tapahtuva Enter-painallus
+     */
     @FXML
     private void paattymispvmEditCommit(TableColumn.CellEditEvent<Varaukset, LocalDateTime> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
@@ -191,6 +204,10 @@ public class VarausAdminController implements Initializable {
         controller.paivitaVaraus(V);
     }
     
+    /**
+     * Kuvauksen edit commit - toiminto. Tapahtuu kun varauksen kuvausta muutetaan.
+     * @param event Arvon muuttamisen jälkeen tapahtuva Enter - painallus.
+     */
     @FXML
     private void kuvausEditCommit(TableColumn.CellEditEvent<Varaukset, String> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();

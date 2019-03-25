@@ -27,7 +27,6 @@ import javafx.stage.Stage;
 
 /**
  * Kirjautumisikkunan toiminnallisuus.
- *
  * @author tmati
  */
 public class loginWindowController implements Initializable {
@@ -66,7 +65,6 @@ public class loginWindowController implements Initializable {
 
     /**
      * Keskittää kuvan imageviewissä. Netistä haettu.
-     *
      * @param i Kuva joka halutaan keskittää.
      */
     public void centerImage(ImageView i) {
@@ -97,7 +95,6 @@ public class loginWindowController implements Initializable {
     /**
      * Heittää herjan jos käyttäjä yrittää kirjautua asettamatta vaadittavia
      * tietoja.
-     *
      * @param event Hiiren klikkaus
      */
     @FXML
@@ -108,7 +105,6 @@ public class loginWindowController implements Initializable {
 
     /**
      * Hiirieventti login-painikkeen klikkaamiseen.
-     *
      * @param event Hiiren klikkaus kirjaudu-sisään painikkeeseen.
      */
     @FXML
@@ -132,9 +128,8 @@ public class loginWindowController implements Initializable {
 
     /**
      * Enter-painikkeen painaminen login-näkymässä.
-     *
-     * @param ke
-     * @throws IOException
+     * @param ke Kuunneltava näppäimistön painallus
+     * @throws IOException Keyeventiin liittyvä poikkeus, johon pitää varautua.
      */
     @FXML
     private void handle(KeyEvent ke) throws IOException {
@@ -160,9 +155,8 @@ public class loginWindowController implements Initializable {
     /**
      * Tarkastaa login-kenttien sisällön ja muuttaa kirjautumispainikkeen
      * aktiivisuutta sen mukaan.
-     *
-     * @param event
-     * @throws IOException
+     * @param event Kuunneltavan näppäimistön painallus
+     * @throws IOException KeyEventiin liittyvä poikkeus.
      */
     @FXML
     private void checkVal(KeyEvent event) throws IOException {

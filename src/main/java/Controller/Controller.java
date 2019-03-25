@@ -8,6 +8,7 @@ package Controller;
 
 import Model.*;
 import java.util.Set;
+import javafx.scene.control.ChoiceBox;
 
 
 
@@ -25,6 +26,7 @@ public class Controller {
     private PasswordConverterInterface salasananVaihto = new PasswordConverter();
     private KayttajanVaraukset KV;
     private LoginUtils login;
+    private ChoiceboxUtils cbutils;
 
     /**
      * Controllerin konstruktio
@@ -196,8 +198,10 @@ public class Controller {
      * @return 
      */
     public boolean login(String userName, String passWord) {
-        System.out.println("Controller");
         return login.loginProcess(userName, passWord);
     }
-
+    
+    public int readCb(ChoiceBox cb) {
+        return cbutils.tulkitseChoiceBox(cb);
+    }
 }

@@ -48,8 +48,6 @@ public class UusiResurssiController implements Initializable {
     private Label virheLabel;
     
     Controller controller;
-    
-    //ResurssitAccessObject RAO = new ResurssitAccessObject();
 
     /**
      * Initializes the controller class.
@@ -61,53 +59,35 @@ public class UusiResurssiController implements Initializable {
         // TODO
         controller = View.controller;
     }    
-    /**
-     * Tulkitsee ChoiceBoxin valinnan resurssiparametrin kaipaamaksi numeroksi.
-     * @param cb Käsiteltävä choicebox.
-     * @return Luvanvaraisuustasoa vastaava numeroarvo.
-     */
-    int tulkitseChoiceBox(ChoiceBox cb) {
-        int selectedOption = -1;
-        if (cb.getValue().equals("Vapaa käyttö")) {
-            selectedOption = 0;
-        }else if (cb.getValue().equals("Esimiehen hyväksyttävä")) {
-            selectedOption = 1;
-        }else if (cb.getValue().equals("Ylläpitäjän hyväksyttävä")) {
-            selectedOption = 2;
-        }  
-        return selectedOption;
-    } 
+
     /**
      * Luodaan uusi resurssi ikkunaan annetuista parametreistä. Tietojen puuttuessa heitetään herja. Onnistuneen luonnin yhteysessä suljeataan popup.
-     * @param event 
+     * @param event Hiiren klikkaus painikkeesta.
      */
     @FXML
     private void uusiresurssiNappiPainettu(MouseEvent event) {
         if (nimiTextField.getText() != null && tyyppiTextField.getText() != null && !LuvanvaraisuusChoiceBox.getValue().equals("Valitse...") && kuvausTextbox.getText() != null) {
             System.out.println("Luodaan uusi resurssi!");
-            Resurssit R = new Resurssit(false, nimiTextField.getText(), tyyppiTextField.getText(), tulkitseChoiceBox(LuvanvaraisuusChoiceBox), kuvausTextbox.getText());
+            Resurssit R = new Resurssit(false, nimiTextField.getText(), tyyppiTextField.getText(), controller.readCb(LuvanvaraisuusChoiceBox), kuvausTextbox.getText());
             System.out.println(R.getNimi() + " | " + R.getTyyppi() + " | " + R.getLuvanvaraisuus() + " | " + R.getKuvaus());
             controller.luoResurssi(R);
             virheLabel.setDisable(true);
             virheLabel.setOpacity(0);
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
-            popup.hide();
-            
+            popup.hide();        
         } else {
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
         }
     }
-    
-    
+       
     /**
      * Sulkee popupin.
-     * @param event 
+     * @param event Hiiren klikkaus painikkeesta.
      */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
         popup.hide();
-    }
-    
+    }    
 }

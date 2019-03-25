@@ -32,7 +32,6 @@ import javafx.util.converter.IntegerStringConverter;
 
 /**
  * Käyttäjänäkymään liittyvät toiminnot.
- *
  * @author tmati
  */
 public class KayttajaAdminController implements Initializable {
@@ -80,7 +79,11 @@ public class KayttajaAdminController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        /**
+         * Kontrollerin ilmentymä
+         */
         kontrolleri = View.controller;
+        
         //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -139,14 +142,11 @@ public class KayttajaAdminController implements Initializable {
         Parent root = loader.load();
         stage.getScene().setRoot(root);
     }
-
-  
-
+    
     /**
      * Avaa uuden käyttäjän lisäämisnäkymän.
-     *
-     * @param event
-     * @throws IOException
+     * @param event Hiiren klikkaus painikkeeseen.
+     * @throws IOException Tiedostosta lukemisen vuoksi varauduttava poikkeus
      */
     @FXML
     private void lisaaBtnPainettu(MouseEvent event) throws IOException {
@@ -165,8 +165,7 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Poistaa valitun rivin tietokannasta.
-     *
-     * @param event
+     * @param event Hiiren klikkaus painikkeeseen.
      */
     @FXML
     private void poistaBtnPainettu(MouseEvent event) {
@@ -178,8 +177,7 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Toiminnallisuus nimi-columnin muokkaamisen päättyessä.
-     *
-     * @param event
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa ENTER - painalluksella.
      */
     @FXML
     private void nimiEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
@@ -190,9 +188,8 @@ public class KayttajaAdminController implements Initializable {
     }
 
     /**
-     * Toiminnalisuus sähköposticolumnin muokkaamisen päättyessä
-     *
-     * @param event
+     * Toiminnalisuus sähköposticolumnin muokkaamisen päättyessä.
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa ENTER - painalluksella.
      */
     @FXML
     private void emailEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
@@ -211,8 +208,7 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Toiminnallisuus valtuudet-columnin muokkaamisen päättyessä.
-     *
-     * @param event
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa ENTER - painalluksella.
      */
     @FXML
     private void valtuudetEditCommit(TableColumn.CellEditEvent<Kayttaja, Integer> event) {
@@ -224,8 +220,7 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Toiminnallisuus käyttäjätunnus-columnin muokkaamisen päättyessä.
-     *
-     * @param event
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa ENTER - painalluksella
      */
     @FXML
     private void kayttajatunnusEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {

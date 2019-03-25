@@ -55,7 +55,7 @@ import javafx.util.converter.IntegerStringConverter;
 import javax.transaction.Transactional;
 
 /**
- * Päänäkymän ohjaintoiminnot
+ * Päänäkymän ohjaintoiminnot.
  *
  * @author tmati
  */
@@ -136,11 +136,12 @@ public class NakymaController implements Initializable {
     private Button salasananvaihtoBtn;
     @FXML
     private Button updateBtn;
-    
+
     private Controller controller;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -185,8 +186,7 @@ public class NakymaController implements Initializable {
                     Date parsedDate = (Date) dateFormat.parse(string);
                     Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
                     return timestamp;
-                } catch (Exception e) { //this generic but you can control another types of exception
-                    // look the origin of excption 
+                } catch (Exception e) {
                 }
                 return null;
             }
@@ -195,6 +195,7 @@ public class NakymaController implements Initializable {
 
         paattymispvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Timestamp>("paattymispvm"));
         paattymispvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Timestamp>() {
+
             @Override
             public String toString(Timestamp object) {
                 String tString = object.toString();
@@ -208,8 +209,7 @@ public class NakymaController implements Initializable {
                     Date parsedDate = (Date) dateFormat.parse(string);
                     Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
                     return timestamp;
-                } catch (Exception e) { //this generic but you can control another types of exception
-                    // look the origin of excption 
+                } catch (Exception e) {
                 }
                 return null;
             }
@@ -238,14 +238,14 @@ public class NakymaController implements Initializable {
         omatTable.getItems().addAll(varauksetArr);
 
     }
-    
+
     /**
-     * Päivittää miltä nappi näytää kun se on painettu.
-     * @param event
-     * @throws IOException
+     * Päivittää taulukon.
+     *
+     * @param event Hiiren painallus.
      */
     @FXML
-    public void updateBtnPainettu(MouseEvent event) throws IOException {
+    public void updateBtnPainettu(MouseEvent event) {
         kaikkiTableView.getItems().clear();
         omatTable.getItems().clear();
         Resurssit[] resurssit = controller.haeKaikkiResurssit();
@@ -257,11 +257,10 @@ public class NakymaController implements Initializable {
     /**
      * Avaa varaus-popupin
      *
-     * @param event
-     * @throws IOException
+     * @param event Hiiren painallus.
+     * @throws IOException Tiedostoja luettaessa varauduttava poikkeus.
      */
     @FXML
-
     public void varausNappiPainettu(MouseEvent event) throws IOException {
         View.booking = kaikkiTableView.getSelectionModel().getSelectedItem();
         if (popup == null || !popup.isShowing()) {
@@ -278,10 +277,10 @@ public class NakymaController implements Initializable {
     }
 
     /**
-     * Avaa lisää resurssi-popupin
+     * Avaa "lisää resurssi" -popupin.
      *
-     * @param event
-     * @throws IOException
+     * @param event hiiren painallus.
+     * @throws IOException Tiedostoja luettaessa varauduttava poikkeus.
      */
     @FXML
     public void lisaaresurssiNappiPainettu(MouseEvent event) throws IOException {
@@ -301,8 +300,8 @@ public class NakymaController implements Initializable {
     /**
      * Avaa vaihda salasana-popupin
      *
-     * @param event
-     * @throws IOException
+     * @param event Hiiren painallus
+     * @throws IOException Tiedostoja käsitellessä varauduttava poikkeus.
      */
     @FXML
     public void salasananvaihtoNappiPainettu(MouseEvent event) throws IOException {
@@ -322,8 +321,8 @@ public class NakymaController implements Initializable {
     /**
      * Kirjaa käyttäjän ulos ja siirtyy kirjautumisnäkymään.
      *
-     * @param event
-     * @throws IOException
+     * @param event Hiiren painallus painikkeesta.
+     * @throws IOException Tiedostoja käsiteltäessä varauduttava poikkeus.
      */
     @FXML
     public void logout(MouseEvent event) throws IOException {
@@ -339,8 +338,8 @@ public class NakymaController implements Initializable {
      * Siirtyy varausten hallintanäkymään TODO Näytä vain jos tarpeeksi
      * oikeuksia
      *
-     * @param event
-     * @throws IOException
+     * @param event Hiiren painallus painikkeesta.
+     * @throws IOException Tiedostoja käsitellessä varauduttava poikkeus.
      */
     @FXML
     public void hallinnoiBtnPainettu(MouseEvent event) throws IOException {
@@ -355,8 +354,8 @@ public class NakymaController implements Initializable {
      * Siirtyy henkilöstön hallintanäkymään TODO Näytä vain jos tarpeeksi
      * oikeuksia.
      *
-     * @param event
-     * @throws IOException
+     * @param event Hiiren painallus käyttöliittymässä vastaavasta painikkeesta.
+     * @throws IOException Tiedostoja käsiteltäessä varauduttava poikkeus.
      */
     @FXML
     public void henkilostoBtnPainettu(MouseEvent event) throws IOException {
@@ -368,10 +367,10 @@ public class NakymaController implements Initializable {
     }
 
     /**
-     * Poistetan resurssi
+     * Poistetaan resurssi
      *
-     * @param event
-     * @throws IOException
+     * @param event Hiiren painallus painikkeen kohdalla.
+     * @throws IOException Tiedostoja käsiteltäessä varauduttava poikkeus.
      */
     @FXML
     public void poistaresurssiNappiPainettu(MouseEvent event) throws IOException {
@@ -380,13 +379,11 @@ public class NakymaController implements Initializable {
         Resurssit toDelete = kaikkiTableView.getSelectionModel().getSelectedItem();
         controller.poistaResurssi(toDelete);
     }
-    
-   
 
     /**
      * Toiminnallisuus nimi-columnin muokkaamisen päättyessä.
      *
-     * @param event
+     * @param event ENTER-painallus nimisarakkeen muokkaamisen jälkeen.
      */
     @FXML
     private void nimiOnEditCommit(TableColumn.CellEditEvent<Resurssit, String> event) {
@@ -399,7 +396,7 @@ public class NakymaController implements Initializable {
     /**
      * Toiminnallisuus tyyppi-columnin muokkaamisen päättyessä.
      *
-     * @param event
+     * @param event ENTER-painallus tyyppi-sarakkeen muokkaamisen jälkeen.
      */
     @FXML
     private void tyyppiOnEditCommit(TableColumn.CellEditEvent<Resurssit, String> event) {
@@ -412,7 +409,8 @@ public class NakymaController implements Initializable {
     /**
      * Toiminnallisuus luvanvaraisuus-columnin muokkaamisen päättyessä.
      *
-     * @param event
+     * @param event ENTER-painallus luvanvaraisuus-sarakkeen muokkaamisen
+     * jälkeen.
      */
     @FXML
     private void luvanvaraisuusOnEditCommit(TableColumn.CellEditEvent<Resurssit, Long> event) {
@@ -425,7 +423,7 @@ public class NakymaController implements Initializable {
     /**
      * Toiminnallisuus kuvaus-columnin muokkaamisen päättyessä.
      *
-     * @param event
+     * @param event ENTER-painallus kuvaus-sarakkeen muokkaamisen jölkeen.
      */
     @FXML
     private void kuvausOnEditCommit(TableColumn.CellEditEvent<Resurssit, String> event) {
@@ -435,6 +433,11 @@ public class NakymaController implements Initializable {
         controller.paivitaResurssi(R);
     }
 
+    /**
+     * Toiminnallisuus tila-columnin muokkaamisen päättyessä.
+     *
+     * @param event ENTER-painallus tila-sarakkeen muokkaamisen jälkeen.
+     */
     @FXML
     private void tilaOnEditCommit(TableColumn.CellEditEvent<Resurssit, Boolean> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
@@ -442,12 +445,11 @@ public class NakymaController implements Initializable {
         System.out.println("Uusi tila: " + R.getKuvaus());
         controller.paivitaResurssi(R);
     }
-    
 
     /**
      * Toiminnallisuus alkupvm-columnin muokkaamisen päättyessä.
      *
-     * @param event
+     * @param event ENTER-painallus alkupvm-sarakkeen muokkaamisen päätteeksi.
      */
     @FXML
     private void alkupvmOnEditCommit(TableColumn.CellEditEvent<Varaukset, Timestamp> event) {
@@ -460,7 +462,7 @@ public class NakymaController implements Initializable {
     /**
      * Toiminnallisuus paattymispvm-columnin muokkaamisen päättyessä.
      *
-     * @param event
+     * @param event ENTER-painalus paattymispvm-sarakkeeen muokkaamisen jälkeen.
      */
     @FXML
     private void paattymispvmOnEditCommit(TableColumn.CellEditEvent<Varaukset, Timestamp> event) {
@@ -470,11 +472,10 @@ public class NakymaController implements Initializable {
         controller.paivitaVaraus(V);
     }
 
-
     /**
      * Toiminnallisuus palautettu-columnin muokkaamisen päättyessä.
      *
-     * @param event
+     * @param event ENTER-painallus palautettu-sarakkeen muokkaamisen jälkeen.
      */
     @FXML
     private void palautettuOnEditCommit(TableColumn.CellEditEvent<Varaukset, Boolean> event) {
@@ -488,10 +489,10 @@ public class NakymaController implements Initializable {
      * Hakutoiminnallisuus. Tulokset haetaan valittuna olevan välilehden ja
      * kategorian mukaan.
      *
-     * @param event
+     * @param event Näppäimen painallus hakukentän ollessa aktiivinen.
      */
     @FXML
-    void searchFunction(KeyEvent event) {
+    private void searchFunction(KeyEvent event) {
         /* String query = searchBar.getText();
         System.out.println(query);
         String tabText = tabPane.getSelectionModel().getSelectedItem().getText();
