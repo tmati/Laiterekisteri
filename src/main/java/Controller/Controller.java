@@ -27,6 +27,9 @@ public class Controller {
     private KayttajanVaraukset KV;
     private LoginUtils login;
     private ChoiceboxUtils cbutils;
+    
+    private DayCellFactory cellfactory;
+    private VarauksenAikaLaskuriInterface aikalaskuri;
 
     /**
      * Controllerin konstruktio
@@ -38,6 +41,8 @@ public class Controller {
         varausDAO = new VarauksetAccessObject();
         KV = new KayttajanVaraukset();
         login = new LoginUtils(this);
+        cellfactory = new DayCellFactory();
+        aikalaskuri = new VarauksenAikaLaskuri();
        }
 
     /**
@@ -203,5 +208,24 @@ public class Controller {
     
     public int readCb(ChoiceBox cb) {
         return cbutils.tulkitseChoiceBox(cb);
+    }
+    
+    /**
+     * Vie paivat varauksen kesto laskuriin ja tuo sen jälkeen, kuinka monta päivää varaus kestää.
+     * @param alkupvm milloin varaus alkaa
+     * @param loppumispvm milloin varaus loppuu
+     * @return alkupvm ja loppupvm erotuksen
+     */
+    public int paivaLaskuri(LocalDateTime alkupvm, LocalDateTime loppumispvm){
+       return aikalaskuri.PaivaKesto(alkupvm, loppumispvm);
+    }
+    
+    /**
+     * Palauttaa datepickerille muokatut päivät.
+     * @param varaukset varaukset joila on varaukset tietyihin päiville.
+     * @return Callbackin jossa on muokatuja päiviä.
+     */
+    public Callback dayCellFactory(Varaukset[] varaukset){
+        return cellfactory.dayCellFactory(this, varaukset);
     }
 }
