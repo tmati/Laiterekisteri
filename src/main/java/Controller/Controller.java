@@ -39,14 +39,11 @@ public class Controller {
         varausDAO = new VarauksetAccessObject();
         KV = new KayttajanVaraukset(this);
         login = new LoginUtils(this);
-<<<<<<< HEAD
         cbutils = new ChoiceboxUtils(this);
-    }
-=======
         cellfactory = new DayCellFactory();
         aikalaskuri = new VarauksenAikaLaskuri();
        }
->>>>>>> 7d0b5203aa400cf104ded4af3e7b3a1816562d9b
+
 
     /**
      * Kutsuu PasswordConverterInterface.passwordConverter()

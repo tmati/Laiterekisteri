@@ -48,8 +48,8 @@
         </Label>
         <TableView fx:id="varauksetTableView" editable="true" prefHeight="590.0" prefWidth="1669.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1" GridPane.rowSpan="2">
             <columns>
-                <TableColumn fx:id="nimiColumn" onEditCommit="#nimiEditCommit" prefWidth="288.80003356933594" resizable="false" text="VARAAJAN NIMI" />
-                <TableColumn fx:id="tavaraColumn" onEditCommit="#tavaraEditCommit" prefWidth="412.0000305175781" resizable="false" text="TAVARA" />
+                <TableColumn fx:id="nimiColumn" prefWidth="288.80003356933594" resizable="false" text="VARAAJAN NIMI" />
+                <TableColumn fx:id="tavaraColumn" prefWidth="412.0000305175781" resizable="false" text="TAVARA" />
                 <TableColumn fx:id="alkupvmColumn" minWidth="0.0" onEditCommit="#alkupvmEditCommit" prefWidth="184.0" resizable="false" text="ALKUPVM" />
                 <TableColumn fx:id="paattymispvmColumn" minWidth="0.0" onEditCommit="#paattymispvmEditCommit" prefWidth="184.0" resizable="false" text="PÄÄTTYMISPVM" />
                 <TableColumn fx:id="kuvausColumn" onEditCommit="#kuvausEditCommit" prefWidth="597.600048828125" resizable="false" text="KUVAUS" />
