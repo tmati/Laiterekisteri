@@ -6,8 +6,10 @@
 package Controller;
 
 import Model.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 import javafx.scene.control.ChoiceBox;
+import javafx.util.Callback;
 
 /**
  * Controlleri
@@ -24,6 +26,8 @@ public class Controller {
     private KayttajanVaraukset KV;
     private LoginUtils login;
     private ChoiceboxUtils cbutils;
+    private DayCellFactory cellfactory;
+    private VarauksenAikaLaskuriInterface aikalaskuri;
 
     /**
      * Controllerin konstruktio
@@ -35,8 +39,14 @@ public class Controller {
         varausDAO = new VarauksetAccessObject();
         KV = new KayttajanVaraukset(this);
         login = new LoginUtils(this);
+<<<<<<< HEAD
         cbutils = new ChoiceboxUtils(this);
     }
+=======
+        cellfactory = new DayCellFactory();
+        aikalaskuri = new VarauksenAikaLaskuri();
+       }
+>>>>>>> 7d0b5203aa400cf104ded4af3e7b3a1816562d9b
 
     /**
      * Kutsuu PasswordConverterInterface.passwordConverter()
@@ -237,5 +247,24 @@ public class Controller {
     public int readCb(ChoiceBox cb) {
         return cbutils.tulkitseChoiceBox(cb);
 
+    }
+    
+    /**
+     * Vie paivat varauksen kesto laskuriin ja tuo sen jälkeen, kuinka monta päivää varaus kestää.
+     * @param alkupvm milloin varaus alkaa
+     * @param loppumispvm milloin varaus loppuu
+     * @return alkupvm ja loppupvm erotuksen
+     */
+    public int paivaLaskuri(LocalDateTime alkupvm, LocalDateTime loppumispvm){
+       return aikalaskuri.PaivaKesto(alkupvm, loppumispvm);
+    }
+    
+    /**
+     * Palauttaa datepickerille muokatut päivät.
+     * @param varaukset varaukset joila on varaukset tietyihin päiville.
+     * @return Callbackin jossa on muokatuja päiviä.
+     */
+    public Callback dayCellFactory(Varaukset[] varaukset){
+        return cellfactory.dayCellFactory(this, varaukset);
     }
 }
