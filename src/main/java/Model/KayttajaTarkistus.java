@@ -19,7 +19,7 @@ public class KayttajaTarkistus {
     /**
      * Konstruktori
      *
-     * @param kontrolleri
+     * @param kontrolleri viittaus controlleriin
      */
     public KayttajaTarkistus(Controller kontrolleri) {
         this.kontrolleri = kontrolleri;

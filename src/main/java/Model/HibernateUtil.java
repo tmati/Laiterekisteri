@@ -33,7 +33,7 @@ public class HibernateUtil {
     /**
      * Palauttaa Session tehtaan.
      *
-     * @return
+     * @return sessionfactory
      */
     public static SessionFactory getSessionFactory() {
         return sessionFactory;

@@ -75,8 +75,8 @@ public class KayttajaAdminController implements Initializable {
     /**
      * Initializes the controller class.
      *
-     * @param url
-     * @param rb
+     * @param url url
+     * @param rb resourcebundle
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -105,7 +105,7 @@ public class KayttajaAdminController implements Initializable {
     /**
      * Päivittää napin ulkonäön.
      *
-     * @param event
+     * @param event MouseEvent
      */
     @FXML
     public void updateBtnPainettu(MouseEvent event) {
@@ -116,8 +116,8 @@ public class KayttajaAdminController implements Initializable {
     /**
      * Logout. Palauttaa käyttäjän kirjautumisnäkymään ja kirjaa tämän ulos.
      *
-     * @param event
-     * @throws IOException
+     * @param event MouseEvent
+     * @throws IOException IOException
      */
     @FXML
     public void logout(MouseEvent event) throws IOException {
@@ -133,8 +133,8 @@ public class KayttajaAdminController implements Initializable {
      * Käyttäjän painaessa takaisin - painiketta tämä palautetaan takaisin
      * päänäkymään.
      *
-     * @param event
-     * @throws IOException
+     * @param event MouseEvent
+     * @throws IOException IOException
      */
     @FXML
     private void takaisinBtnPainettu(MouseEvent event) throws IOException {

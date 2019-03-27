@@ -21,6 +21,7 @@ public class KayttajanVaraukset {
 
     /**
      * Konstruktori
+     * @param c viittaus controlleriin
      */
     public KayttajanVaraukset(Controller c) {
         this.controller = c;

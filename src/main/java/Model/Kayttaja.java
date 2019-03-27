@@ -38,11 +38,11 @@ public class Kayttaja implements java.io.Serializable {
     /**
      * Konstruktori
      *
-     * @param nimi
-     * @param salasana
-     * @param kayttajatunnus
-     * @param sahkoposti
-     * @param valtuudet
+     * @param nimi käyttäjän nimi
+     * @param salasana käyttäjän salasana
+     * @param kayttajatunnus käyttäjän käyttäjätunnus
+     * @param sahkoposti käyttäjän sähköposti
+     * @param valtuudet käyttäjän valtuudet
      */
     public Kayttaja(String nimi, String salasana, String kayttajatunnus, String sahkoposti, int valtuudet) {
         this.nimi = nimi;
@@ -52,24 +52,7 @@ public class Kayttaja implements java.io.Serializable {
         this.sahkoposti = sahkoposti;
     }
 
-    /**
-     * Konstruktori
-     *
-     * @param nimi
-     * @param salasana
-     * @param valtuudet
-     * @param kayttajatunnus
-     * @param sahkoposti
-     * @param varauksets
-     */
-    public Kayttaja(String nimi, String salasana, int valtuudet, String kayttajatunnus, String sahkoposti, Set<Varaukset> varauksets) {
-        this.nimi = nimi;
-        this.salasana = salasana;
-        this.valtuudet = valtuudet;
-        this.kayttajatunnus = kayttajatunnus;
-        this.sahkoposti = sahkoposti;
-        this.varauksets = varauksets;
-    }
+    
 
     /**
      * Getteri käyttäjän id:lle
@@ -87,7 +70,7 @@ public class Kayttaja implements java.io.Serializable {
     /**
      * Setteri käyttäjän id:lle
      *
-     * @param id
+     * @param id käyttäjän id
      */
     public void setId(Integer id) {
         this.id = id;
@@ -106,7 +89,7 @@ public class Kayttaja implements java.io.Serializable {
     /**
      * Setteri käyttäjä nimelle
      *
-     * @param nimi
+     * @param nimi käyttäjän nimi
      */
     public void setNimi(String nimi) {
         this.nimi = nimi;
@@ -125,7 +108,7 @@ public class Kayttaja implements java.io.Serializable {
     /**
      * Setteri käyttäjän salasanalle
      *
-     * @param salasana
+     * @param salasana käyttäjän salasana
      */
     public void setSalasana(String salasana) {
         this.salasana = salasana;
@@ -144,7 +127,7 @@ public class Kayttaja implements java.io.Serializable {
     /**
      * Setteri käyttäjän valtuuksille
      *
-     * @param valtuudet
+     * @param valtuudet käyttäjän valtuudet
      */
     public void setValtuudet(int valtuudet) {
         this.valtuudet = valtuudet;
@@ -163,7 +146,7 @@ public class Kayttaja implements java.io.Serializable {
     /**
      * Setteri käyttäjän käyttäjätunnukselle
      *
-     * @param kayttajatunnus
+     * @param kayttajatunnus käyttäjän käyttäjätunnus
      */
     public void setKayttajatunnus(String kayttajatunnus) {
         this.kayttajatunnus = kayttajatunnus;
@@ -182,7 +165,7 @@ public class Kayttaja implements java.io.Serializable {
     /**
      * Setteri käyttäjän sähköpostille
      *
-     * @param sahkoposti
+     * @param sahkoposti käyttäjän sähköposti
      */
     public void setSahkoposti(String sahkoposti) {
         this.sahkoposti = sahkoposti;
@@ -201,7 +184,7 @@ public class Kayttaja implements java.io.Serializable {
     /**
      * Setteri käyttäjän varauksille
      *
-     * @param varauksets
+     * @param varauksets käyttäjän varaukset
      */
     public void setVarauksets(Set<Varaukset> varauksets) {
         this.varauksets = varauksets;

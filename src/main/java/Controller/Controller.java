@@ -20,7 +20,7 @@ public class Controller {
     private ResurssitDAO_IF resurssiDAO;
     private VarauksetDAO_IF varausDAO;
     private KayttajaTarkistus kayttajaTarkistus;
-    private PasswordConverterInterface salasananVaihto = new PasswordConverter();
+    private PasswordConverterInterface crypter = new PasswordConverter();
     private KayttajanVaraukset KV;
     private LoginUtils login;
     private ChoiceboxUtils cbutils;
@@ -44,8 +44,8 @@ public class Controller {
      * @param password Encryptattava salasana.
      * @return Palautaa encryptattatun salasanan.
      */
-    public String salasananVaihto(String password) {
-        return salasananVaihto.passwordConverter(password);
+    public String SalasananCryptaus(String password) {
+        return crypter.passwordConverter(password);
     }
 
     /**
@@ -198,9 +198,9 @@ public class Controller {
     /**
      * Tarkistaa modelista käyttäjänimen ja salasanan.
      *
-     * @param userName
-     * @param passWord
-     * @return
+     * @param userName käyttäjänimi
+     * @param passWord salasana
+     * @return true jos kirjautumistiedot oikein
      */
     public boolean login(String userName, String passWord) {
         return login.loginProcess(userName, passWord);

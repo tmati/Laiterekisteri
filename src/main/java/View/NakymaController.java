@@ -240,16 +240,9 @@ public class NakymaController implements Initializable {
     }
 
     /**
-<<<<<<< HEAD
      * Päivittää miltä nappi näytää kun se on painettu.
      *
-     * @param event
-     * @throws IOException
-=======
-     * Päivittää taulukon.
-     *
      * @param event Hiiren painallus.
->>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
      */
     @FXML
     public void updateBtnPainettu(MouseEvent event) {

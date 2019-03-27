@@ -70,8 +70,8 @@ public class VarausAdminController implements Initializable {
     /**
      * Initializes the controller class.
      *
-     * @param url
-     * @param rb
+     * @param url URL
+     * @param rb ResourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -136,7 +136,7 @@ public class VarausAdminController implements Initializable {
      * Kirjaa käyttäjän ulos.
      *
      * @param event Painikkeen klikkaus
-     * @throws IOException
+     * @throws IOException IOException
      */
     public void logout(MouseEvent event) throws IOException {
         System.out.println("Logout");
@@ -150,8 +150,8 @@ public class VarausAdminController implements Initializable {
     /**
      * palauttaa käyttäjän pääsivulle.
      *
-     * @param event
-     * @throws IOException
+     * @param event MouseEvent
+     * @throws IOException IOException
      */
     @FXML
     private void takaisinBtnPainettu(MouseEvent event) throws IOException {

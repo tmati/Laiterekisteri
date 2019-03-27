@@ -43,13 +43,13 @@ public class Varaukset implements java.io.Serializable {
     /**
      * Konstuktori
      *
-     * @param kayttaja
-     * @param resurssit
-     * @param alkupvm
-     * @param paattymispvm
-     * @param kuvaus
-     * @param palautettu
-     * @param nimi
+     * @param kayttaja varauksen tehnyt käyttäjä
+     * @param resurssit varaukseen liittyvä resurssi
+     * @param alkupvm alkamisaika
+     * @param paattymispvm loppumisaika
+     * @param kuvaus varauksen kuvaus
+     * @param palautettu palautettu -status: true palautettu, false ei palautettu
+     * @param nimi varaukseen liittyvän resurssin nimi
      */
     public Varaukset(Kayttaja kayttaja, Resurssit resurssit, LocalDateTime alkupvm, LocalDateTime paattymispvm, String kuvaus, boolean palautettu, String nimi) {
         this.kayttaja = kayttaja;
@@ -64,14 +64,14 @@ public class Varaukset implements java.io.Serializable {
     /**
      * Konstuktori
      *
-     * @param kayttaja
-     * @param resurssit
-     * @param alkupvm
-     * @param paattymispvm
-     * @param kuvaus
-     * @param palautettu
-     * @param nimi
-     * @param hyvaksytty
+     * @param kayttaja varauksen tehnyt käyttäjä
+     * @param resurssit varaukseen liittyvä resurssi
+     * @param alkupvm alkamisaika
+     * @param paattymispvm loppumisaika
+     * @param kuvaus varauksen kuvaus
+     * @param palautettu palautettu -status: true palautettu, false ei palautettu
+     * @param nimi varaukseen liittyvän resurssin nimi
+     * @param hyvaksytty hyväksytty -status: jos resurssi vaatii hyväksynnän, true hyväksytty
      */
     public Varaukset(Kayttaja kayttaja, Resurssit resurssit, LocalDateTime alkupvm, LocalDateTime paattymispvm, String kuvaus, boolean palautettu, String nimi, Boolean hyvaksytty) {
         this.kayttaja = kayttaja;
@@ -100,7 +100,7 @@ public class Varaukset implements java.io.Serializable {
     /**
      * Setteri varauksen id:lle
      *
-     * @param id
+     * @param id varauksen id
      */
     public void setId(Integer id) {
         this.id = id;
@@ -120,7 +120,7 @@ public class Varaukset implements java.io.Serializable {
     /**
      * Setteri varaukseen liittyvälle käyttäjälle
      *
-     * @param kayttaja
+     * @param kayttaja varauksen käyttäjä
      */
     public void setKayttaja(Kayttaja kayttaja) {
         this.kayttaja = kayttaja;
@@ -140,7 +140,7 @@ public class Varaukset implements java.io.Serializable {
     /**
      * Setteri varaukseen liittyvälle resurssille
      *
-     * @param resurssit
+     * @param resurssit varauksen resurssi
      */
     public void setResurssit(Resurssit resurssit) {
         this.resurssit = resurssit;
@@ -160,7 +160,7 @@ public class Varaukset implements java.io.Serializable {
     /**
      * Setteri varauksen alkamisajalle
      *
-     * @param alkupvm
+     * @param alkupvm varauksen alkamisaika
      */
     public void setAlkupvm(Timestamp alkupvm) {
         this.alkupvm = alkupvm;
@@ -180,7 +180,7 @@ public class Varaukset implements java.io.Serializable {
     /**
      * Setteri varauksen loppumisajalle
      *
-     * @param paattymispvm
+     * @param paattymispvm varauksen loppumisaika
      */
     public void setPaattymispvm(Timestamp paattymispvm) {
         this.paattymispvm = paattymispvm;
@@ -199,7 +199,7 @@ public class Varaukset implements java.io.Serializable {
     /**
      * Setteri varauksen kuvaukselle
      *
-     * @param kuvaus
+     * @param kuvaus varauksen kuvaus
      */
     public void setKuvaus(String kuvaus) {
         this.kuvaus = kuvaus;
@@ -218,7 +218,7 @@ public class Varaukset implements java.io.Serializable {
     /**
      * Setteri varauksen palautettu -statukselle
      *
-     * @param palautettu
+     * @param palautettu palautettu -status
      */
     public void setPalautettu(boolean palautettu) {
         this.palautettu = palautettu;
@@ -237,7 +237,7 @@ public class Varaukset implements java.io.Serializable {
     /**
      * Setteri varauksen nimelle
      *
-     * @param nimi
+     * @param nimi varauksen nimi = resurssin nimi
      */
     public void setNimi(String nimi) {
         this.nimi = nimi;
@@ -256,7 +256,7 @@ public class Varaukset implements java.io.Serializable {
     /**
      * Setteri varauksen hyvaksytty -statukselle
      *
-     * @param hyvaksytty
+     * @param hyvaksytty hyväksytty -status
      */
     public void setHyvaksytty(Boolean hyvaksytty) {
         this.hyvaksytty = hyvaksytty;
@@ -266,7 +266,7 @@ public class Varaukset implements java.io.Serializable {
     /**
      * Setteri varauksen alkamisajalle LocalDateTime -muodossa
      *
-     * @param alkupvm
+     * @param alkupvm alkamisaika
      */
     public void setAlkuAika(LocalDateTime alkupvm) {
         this.alkupvm = Timestamp.valueOf(alkupvm);
@@ -284,7 +284,7 @@ public class Varaukset implements java.io.Serializable {
     /**
      * Setteri varauksen loppumisajalle LocalDateTime -muodossa
      *
-     * @param paattymispvm
+     * @param paattymispvm loppumisaika
      */
     public void setLoppuAika(LocalDateTime paattymispvm) {
         this.paattymispvm = Timestamp.valueOf(paattymispvm);

@@ -38,11 +38,11 @@ public class Resurssit implements java.io.Serializable {
     /**
      * Konstruktori
      *
-     * @param status
-     * @param nimi
-     * @param tyyppi
-     * @param luvanvaraisuus
-     * @param kuvaus
+     * @param status resurssit status: false ei voi varata, true voi varata
+     * @param nimi resurssin nimi
+     * @param tyyppi resurssin tyyppi
+     * @param luvanvaraisuus resurssin luvanvaraisuus: 0 vapaa käyttö, 1 vaatii hyväksynnän
+     * @param kuvaus resurssin kuvaus
      */
     public Resurssit(boolean status, String nimi, String tyyppi, int luvanvaraisuus, String kuvaus) {
         this.status = status;
@@ -52,24 +52,7 @@ public class Resurssit implements java.io.Serializable {
         this.kuvaus = kuvaus;
     }
 
-    /**
-     * Konstruktori
-     *
-     * @param status
-     * @param nimi
-     * @param tyyppi
-     * @param luvanvaraisuus
-     * @param kuvaus
-     * @param varauksets
-     */
-    public Resurssit(boolean status, String nimi, String tyyppi, int luvanvaraisuus, String kuvaus, Set<Varaukset> varauksets) {
-        this.status = status;
-        this.nimi = nimi;
-        this.tyyppi = tyyppi;
-        this.luvanvaraisuus = luvanvaraisuus;
-        this.kuvaus = kuvaus;
-        this.varauksets = varauksets;
-    }
+   
 
     /**
      * Getteri resurssi id:lle
@@ -87,7 +70,7 @@ public class Resurssit implements java.io.Serializable {
     /**
      * Setteri resurssin id:lle
      *
-     * @param id
+     * @param id resurssin id
      */
     public void setId(Integer id) {
         this.id = id;
@@ -106,7 +89,7 @@ public class Resurssit implements java.io.Serializable {
     /**
      * Setteri resurssin statukselle
      *
-     * @param status
+     * @param status resurssin status
      */
     public void setStatus(boolean status) {
         this.status = status;
@@ -125,7 +108,7 @@ public class Resurssit implements java.io.Serializable {
     /**
      * Setter resurssin nimelle
      *
-     * @param nimi
+     * @param nimi resurssin nimi
      */
     public void setNimi(String nimi) {
         this.nimi = nimi;
@@ -144,7 +127,7 @@ public class Resurssit implements java.io.Serializable {
     /**
      * Setteri resurssin tyypille
      *
-     * @param tyyppi
+     * @param tyyppi resurssin tyyppi
      */
     public void setTyyppi(String tyyppi) {
         this.tyyppi = tyyppi;
@@ -163,7 +146,7 @@ public class Resurssit implements java.io.Serializable {
     /**
      * Setteri resurssin luvanvaraisuudelle
      *
-     * @param luvanvaraisuus
+     * @param luvanvaraisuus resurssin luvanvaraisuus
      */
     public void setLuvanvaraisuus(int luvanvaraisuus) {
         this.luvanvaraisuus = luvanvaraisuus;
@@ -182,7 +165,7 @@ public class Resurssit implements java.io.Serializable {
     /**
      * Setteri resurssin kuvaukselle
      *
-     * @param kuvaus
+     * @param kuvaus resurssin kuvaus
      */
     public void setKuvaus(String kuvaus) {
         this.kuvaus = kuvaus;
@@ -201,7 +184,7 @@ public class Resurssit implements java.io.Serializable {
     /**
      * Setteri resurssiin liittyville varauksille
      *
-     * @param varauksets
+     * @param varauksets resurssin varaukset
      */
     public void setVarauksets(Set<Varaukset> varauksets) {
         this.varauksets = varauksets;

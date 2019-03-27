@@ -57,8 +57,8 @@ public class UusiKayttajaController implements Initializable {
     /**
      * Initializes the controller class.
      *
-     * @param url
-     * @param rb
+     * @param url URL
+     * @param rb ResourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -67,7 +67,6 @@ public class UusiKayttajaController implements Initializable {
     }
 
     /**
-<<<<<<< HEAD
      * Käännetään choiceboxin arvo tietokantaan sopivaksi
      *
      * @param cb
@@ -86,8 +85,6 @@ public class UusiKayttajaController implements Initializable {
     }
 
     /**
-=======
->>>>>>> 8a8731d5d2bfdebe1fcb3a056ddc07c316021857
      * Luo uuden käyttäjän annettujen ehtojen täsmätessä. Herjaa jos ehdot ei
      * täsmää. Tarkastaa myös sähköpostin ja käyttäjätunnuksen tietokantaa vasten (ei saa olla samat)
      * @param event Hiiren klikkaus painikkeesta.
