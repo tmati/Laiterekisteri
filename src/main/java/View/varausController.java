@@ -232,6 +232,10 @@ public class varausController implements Initializable {
                     onnistuu = false;
                 }else if(varaukset.getAlkuAika().getMonthValue() < endDate.getMonthValue() && varaukset.getAlkuAika().getMonthValue() > startDate.getMonthValue() ){
                     onnistuu = false;
+                }else if(varaukset.getAlkuAika().getDayOfMonth() > varaukset.getLoppuAika().getDayOfMonth() && varaukset.getAlkuAika().getMonthValue() == varaukset.getLoppuAika().getMonthValue() ){
+                    onnistuu = false;
+                }else if(varaukset.getAlkuAika().getMonthValue() > varaukset.getLoppuAika().getMonthValue() ){
+                    onnistuu = false;
                 }
             }
         //}
