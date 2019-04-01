@@ -8,14 +8,21 @@ package Model;
 import java.time.LocalDateTime;
 
 /**
- *
+ * Luoka jonka tehtävänä on laskea kahden päivän välisen päivien määrä.
  * @author jukka
  */
+
 public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
 
     private int erotusk;
     private int erotusp;
 
+    /**
+     * Laskee kuinka monta kuukauta menee ja mitkä kuukauta. Lisää ne sitten päiviin
+     * @param alkupvm aloitamis päivä
+     * @param paatymispvm lopetus päivä
+     * @return alku ja paatymispvm valilla olevat kuukauksien määrän.
+     */
     private int KuukausiKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm) {
         erotusk = 0;
         erotusp = 0;
