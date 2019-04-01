@@ -1,11 +1,17 @@
 Hallinoi henkilöitä:
 käyttäjätaulu ei päivity kun lisää käyttäjän.
 
+LoginIkkuna:
+Ei anna mitään jos painaa enteriä ja salasana ja käytäjätunnus on väätin.
+
 Omat Varaukset Taulu:
 Omat varaukset taulu näyttää kaikki järjestelmässä olevat varaukset, vaikka pitäisi näytää vain käytäjäkohtaiset varaukset.
 
 Päänäkymän kalenteri:
 Kopioi kalenterin itsensä päälle.
+
+Resursin poisto:
+Ei voi poistaa resursia jossa on varauksia.
 
 Korjattu:
 ei ilmoita jos käyttäjää luodessa on sama sposti tai tunnus. - korjattu Tommi
