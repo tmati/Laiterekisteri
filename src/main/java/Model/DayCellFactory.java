@@ -15,7 +15,7 @@ import javafx.scene.control.Tooltip;
 import javafx.util.Callback;
 
 /**
- *
+ * Luoka joka muokaa datepickerin päiviä joko punaisiksi tai oransiksi.
  * @author jukka
  */
 public class DayCellFactory {
@@ -82,11 +82,17 @@ public class DayCellFactory {
                                     }
                                 }
                                 if (MonthDay.from(item).equals(MonthDay.of((alkupvm.getMonthValue() + seuraavaKuukausi), (alkupvm.getDayOfMonth() + i + liikaPaivat)))) {
-
-                                    if (i == 0 || i == erotusp) {
+                                    if (erotusp == 0){
                                         setStyle("-fx-background-color: #FFA500;");
-                                        setTooltip(new Tooltip("Varattu kahteentoista/n toinen rivi "+ varaukset[y].getKuvaus()));
-                                    } else {
+                                        setTooltip(new Tooltip("Varaus alkaa " + varaukset[y].getAlkuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus() + "\nVaraus päätyy " + varaukset[y].getLoppuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus()));
+                                    }else if (i == 0) {
+                                        setStyle("-fx-background-color: #FFA500;");
+                                        setTooltip(new Tooltip("Varaus alkaa " + varaukset[y].getAlkuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus()));
+                                    } else if(i==erotusp){
+                                        setStyle("-fx-background-color: #FFA500;");
+                                        setTooltip(new Tooltip("Varaus päätyy " + varaukset[y].getLoppuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus()));
+                                    }else{
+                                        setDisable(true);
                                         setStyle("-fx-background-color: #ff4444;");
                                     }
 

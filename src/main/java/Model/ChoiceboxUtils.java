@@ -7,6 +7,8 @@ package Model;
 
 import Controller.Controller;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 
 /**
  *
@@ -16,13 +18,13 @@ public class ChoiceboxUtils {
 
     private Controller kontrolleri;
 
-
     public ChoiceboxUtils(Controller kontrolleri) {
         this.kontrolleri = kontrolleri;
     }
-    
-        /**
+
+    /**
      * Tulkitsee ChoiceBoxin valinnan resurssiparametrin kaipaamaksi numeroksi.
+     *
      * @param cb Käsiteltävä choicebox.
      * @return Luvanvaraisuustasoa vastaava numeroarvo.
      */
@@ -30,11 +32,24 @@ public class ChoiceboxUtils {
         int selectedOption = -1;
         if (cb.getValue().equals("Vapaa käyttö") || cb.getValue().equals("Työntekijä")) {
             selectedOption = 0;
-        }else if (cb.getValue().equals("Esimiehen hyväksyttävä") || cb.getValue().equals("Esimies")) {
+        } else if (cb.getValue().equals("Esimiehen hyväksyttävä") || cb.getValue().equals("Esimies")) {
             selectedOption = 1;
-        }else if (cb.getValue().equals("Ylläpitäjän hyväksyttävä") || cb.getValue().equals("Ylläpitäjä")) {
+        } else if (cb.getValue().equals("Ylläpitäjän hyväksyttävä") || cb.getValue().equals("Ylläpitäjä")) {
             selectedOption = 2;
-        }  
+        }
         return selectedOption;
-    } 
+    }
+
+    public boolean tulkitseBooleanBox(String cb) {
+        return cb.equals("Saatavilla");
+    }
+
+    public void teeLuettava(ChoiceBox cb) {
+        if (cb.getValue().equals("true")) {
+            cb.setValue("Ei varattavissa");
+        } else if (cb.getValue().equals("false")) {
+            cb.setValue("Varattavissa");
+
+        }
+    }
 }

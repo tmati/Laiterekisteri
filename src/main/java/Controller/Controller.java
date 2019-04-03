@@ -2,6 +2,7 @@
 package Controller;
 
 import Model.*;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 import javafx.scene.control.ChoiceBox;
@@ -22,6 +23,7 @@ public class Controller {
     private KayttajanVaraukset KV;
     private LoginUtils login;
     private ChoiceboxUtils cbutils;
+    private BooleanConverter BoolConv;
     private DayCellFactory cellfactory;
     private VarauksenAikaLaskuriInterface aikalaskuri;
     private VarausAktiivisuusTarkistus VAT;
@@ -38,13 +40,13 @@ public class Controller {
         KV = new KayttajanVaraukset(this);
         login = new LoginUtils(this);
         cbutils = new ChoiceboxUtils(this);
+        BoolConv = new BooleanConverter(this);
         cellfactory = new DayCellFactory();
         aikalaskuri = new VarauksenAikaLaskuri();
         VAT = new VarausAktiivisuusTarkistus(varausDAO);
         resurssikasittely = new Resurssikasittely(this);
         
        }
-
 
     /**
      * Kutsuu PasswordConverterInterface.passwordConverter()
@@ -278,5 +280,22 @@ public class Controller {
      */
     public Callback dayCellFactory(Varaukset[] varaukset){
         return cellfactory.dayCellFactory(this, varaukset);
+    }
+    
+    /**
+     * Tulkitsee boolean-arvon sisältävän choiceboxin. Pyyntö model-luokkaan.
+     * @param cb Tulkittava choicebox
+     * @return True/false
+     */
+    public boolean readBoolCb(String cb) {
+        return cbutils.tulkitseBooleanBox(cb);
+    }
+    
+    /**
+     * Hakee modelista BooleanConverter-ilmentymän
+     * @return BooleanConverter-olio
+     */
+    public BooleanConverter getBoolConv() {
+        return new BooleanConverter(this);
     }
 }
