@@ -6,6 +6,7 @@
 package View;
 
 import Controller.Controller;
+import Model.BooleanConverter;
 import Model.Kayttaja;
 import Model.KayttajaAccessObject;
 import Model.Resurssit;
@@ -21,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,6 +41,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
@@ -138,6 +142,8 @@ public class NakymaController implements Initializable {
     private Button updateBtn;
 
     private Controller controller;
+    
+    
 
     /**
      * Initializes the controller class.
@@ -148,6 +154,7 @@ public class NakymaController implements Initializable {
     @Transactional
     public void initialize(URL url, ResourceBundle rb) {
         controller = View.controller;
+        BooleanConverter BC = new BooleanConverter(controller);
         Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
         logoView.setImage(image);
 
@@ -163,9 +170,12 @@ public class NakymaController implements Initializable {
 
         luvanvaraisuusColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("luvanvaraisuus"));
         luvanvaraisuusColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-
+        
+        ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
+        CC.setConverter(BC);
         tilaColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Boolean>("status"));
-        tilaColumn.setCellFactory(TextFieldTableCell.forTableColumn(new BooleanStringConverter()));
+        tilaColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), true, false));
+
 
         //Omat varaukset -taulun live-edit
         laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
@@ -236,7 +246,8 @@ public class NakymaController implements Initializable {
         kaikkiTableView.getItems().addAll(resurssit);
         Varaukset[] varauksetArr = controller.haeKayttajanVaraukset(View.loggedIn);
         omatTable.getItems().addAll(varauksetArr);
-
+        
+        
     }
 
     /**
@@ -442,7 +453,7 @@ public class NakymaController implements Initializable {
     private void tilaOnEditCommit(TableColumn.CellEditEvent<Resurssit, Boolean> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setStatus(event.getNewValue());
-        System.out.println("Uusi tila: " + R.getKuvaus());
+        System.out.println("Uusi tila: " + " " + R.isStatus());
         controller.paivitaResurssi(R);
     }
 

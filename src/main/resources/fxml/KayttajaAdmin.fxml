@@ -15,9 +15,9 @@
 <GridPane id="bgPane" prefHeight="1166.0" prefWidth="2044.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.KayttajaAdminController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.8" minWidth="0.0" prefWidth="123.19998779296874" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1567.6000244140625" minWidth="10.0" prefWidth="1374.4000122070313" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="0.0" prefWidth="118.40000000000009" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="388.0" minWidth="10.0" prefWidth="380.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1567.6000244140625" minWidth="10.0" prefWidth="1431.8" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="0.0" prefWidth="29.599902343750045" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="416.80002441406236" minWidth="10.0" prefWidth="412.00009765624986" />
   </columnConstraints>
   <rowConstraints>
       <RowConstraints maxHeight="564.8" minHeight="10.0" prefHeight="123.19999847412107" vgrow="SOMETIMES" />
@@ -27,15 +27,15 @@
     <RowConstraints maxHeight="209.60002441406255" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TableView fx:id="kayttajaTableView" editable="true" prefHeight="802.0" prefWidth="1392.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <TableView fx:id="kayttajaTableView" editable="true" maxWidth="-Infinity" prefHeight="767.0" prefWidth="1434.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <columns>
-            <TableColumn fx:id="nimiColumn" onEditCommit="#nimiEditCommit" prefWidth="484.79999083280563" resizable="false" text="NIMI" />
-            <TableColumn fx:id="kayttajatunnusColumn" onEditCommit="#kayttajatunnusEditCommit" prefWidth="173.60003662109375" text="KÄYTTÄJÄTUNNUS" />
-            <TableColumn fx:id="emailColumn" onEditCommit="#emailEditCommit" prefWidth="396.7999267578125" resizable="false" text="SÄHKÖPOSTI" />
-            <TableColumn fx:id="valtuudetColumn" onEditCommit="#valtuudetEditCommit" prefWidth="316.0" resizable="false" text="VALTUUDET" />
+            <TableColumn fx:id="nimiColumn" onEditCommit="#nimiEditCommit" prefWidth="613.5999786257744" resizable="false" text="NIMI" />
+            <TableColumn fx:id="kayttajatunnusColumn" onEditCommit="#kayttajatunnusEditCommit" prefWidth="164.0" text="KÄYTTÄJÄTUNNUS" />
+            <TableColumn fx:id="emailColumn" onEditCommit="#emailEditCommit" prefWidth="553.6000366210938" resizable="false" text="SÄHKÖPOSTI" />
+            <TableColumn fx:id="valtuudetColumn" maxWidth="96.800048828125" minWidth="90.0" onEditCommit="#valtuudetEditCommit" prefWidth="96.800048828125" resizable="false" text="VALTUUDET" />
          </columns>
       </TableView>
-      <VBox prefHeight="824.0" prefWidth="331.0" spacing="25.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+      <VBox prefHeight="767.0" prefWidth="372.0" spacing="25.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
          <children>
             <Button fx:id="lisaaBtn" mnemonicParsing="false" onMouseClicked="#lisaaBtnPainettu" prefHeight="71.0" prefWidth="336.0" text="LISÄÄ KÄYTTÄJÄ">
                <font>

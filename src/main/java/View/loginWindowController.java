@@ -61,6 +61,7 @@ public class loginWindowController implements Initializable {
         logoView.setImage(image);
         centerImage(logoView);
         controller = new Controller();
+        usernameField.setId("usernameField");
     }
 
     /**

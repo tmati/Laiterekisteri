@@ -22,7 +22,7 @@
             <ImageView fx:id="logoView" fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
             <VBox alignment="CENTER" prefHeight="107.0" prefWidth="476.0">
                <children>
-                  <TextField fx:id="usernameField" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi">
+                  <TextField id="usernameField" fx:id="usernameField" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi" >
                      <font>
                         <Font size="20.0" />
                      </font>
