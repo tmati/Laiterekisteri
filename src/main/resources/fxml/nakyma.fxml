@@ -36,8 +36,8 @@
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="52.79999389648438" minHeight="10.0" prefHeight="49.59999084472656" valignment="BOTTOM" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="150.00000610351563" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="312.80000000000007" minHeight="0.0" prefHeight="84.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="150.00000610351563" minHeight="0.0" prefHeight="14.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="312.80000000000007" minHeight="0.0" prefHeight="88.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="615.0000122070312" minHeight="10.0" prefHeight="559.8000122070313" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="95.80002441406248" minHeight="0.0" prefHeight="54.999987792968795" vgrow="SOMETIMES" />
    </rowConstraints>
@@ -82,7 +82,7 @@
       </Button>
       <TabPane fx:id="tabPane" prefHeight="716.0" prefWidth="1554.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3">
          <tabs>
-            <Tab fx:id="kaikkiTab" text="Kaikki ">
+            <Tab fx:id="kaikkiTab" text="Resurssit">
                <content>
                   <StackPane fx:id="kaikkiStack" prefHeight="530.0" prefWidth="1585.0">
                      <children>
@@ -94,6 +94,9 @@
                               <TableColumn fx:id="kuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="668.0001831054688" resizable="false" text="KUVAUS" />
                               <TableColumn fx:id="tilaColumn" maxWidth="115.2001953125" minWidth="0.0" onEditCommit="#tilaOnEditCommit" prefWidth="114.39990234375" text="TILA" />
                            </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
                         </TableView>
                      </children>
                   </StackPane>
@@ -108,10 +111,13 @@
                               <TableColumn fx:id="laitenimiColumn" prefWidth="369.6000518798828" text="LAITTEEN NIMI" />
                               <TableColumn fx:id="alkupvmColumn" onEditCommit="#alkupvmOnEditCommit" prefWidth="199.19998168945312" resizable="false" text="VARAUKSEN ALKUPVM" />
                               <TableColumn fx:id="paattymispvmColumn" onEditCommit="#paattymispvmOnEditCommit" prefWidth="204.79998779296875" resizable="false" text="VARAUKSEN PÄÄTTYMISPVM" />
-                              <TableColumn fx:id="varausidColumn" prefWidth="129.60009765625" resizable="false" text="VARAUSID" />
-                              <TableColumn fx:id="varauskuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="428.0001220703125" resizable="false" text="KUVAUS" />
-                              <TableColumn fx:id="palautettuColumn" maxWidth="143.199951171875" minWidth="0.0" onEditCommit="#palautettuOnEditCommit" prefWidth="116.800048828125" resizable="false" text="PALAUTETTU" />
+                              <TableColumn fx:id="varausidColumn" prefWidth="81.0" resizable="false" text="VARAUSID" />
+                              <TableColumn fx:id="varauskuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="478.0" resizable="false" text="KUVAUS" />
+                              <TableColumn fx:id="palautettuColumn" maxWidth="227.0" minWidth="0.0" onEditCommit="#palautettuOnEditCommit" prefWidth="227.0" resizable="false" text="AKTIIVISUUS" />
                            </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
                         </TableView>
                      </children>
                   </StackPane>

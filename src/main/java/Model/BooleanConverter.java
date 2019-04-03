@@ -15,7 +15,11 @@ import javafx.util.StringConverter;
 public class BooleanConverter extends StringConverter<Boolean> {
     
      private Controller kontrolleri;
-    
+     
+    /**
+     * Muuttaa boolean-arvot selkolukuisiksi.
+     * @param kontrolleri 
+     */
     public BooleanConverter(Controller kontrolleri){
         this.kontrolleri = kontrolleri;
     }

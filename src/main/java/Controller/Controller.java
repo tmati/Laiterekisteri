@@ -266,9 +266,20 @@ public class Controller {
     public Callback dayCellFactory(Varaukset[] varaukset){
         return cellfactory.dayCellFactory(this, varaukset);
     }
+    
+    /**
+     * Tulkitsee boolean-arvon sisältävän choiceboxin. Pyyntö model-luokkaan.
+     * @param cb Tulkittava choicebox
+     * @return True/false
+     */
     public boolean readBoolCb(String cb) {
         return cbutils.tulkitseBooleanBox(cb);
     }
+    
+    /**
+     * Hakee modelista BooleanConverter-ilmentymän
+     * @return BooleanConverter-olio
+     */
     public BooleanConverter getBoolConv() {
         return new BooleanConverter(this);
     }
