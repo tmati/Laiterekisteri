@@ -6,25 +6,52 @@
 package Model;
 
 import Controller.Controller;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Objects;
 
 /**
- * Luokka käyttäjän varausten hakua ja käsittelyä varten
+ * Luokka varausten käsittelyä varten
  *
  * @author Tommi
  */
-public class KayttajanVaraukset {
+public class VarausKasittely {
 
     private Controller controller;
+    private VarauksetDAO_IF dao;
 
     /**
      * Konstruktori
-     * @param c viittaus controlleriin
+     *
+     * @param dao viittaus varausDAO:oon
      */
-    public KayttajanVaraukset(Controller c) {
+    public VarausKasittely(VarauksetDAO_IF dao, Controller c) {
+        this.dao = dao;
         this.controller = c;
+    }
+
+    /**
+     * Käy läpi kaikki varaukset tietokannasta ja päivittää niiden aktiivisuuden
+     * oikeaksi Jos tietokannassa palautettu = true tarkoittaa, että varaus ei
+     * ole aktiivinen ja päinvastoin.
+     *
+     * @return true kun tietokanta on käyty läpi
+     */
+    public boolean tarkistaAktiivisuudet() {
+        LocalDateTime aika = LocalDateTime.now();
+        Varaukset[] varaukset = dao.readVaraukset();
+        for (Varaukset v : varaukset) {
+            if (aika.isAfter(v.getAlkuAika()) && aika.isBefore(v.getLoppuAika()) && v.getHyvaksytty()) {
+                if (!v.isPalautettu()) {
+                    v.setPalautettu(true);
+                    dao.updateVaraus(v);
+                }
+            } else if (v.isPalautettu()) {
+                v.setPalautettu(false);
+                dao.updateVaraus(v);
+            }
+        }
+        return true;
     }
 
     /**
@@ -37,22 +64,25 @@ public class KayttajanVaraukset {
 
         Varaukset kaikkiV[] = controller.haeKaikkiVaraukset();
         ArrayList<Varaukset> list = new ArrayList<>();
-        int j = 0;
         for (Varaukset v : kaikkiV) {
-            if (v.getKayttaja().getId() == k.getId()) {
+
+            if (Objects.equals(v.getKayttaja().getId(), k.getId())) {
+
                 list.add(v);
             }
         }
         Varaukset[] varaukset = list.toArray(new Varaukset[list.size()]);
         return varaukset;
     }
+
     /**
      * Poistaa kayttajan kaikki varaukset
+     *
      * @param id Kayttaja, jonka varaukset poistetaan
      * @return true jos poisto onnistui
      */
-    
-    public boolean poistaKayttajanVaraukset(int id){
+
+    public boolean poistaKayttajanVaraukset(int id) {
         Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         boolean tarkistus = true;
         for (Varaukset v : varaukset) {

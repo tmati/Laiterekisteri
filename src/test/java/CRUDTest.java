@@ -24,7 +24,7 @@ import org.junit.Ignore;
  *
  * @author Tommi
  */
-@Ignore
+
 public class CRUDTest {
 
     int r = (int) (Math.random() * 100000);

@@ -23,13 +23,12 @@ public class Controller {
     private VarauksetDAO_IF varausDAO;
     private KayttajaTarkistus kayttajaTarkistus;
     private PasswordConverterInterface crypter = new PasswordConverter();
-    private KayttajanVaraukset KV;
     private LoginUtils login;
     private ChoiceboxUtils cbutils;
     private BooleanConverter BoolConv;
     private DayCellFactory cellfactory;
     private VarauksenAikaLaskuriInterface aikalaskuri;
-    private VarausAktiivisuusTarkistus VAT;
+    private VarausKasittely varausKasittely;
     private Resurssikasittely resurssikasittely;
     private Kalenterin_tarvitsemat_toimenpiteet kalenteriApu;
 
@@ -41,13 +40,12 @@ public class Controller {
         kayttajaTarkistus = new KayttajaTarkistus(this);
         resurssiDAO = new ResurssitAccessObject();
         varausDAO = new VarauksetAccessObject();
-        KV = new KayttajanVaraukset(this);
         login = new LoginUtils(this);
         cbutils = new ChoiceboxUtils(this);
         BoolConv = new BooleanConverter(this);
         cellfactory = new DayCellFactory();
         aikalaskuri = new VarauksenAikaLaskuri();
-        VAT = new VarausAktiivisuusTarkistus(varausDAO);
+        varausKasittely = new VarausKasittely(varausDAO, this);
         resurssikasittely = new Resurssikasittely(this);
         kalenteriApu = new Kalenterin_tarvitsemat_toimenpiteet();
        }
@@ -102,13 +100,14 @@ public class Controller {
     }
 
     /**
+     * Kutsuu VarausKasittely.poistaKayttajanVaraukset()
      * Kutsuu KayttajaAccessObject.deleteKayttaja()
      *
      * @param id poistettavan käyttäjän id
      * @return palauttaa true jos käyttäjän poista tietokannasta onnistui
      */
     public boolean poistaKayttaja(int id) {
-        KV.poistaKayttajanVaraukset(id);
+        varausKasittely.poistaKayttajanVaraukset(id);
         return kayttajaDAO.deleteKayttaja(id);
     }
 
@@ -154,21 +153,21 @@ public class Controller {
     }
     
     /**
-     * Kutsuu VarausAktiivisuusTarkistus.tarkistaAktiivisuudet()
+     * Kutsuu VarausKasittely.tarkistaAktiivisuudet()
      * @return true jos onnistuu
      */
     public boolean tarkistaVarausAktiivisuudet(){
-        return VAT.tarkistaAktiivisuudet();
+        return varausKasittely.tarkistaAktiivisuudet();
     }
 
     /**
-     * kutsuu KayttajanVaraukset.haeKayttajanVaraukset()
+     * kutsuu VarausKasittely.haeKayttajanVaraukset()
      *
      * @param kayttaja kayttaja -olio jonka varaukset haetaan
      * @return palauttaa taulukon kaikista käyttäjän varaus -olioista
      */
     public Varaukset[] haeKayttajanVaraukset(Kayttaja kayttaja) {
-        return KV.haeKayttajanVaraukset(kayttaja);
+        return varausKasittely.haeKayttajanVaraukset(kayttaja);
     }
 
     /**
