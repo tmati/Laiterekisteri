@@ -31,7 +31,7 @@ public class HibernateUtil {
     }
 
     /**
-     * Palauttaa Session tehtaan.
+     * Palauttaa Sessionfactoryn.
      *
      * @return sessionfactory
      */

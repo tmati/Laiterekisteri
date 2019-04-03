@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Luokka käyttäjän varausten hakua varten
+ * Luokka käyttäjän varausten hakua ja käsittelyä varten
  *
  * @author Tommi
  */
@@ -44,7 +44,25 @@ public class KayttajanVaraukset {
             }
         }
         Varaukset[] varaukset = list.toArray(new Varaukset[list.size()]);
-
         return varaukset;
+    }
+    /**
+     * Poistaa kayttajan kaikki varaukset
+     * @param id Kayttaja, jonka varaukset poistetaan
+     * @return true jos poisto onnistui
+     */
+    
+    public boolean poistaKayttajanVaraukset(int id){
+        Varaukset[] varaukset = controller.haeKaikkiVaraukset();
+        boolean tarkistus = true;
+        for (Varaukset v : varaukset) {
+            if (v.getKayttaja().getId() == id) {
+                boolean tulos = controller.poistaVaraus(v.getId());
+                if (!tulos) {
+                    tarkistus = tulos;
+                }
+            }
+        }
+        return tarkistus;
     }
 }

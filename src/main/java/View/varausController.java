@@ -76,7 +76,7 @@ public class varausController implements Initializable {
         
         controller = View.controller; 
         
-        //Katsoo kaikki varaaaukset sille tuoteelle.
+        //Katsoo kaikki varaaukset sille tuoteelle.
         ArrayList<Varaukset> aVaraukset = new ArrayList<Varaukset>();
         int resurssiId = View.booking.getId();
         System.out.println(resurssiId);

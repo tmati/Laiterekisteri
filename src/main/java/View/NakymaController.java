@@ -148,8 +148,8 @@ public class NakymaController implements Initializable {
     /**
      * Initializes the controller class.
      *
-     * @param url
-     * @param rb
+     * @param url url
+     * @param rb resource bundle
      */
     @Transactional
     public void initialize(URL url, ResourceBundle rb) {

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controller;
 
 import Model.*;
@@ -28,6 +24,8 @@ public class Controller {
     private ChoiceboxUtils cbutils;
     private DayCellFactory cellfactory;
     private VarauksenAikaLaskuriInterface aikalaskuri;
+    private VarausAktiivisuusTarkistus VAT;
+    private Resurssikasittely resurssikasittely;
 
     /**
      * Controllerin konstruktio
@@ -42,6 +40,9 @@ public class Controller {
         cbutils = new ChoiceboxUtils(this);
         cellfactory = new DayCellFactory();
         aikalaskuri = new VarauksenAikaLaskuri();
+        VAT = new VarausAktiivisuusTarkistus(varausDAO);
+        resurssikasittely = new Resurssikasittely(this);
+        
        }
 
 
@@ -101,6 +102,7 @@ public class Controller {
      * @return palauttaa true jos käyttäjän poista tietokannasta onnistui
      */
     public boolean poistaKayttaja(int id) {
+        KV.poistaKayttajanVaraukset(id);
         return kayttajaDAO.deleteKayttaja(id);
     }
 
@@ -134,12 +136,23 @@ public class Controller {
     }
 
     /**
+     * Kutsuu Controller.tarkistaVarausAKtiivisuudet()
      * Kutsuu VarausAccessObject.readVaraukset()
      *
      * @return palauttaa taulukon kaikista varaus -olioista
      */
     public Varaukset[] haeKaikkiVaraukset() {
+        System.out.println("HAEVARAUKSET");
+        this.tarkistaVarausAktiivisuudet();
         return varausDAO.readVaraukset();
+    }
+    
+    /**
+     * Kutsuu VarausAktiivisuusTarkistus.tarkistaAktiivisuudet()
+     * @return true jos onnistuu
+     */
+    public boolean tarkistaVarausAktiivisuudet(){
+        return VAT.tarkistaAktiivisuudet();
     }
 
     /**
@@ -153,12 +166,14 @@ public class Controller {
     }
 
     /**
+     * Kutsuu ResurssiKasittely.poisteResurssinVaraukset()
      * Kutsuu ResurssiAccessObject.deleteResurssi()
      *
      * @param r tietokannasta poistettava resurssi
      * @return palauttaa true jos resurssin poisto tietokannasta onnistui
      */
     public boolean poistaResurssi(Resurssit r) {
+        resurssikasittely.poistaResurssinVaraukset(r);
         return resurssiDAO.deleteResurssi(r.getId());
     }
 
