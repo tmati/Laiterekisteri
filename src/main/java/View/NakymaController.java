@@ -251,10 +251,10 @@ public class NakymaController implements Initializable {
         //Kuuntelija jos taulukosta valitaan varausta
         kaikkiTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) { //Etsii resursin kaikki varaukset.
-                ArrayList<Varaukset> aVaraukset = controller.ResursinVaraukset(kaikkiTableView.getSelectionModel().getSelectedItem().getId(), varauksetArr);
+                
                 Varaukset[] varaukset = controller.haeKaikkiVaraukset();
                 picker = null;
-                
+                ArrayList<Varaukset> aVaraukset = controller.ResursinVaraukset(kaikkiTableView.getSelectionModel().getSelectedItem().getId(), varaukset);
                 Varaukset[] varaus = controller.getVaraus(aVaraukset);
                 
                // luo uuden datepickerin johon laitetaan day cell factorin
