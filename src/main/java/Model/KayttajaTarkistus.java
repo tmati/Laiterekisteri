@@ -8,6 +8,7 @@ package Model;
 import Controller.Controller;
 
 /**
+ * Luokka käyttäjän tietojen tarkistukseen
  *
  * @author Tommi
  */
@@ -17,7 +18,8 @@ public class KayttajaTarkistus {
 
     /**
      * Konstruktori
-     * @param kontrolleri
+     *
+     * @param kontrolleri viittaus controlleriin
      */
     public KayttajaTarkistus(Controller kontrolleri) {
         this.kontrolleri = kontrolleri;
@@ -25,6 +27,7 @@ public class KayttajaTarkistus {
 
     /**
      * Hae käyttäjät tietokannasta ja vertaa niiden sähköposteja
+     *
      * @param tarkastettavaSyote uuden käyttäjän parametri
      * @return true jos uniikki
      */
@@ -37,16 +40,17 @@ public class KayttajaTarkistus {
         }
         return true;
     }
-    
+
     /**
      * Hae käyttäjät tietokannasta ja vertaa niiden sähköposteja
+     *
      * @param tarkastettavaSyote uuden käyttäjän parametri
      * @return true jos uniikki
-     */    
+     */
     public boolean emailTarkastus(String tarkastettavaSyote) {
         Kayttaja[] kayttajat = kontrolleri.haeKaikkiKayttajat();
         for (Kayttaja kayttaja : kayttajat) {
-            if (kayttaja.getSahkoposti().equals(tarkastettavaSyote)){
+            if (kayttaja.getSahkoposti().equals(tarkastettavaSyote)) {
                 return false;
             }
         }

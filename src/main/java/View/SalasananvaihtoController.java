@@ -54,8 +54,8 @@ public class SalasananvaihtoController implements Initializable {
     /**
      * Initializes the controller class.
      *
-     * @param url
-     * @param rb
+     * @param url URL
+     * @param rb ResourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -87,12 +87,12 @@ public class SalasananvaihtoController implements Initializable {
             virheLabel.setText("Vanha salasana väärin.");
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
+
         }
     }
 
     /**
      * Sulkee popupin.
-     *
      * @param event Hiiren klikkaus painikkeeseen.
      */
     @FXML

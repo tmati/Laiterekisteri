@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 
 /**
  * Käyttäjän DAO
+ *
  * @author Tommi
  */
 public class KayttajaAccessObject implements KayttajaDAO_IF {
@@ -19,7 +20,7 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
     SessionFactory sf = null;
 
     /**
-     * konstuktori
+     * Konstuktori Hakee sessionfacotoryn
      */
     public KayttajaAccessObject() {
         try {
@@ -30,9 +31,10 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
     }
 
     /**
-     * Luo uuden käyttäjän.
-     * @param kayttaja
-     * @return
+     * Vie uuden käyttäjän tietokantaan
+     *
+     * @param kayttaja kayttaja joka viedään tietokantaan
+     * @return palauttaa true jos käyttäjän vienti tietokantaan onnistui
      */
     @Override
     public boolean createKayttaja(Kayttaja kayttaja) {
@@ -57,9 +59,10 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
     }
 
     /**
-     * Lukee käytäjän käytäjän id:n perusteella.
-     * @param id
-     * @return
+     * Hakee käyttäjän tietokannasta id:n avulla
+     *
+     * @param id käyttäjän id
+     * @return palauttaa kayttaja -olion
      */
     @Override
     public Kayttaja readKayttaja(int id) {
@@ -85,7 +88,8 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
 
     /**
      * Lukee kaikki käyttäjät tietokannasta.
-     * @return
+     *
+     * @return palauttaa taulukon kaikista käyttäjistä
      */
     @Override
     public Kayttaja[] readKayttajat() {
@@ -112,9 +116,10 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
     }
 
     /**
-     * Päivittää käytäjää.
-     * @param kayttaja
-     * @return
+     * Päivittää käyttäjän tietokantaan
+     *
+     * @param kayttaja päivitettävä käyttäjä
+     * @return palauttaa true jos käyttäjän päivitys onnistui
      */
     @Override
     public boolean updateKayttaja(Kayttaja kayttaja) {
@@ -124,7 +129,7 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
             s = sf.openSession();
             s.beginTransaction();
 
-            Kayttaja päivitettävä = (Kayttaja)s.get(Kayttaja.class, kayttaja.getId());
+            Kayttaja päivitettävä = (Kayttaja) s.get(Kayttaja.class, kayttaja.getId());
             if (päivitettävä != null) {
                 päivitettävä.setSalasana(kayttaja.getSalasana());
                 päivitettävä.setNimi(kayttaja.getNimi());
@@ -151,8 +156,9 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
 
     /**
      * Poistaa käytäjän tietokannasta id:n perusteella.
-     * @param id
-     * @return
+     *
+     * @param id poistettavan käyttäjän id
+     * @return palauttaa true jos käyttäjän poisto onnistui
      */
     @Override
     public boolean deleteKayttaja(int id) {

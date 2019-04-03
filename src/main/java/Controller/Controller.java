@@ -5,11 +5,12 @@
  */
 package Controller;
 
-
 import Model.*;
+
+import java.time.LocalDateTime;
+import java.util.Set;
 import javafx.scene.control.ChoiceBox;
-
-
+import javafx.util.Callback;
 
 /**
  * Controlleri
@@ -22,11 +23,13 @@ public class Controller {
     private ResurssitDAO_IF resurssiDAO;
     private VarauksetDAO_IF varausDAO;
     private KayttajaTarkistus kayttajaTarkistus;
-    private PasswordConverterInterface salasananVaihto = new PasswordConverter();
+    private PasswordConverterInterface crypter = new PasswordConverter();
     private KayttajanVaraukset KV;
     private LoginUtils login;
     private ChoiceboxUtils cbutils;
     private BooleanConverter BoolConv;
+    private DayCellFactory cellfactory;
+    private VarauksenAikaLaskuriInterface aikalaskuri;
 
     /**
      * Controllerin konstruktio
@@ -36,10 +39,12 @@ public class Controller {
         kayttajaTarkistus = new KayttajaTarkistus(this);
         resurssiDAO = new ResurssitAccessObject();
         varausDAO = new VarauksetAccessObject();
-        KV = new KayttajanVaraukset();
+        KV = new KayttajanVaraukset(this);
         login = new LoginUtils(this);
         cbutils = new ChoiceboxUtils(this);
         BoolConv = new BooleanConverter(this);
+        cellfactory = new DayCellFactory();
+        aikalaskuri = new VarauksenAikaLaskuri();
        }
 
     /**
@@ -48,8 +53,8 @@ public class Controller {
      * @param password Encryptattava salasana.
      * @return Palautaa encryptattatun salasanan.
      */
-    public String salasananVaihto(String password) {
-        return salasananVaihto.passwordConverter(password);
+    public String SalasananCryptaus(String password) {
+        return crypter.passwordConverter(password);
     }
 
     /**
@@ -138,18 +143,20 @@ public class Controller {
     public Varaukset[] haeKaikkiVaraukset() {
         return varausDAO.readVaraukset();
     }
-    
+
     /**
      * kutsuu KayttajanVaraukset.haeKayttajanVaraukset()
+     *
      * @param kayttaja kayttaja -olio jonka varaukset haetaan
      * @return palauttaa taulukon kaikista käyttäjän varaus -olioista
      */
     public Varaukset[] haeKayttajanVaraukset(Kayttaja kayttaja) {
-        return KV.haeKayttajanVaraukset(kayttaja, this);
+        return KV.haeKayttajanVaraukset(kayttaja);
     }
 
     /**
      * Kutsuu ResurssiAccessObject.deleteResurssi()
+     *
      * @param r tietokannasta poistettava resurssi
      * @return palauttaa true jos resurssin poisto tietokannasta onnistui
      */
@@ -158,53 +165,106 @@ public class Controller {
     }
 
     /**
-     *Kutsuu ResurssiAccessObject.updateResurssi()
+     * Kutsuu ResurssiAccessObject.updateResurssi()
+     *
      * @param r päivitettävä resurssi -olio
      * @return palauttaa true jos resurssin päivitys tietokantaan onnistui
      */
-    public boolean paivitaResurssi(Resurssit r){
+    public boolean paivitaResurssi(Resurssit r) {
         return resurssiDAO.updateResurssi(r);
     }
-    
+
     /**
      * Kutsuu VarausAccessObject.updateVaraus()
+     *
      * @param v päivitettävä varaus -olio
      * @return palauttaa true jos varauksen päivitys tietokantaan onnistui
      */
-    public boolean paivitaVaraus(Varaukset v){
+    public boolean paivitaVaraus(Varaukset v) {
         return varausDAO.updateVaraus(v);
     }
-    
+
     /**
      * Kutsuu VarausAccessObject.createVaraus()
+     *
      * @param v tietokantaan vietävä varaus -olio
      * @return palauttaa true jos varauksen vienti tietokantaan onnistui
      */
-    public boolean luoVaraus(Varaukset v){
+    public boolean luoVaraus(Varaukset v) {
         return varausDAO.createVaraus(v);
     }
-    
+
     /**
      * Kutsuu ResurssiAccessObject.createResurssi()
+     *
      * @param r tietokantaan vietävä resurssi -olio
      * @return palauttaa true jos resurssin vienti tietokantaan onnistui
      */
-    public boolean luoResurssi(Resurssit r){
+    public boolean luoResurssi(Resurssit r) {
         return resurssiDAO.createResurssi(r);
     }
-    
-        /**
+
+    /**
      * Tarkistaa modelista käyttäjänimen ja salasanan.
-     * @param userName
-     * @param passWord
-     * @return 
+     *
+     * @param userName käyttäjänimi
+     * @param passWord salasana
+     * @return true jos kirjautumistiedot oikein
      */
     public boolean login(String userName, String passWord) {
         return login.loginProcess(userName, passWord);
     }
+
+
+    /**
+     * Kutsuu VarausAccessObject.readVaraus()
+     *
+     * @param id haetun varauksen id
+     * @return palauttaa varaus-olion
+     */
+    public Varaukset haeVaraus(int id) {
+        return varausDAO.readVaraus(id);
+    }
+
+    /**
+     * Kutsuu VarausAccessObject.deleteVaraus()
+     *
+     * @param id tietokannasta poistettavan varauksen id
+     * @return palauttaa true jos varauksen poisto tietokannasta onnistui
+     */
+    public boolean poistaVaraus(int id) {
+        return varausDAO.deleteVaraus(id);
+    }
     
+    
+      /**
+     * Kutsuu ChoiceboxUtils.tulkitseChoiceBox()
+     *
+     * @param cb choice box elementti jota tulkitaan
+     * @return choice boxia vastaavan kokonais luvun
+     */
     public int readCb(ChoiceBox cb) {
         return cbutils.tulkitseChoiceBox(cb);
+
+    }
+    
+    /**
+     * Vie paivat varauksen kesto laskuriin ja tuo sen jälkeen, kuinka monta päivää varaus kestää.
+     * @param alkupvm milloin varaus alkaa
+     * @param loppumispvm milloin varaus loppuu
+     * @return alkupvm ja loppupvm erotuksen
+     */
+    public int paivaLaskuri(LocalDateTime alkupvm, LocalDateTime loppumispvm){
+       return aikalaskuri.PaivaKesto(alkupvm, loppumispvm);
+    }
+    
+    /**
+     * Palauttaa datepickerille muokatut päivät.
+     * @param varaukset varaukset joila on varaukset tietyihin päiville.
+     * @return Callbackin jossa on muokatuja päiviä.
+     */
+    public Callback dayCellFactory(Varaukset[] varaukset){
+        return cellfactory.dayCellFactory(this, varaukset);
     }
     public boolean readBoolCb(String cb) {
         return cbutils.tulkitseBooleanBox(cb);

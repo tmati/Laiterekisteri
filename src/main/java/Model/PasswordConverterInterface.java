@@ -7,12 +7,14 @@ package Model;
 
 /**
  * Salasanan kääntäjän interface
+ *
  * @author jukka
  */
 public interface PasswordConverterInterface {
 
     /**
      * Metodi joka encryptaa salasanan.
+     *
      * @param password Salasana joka muutetaan
      * @return salasanan muutetussa muodossa.
      */

@@ -56,13 +56,32 @@ public class UusiKayttajaController implements Initializable {
 
     /**
      * Initializes the controller class.
-     * @param url
-     * @param rb
+     *
+     * @param url URL
+     * @param rb ResourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         controller = View.controller;
+    }
+
+    /**
+     * Käännetään choiceboxin arvo tietokantaan sopivaksi
+     *
+     * @param cb
+     * @return
+     */
+    int tulkitseChoiceBox(ChoiceBox cb) {
+        int selectedOption = -1;
+        if (cb.getValue().equals("Työntekijä")) {
+            selectedOption = 0;
+        } else if (cb.getValue().equals("Esimies")) {
+            selectedOption = 1;
+        } else if (cb.getValue().equals("Ylläpitäjä")) {
+            selectedOption = 2;
+        }
+        return selectedOption;
     }
 
     /**

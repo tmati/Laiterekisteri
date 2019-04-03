@@ -42,13 +42,14 @@ public class View extends Application {
 
     /**
      *
-     * @param stage
+     * @param stage Stage
      * @throws Exception Varauduttava poikkeus
      */
+
     @Override
     public void start(Stage stage) throws Exception {
         controller = new Controller();
-        /*Fullscreen sovellusnäkymää varten poista alkta kommenteista.
+        /*Fullscreen sovellusnäkymää varten poista alta kommenteista.
           Pitäisi tehdä windowsin ikkunatoimintoja vastaavat painikkeet johonkin.
          */
         //stage.initStyle(StageStyle.TRANSPARENT);

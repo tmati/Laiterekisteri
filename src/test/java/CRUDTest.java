@@ -15,12 +15,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
 
 /**
+ * Testi -luokka CRUD -operaatiolle
  *
  * @author Tommi
  */
@@ -40,7 +40,8 @@ public class CRUDTest {
     Kayttaja[] kayttajat = null;
 
     /**
-     *
+     * Testit KayttajaAccessObjectille käyttäjän luonti käyttäjän haku kaikkien
+     * käyttäjien haku taulukkoon käyttäjän päivittäminen käyttäjän poistaminen
      */
     @Test
     public void kayttajaDAOTest() {
@@ -108,7 +109,8 @@ public class CRUDTest {
     Resurssit[] resurssit = null;
 
     /**
-     *
+     * Testit ResurssiAccessObjectille resurssin luonti resurssin haku kaikkien
+     * resurssien haku taulukkoon resurssin päivittäminen resurssin poisto
      */
     @Test
     public void resurssiDAOTest() {
@@ -176,7 +178,8 @@ public class CRUDTest {
     LocalDateTime lopetus = LocalDateTime.of(lopetusPV, lopetusAika);
 
     /**
-     *
+     * Testit VarausAccessObjectille varauksen luonti varauksen haku Kaikkien
+     * varauksien haku taulukkoon varauksen päivittäminen varaukse poisto
      */
     @Test
     public void varausDAOTest() {
@@ -251,7 +254,6 @@ public class CRUDTest {
         assertEquals("updateVaraus: hyvaksytty status väärin",
                 varaus.getHyvaksytty(), var.getHyvaksytty());
 
-       
         //varauksen poisto
         assertTrue("deleteVaraus: varauksen poisto ei onnistunut",
                 varausDAO.deleteVaraus(var.getId()));

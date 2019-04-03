@@ -19,6 +19,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -32,6 +33,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -53,6 +55,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.Popup;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 import javafx.util.converter.BooleanStringConverter;
 import javafx.util.converter.IntegerStringConverter;
@@ -142,8 +145,9 @@ public class NakymaController implements Initializable {
     private Button updateBtn;
 
     private Controller controller;
-    
-    
+    private DatePicker picker;
+    private DatePickerSkin DPS;
+    private static Node calContent;
 
     /**
      * Initializes the controller class.
@@ -175,8 +179,7 @@ public class NakymaController implements Initializable {
         CC.setConverter(BC);
         tilaColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Boolean>("status"));
         tilaColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), true, false));
-
-
+        
         //Omat varaukset -taulun live-edit
         laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
         laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -235,10 +238,7 @@ public class NakymaController implements Initializable {
         palautettuColumn.setCellFactory(TextFieldTableCell.forTableColumn(new BooleanStringConverter()));
 
         categorySelect.setTooltip(new Tooltip("Hakukriteeri"));
-        DatePickerSkin DPS = new DatePickerSkin(new DatePicker());
-        Node calContent = DPS.getPopupContent();
 
-        kalenteriStackPane.getChildren().add(calContent);
         usernameLabel.setText(View.loggedIn.getNimi());
         bizName.setText(View.BizName);
 
@@ -247,11 +247,48 @@ public class NakymaController implements Initializable {
         Varaukset[] varauksetArr = controller.haeKayttajanVaraukset(View.loggedIn);
         omatTable.getItems().addAll(varauksetArr);
         
+        picker = new DatePicker();
+        //Kuuntelija jos taulukosta valitaan varausta
+        kaikkiTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) { //Etsii resursin kaikki varaukset.
+                ArrayList<Varaukset> aVaraukset = new ArrayList<Varaukset>();
+                int resurssiId = kaikkiTableView.getSelectionModel().getSelectedItem().getId();
+                Varaukset[] varaukset = controller.haeKaikkiVaraukset();
+                picker = null;
+                for(int i=0; i<varaukset.length; i++){
+                    if(varaukset[i].getResurssit().getId() == resurssiId){
+                        aVaraukset.add(varaukset[i]);                        
+                    }
+                }
+                Varaukset[] varaus = new Varaukset[aVaraukset.size()];
+                for(int i=0; i<aVaraukset.size(); i++){
+                    varaus[i] = aVaraukset.get(i);
+                }
+               // luo uuden datepickerin johon laitetaan day cell factorin
+                Callback<DatePicker, DateCell> dayCellFactory = controller.dayCellFactory(varaus); 
+                picker = new DatePicker();
+                picker.setDayCellFactory(dayCellFactory);
+                DPS.dispose();
+                DPS = new DatePickerSkin(picker);
+                calContent = DPS.getPopupContent();
+                kalenteriStackPane.getChildren().removeAll(calContent);
+                kalenteriStackPane.getChildren().add(calContent);
+            }
+        });
         
+        // Luodaan datepicker skin ensimmäisen kerran
+        if(picker != null){
+           DPS = new DatePickerSkin(picker);
+       }else{
+           DPS = new DatePickerSkin(new DatePicker());
+       }
+        
+        calContent = DPS.getPopupContent();
+        kalenteriStackPane.getChildren().add(calContent);
     }
 
     /**
-     * Päivittää taulukon.
+     * Päivittää miltä nappi näytää kun se on painettu.
      *
      * @param event Hiiren painallus.
      */

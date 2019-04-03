@@ -12,15 +12,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
- * Varauksen DAO
+ * Varaus DAO
+ *
  * @author Tommi
  */
 public class VarauksetAccessObject implements VarauksetDAO_IF {
-    
+
     SessionFactory sf = null;
-    
+
     /**
-     * Konstuktori
+     * Konstuktori hakee sessionfactoryn
      */
     public VarauksetAccessObject() {
         try {
@@ -29,17 +30,18 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             e.printStackTrace();
         }
     }
-    
+
     /**
-     * Luo varauksen tietokantaan.
-     * @param varaus
-     * @return
+     * Vie varauksen tietokantaan
+     *
+     * @param varaus varaus -olio joka viedään tietokantaan
+     * @return true jos varauksen vienti onnistui
      */
     @Override
     public boolean createVaraus(Varaukset varaus) {
         Session s = sf.openSession();
         Transaction tran = null;
-        
+
         try {
             tran = s.beginTransaction();
             s.saveOrUpdate(varaus);
@@ -54,19 +56,20 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             s.close();
         }
         return true;
-        
+
     }
-    
+
     /**
-     * Lukee varauksen tietokannasta.
-     * @param id
-     * @return
+     * Hakee varauksen tietokannasta id:n avulla
+     *
+     * @param id varauksen id
+     * @return varaus -olio
      */
     @Override
     public Varaukset readVaraus(int id) {
         Session s = sf.openSession();
         Transaction transaktio = null;
-        
+
         s = sf.openSession();
         s.beginTransaction();
         Varaukset haettu = new Varaukset();
@@ -85,10 +88,11 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
         }
         return haettu;
     }
-    
+
     /**
      * Lukee kaikki varaukset tietokannasta.
-     * @return
+     *
+     * @return taulukko kaikista varauksista
      */
     @Override
     public Varaukset[] readVaraukset() {
@@ -107,17 +111,18 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
                 tran.rollback();
             }
             e.printStackTrace();
-            
+
         } finally {
             s.close();
         }
         return varaukset;
     }
-    
+
     /**
-     * Päivittää varauksen.
-     * @param varaus
-     * @return
+     * Päivittää varauksen tietokantaan
+     *
+     * @param varaus varaus, jota päivitetään
+     * @return true jos päivitys onnistui
      */
     @Override
     public boolean updateVaraus(Varaukset varaus) {
@@ -147,17 +152,18 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             }
             e.printStackTrace();
             return false;
-            
+
         } finally {
             s.close();
         }
         return true;
     }
-    
+
     /**
-     * Poistaa varauksen.
-     * @param id
-     * @return
+     * Poistaa varauksen tietokannasta id:n perusteella
+     *
+     * @param id varauksen id
+     * @return true jos poisto onnistui
      */
     public boolean deleteVaraus(int id) {
         Session s = sf.openSession();
@@ -179,12 +185,12 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             }
             e.printStackTrace();
             return false;
-            
+
         } finally {
             s.close();
         }
         return true;
-        
+
     }
-    
+
 }

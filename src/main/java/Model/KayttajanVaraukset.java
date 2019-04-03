@@ -11,37 +11,40 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Luokka käyttäjän varausten hakua varten
  *
  * @author Tommi
  */
 public class KayttajanVaraukset {
-    
-    /**
-     *
-     */
-    public KayttajanVaraukset(){
-        
-    }
-    Set<Varaukset> s = new HashSet<>(); 
+
+    private Controller controller;
 
     /**
-     *
-     * @param k
-     * @param c
-     * @return
+     * Konstruktori
+     * @param c viittaus controlleriin
      */
-    public Varaukset[] haeKayttajanVaraukset(Kayttaja k, Controller c){
-        
-        Varaukset kaikkiV[] = c.haeKaikkiVaraukset();
+    public KayttajanVaraukset(Controller c) {
+        this.controller = c;
+    }
+
+    /**
+     * Siirtää halutun käyttäjän varaukset taulukkoon
+     *
+     * @param k käyttäjä jonka varaukset halutaan
+     * @return taulukko käyttäjän varauksista
+     */
+    public Varaukset[] haeKayttajanVaraukset(Kayttaja k) {
+
+        Varaukset kaikkiV[] = controller.haeKaikkiVaraukset();
         ArrayList<Varaukset> list = new ArrayList<>();
         int j = 0;
-        for(Varaukset v : kaikkiV){
-            if(v.getKayttaja().getId() == k.getId()){
+        for (Varaukset v : kaikkiV) {
+            if (v.getKayttaja().getId() == k.getId()) {
                 list.add(v);
             }
         }
         Varaukset[] varaukset = list.toArray(new Varaukset[list.size()]);
-       
+
         return varaukset;
     }
 }
