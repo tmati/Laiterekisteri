@@ -34,6 +34,7 @@ public class Resurssikasittely {
         boolean tarkistus = true;
         for (Varaukset v : varaukset) {
             if (v.getResurssit().getId() == r.getId()) {
+                System.out.println("testi");
                 boolean tulos = controller.poistaVaraus(v.getId());
                 if (!tulos) {
                     tarkistus = tulos;
