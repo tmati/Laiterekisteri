@@ -2,8 +2,11 @@
 package Controller;
 
 import Model.*;
+import java.time.LocalDate;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Set;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Callback;
@@ -27,6 +30,7 @@ public class Controller {
     private VarauksenAikaLaskuriInterface aikalaskuri;
     private VarausKasittely varausKasittely;
     private Resurssikasittely resurssikasittely;
+    private Kalenterin_tarvitsemat_toimenpiteet kalenteriApu;
 
     /**
      * Controllerin konstruktio
@@ -43,7 +47,7 @@ public class Controller {
         aikalaskuri = new VarauksenAikaLaskuri();
         varausKasittely = new VarausKasittely(varausDAO, this);
         resurssikasittely = new Resurssikasittely(this);
-        
+        kalenteriApu = new Kalenterin_tarvitsemat_toimenpiteet();
        }
 
     /**
@@ -296,5 +300,37 @@ public class Controller {
      */
     public BooleanConverter getBoolConv() {
         return new BooleanConverter(this);
+    }
+    
+        /**
+     * Siirtää ArrayListasta varaus alkiot varaus Array:hin.
+     * @param aVaraukset Varaus ArrayListasta josta halutaan tehdä array.
+     * @return Varaukset Array:na.
+     */
+    public Varaukset[] getVaraus(ArrayList<Varaukset> aVaraukset){
+        return kalenteriApu.getVaraus(aVaraukset);
+    }
+    
+    /**
+     * Vie parametrit Kalenterin_tarvitsemat_toimenpiteet() luokalle, jossa resurssiId:n avulla varaus Arraysta tehdään ArrayListan jossa on vain sen resursin varaukset.
+     * @param resurssiId Halutun resursin Id.
+     * @param varaukset Varaus array josta halutaan saada resursin varaukset.
+     * @return ArrayListan jossa on resursin varaukset Arraysta.
+     */
+    public ArrayList<Varaukset> ResursinVaraukset(int resurssiId, Varaukset[] varaukset){
+        return kalenteriApu.ResursinVaraukset(resurssiId, varaukset);
+    }
+    
+    /**
+     * Vie parametrit Kalenterin_tarvitsemat_toimenpiteet lu9okalle parametrit. Se kertoo jos varaus sillä ajan hetkellä on mahdollista. Kun verrataan muihin tuoteen varauksiin.
+     * @param aVaraukset ArrayLista varattavan tuoteen varauksista.
+     * @param endDate Milloin tuleva varaus loppuu. (päivä)
+     * @param startDate Milloin tuleva varaus alkaa. (päivä)
+     * @param endTime Milloin tuleva varaus loppuu. (tunnit ja minuutit)
+     * @param startTime Milloin tuleva varaus alkaa. (tunnit ja minuutit)
+     * @return true jos vraus on mahdollista ja falsen jos varaus menee toisen varauksen päälle.
+     */
+    public boolean Onnistuu(ArrayList<Varaukset> aVaraukset, LocalDate endDate, LocalDate startDate, LocalTime endTime, LocalTime startTime){
+        return kalenteriApu.Onnistuu(aVaraukset, endDate, startDate, endTime, startTime);
     }
 }

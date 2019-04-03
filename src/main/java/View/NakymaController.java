@@ -251,19 +251,12 @@ public class NakymaController implements Initializable {
         //Kuuntelija jos taulukosta valitaan varausta
         kaikkiTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) { //Etsii resursin kaikki varaukset.
-                ArrayList<Varaukset> aVaraukset = new ArrayList<Varaukset>();
-                int resurssiId = kaikkiTableView.getSelectionModel().getSelectedItem().getId();
+                ArrayList<Varaukset> aVaraukset = controller.ResursinVaraukset(kaikkiTableView.getSelectionModel().getSelectedItem().getId(), varauksetArr);
                 Varaukset[] varaukset = controller.haeKaikkiVaraukset();
                 picker = null;
-                for(int i=0; i<varaukset.length; i++){
-                    if(varaukset[i].getResurssit().getId() == resurssiId){
-                        aVaraukset.add(varaukset[i]);                        
-                    }
-                }
-                Varaukset[] varaus = new Varaukset[aVaraukset.size()];
-                for(int i=0; i<aVaraukset.size(); i++){
-                    varaus[i] = aVaraukset.get(i);
-                }
+                
+                Varaukset[] varaus = controller.getVaraus(aVaraukset);
+                
                // luo uuden datepickerin johon laitetaan day cell factorin
                 Callback<DatePicker, DateCell> dayCellFactory = controller.dayCellFactory(varaus); 
                 picker = new DatePicker();
@@ -271,8 +264,7 @@ public class NakymaController implements Initializable {
                 DPS.dispose();
                 DPS = new DatePickerSkin(picker);
                 calContent = DPS.getPopupContent();
-                kalenteriStackPane.getChildren().removeAll(calContent);
-                kalenteriStackPane.getChildren().add(calContent);
+                kalenteriStackPane.getChildren().set(0, calContent);
             }
         });
         

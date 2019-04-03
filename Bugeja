@@ -8,12 +8,12 @@ Omat Varaukset Taulu:
 
 
 Päänäkymän kalenteri:
-Kopioi kalenterin itsensä päälle.
 
 Resursin poisto:
 Ei voi poistaa resursia jossa on varauksia.
 
 Korjattu:
+Kopioi kalenterin itsensä päälle. - korjattu Jukka
 ei ilmoita jos käyttäjää luodessa on sama sposti tai tunnus. - korjattu Tommi
 päivittää tietokantaan jo olemassa olevan spostin tai tunnuksen. - korjattu Tommi
 ei ilmoita jos käyttäjän tunnusta tai spostia yritetään päivittää jo olemassa olevilla. - korjattu Tommi
