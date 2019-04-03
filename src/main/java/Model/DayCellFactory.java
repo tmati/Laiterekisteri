@@ -51,7 +51,7 @@ public class DayCellFactory {
                             //System.out.print(erotusp);
                             for (int i = 0; i <= erotusp; i++) {
                                 if ((alkupvm.getDayOfMonth() + i + liikaPaivat) == 29 || (alkupvm.getDayOfMonth() + i + liikaPaivat) == 31 || (alkupvm.getDayOfMonth() + i + liikaPaivat) == 32) {
-                                    switch (alkupvm.getDayOfMonth() + seuraavaKuukausi) {
+                                    switch (alkupvm.getMonthValue() + seuraavaKuukausi) {
                                         case 1:
                                         case 3:
                                         case 5:
@@ -84,9 +84,9 @@ public class DayCellFactory {
                                 if ( MonthDay.from(item).equals(MonthDay.of((alkupvm.getMonthValue() + seuraavaKuukausi), (alkupvm.getDayOfMonth() + i + liikaPaivat)))) {
                                     if ((getStyle() == ("-fx-background-color: #FFA500;"))){
                                         if( erotusp == 0){
-                                            setTooltip(new Tooltip(getTooltip().getText() + "Varaus alkaa " + varaukset[y].getAlkuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus() + "\nVaraus päätyy " + varaukset[y].getLoppuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus()));
+                                            setTooltip(new Tooltip("\n" + getTooltip().getText() + "Varaus alkaa " + varaukset[y].getAlkuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus() + "\nVaraus päätyy " + varaukset[y].getLoppuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus()));
                                         }else{
-                                            setTooltip(new Tooltip(getTooltip().getText() + "Varaus alkaa " + varaukset[y].getAlkuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus()));
+                                            setTooltip(new Tooltip("\n" + getTooltip().getText() + "Varaus alkaa " + varaukset[y].getAlkuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus()));
 
                                         }
 
