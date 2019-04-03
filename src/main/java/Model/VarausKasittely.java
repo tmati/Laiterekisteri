@@ -8,16 +8,21 @@ package Model;
 import Controller.Controller;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Luokka varausten käsittelyä varten
+ *
  * @author Tommi
  */
 public class VarausKasittely {
+
     private Controller controller;
     private VarauksetDAO_IF dao;
+
     /**
      * Konstruktori
+     *
      * @param dao viittaus varausDAO:oon
      */
     public VarausKasittely(VarauksetDAO_IF dao, Controller c) {
@@ -26,8 +31,10 @@ public class VarausKasittely {
     }
 
     /**
-     * Käy läpi kaikki varaukset tietokannasta ja päivittää niiden aktiivisuuden oikeaksi
-     * Jos tietokannassa palautettu = true tarkoittaa, että varaus ei ole aktiivinen ja päinvastoin.
+     * Käy läpi kaikki varaukset tietokannasta ja päivittää niiden aktiivisuuden
+     * oikeaksi Jos tietokannassa palautettu = true tarkoittaa, että varaus ei
+     * ole aktiivinen ja päinvastoin.
+     *
      * @return true kun tietokanta on käyty läpi
      */
     public boolean tarkistaAktiivisuudet() {
@@ -46,7 +53,7 @@ public class VarausKasittely {
         }
         return true;
     }
-    
+
     /**
      * Siirtää halutun käyttäjän varaukset taulukkoon
      *
@@ -57,22 +64,25 @@ public class VarausKasittely {
 
         Varaukset kaikkiV[] = controller.haeKaikkiVaraukset();
         ArrayList<Varaukset> list = new ArrayList<>();
-        int j = 0;
         for (Varaukset v : kaikkiV) {
-            if (v.getKayttaja().getId() == k.getId()) {
+
+            if (Objects.equals(v.getKayttaja().getId(), k.getId())) {
+
                 list.add(v);
             }
         }
         Varaukset[] varaukset = list.toArray(new Varaukset[list.size()]);
         return varaukset;
     }
+
     /**
      * Poistaa kayttajan kaikki varaukset
+     *
      * @param id Kayttaja, jonka varaukset poistetaan
      * @return true jos poisto onnistui
      */
-    
-    public boolean poistaKayttajanVaraukset(int id){
+
+    public boolean poistaKayttajanVaraukset(int id) {
         Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         boolean tarkistus = true;
         for (Varaukset v : varaukset) {
@@ -86,4 +96,3 @@ public class VarausKasittely {
         return tarkistus;
     }
 }
- 

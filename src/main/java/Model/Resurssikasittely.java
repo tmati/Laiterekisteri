@@ -6,6 +6,7 @@
 package Model;
 
 import Controller.Controller;
+import java.util.Objects;
 
 /**
  * Luokka resurssien käsittelyä varten
@@ -33,7 +34,7 @@ public class Resurssikasittely {
         Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         boolean tarkistus = true;
         for (Varaukset v : varaukset) {
-            if (v.getResurssit().getId() == r.getId()) {
+            if (Objects.equals(v.getResurssit().getId(), r.getId())) {
                 System.out.println("testi");
                 boolean tulos = controller.poistaVaraus(v.getId());
                 if (!tulos) {
