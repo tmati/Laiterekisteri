@@ -418,6 +418,7 @@ public class NakymaController implements Initializable {
         //Tähän joku dialogi jos jää aikaa
         Resurssit toDelete = kaikkiTableView.getSelectionModel().getSelectedItem();
         controller.poistaResurssi(toDelete);
+        this.updateBtnPainettu(event);
     }
 
     /**
