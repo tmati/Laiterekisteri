@@ -6,27 +6,47 @@
 package Model;
 
 import Controller.Controller;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
- * Luokka käyttäjän varausten hakua ja käsittelyä varten
- *
+ * Luokka varausten käsittelyä varten
  * @author Tommi
  */
-public class KayttajanVaraukset {
-
+public class VarausKasittely {
     private Controller controller;
-
+    private VarauksetDAO_IF dao;
     /**
      * Konstruktori
-     * @param c viittaus controlleriin
+     * @param dao viittaus varausDAO:oon
      */
-    public KayttajanVaraukset(Controller c) {
+    public VarausKasittely(VarauksetDAO_IF dao, Controller c) {
+        this.dao = dao;
         this.controller = c;
     }
 
+    /**
+     * Käy läpi kaikki varaukset tietokannasta ja päivittää niiden aktiivisuuden oikeaksi
+     * Jos tietokannassa palautettu = true tarkoittaa, että varaus ei ole aktiivinen ja päinvastoin.
+     * @return true kun tietokanta on käyty läpi
+     */
+    public boolean tarkistaAktiivisuudet() {
+        LocalDateTime aika = LocalDateTime.now();
+        Varaukset[] varaukset = dao.readVaraukset();
+        for (Varaukset v : varaukset) {
+            if (aika.isAfter(v.getAlkuAika()) && aika.isBefore(v.getLoppuAika()) && v.getHyvaksytty()) {
+                if (!v.isPalautettu()) {
+                    v.setPalautettu(true);
+                    dao.updateVaraus(v);
+                }
+            } else if (v.isPalautettu()) {
+                v.setPalautettu(false);
+                dao.updateVaraus(v);
+            }
+        }
+        return true;
+    }
+    
     /**
      * Siirtää halutun käyttäjän varaukset taulukkoon
      *
@@ -66,3 +86,4 @@ public class KayttajanVaraukset {
         return tarkistus;
     }
 }
+
