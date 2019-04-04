@@ -40,7 +40,7 @@ import org.testfx.framework.junit5.ApplicationTest;
  *
  * @author jukka
  */
-
+@Ignore
 public class loginWindowControllerTest extends ApplicationTest {
 
     

@@ -95,4 +95,21 @@ public class VarausKasittely {
         }
         return tarkistus;
     }
+   
+    /**
+     * Hakee kaikki varaukset, joissa hyvaksytty -status on false ja laittaa ne taulukkoon.
+     * False tarkoittaa sitä, että varausta ei ole käsitelty
+     * @return taulukko käsittelemättömistä varauksista.
+     */
+    public Varaukset[] haeKasittelemattomat(){
+        Varaukset[] kaikkiV = controller.haeKaikkiVaraukset();
+        ArrayList<Varaukset> list = new ArrayList<>();
+        for (Varaukset v : kaikkiV) {
+            if (!v.getHyvaksytty()){
+                list.add(v);
+            }
+        }
+        Varaukset[] varaukset = list.toArray(new Varaukset[list.size()]);
+        return varaukset;
+    }
 }

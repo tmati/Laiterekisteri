@@ -31,7 +31,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
@@ -174,12 +176,12 @@ public class NakymaController implements Initializable {
 
         luvanvaraisuusColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("luvanvaraisuus"));
         luvanvaraisuusColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        
+
         ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
         CC.setConverter(BC);
         tilaColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Boolean>("status"));
         tilaColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), true, false));
-        
+
         //Omat varaukset -taulun live-edit
         laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
         laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -246,7 +248,7 @@ public class NakymaController implements Initializable {
         kaikkiTableView.getItems().addAll(resurssit);
         Varaukset[] varauksetArr = controller.haeKayttajanVaraukset(View.loggedIn);
         omatTable.getItems().addAll(varauksetArr);
-        
+
         picker = new DatePicker();
         //Kuuntelija jos taulukosta valitaan varausta
         kaikkiTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -254,11 +256,11 @@ public class NakymaController implements Initializable {
                 ArrayList<Varaukset> aVaraukset = controller.ResursinVaraukset(kaikkiTableView.getSelectionModel().getSelectedItem().getId(), varauksetArr);
                 Varaukset[] varaukset = controller.haeKaikkiVaraukset();
                 picker = null;
-                
+
                 Varaukset[] varaus = controller.getVaraus(aVaraukset);
-                
-               // luo uuden datepickerin johon laitetaan day cell factorin
-                Callback<DatePicker, DateCell> dayCellFactory = controller.dayCellFactory(varaus); 
+
+                // luo uuden datepickerin johon laitetaan day cell factorin
+                Callback<DatePicker, DateCell> dayCellFactory = controller.dayCellFactory(varaus);
                 picker = new DatePicker();
                 picker.setDayCellFactory(dayCellFactory);
                 DPS.dispose();
@@ -267,14 +269,14 @@ public class NakymaController implements Initializable {
                 kalenteriStackPane.getChildren().set(0, calContent);
             }
         });
-        
+
         // Luodaan datepicker skin ensimmäisen kerran
-        if(picker != null){
-           DPS = new DatePickerSkin(picker);
-       }else{
-           DPS = new DatePickerSkin(new DatePicker());
-       }
-        
+        if (picker != null) {
+            DPS = new DatePickerSkin(picker);
+        } else {
+            DPS = new DatePickerSkin(new DatePicker());
+        }
+
         calContent = DPS.getPopupContent();
         kalenteriStackPane.getChildren().add(calContent);
     }
@@ -303,16 +305,21 @@ public class NakymaController implements Initializable {
     @FXML
     public void varausNappiPainettu(MouseEvent event) throws IOException {
         View.booking = kaikkiTableView.getSelectionModel().getSelectedItem();
-        if (popup == null || !popup.isShowing()) {
-            popup = new Popup();
-            Object source = event.getSource();
-            Node node = (Node) source;
-            Scene scene = node.getScene();
-            Window window = scene.getWindow();
-            Stage stage = (Stage) window;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Varausikkuna.fxml"));
-            popup.getContent().add((Parent) loader.load());
-            popup.show(window);
+        if (View.booking != null) {
+            if (popup == null || !popup.isShowing()) {
+                popup = new Popup();
+                Object source = event.getSource();
+                Node node = (Node) source;
+                Scene scene = node.getScene();
+                Window window = scene.getWindow();
+                Stage stage = (Stage) window;
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Varausikkuna.fxml"));
+                popup.getContent().add((Parent) loader.load());
+                popup.show(window);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse resurssi!");
+            alert.showAndWait();
         }
     }
 
@@ -414,11 +421,19 @@ public class NakymaController implements Initializable {
      */
     @FXML
     public void poistaresurssiNappiPainettu(MouseEvent event) throws IOException {
-        System.out.println("poistetaan resurssi");
-        //Tähän joku dialogi jos jää aikaa
         Resurssit toDelete = kaikkiTableView.getSelectionModel().getSelectedItem();
-        controller.poistaResurssi(toDelete);
-        this.updateBtnPainettu(event);
+        if (toDelete != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa resurssin?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                controller.poistaResurssi(toDelete);
+                System.out.println("poistetaan resurssi");
+                this.updateBtnPainettu(event);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse resurssi!");
+            alert.showAndWait();
+        }
     }
 
     /**

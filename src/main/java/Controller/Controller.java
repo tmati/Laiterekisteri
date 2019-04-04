@@ -147,7 +147,6 @@ public class Controller {
      * @return palauttaa taulukon kaikista varaus -olioista
      */
     public Varaukset[] haeKaikkiVaraukset() {
-        System.out.println("HAEVARAUKSET");
         this.tarkistaVarausAktiivisuudet();
         return varausDAO.readVaraukset();
     }
@@ -332,5 +331,14 @@ public class Controller {
      */
     public boolean Onnistuu(ArrayList<Varaukset> aVaraukset, LocalDate endDate, LocalDate startDate, LocalTime endTime, LocalTime startTime){
         return kalenteriApu.Onnistuu(aVaraukset, endDate, startDate, endTime, startTime);
+    }
+    
+    
+    /**
+     * Kutsuu VarausKasittely.haeKasittelemattomat()
+     * @return taulukko käsittelemättömistä varaus -oloista.
+     */
+    public Varaukset[] haeKasittelemattomatVaraukset(){
+        return varausKasittely.haeKasittelemattomat();
     }
 }
