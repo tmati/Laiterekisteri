@@ -25,6 +25,8 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -48,6 +50,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -277,6 +280,7 @@ public class NakymaController implements Initializable {
         
         calContent = DPS.getPopupContent();
         kalenteriStackPane.getChildren().add(calContent);
+        
     }
 
     /**
@@ -533,29 +537,59 @@ public class NakymaController implements Initializable {
      * @param event Näppäimen painallus hakukentän ollessa aktiivinen.
      */
     @FXML
-    private void searchFunction(KeyEvent event) {
-        /* String query = searchBar.getText();
-        System.out.println(query);
+    private void searchFunction(Event event) {
+        String query = searchBar.getText().toLowerCase();
         String tabText = tabPane.getSelectionModel().getSelectedItem().getText();
-        System.out.println(tabText);
         String selectedCategory = categorySelect.getSelectionModel().getSelectedItem().toString();
-        System.out.println(selectedCategory);
         
-        if (tabText.equals("Kaikki") && selectedCategory.equals("NIMI")) {
-            ResurssitAccessObject RAO = new ResurssitAccessObject();
-            Resurssit [] resurssit = RAO.readResurssit();
+        if (tabText.equals("Resurssit") && selectedCategory.equals("NIMI")) {
+            kaikkiTableView.getItems().clear();
+            Resurssit [] resurssit = controller.haeKaikkiResurssit();
             for (Resurssit resurssi :resurssit) {
-                if (resurssi.getNimi().equals(query));
-                kaikkiTableView.getItems().add(resurssi);
+                String resurssiPienella = resurssi.getNimi().toLowerCase();
+                if (resurssiPienella.indexOf(query)!=-1){
+                    kaikkiTableView.getItems().add(resurssi);
+                    kaikkiTableView.refresh();
+                    
+                }
             }
-        } else if (tabText.equals("Kaikki") && selectedCategory.equals("Kategoria")) {
-            ResurssitAccessObject RAO = new ResurssitAccessObject();
-            Resurssit[] resurssit = RAO.readResurssit();
+        } else if (tabText.equals("Resurssit") && selectedCategory.equals("KATEGORIA")) {
+            kaikkiTableView.getItems().clear();
+            Resurssit[] resurssit = controller.haeKaikkiResurssit();
             for (Resurssit resurssi : resurssit) {
-                if (resurssi.equals(query));
-                kaikkiTableView.getItems().add(resurssi);
+                String resurssiPienella = resurssi.getTyyppi().toLowerCase();
+
+                if (resurssiPienella.indexOf(query)!=-1){
+                    kaikkiTableView.getItems().add(resurssi);
+                    kaikkiTableView.refresh();
+                }
             }
         }
-         */
+     
+        if (tabText.equals("Omat varaukset") && selectedCategory.equals("NIMI")) {
+            Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(View.loggedIn);
+            omatTable.getItems().clear();
+            for (Varaukset varaus :omatVaraukset) {
+                System.out.println("toimii");
+                String resurssiPienella = varaus.getResurssit().getNimi().toLowerCase();
+                if (resurssiPienella.indexOf(query)!=-1){
+                    omatTable.getItems().add(varaus);
+                    omatTable.refresh();
+                    
+                }
+            }
+        } else if (tabText.equals("Omat varaukset") && selectedCategory.equals("KATEGORIA")) {
+            Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(View.loggedIn);
+            omatTable.getItems().clear();
+            for (Varaukset varaus : omatVaraukset) {
+                String resurssiPienella = varaus.getResurssit().getTyyppi().toLowerCase();
+                                    System.out.println("toimii");
+
+                if (resurssiPienella.indexOf(query)!=-1){
+                    omatTable.getItems().add(varaus);
+                    omatTable.refresh();
+                }
+            }
+        }
     }
 }

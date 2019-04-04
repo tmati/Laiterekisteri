@@ -51,7 +51,7 @@
          </GridPane.margin>
       </Label>
       <ImageView fx:id="logoView" fitHeight="138.0" fitWidth="483.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowSpan="2" />
-      <TextField fx:id="searchBar" prefHeight="39.0" prefWidth="1149.0" promptText="Etsi..." GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+      <TextField fx:id="searchBar" prefHeight="39.0" prefWidth="1149.0" promptText="Etsi..." onKeyReleased="#searchFunction" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <font>
             <Font size="18.0" />
          </font>
@@ -75,7 +75,7 @@
             <Insets />
          </GridPane.margin>
       </ChoiceBox>
-      <Button fx:id="searchBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" text="HAE" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      <Button fx:id="searchBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" text="HAE" onMouseClicked="#searchFunction" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
