@@ -18,4 +18,4 @@ Omat varaukset taulu näyttää kaikki järjestelmässä olevat varaukset, vaikk
 Ei voi poistaa resurssia jossa on varauksia. -korjattu Tommi 3.4 metodi tarkistaa ja poistaa kaikki resurssiin liittyvät varaukset
 Ei voi poistaa käyttäjää jolla on varauksia. -korjattu Tommi 3.4 metodi tarkistaa ja poistaa kaikki käyttäjään liittyvät varaukset
 Kopioi kalenterin itsensä päälle. - korjattu Jukka
-Ei anna mitään jos painaa enteriä ja salasana ja käytäjätunnus on väätin. - korjattu Jukka
+Ei anna mitään jos painaa enteriä ja salasana ja käytäjätunnus on väärin. - korjattu Jukka
