@@ -22,8 +22,8 @@
   <rowConstraints>
       <RowConstraints maxHeight="564.8" minHeight="10.0" prefHeight="123.19999847412107" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="564.8" minHeight="10.0" prefHeight="81.60000000000002" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="892.2000122070314" minHeight="10.0" prefHeight="772.0000122070313" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="187.2000488281251" minHeight="0.0" prefHeight="162.39998779296866" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="892.2000122070314" minHeight="10.0" prefHeight="854.7999999999998" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="187.2000488281251" minHeight="0.0" prefHeight="68.40000000000009" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="209.60002441406255" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
@@ -52,8 +52,8 @@
       </VBox>
       <GridPane prefHeight="123.0" prefWidth="1541.0" GridPane.columnSpan="2147483647">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.1999755859375" minWidth="10.0" prefWidth="196.1999755859375" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1283.9999755859376" minWidth="10.0" prefWidth="994.6000244140624" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.6000030517578" minWidth="10.0" prefWidth="124.80000000000001" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1283.9999755859376" minWidth="10.0" prefWidth="1190.2" />
           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="1479.8" minWidth="10.0" prefWidth="288.59992675781245" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.2000732421875" minWidth="0.0" prefWidth="94.60004882812495" />
         </columnConstraints>
@@ -99,7 +99,6 @@
             <Insets right="50.0" />
          </GridPane.margin>
       </GridPane>
-      <Button fx:id="updateBtn" mnemonicParsing="false" onMouseClicked="#updateBtnPainettu" text="PÄIVITÄ TAULUKKO" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
    </children>
    <padding>
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

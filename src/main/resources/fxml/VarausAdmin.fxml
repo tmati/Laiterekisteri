@@ -80,7 +80,6 @@
          </GridPane.margin>
       </Button>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" />
-      <Button fx:id="updateBtn" mnemonicParsing="false" onMouseClicked="#updateBtnPainettu" text="PÄIVITÄ TAULUKKO" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
    </children>
    <padding>
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

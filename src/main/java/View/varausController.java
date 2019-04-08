@@ -3,14 +3,12 @@ package View;
 import Controller.Controller;
 import Model.Resurssit;
 import Model.Varaukset;
-import Model.VarauksetAccessObject;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -19,15 +17,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.stage.Popup;
-import javafx.util.Callback;
+import javafx.stage.Window;
 import javafx.util.converter.LocalTimeStringConverter;
 
 /**
@@ -192,16 +190,21 @@ public class varausController implements Initializable {
 
             Varaukset V = new Varaukset(View.loggedIn, View.booking, startStamp, endStamp, info, false, View.booking.getNimi(), false);
             controller.luoVaraus(V);
+            Varaukset[] varaukset = controller.haeKayttajanVaraukset(View.loggedIn);
+            Popup popup = (Popup) sulkuNappi.getScene().getWindow();
+            Window nakyma = popup.getOwnerWindow();
+            TableView omatTableView = (TableView) nakyma.getScene().lookup("#omatTable");
+            omatTableView.getItems().clear();
+            omatTableView.getItems().addAll(varaukset);
             View.booking = null;
             this.sulkuNappiPainettu(event);
         }else{
             Alert a = new Alert(AlertType.INFORMATION);
-            a.setHeaderText("Varauksen teko epäonnistui, koska varauksen aika meni toisen varauksen kanssa päälekäin.");
+            a.setHeaderText("Varauksen teko epäonnistui, koska varauksen aika meni toisen varauksen kanssa päällekkäin.");
             a.setX(0);
             a.setY(0);
             a.show();            
         }
-        
     }
 
     /**
@@ -212,6 +215,11 @@ public class varausController implements Initializable {
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
+        Varaukset[] varaukset = controller.haeKayttajanVaraukset(View.loggedIn);
+        Window nakyma = popup.getOwnerWindow();
+        TableView omatTableView = (TableView) nakyma.getScene().lookup("#omatTable");
+        omatTableView.getItems().clear();
+        omatTableView.getItems().addAll(varaukset);
         popup.hide();
     }
 
