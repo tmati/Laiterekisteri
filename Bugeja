@@ -2,19 +2,20 @@ Hallinoi henkilöitä:
 käyttäjätaulu ei päivity kun lisää käyttäjän.
 
 LoginIkkuna:
-Ei anna mitään jos painaa enteriä ja salasana ja käytäjätunnus on väätin.
 
 Omat Varaukset Taulu:
-
 
 Päänäkymän kalenteri:
 
 Resursin poisto:
-Ei voi poistaa resursia jossa on varauksia.
+
 
 Korjattu:
-Kopioi kalenterin itsensä päälle. - korjattu Jukka
 ei ilmoita jos käyttäjää luodessa on sama sposti tai tunnus. - korjattu Tommi
 päivittää tietokantaan jo olemassa olevan spostin tai tunnuksen. - korjattu Tommi
 ei ilmoita jos käyttäjän tunnusta tai spostia yritetään päivittää jo olemassa olevilla. - korjattu Tommi
 Omat varaukset taulu näyttää kaikki järjestelmässä olevat varaukset, vaikka pitäisi näytää vain käytäjäkohtaiset varaukset. - korjattu Tommi 3.19 luotu modeli joka luo oikean listan käyttäjän varauksista
+Ei voi poistaa resurssia jossa on varauksia. -korjattu Tommi 3.4 metodi tarkistaa ja poistaa kaikki resurssiin liittyvät varaukset
+Ei voi poistaa käyttäjää jolla on varauksia. -korjattu Tommi 3.4 metodi tarkistaa ja poistaa kaikki käyttäjään liittyvät varaukset
+Kopioi kalenterin itsensä päälle. - korjattu Jukka
+Ei anna mitään jos painaa enteriä ja salasana ja käytäjätunnus on väärin. - korjattu Jukka

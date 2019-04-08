@@ -6,6 +6,7 @@ package View;
 import Controller.Controller;
 import Model.Kayttaja;
 import Model.KayttajaAccessObject;
+import Model.LuvanvaraisuusConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +23,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
@@ -86,16 +88,18 @@ public class KayttajaAdminController implements Initializable {
          * Kontrollerin ilmentymä
          */
         kontrolleri = View.controller;
-
+        LuvanvaraisuusConverter KayLC = new LuvanvaraisuusConverter(kontrolleri, "Työntekijä", "Esimies", "Ylläpitäjä");
         //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         emailColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("sahkoposti"));
         emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
+        
+        ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
+        CC.setConverter(KayLC);
         valtuudetColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, Integer>("valtuudet"));
-        valtuudetColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        valtuudetColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), 0,1,2));
 
         kayttajatunnusColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("kayttajatunnus"));
         kayttajatunnusColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -107,10 +111,9 @@ public class KayttajaAdminController implements Initializable {
     /**
      * Päivittää käyttäjä -taulun.
      *
-     * @param event MouseEvent
      */
     @FXML
-    public void updateBtnPainettu(MouseEvent event) {
+    public void updateBtnPainettu() {
         kayttajaTableView.getItems().clear();
         kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
     }
@@ -130,7 +133,14 @@ public class KayttajaAdminController implements Initializable {
         stage.getScene().setRoot(root);
         View.loggedIn = null;
     }
-
+    
+    /**
+     * Palauttaa instanssin
+    */
+    public KayttajaAdminController getKAC (){
+       return this;
+    }
+    
     /**
      * Käyttäjän painaessa takaisin - painiketta tämä palautetaan takaisin
      * päänäkymään.
@@ -181,7 +191,7 @@ public class KayttajaAdminController implements Initializable {
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
                 kontrolleri.poistaKayttaja(K.getId());
-                this.updateBtnPainettu(event);
+                this.updateBtnPainettu();
                 System.out.println("Poistetaan rivi");
             }
         } else {

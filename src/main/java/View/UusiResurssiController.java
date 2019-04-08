@@ -16,10 +16,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
+import javafx.stage.Window;
 
 /**
  * Uuden resurssin luomiseen liittyvä toiminnalisuus. Toteutus Popup-ikkunassa.
@@ -96,7 +98,12 @@ public class UusiResurssiController implements Initializable {
             controller.luoResurssi(R);
             virheLabel.setDisable(true);
             virheLabel.setOpacity(0);
+            Resurssit[] resurssit = controller.haeKaikkiResurssit();
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
+            Window nakyma = popup.getOwnerWindow();
+            TableView ResurssitTableView = (TableView) nakyma.getScene().lookup("#kaikkiTableView");
+            ResurssitTableView.getItems().clear();
+            ResurssitTableView.getItems().addAll(resurssit);
             popup.hide();
 
         } else {
@@ -107,12 +114,17 @@ public class UusiResurssiController implements Initializable {
 
        
     /**
-     * Sulkee popupin.
+     * Sulkee popupin. Myös taulukon päivitys.
      * @param event Hiiren klikkaus painikkeesta.
      */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
+        Resurssit[] resurssit = controller.haeKaikkiResurssit();
+        Window nakyma = popup.getOwnerWindow();
+        TableView ResurssitTableView = (TableView) nakyma.getScene().lookup("#kaikkiTableView");
+        ResurssitTableView.getItems().clear();
+        ResurssitTableView.getItems().addAll(resurssit);
         popup.hide();
 
 
