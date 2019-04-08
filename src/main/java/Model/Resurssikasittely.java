@@ -7,6 +7,7 @@ package Model;
 
 import Controller.Controller;
 import java.util.Objects;
+import javax.mail.MessagingException;
 
 /**
  * Luokka resurssien käsittelyä varten
@@ -30,7 +31,7 @@ public class Resurssikasittely {
      * @return true jos poisto onnistui
      */
     
-    public boolean poistaResurssinVaraukset(Resurssit r) {
+    public boolean poistaResurssinVaraukset(Resurssit r){
         Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         boolean tarkistus = true;
         for (Varaukset v : varaukset) {

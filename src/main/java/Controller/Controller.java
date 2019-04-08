@@ -2,14 +2,18 @@
 package Controller;
 
 import Model.*;
+import java.io.IOException;
 import java.time.LocalDate;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Callback;
+import javax.mail.MessagingException;
 
 /**
  * Controlleri
@@ -31,6 +35,7 @@ public class Controller {
     private VarausKasittely varausKasittely;
     private Resurssikasittely resurssikasittely;
     private Kalenterin_tarvitsemat_toimenpiteet kalenteriApu;
+    private Sahkoposti sahkoposti;
 
     /**
      * Controllerin konstruktio
@@ -48,6 +53,7 @@ public class Controller {
         varausKasittely = new VarausKasittely(varausDAO, this);
         resurssikasittely = new Resurssikasittely(this);
         kalenteriApu = new Kalenterin_tarvitsemat_toimenpiteet();
+        sahkoposti = new Sahkoposti();
        }
 
     /**
@@ -106,7 +112,7 @@ public class Controller {
      * @param id poistettavan käyttäjän id
      * @return palauttaa true jos käyttäjän poista tietokannasta onnistui
      */
-    public boolean poistaKayttaja(int id) {
+    public boolean poistaKayttaja(int id){
         varausKasittely.poistaKayttajanVaraukset(id);
         return kayttajaDAO.deleteKayttaja(id);
     }
@@ -146,7 +152,7 @@ public class Controller {
      *
      * @return palauttaa taulukon kaikista varaus -olioista
      */
-    public Varaukset[] haeKaikkiVaraukset() {
+    public Varaukset[] haeKaikkiVaraukset(){
         this.tarkistaVarausAktiivisuudet();
         return varausDAO.readVaraukset();
     }
@@ -165,7 +171,7 @@ public class Controller {
      * @param kayttaja kayttaja -olio jonka varaukset haetaan
      * @return palauttaa taulukon kaikista käyttäjän varaus -olioista
      */
-    public Varaukset[] haeKayttajanVaraukset(Kayttaja kayttaja) {
+    public Varaukset[] haeKayttajanVaraukset(Kayttaja kayttaja){
         return varausKasittely.haeKayttajanVaraukset(kayttaja);
     }
 
@@ -176,7 +182,7 @@ public class Controller {
      * @param r tietokannasta poistettava resurssi
      * @return palauttaa true jos resurssin poisto tietokannasta onnistui
      */
-    public boolean poistaResurssi(Resurssit r) {
+    public boolean poistaResurssi(Resurssit r){
         resurssikasittely.poistaResurssinVaraukset(r);
         return resurssiDAO.deleteResurssi(r.getId());
     }
@@ -340,5 +346,37 @@ public class Controller {
      */
     public Varaukset[] haeKasittelemattomatVaraukset(){
         return varausKasittely.haeKasittelemattomat();
+    }
+    
+    /**
+     * Kutsuu Sahkoposti.sendEmail()
+     * @param vastaanottaja Sahkopostiosoite johon lähetetään
+     * @param viesti lähettettävä viesti
+     * @return true jos lähetys onnistuu
+     * 
+     */
+    public boolean lahetaSahkoposti(String vastaanottaja, String viesti){
+        ExecutorService emailExecutor = Executors.newSingleThreadExecutor();
+        emailExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                   sahkoposti.sendEmail(vastaanottaja, viesti);
+                } catch (Exception e) {
+                    System.out.println("säie fail" + e);
+                }
+            }
+        });
+        emailExecutor.shutdown(); // it is very important to shutdown your non-singleton ExecutorService.
+        return true;
+    }
+    
+    /**
+     * Kutsuu VarausKasittely.getVarausAikaString
+     * @param V Varaus, jonka tiedoista string kasataan
+     * @return String, jossa näkyy varattavan laitteen nimi ja varauksen ajankohta.
+     */
+    public String getVarausAikaString(Varaukset V){
+        return varausKasittely.getVarausAikaString(V);
     }
 }

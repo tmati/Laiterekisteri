@@ -93,7 +93,7 @@ public class UusiResurssiController implements Initializable {
     private void uusiresurssiNappiPainettu(MouseEvent event) {
         if (nimiTextField.getText() != null && tyyppiTextField.getText() != null && !LuvanvaraisuusChoiceBox.getValue().equals("Valitse...") && kuvausTextbox.getText() != null) {
             System.out.println("Luodaan uusi resurssi!");
-            Resurssit R = new Resurssit(false, nimiTextField.getText(), tyyppiTextField.getText(), controller.readCb(LuvanvaraisuusChoiceBox), kuvausTextbox.getText());
+            Resurssit R = new Resurssit(true, nimiTextField.getText(), tyyppiTextField.getText(), controller.readCb(LuvanvaraisuusChoiceBox), kuvausTextbox.getText());
             System.out.println(R.getNimi() + " | " + R.getTyyppi() + " | " + R.getLuvanvaraisuus() + " | " + R.getKuvaus());
             controller.luoResurssi(R);
             virheLabel.setDisable(true);
