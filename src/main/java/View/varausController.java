@@ -189,16 +189,17 @@ public class varausController implements Initializable {
             //Lisätiedot
             String info = lisatiedotTextbox.getText();
             //System.out.println(info);
-
-            Varaukset V = new Varaukset(View.loggedIn, View.booking, startStamp, endStamp, info, false, View.booking.getNimi(), false);
+            boolean b = false;
+            if(View.booking.getLuvanvaraisuus() == 0){
+                b = true;
+            }
+            Varaukset V = new Varaukset(View.loggedIn, View.booking, startStamp, endStamp, info, false, View.booking.getNimi(), b);
             controller.luoVaraus(V);
             View.booking = null;
             this.sulkuNappiPainettu(event);
         }else{
             Alert a = new Alert(AlertType.INFORMATION);
             a.setHeaderText("Varauksen teko epäonnistui, koska varauksen aika meni toisen varauksen kanssa päälekäin.");
-            a.setX(0);
-            a.setY(0);
             a.show();            
         }
         

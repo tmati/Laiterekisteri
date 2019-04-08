@@ -21,9 +21,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
+import javax.mail.MessagingException;
 
 /**
  * Uuden käyttäjän luontipopupin toiminnallisuus
+ *
  * @author tmati
  */
 public class UusiKayttajaController implements Initializable {
@@ -48,7 +50,7 @@ public class UusiKayttajaController implements Initializable {
     private ChoiceBox<String> valtuudetChoiceBox;
     @FXML
     private TableView<Kayttaja> kayttajaTableView;
-    
+
     /**
      * Controller-ilmentymä
      */
@@ -86,11 +88,13 @@ public class UusiKayttajaController implements Initializable {
 
     /**
      * Luo uuden käyttäjän annettujen ehtojen täsmätessä. Herjaa jos ehdot ei
-     * täsmää. Tarkastaa myös sähköpostin ja käyttäjätunnuksen tietokantaa vasten (ei saa olla samat)
+     * täsmää. Tarkastaa myös sähköpostin ja käyttäjätunnuksen tietokantaa
+     * vasten (ei saa olla samat)
+     *
      * @param event Hiiren klikkaus painikkeesta.
      */
     @FXML
-    private void luokayttajaNappiPainettu(MouseEvent event) {
+    private void luokayttajaNappiPainettu(MouseEvent event) throws MessagingException {
         if (nimiTextField.getText().isEmpty() || emailTextField.getText().isEmpty() || salasanaTextField.getText().isEmpty() || kayttajatunnusTextField.getText().isEmpty() || valtuudetChoiceBox.getValue().equals("Valitse...")) {
             virheLabel.setText("Tietoja puuttuu. Täytä kaikki kohdat ja yritä uudelleen.");
             virheLabel.setDisable(false);
@@ -107,6 +111,11 @@ public class UusiKayttajaController implements Initializable {
             Kayttaja J = new Kayttaja(nimiTextField.getText(), salasanaTextField.getText(), kayttajatunnusTextField.getText(), emailTextField.getText(), controller.readCb(valtuudetChoiceBox));
             System.out.println(J.getNimi() + " | " + J.getSalasana() + " | " + J.getKayttajatunnus() + " | " + J.getSahkoposti() + " | " + J.getValtuudet());
             controller.luoKayttaja(J);
+            controller.lahetaSahkoposti(J.getSahkoposti(), "Hei,\n\nsinulle on luotu keyChain käyttäjä.\n"
+                    + "Käyttäjätunnus: " + J.getKayttajatunnus() + "\n"
+                    + "Salasana: " + J.getSalasana() + "\n"
+                    + "Muistathan vaihtaa salasanasi, kun kirjaudut sisään ensimmäisen kerran.\n\n"
+                    + "Tämä on automaattinen viesti, johon ei tarvitse vastata.");
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
             popup.hide();
         }
@@ -114,6 +123,7 @@ public class UusiKayttajaController implements Initializable {
 
     /**
      * Sulkee popupin.
+     *
      * @param event Hiiren klikkaus painikkeesta.
      */
     @FXML

@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,6 +36,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.DateStringConverter;
+import javax.mail.MessagingException;
 
 /**
  * Varausten tarkasteluun käytettävän näkymän toiminnot
@@ -174,7 +177,7 @@ public class VarausAdminController implements Initializable {
      * @param event Hiiren klikkaus painikkeeseen
      */
     @FXML
-    private void hyvaksyBtnPainettu(MouseEvent event) {
+    private void hyvaksyBtnPainettu(MouseEvent event){
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
         if (V != null) {
             Alert alert = new Alert(AlertType.CONFIRMATION, "Oletko varma, että haluat hyväksyä varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
@@ -182,8 +185,15 @@ public class VarausAdminController implements Initializable {
             if (alert.getResult() == ButtonType.YES) {
                 V.setHyvaksytty(true);
                 controller.paivitaVaraus(V);
+                try {
+                    controller.lahetaSahkoposti(V.getKayttaja().getSahkoposti(), controller.getVarausAikaString(V) + " on hyväksytty."
+                            + "\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.");
+                } catch (MessagingException ex) {
+                    Logger.getLogger(VarausAdminController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 this.updateBtnPainettu(event);
                 System.out.println("Varaus hyväksytty!");
+                
             }
         } else {
             Alert alert = new Alert(AlertType.WARNING, "Valitse käsiteltävä varaus!");
@@ -198,13 +208,15 @@ public class VarausAdminController implements Initializable {
      * @param event Hiiren klikkaus painikkeeseen
      */
     @FXML
-    private void hylkaaBtnPainettu(MouseEvent event) {
+    private void hylkaaBtnPainettu(MouseEvent event) throws MessagingException {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
         if (V != null) {
             Alert alert = new Alert(AlertType.CONFIRMATION, "Oletko varma, että haluat hylätä varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
                 controller.poistaVaraus(V.getId());
+                controller.lahetaSahkoposti(V.getKayttaja().getSahkoposti(), controller.getVarausAikaString(V) + " on hylätty."
+                        + "\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.");
                 System.out.println("Varaus hylätty!");
                 this.updateBtnPainettu(event);
             }
