@@ -2,12 +2,15 @@
 package Controller;
 
 import Model.*;
+import java.io.IOException;
 import java.time.LocalDate;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Callback;
 import javax.mail.MessagingException;
@@ -350,10 +353,22 @@ public class Controller {
      * @param vastaanottaja Sahkopostiosoite johon lähetetään
      * @param viesti lähettettävä viesti
      * @return true jos lähetys onnistuu
-     * @throws MessagingException jos lähetys epäonnistuu
+     * 
      */
-    public boolean lahetaSahkoposti(String vastaanottaja, String viesti) throws MessagingException{
-        return sahkoposti.sendEmail(vastaanottaja, viesti);
+    public boolean lahetaSahkoposti(String vastaanottaja, String viesti){
+        ExecutorService emailExecutor = Executors.newSingleThreadExecutor();
+        emailExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                   sahkoposti.sendEmail(vastaanottaja, viesti);
+                } catch (Exception e) {
+                    System.out.println("säie fail" + e);
+                }
+            }
+        });
+        emailExecutor.shutdown(); // it is very important to shutdown your non-singleton ExecutorService.
+        return true;
     }
     
     /**

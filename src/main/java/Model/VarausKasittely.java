@@ -52,21 +52,13 @@ public class VarausKasittely {
             } else if (v.isPalautettu()) {
                 v.setPalautettu(false);
                 System.out.println("Varaus päättynyt");
-                try {
-                    controller.lahetaSahkoposti(v.getKayttaja().getSahkoposti(), controller.getVarausAikaString(v)
-                            + " on päättynyt. Muistathan palauttaa varaamasi resurssin.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.");
-                } catch (MessagingException ex) {
-                    Logger.getLogger(VarausKasittely.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                controller.lahetaSahkoposti(v.getKayttaja().getSahkoposti(), controller.getVarausAikaString(v)
+                        + " on päättynyt. Muistathan palauttaa varaamasi resurssin.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.");
                 dao.updateVaraus(v);
             } else if (!v.getHyvaksytty() && aika.isAfter(v.getAlkuAika())) {
                 System.out.println("Varaus poistettu koska ei oltu hyväksytty" + v.getNimi() + " " + v.getId() + " " + v.getKayttaja());
-                try {
-                    controller.lahetaSahkoposti(v.getKayttaja().getSahkoposti(), controller.getVarausAikaString(v)
-                            + " on poistunut, koska sitä ei hyväksytty ajoissa.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.");
-                } catch (MessagingException ex) {
-                    Logger.getLogger(VarausKasittely.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                controller.lahetaSahkoposti(v.getKayttaja().getSahkoposti(), controller.getVarausAikaString(v)
+                        + " on poistunut, koska sitä ei hyväksytty ajoissa.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.");
                 controller.poistaVaraus(v.getId());
             }
         }

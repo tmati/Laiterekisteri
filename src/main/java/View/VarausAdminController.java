@@ -185,12 +185,8 @@ public class VarausAdminController implements Initializable {
             if (alert.getResult() == ButtonType.YES) {
                 V.setHyvaksytty(true);
                 controller.paivitaVaraus(V);
-                try {
-                    controller.lahetaSahkoposti(V.getKayttaja().getSahkoposti(), controller.getVarausAikaString(V) + " on hyväksytty."
-                            + "\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.");
-                } catch (MessagingException ex) {
-                    Logger.getLogger(VarausAdminController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                controller.lahetaSahkoposti(V.getKayttaja().getSahkoposti(), controller.getVarausAikaString(V) + " on hyväksytty."
+                        + "\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.");
                 this.updateBtnPainettu(event);
                 System.out.println("Varaus hyväksytty!");
                 
