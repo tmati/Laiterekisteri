@@ -51,7 +51,7 @@ public class DayCellFactory {
                             //System.out.print(erotusp);
                             for (int i = 0; i <= erotusp; i++) {
                                 if ((alkupvm.getDayOfMonth() + i + liikaPaivat) == 29 || (alkupvm.getDayOfMonth() + i + liikaPaivat) == 31 || (alkupvm.getDayOfMonth() + i + liikaPaivat) == 32) {
-                                    switch (alkupvm.getDayOfMonth() + seuraavaKuukausi) {
+                                    switch (alkupvm.getMonthValue() + seuraavaKuukausi) {
                                         case 1:
                                         case 3:
                                         case 5:

@@ -15,7 +15,8 @@ import javafx.util.StringConverter;
 public class BooleanConverter extends StringConverter<Boolean> {
     
      private Controller kontrolleri;
-     
+     String TrueString;
+     String FalseString;
     /**
      * Muuttaa boolean-arvot selkolukuisiksi.
      * @param kontrolleri 
@@ -24,15 +25,21 @@ public class BooleanConverter extends StringConverter<Boolean> {
         this.kontrolleri = kontrolleri;
     }
     
+    public BooleanConverter (Controller kontrolleri, String TrueString, String FalseString) {
+        this.kontrolleri = kontrolleri;
+        this.TrueString = TrueString;
+        this.FalseString = FalseString;
+    }
+    
     public String toString(Boolean object) {
         if (object) {
-            return "Varattavissa";
+            return TrueString;
         }
-        return "Ei varattavissa";
+        return FalseString;
     }
 
      @Override
     public Boolean fromString(String string) {
-        return string.equals("Varattavissa");
+        return string.equals(TrueString);
     }
 }

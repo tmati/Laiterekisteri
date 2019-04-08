@@ -34,8 +34,8 @@ public class loginWindowController implements Initializable {
     @FXML
     private ImageView loginInactive;
     @FXML
-    private ImageView loginActive;
-    @FXML
+    private ImageView loginActive; 
+   @FXML
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;

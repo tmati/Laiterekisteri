@@ -8,8 +8,11 @@ package View;
 import Controller.Controller;
 import Model.Kayttaja;
 import Model.KayttajaAccessObject;
+import Model.Resurssit;
+import Model.Varaukset;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +24,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
+import javafx.stage.Window;
 
 /**
  * Uuden käyttäjän luontipopupin toiminnallisuus
@@ -46,8 +50,6 @@ public class UusiKayttajaController implements Initializable {
     private TextField kayttajatunnusTextField;
     @FXML
     private ChoiceBox<String> valtuudetChoiceBox;
-    @FXML
-    private TableView<Kayttaja> kayttajaTableView;
     
     /**
      * Controller-ilmentymä
@@ -64,6 +66,7 @@ public class UusiKayttajaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         controller = View.controller;
+
     }
 
     /**
@@ -107,18 +110,30 @@ public class UusiKayttajaController implements Initializable {
             Kayttaja J = new Kayttaja(nimiTextField.getText(), salasanaTextField.getText(), kayttajatunnusTextField.getText(), emailTextField.getText(), controller.readCb(valtuudetChoiceBox));
             System.out.println(J.getNimi() + " | " + J.getSalasana() + " | " + J.getKayttajatunnus() + " | " + J.getSahkoposti() + " | " + J.getValtuudet());
             controller.luoKayttaja(J);
+            Kayttaja[] kayttajat = controller.haeKaikkiKayttajat();
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
+            Window nakyma = popup.getOwnerWindow();
+            TableView kayttajaTableView = (TableView) nakyma.getScene().lookup("#kayttajaTableView");
+            kayttajaTableView.getItems().clear();
+            kayttajaTableView.getItems().addAll(kayttajat);
             popup.hide();
         }
     }
 
     /**
      * Sulkee popupin.
+     *
      * @param event Hiiren klikkaus painikkeesta.
      */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
+
+        Kayttaja[] kayttajat = controller.haeKaikkiKayttajat();
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
+        Window nakyma = popup.getOwnerWindow();
+        TableView kayttajaTableView = (TableView) nakyma.getScene().lookup("#kayttajaTableView");
+        kayttajaTableView.getItems().clear();
+        kayttajaTableView.getItems().addAll(kayttajat);
         popup.hide();
     }
 }

@@ -9,6 +9,7 @@ import Controller.Controller;
 import Model.BooleanConverter;
 import Model.Kayttaja;
 import Model.KayttajaAccessObject;
+import Model.LuvanvaraisuusConverter;
 import Model.Resurssit;
 import Model.ResurssitAccessObject;
 import Model.Varaukset;
@@ -152,13 +153,15 @@ public class NakymaController implements Initializable {
     /**
      * Initializes the controller class.
      *
-     * @param url
-     * @param rb
+     * @param url url 
+     * @param rb rb
      */
     @Transactional
     public void initialize(URL url, ResourceBundle rb) {
         controller = View.controller;
-        BooleanConverter BC = new BooleanConverter(controller);
+        BooleanConverter VarattavissaController = new BooleanConverter(controller, "Varattavissa",  "Ei varattavissa");
+        BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
+        LuvanvaraisuusConverter ResLC = new LuvanvaraisuusConverter(controller, "Vapaa käyttö", "Esimiehen hyväksyttävä", "Ylläpitäjän hyväksyttävä");
         Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
         logoView.setImage(image);
 
@@ -171,12 +174,13 @@ public class NakymaController implements Initializable {
 
         kuvausColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, String>("kuvaus"));
         kuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
-        luvanvaraisuusColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("luvanvaraisuus"));
-        luvanvaraisuusColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         
         ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
-        CC.setConverter(BC);
+        CC.setConverter(ResLC);
+        luvanvaraisuusColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("luvanvaraisuus"));
+        luvanvaraisuusColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), 0,1,2));
+        
+        CC.setConverter(VarattavissaController);
         tilaColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Boolean>("status"));
         tilaColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), true, false));
         
@@ -234,8 +238,9 @@ public class NakymaController implements Initializable {
         varauskuvausColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("kuvaus"));
         varauskuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
+        CC.setConverter(AktiivisuusController);
         palautettuColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("palautettu"));
-        palautettuColumn.setCellFactory(TextFieldTableCell.forTableColumn(new BooleanStringConverter()));
+        palautettuColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), true, false));
 
         categorySelect.setTooltip(new Tooltip("Hakukriteeri"));
 
@@ -461,9 +466,9 @@ public class NakymaController implements Initializable {
      * jälkeen.
      */
     @FXML
-    private void luvanvaraisuusOnEditCommit(TableColumn.CellEditEvent<Resurssit, Long> event) {
+    private void luvanvaraisuusOnEditCommit(TableColumn.CellEditEvent<Resurssit, Integer> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
-        R.setLuvanvaraisuus(event.getNewValue().intValue());
+        R.setLuvanvaraisuus((event.getNewValue()));
         System.out.println("Uusi luvanvaraisuusarvo: " + R.getLuvanvaraisuus());
         controller.paivitaResurssi(R);
     }
@@ -493,46 +498,7 @@ public class NakymaController implements Initializable {
         System.out.println("Uusi tila: " + " " + R.isStatus());
         controller.paivitaResurssi(R);
     }
-
-    /**
-     * Toiminnallisuus alkupvm-columnin muokkaamisen päättyessä.
-     *
-     * @param event ENTER-painallus alkupvm-sarakkeen muokkaamisen päätteeksi.
-     */
-    @FXML
-    private void alkupvmOnEditCommit(TableColumn.CellEditEvent<Varaukset, Timestamp> event) {
-        Varaukset V = omatTable.getSelectionModel().getSelectedItem();
-        V.setAlkupvm(event.getNewValue());
-        System.out.println("Uusi alkupäivämäärä:" + V.getAlkupvm());
-        controller.paivitaVaraus(V);
-    }
-
-    /**
-     * Toiminnallisuus paattymispvm-columnin muokkaamisen päättyessä.
-     *
-     * @param event ENTER-painalus paattymispvm-sarakkeeen muokkaamisen jälkeen.
-     */
-    @FXML
-    private void paattymispvmOnEditCommit(TableColumn.CellEditEvent<Varaukset, Timestamp> event) {
-        Varaukset V = omatTable.getSelectionModel().getSelectedItem();
-        V.setPaattymispvm(event.getNewValue());
-        System.out.println("Uusi päättymispäivä:" + V.getPaattymispvm());
-        controller.paivitaVaraus(V);
-    }
-
-    /**
-     * Toiminnallisuus palautettu-columnin muokkaamisen päättyessä.
-     *
-     * @param event ENTER-painallus palautettu-sarakkeen muokkaamisen jälkeen.
-     */
-    @FXML
-    private void palautettuOnEditCommit(TableColumn.CellEditEvent<Varaukset, Boolean> event) {
-        Varaukset V = omatTable.getSelectionModel().getSelectedItem();
-        V.setPalautettu(event.getNewValue());
-        System.out.println("Palautettu:" + V.isPalautettu());
-        controller.paivitaVaraus(V);
-    }
-
+    
     /**
      * Hakutoiminnallisuus. Tulokset haetaan valittuna olevan välilehden ja
      * kategorian mukaan.
