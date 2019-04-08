@@ -1,13 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controller;
 
 import Model.*;
+import java.time.LocalDate;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Set;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Callback;
@@ -24,12 +23,14 @@ public class Controller {
     private VarauksetDAO_IF varausDAO;
     private KayttajaTarkistus kayttajaTarkistus;
     private PasswordConverterInterface crypter = new PasswordConverter();
-    private KayttajanVaraukset KV;
     private LoginUtils login;
     private ChoiceboxUtils cbutils;
     private BooleanConverter BoolConv;
     private DayCellFactory cellfactory;
     private VarauksenAikaLaskuriInterface aikalaskuri;
+    private VarausKasittely varausKasittely;
+    private Resurssikasittely resurssikasittely;
+    private Kalenterin_tarvitsemat_toimenpiteet kalenteriApu;
 
     /**
      * Controllerin konstruktio
@@ -39,12 +40,14 @@ public class Controller {
         kayttajaTarkistus = new KayttajaTarkistus(this);
         resurssiDAO = new ResurssitAccessObject();
         varausDAO = new VarauksetAccessObject();
-        KV = new KayttajanVaraukset(this);
         login = new LoginUtils(this);
         cbutils = new ChoiceboxUtils(this);
         BoolConv = new BooleanConverter(this);
         cellfactory = new DayCellFactory();
         aikalaskuri = new VarauksenAikaLaskuri();
+        varausKasittely = new VarausKasittely(varausDAO, this);
+        resurssikasittely = new Resurssikasittely(this);
+        kalenteriApu = new Kalenterin_tarvitsemat_toimenpiteet();
        }
 
     /**
@@ -97,12 +100,14 @@ public class Controller {
     }
 
     /**
+     * Kutsuu VarausKasittely.poistaKayttajanVaraukset()
      * Kutsuu KayttajaAccessObject.deleteKayttaja()
      *
      * @param id poistettavan käyttäjän id
      * @return palauttaa true jos käyttäjän poista tietokannasta onnistui
      */
     public boolean poistaKayttaja(int id) {
+        varausKasittely.poistaKayttajanVaraukset(id);
         return kayttajaDAO.deleteKayttaja(id);
     }
 
@@ -136,31 +141,43 @@ public class Controller {
     }
 
     /**
+     * Kutsuu Controller.tarkistaVarausAKtiivisuudet()
      * Kutsuu VarausAccessObject.readVaraukset()
      *
      * @return palauttaa taulukon kaikista varaus -olioista
      */
     public Varaukset[] haeKaikkiVaraukset() {
+        this.tarkistaVarausAktiivisuudet();
         return varausDAO.readVaraukset();
+    }
+    
+    /**
+     * Kutsuu VarausKasittely.tarkistaAktiivisuudet()
+     * @return true jos onnistuu
+     */
+    public boolean tarkistaVarausAktiivisuudet(){
+        return varausKasittely.tarkistaAktiivisuudet();
     }
 
     /**
-     * kutsuu KayttajanVaraukset.haeKayttajanVaraukset()
+     * kutsuu VarausKasittely.haeKayttajanVaraukset()
      *
      * @param kayttaja kayttaja -olio jonka varaukset haetaan
      * @return palauttaa taulukon kaikista käyttäjän varaus -olioista
      */
     public Varaukset[] haeKayttajanVaraukset(Kayttaja kayttaja) {
-        return KV.haeKayttajanVaraukset(kayttaja);
+        return varausKasittely.haeKayttajanVaraukset(kayttaja);
     }
 
     /**
+     * Kutsuu ResurssiKasittely.poisteResurssinVaraukset()
      * Kutsuu ResurssiAccessObject.deleteResurssi()
      *
      * @param r tietokannasta poistettava resurssi
      * @return palauttaa true jos resurssin poisto tietokannasta onnistui
      */
     public boolean poistaResurssi(Resurssit r) {
+        resurssikasittely.poistaResurssinVaraukset(r);
         return resurssiDAO.deleteResurssi(r.getId());
     }
 
@@ -282,5 +299,46 @@ public class Controller {
      */
     public BooleanConverter getBoolConv() {
         return new BooleanConverter(this);
+    }
+    
+        /**
+     * Siirtää ArrayListasta varaus alkiot varaus Array:hin.
+     * @param aVaraukset Varaus ArrayListasta josta halutaan tehdä array.
+     * @return Varaukset Array:na.
+     */
+    public Varaukset[] getVaraus(ArrayList<Varaukset> aVaraukset){
+        return kalenteriApu.getVaraus(aVaraukset);
+    }
+    
+    /**
+     * Vie parametrit Kalenterin_tarvitsemat_toimenpiteet() luokalle, jossa resurssiId:n avulla varaus Arraysta tehdään ArrayListan jossa on vain sen resursin varaukset.
+     * @param resurssiId Halutun resursin Id.
+     * @param varaukset Varaus array josta halutaan saada resursin varaukset.
+     * @return ArrayListan jossa on resursin varaukset Arraysta.
+     */
+    public ArrayList<Varaukset> ResursinVaraukset(int resurssiId, Varaukset[] varaukset){
+        return kalenteriApu.ResursinVaraukset(resurssiId, varaukset);
+    }
+    
+    /**
+     * Vie parametrit Kalenterin_tarvitsemat_toimenpiteet lu9okalle parametrit. Se kertoo jos varaus sillä ajan hetkellä on mahdollista. Kun verrataan muihin tuoteen varauksiin.
+     * @param aVaraukset ArrayLista varattavan tuoteen varauksista.
+     * @param endDate Milloin tuleva varaus loppuu. (päivä)
+     * @param startDate Milloin tuleva varaus alkaa. (päivä)
+     * @param endTime Milloin tuleva varaus loppuu. (tunnit ja minuutit)
+     * @param startTime Milloin tuleva varaus alkaa. (tunnit ja minuutit)
+     * @return true jos vraus on mahdollista ja falsen jos varaus menee toisen varauksen päälle.
+     */
+    public boolean Onnistuu(ArrayList<Varaukset> aVaraukset, LocalDate endDate, LocalDate startDate, LocalTime endTime, LocalTime startTime){
+        return kalenteriApu.Onnistuu(aVaraukset, endDate, startDate, endTime, startTime);
+    }
+    
+    
+    /**
+     * Kutsuu VarausKasittely.haeKasittelemattomat()
+     * @return taulukko käsittelemättömistä varaus -oloista.
+     */
+    public Varaukset[] haeKasittelemattomatVaraukset(){
+        return varausKasittely.haeKasittelemattomat();
     }
 }

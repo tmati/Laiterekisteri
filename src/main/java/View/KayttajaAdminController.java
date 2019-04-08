@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -34,6 +35,7 @@ import javafx.util.converter.IntegerStringConverter;
 
 /**
  * Käyttäjänäkymään liittyvät toiminnot.
+ *
  * @author tmati
  */
 public class KayttajaAdminController implements Initializable {
@@ -87,7 +89,6 @@ public class KayttajaAdminController implements Initializable {
          */
         kontrolleri = View.controller;
         LuvanvaraisuusConverter KayLC = new LuvanvaraisuusConverter(kontrolleri, "Työntekijä", "Esimies", "Ylläpitäjä");
-        
         //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -108,7 +109,7 @@ public class KayttajaAdminController implements Initializable {
     }
 
     /**
-     * Päivittää napin ulkonäön.
+     * Päivittää käyttäjä -taulun.
      *
      */
     @FXML
@@ -156,9 +157,9 @@ public class KayttajaAdminController implements Initializable {
         stage.getScene().setRoot(root);
     }
 
-    
     /**
      * Avaa uuden käyttäjän lisäämisnäkymän.
+     *
      * @param event Hiiren klikkaus painikkeeseen.
      * @throws IOException Tiedostosta lukemisen vuoksi varauduttava poikkeus
      */
@@ -179,19 +180,31 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Poistaa valitun rivin tietokannasta.
+     *
      * @param event Hiiren klikkaus painikkeeseen.
      */
     @FXML
     private void poistaBtnPainettu(MouseEvent event) {
         Kayttaja K = kayttajaTableView.getSelectionModel().getSelectedItem();
-        kontrolleri.poistaKayttaja(K.getId());
-        this.updateBtnPainettu();
-        System.out.println("Poistetaan rivi");
+        if (K != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa käyttäjän?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                kontrolleri.poistaKayttaja(K.getId());
+                this.updateBtnPainettu();
+                System.out.println("Poistetaan rivi");
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse käyttäjä!");
+            alert.showAndWait();
+        }
     }
 
     /**
      * Toiminnallisuus nimi-columnin muokkaamisen päättyessä.
-     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa ENTER - painalluksella.
+     *
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa
+     * ENTER - painalluksella.
      */
     @FXML
     private void nimiEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
@@ -203,7 +216,9 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Toiminnalisuus sähköposticolumnin muokkaamisen päättyessä.
-     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa ENTER - painalluksella.
+     *
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa
+     * ENTER - painalluksella.
      */
     @FXML
     private void emailEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
@@ -222,7 +237,9 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Toiminnallisuus valtuudet-columnin muokkaamisen päättyessä.
-     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa ENTER - painalluksella.
+     *
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa
+     * ENTER - painalluksella.
      */
     @FXML
     private void valtuudetEditCommit(TableColumn.CellEditEvent<Kayttaja, Integer> event) {
@@ -234,7 +251,9 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Toiminnallisuus käyttäjätunnus-columnin muokkaamisen päättyessä.
-     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa ENTER - painalluksella
+     *
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa
+     * ENTER - painalluksella
      */
     @FXML
     private void kayttajatunnusEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {

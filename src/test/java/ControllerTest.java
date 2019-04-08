@@ -31,7 +31,6 @@ import org.junit.Ignore;
  * @author Tommi
  */
 
-@Ignore
 public class ControllerTest {
 
     Controller kont = new Controller();
@@ -110,7 +109,8 @@ public class ControllerTest {
                 kont.login(kay[0].getKayttajatunnus(), kay[0].getSalasana()));
         assertFalse("login: pääsi sisään vaikka ei pitänyt",
                 kont.login("asdgfds", "äöädrftrewqsxd"));
-       
+       assertTrue("tarkistaVarausAktiivisuudet: ei onnistunut",
+               kont.tarkistaVarausAktiivisuudet());
         
     }
     

@@ -16,7 +16,7 @@
 
     <organization>
         <!-- Used as the 'Vendor' for JNLP generation -->
-        <name>Your Organisation</name>
+        <name>KeyChain</name>
     </organization>
 
     <build>
@@ -155,9 +155,9 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
+                         <configuration>
+                             <skip>true</skip>
+                         </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -170,8 +170,7 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.1</version>
                 <configuration>
-                    
-                    <skip>true</skip>
+                            <skip>true</skip>
                     <excludes>
                         <exclude></exclude>
                     </excludes>

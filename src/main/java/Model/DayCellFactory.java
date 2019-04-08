@@ -81,8 +81,16 @@ public class DayCellFactory {
                                             break;
                                     }
                                 }
-                                if (MonthDay.from(item).equals(MonthDay.of((alkupvm.getMonthValue() + seuraavaKuukausi), (alkupvm.getDayOfMonth() + i + liikaPaivat)))) {
-                                    if (erotusp == 0){
+                                if ( MonthDay.from(item).equals(MonthDay.of((alkupvm.getMonthValue() + seuraavaKuukausi), (alkupvm.getDayOfMonth() + i + liikaPaivat)))) {
+                                    if ((getStyle() == ("-fx-background-color: #FFA500;"))){
+                                        if( erotusp == 0){
+                                            setTooltip(new Tooltip("\n" + getTooltip().getText() + "Varaus alkaa " + varaukset[y].getAlkuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus() + "\nVaraus päätyy " + varaukset[y].getLoppuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus()));
+                                        }else{
+                                            setTooltip(new Tooltip("\n" + getTooltip().getText() + "Varaus alkaa " + varaukset[y].getAlkuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus()));
+
+                                        }
+
+                                    }else if (erotusp == 0){
                                         setStyle("-fx-background-color: #FFA500;");
                                         setTooltip(new Tooltip("Varaus alkaa " + varaukset[y].getAlkuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus() + "\nVaraus päätyy " + varaukset[y].getLoppuAika().getHour() + "h \n Kuvaus: " + varaukset[y].getKuvaus()));
                                     }else if (i == 0) {

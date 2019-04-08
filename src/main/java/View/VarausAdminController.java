@@ -14,12 +14,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -33,6 +37,7 @@ import javafx.util.converter.DateStringConverter;
 
 /**
  * Varausten tarkasteluun käytettävän näkymän toiminnot
+ *
  * @author tmati
  */
 public class VarausAdminController implements Initializable {
@@ -67,6 +72,7 @@ public class VarausAdminController implements Initializable {
     private Button updateBtn;
 
     private Controller controller;
+
     /**
      * Initializes the controller class.
      *
@@ -116,10 +122,9 @@ public class VarausAdminController implements Initializable {
         bizName.setText(View.BizName);
         usernameLabel.setText(View.loggedIn.getNimi());
 
-        Varaukset[] varaukset = controller.haeKaikkiVaraukset();
+        Varaukset[] varaukset = controller.haeKasittelemattomatVaraukset();
         varauksetTableView.getItems().addAll(varaukset);
     }
-
 
     /**
      * Päivittää napin ulkonäön.
@@ -128,11 +133,11 @@ public class VarausAdminController implements Initializable {
      */
     public void updateBtnPainettu(MouseEvent event) {
         varauksetTableView.getItems().clear();
-        Varaukset[] varaukset = controller.haeKaikkiVaraukset();
+        Varaukset[] varaukset = controller.haeKasittelemattomatVaraukset();
         varauksetTableView.getItems().addAll(varaukset);
     }
 
-    /**
+    /*
      * Kirjaa käyttäjän ulos.
      *
      * @param event Painikkeen klikkaus
@@ -163,31 +168,57 @@ public class VarausAdminController implements Initializable {
     }
 
     /**
-     * Toiminta varauksen hyväksyntänapin painalluksen jälkeen. Hyväksyy varauksen ja päivittää sen tietokantaan.
+     * Toiminta varauksen hyväksyntänapin painalluksen jälkeen. Hyväksyy
+     * varauksen ja päivittää sen tietokantaan.
+     *
      * @param event Hiiren klikkaus painikkeeseen
      */
     @FXML
     private void hyvaksyBtnPainettu(MouseEvent event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
-        V.setHyvaksytty(true);
-        controller.paivitaVaraus(V);
-        System.out.println("Varaus hyväksytty!");
+        if (V != null) {
+            Alert alert = new Alert(AlertType.CONFIRMATION, "Oletko varma, että haluat hyväksyä varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                V.setHyvaksytty(true);
+                controller.paivitaVaraus(V);
+                this.updateBtnPainettu(event);
+                System.out.println("Varaus hyväksytty!");
+            }
+        } else {
+            Alert alert = new Alert(AlertType.WARNING, "Valitse käsiteltävä varaus!");
+            alert.showAndWait();
+        }
     }
-    
+
     /**
-     * Toiminta varauksen hylkäysnapin painalluksen jälkeen. Hylkää varauksen ja päivittää sen tietokantaan.
+     * Toiminta varauksen hylkäysnapin painalluksen jälkeen. Hylkää varauksen ja
+     * päivittää sen tietokantaan.
+     *
      * @param event Hiiren klikkaus painikkeeseen
      */
     @FXML
     private void hylkaaBtnPainettu(MouseEvent event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
-        V.setHyvaksytty(false);
-        controller.paivitaVaraus(V);
-        System.out.println("Varaus hylätty!");
+        if (V != null) {
+            Alert alert = new Alert(AlertType.CONFIRMATION, "Oletko varma, että haluat hylätä varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                controller.poistaVaraus(V.getId());
+                System.out.println("Varaus hylätty!");
+                this.updateBtnPainettu(event);
+            }
+        } else {
+            Alert alert = new Alert(AlertType.WARNING, "Valitse käsiteltävä varaus!");
+            alert.showAndWait();
+        }
+
     }
-    
+
     /**
-     * Alkupvm Taulun edit commit - toiminto. Tapahtuu kun varauksen päivämäärää muutetaan.
+     * Alkupvm Taulun edit commit - toiminto. Tapahtuu kun varauksen päivämäärää
+     * muutetaan.
+     *
      * @param event Arvon muuttamisen jälkeen tapahtuva Enter-painallus
      */
     @FXML
@@ -197,9 +228,11 @@ public class VarausAdminController implements Initializable {
         System.out.println("Uusi alkupvm: " + V.getAlkupvm().toString());
         controller.paivitaVaraus(V);
     }
-    
+
     /**
-     * Päättymispvm taulun edit commit - toiminto. Tapahtuu kun varauksen päivämäärää muutetaan.
+     * Päättymispvm taulun edit commit - toiminto. Tapahtuu kun varauksen
+     * päivämäärää muutetaan.
+     *
      * @param event Arvon muuttumisen jälkeen tapahtuva Enter-painallus
      */
     @FXML
@@ -211,7 +244,9 @@ public class VarausAdminController implements Initializable {
     }
 
     /**
-     * Kuvauksen edit commit - toiminto. Tapahtuu kun varauksen kuvausta muutetaan.
+     * Kuvauksen edit commit - toiminto. Tapahtuu kun varauksen kuvausta
+     * muutetaan.
+     *
      * @param event Arvon muuttamisen jälkeen tapahtuva Enter - painallus.
      */
     @FXML
