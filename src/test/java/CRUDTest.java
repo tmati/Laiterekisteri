@@ -35,7 +35,7 @@ public class CRUDTest {
     String salasana = String.valueOf(r1);
     String kayttajatunnus = String.valueOf(r2);
     String sposti = String.valueOf(r3);
-    Kayttaja k = new Kayttaja(nimi, salasana, kayttajatunnus, sposti, 1);
+    Kayttaja k = new Kayttaja(nimi,salasana, kayttajatunnus, sposti, 1);
     Kayttaja k1 = null;
     Kayttaja[] kayttajat = null;
 

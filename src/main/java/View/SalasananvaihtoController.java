@@ -71,8 +71,8 @@ public class SalasananvaihtoController implements Initializable {
     @FXML
     private void vaihdasalasanaNappiPainettu(MouseEvent event) {
         //Sisään kirjautuneena oleva käyttäjä tähän
-        if (vanhasalasanaTextField.getText().equals(View.loggedIn.getSalasana()) && uusisalasana1TextField.getText().equals(uusisalasana2TextField.getText())) {
-            View.loggedIn.setSalasana(uusisalasana2TextField.getText());
+        if (controller.SalasananCryptaus(vanhasalasanaTextField.getText()).equals(View.loggedIn.getSalasana()) && uusisalasana1TextField.getText().equals(uusisalasana2TextField.getText())) {
+            View.loggedIn.setSalasana(controller.SalasananCryptaus(uusisalasana2TextField.getText()));
             controller.paivitaKayttaja(View.loggedIn);
             virheLabel.setDisable(true);
             virheLabel.setOpacity(0);

@@ -235,7 +235,7 @@ public class Controller {
      * @return true jos kirjautumistiedot oikein
      */
     public boolean login(String userName, String passWord) {
-        return login.loginProcess(userName, passWord);
+        return login.loginProcess(userName, this.SalasananCryptaus(passWord));
     }
 
 
@@ -373,7 +373,7 @@ public class Controller {
     
     /**
      * Kutsuu VarausKasittely.getVarausAikaString
-     * @param V Varaus, jonka tiedoista string kasataan
+     * @param V Varaus, jonka tiedoista string kasataan sähköpostia varten
      * @return String, jossa näkyy varattavan laitteen nimi ja varauksen ajankohta.
      */
     public String getVarausAikaString(Varaukset V){

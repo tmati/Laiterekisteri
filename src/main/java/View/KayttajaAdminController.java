@@ -135,13 +135,6 @@ public class KayttajaAdminController implements Initializable {
     }
     
     /**
-     * Palauttaa instanssin
-    */
-    public KayttajaAdminController getKAC (){
-       return this;
-    }
-    
-    /**
      * Käyttäjän painaessa takaisin - painiketta tämä palautetaan takaisin
      * päänäkymään.
      *

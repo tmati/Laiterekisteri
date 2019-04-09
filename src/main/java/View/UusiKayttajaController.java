@@ -115,13 +115,13 @@ public class UusiKayttajaController implements Initializable {
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
         } else {
-            Kayttaja J = new Kayttaja(nimiTextField.getText(), salasanaTextField.getText(), kayttajatunnusTextField.getText(), emailTextField.getText(), controller.readCb(valtuudetChoiceBox));
+            Kayttaja J = new Kayttaja(nimiTextField.getText(), controller.SalasananCryptaus(salasanaTextField.getText()), kayttajatunnusTextField.getText(), emailTextField.getText(), controller.readCb(valtuudetChoiceBox));
             System.out.println(J.getNimi() + " | " + J.getSalasana() + " | " + J.getKayttajatunnus() + " | " + J.getSahkoposti() + " | " + J.getValtuudet());
             controller.luoKayttaja(J);
 
             controller.lahetaSahkoposti(J.getSahkoposti(), "Hei,\n\nsinulle on luotu keyChain käyttäjä.\n"
                     + "Käyttäjätunnus: " + J.getKayttajatunnus() + "\n"
-                    + "Salasana: " + J.getSalasana() + "\n"
+                    + "Salasana: " + salasanaTextField.getText() + "\n"
                     + "Muistathan vaihtaa salasanasi, kun kirjaudut sisään ensimmäisen kerran.\n\n"
                     + "Tämä on automaattinen viesti, johon ei tarvitse vastata.");
 

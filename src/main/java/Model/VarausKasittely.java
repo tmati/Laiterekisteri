@@ -27,6 +27,7 @@ public class VarausKasittely {
      * Konstruktori
      *
      * @param dao viittaus varausDAO:oon
+     * @param c viittaus Controlleriin
      */
     public VarausKasittely(VarauksetDAO_IF dao, Controller c) {
         this.dao = dao;
