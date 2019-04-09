@@ -36,6 +36,7 @@ public class Controller {
     private Resurssikasittely resurssikasittely;
     private Kalenterin_tarvitsemat_toimenpiteet kalenteriApu;
     private Sahkoposti sahkoposti;
+    private SalasananPalautus salasananPalautus;
 
     /**
      * Controllerin konstruktio
@@ -54,6 +55,7 @@ public class Controller {
         resurssikasittely = new Resurssikasittely(this);
         kalenteriApu = new Kalenterin_tarvitsemat_toimenpiteet();
         sahkoposti = new Sahkoposti();
+        salasananPalautus = new SalasananPalautus(this);
        }
 
     /**
@@ -378,5 +380,14 @@ public class Controller {
      */
     public String getVarausAikaString(Varaukset V){
         return varausKasittely.getVarausAikaString(V);
+    }
+    
+    /**
+     * Kutsuu SalasananPalautus.palautaSalasana()
+     * @param email Sähköposti palautetaan
+     * @return true jos palautus onnistui
+     */
+    public boolean palautaSalasana(String email){
+        return salasananPalautus.palautaSalasana(email);
     }
 }
