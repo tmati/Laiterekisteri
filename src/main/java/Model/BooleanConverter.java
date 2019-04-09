@@ -19,7 +19,7 @@ public class BooleanConverter extends StringConverter<Boolean> {
      String FalseString;
     /**
      * Muuttaa boolean-arvot selkolukuisiksi.
-     * @param kontrolleri 
+     * @param kontrolleri viittaus Controlleriin
      */
     public BooleanConverter(Controller kontrolleri){
         this.kontrolleri = kontrolleri;

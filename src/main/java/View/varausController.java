@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -23,6 +25,9 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Popup;
 import javafx.stage.Window;
@@ -80,7 +85,7 @@ public class varausController implements Initializable {
         
 
         //Katsoo kaikki varaaukset sille tuoteelle.
-        Varaukset[] varaukset = controller.haeKaikkiVaraukset();
+        Varaukset[] varaukset = controller.haeKaikkiVarauksetOikeasti();
         aVaraukset = controller.ResursinVaraukset(View.booking.getId(), varaukset);
 
         Varaukset[] varaus = controller.getVaraus(aVaraukset);
@@ -89,6 +94,23 @@ public class varausController implements Initializable {
         mihinDp.setDayCellFactory(controller.dayCellFactory(varaus));
         mistaDp.setDayCellFactory(controller.dayCellFactory(varaus));
         
+        
+        
+        mistaDp.addEventHandler(ActionEvent.ACTION, 
+                    new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+               // System.out.println("event handler toimii");
+                if(mistaDp.getValue() != null){
+                                   // System.out.println("If lause toimii");
+
+                    mihinDp.setDayCellFactory(controller.dayCellFactoryEnd(varaus, mistaDp.getValue()));
+                }else{
+                    mihinDp.setDayCellFactory(controller.dayCellFactory(varaus));
+                }
+            }
+
+                    });
         // Aikaformaatti
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         //Uusi SpinnerValueFactory-olio. Näitä tarvitaan joka spinnerille.

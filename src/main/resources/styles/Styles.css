@@ -5,3 +5,6 @@
     -fx-background-image: url("..//bgLarge.png");
     -fx-background-repeat: stretch;
 }
+.promptText, .textField, .text-input, .text-input:focused {
+    -fx-prompt-text-fill:darkgray; 
+}

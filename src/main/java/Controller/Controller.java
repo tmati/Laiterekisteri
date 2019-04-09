@@ -36,6 +36,7 @@ public class Controller {
     private Resurssikasittely resurssikasittely;
     private Kalenterin_tarvitsemat_toimenpiteet kalenteriApu;
     private Sahkoposti sahkoposti;
+    private SalasananPalautus salasananPalautus;
 
     /**
      * Controllerin konstruktio
@@ -54,6 +55,7 @@ public class Controller {
         resurssikasittely = new Resurssikasittely(this);
         kalenteriApu = new Kalenterin_tarvitsemat_toimenpiteet();
         sahkoposti = new Sahkoposti();
+        salasananPalautus = new SalasananPalautus(this);
        }
 
     /**
@@ -235,7 +237,7 @@ public class Controller {
      * @return true jos kirjautumistiedot oikein
      */
     public boolean login(String userName, String passWord) {
-        return login.loginProcess(userName, passWord);
+        return login.loginProcess(userName, this.SalasananCryptaus(passWord));
     }
 
 
@@ -288,6 +290,16 @@ public class Controller {
      */
     public Callback dayCellFactory(Varaukset[] varaukset){
         return cellfactory.dayCellFactory(this, varaukset);
+    }
+    
+    /**
+     * Palauttaa datepickerille muokatut päivät.
+     * @param varaukset varaukset joila on varaukset tietyihin päiville.
+     * @param today mistä päivästä eteenpäin voi päiviä valita.
+     * @return Callbackin jossa on muokatuja päiviä.
+     */
+    public Callback dayCellFactoryEnd(Varaukset[] varaukset, LocalDate today){
+        return cellfactory.dayCellFactoryEnd(this, varaukset,today);
     }
     
     /**
@@ -373,10 +385,28 @@ public class Controller {
     
     /**
      * Kutsuu VarausKasittely.getVarausAikaString
-     * @param V Varaus, jonka tiedoista string kasataan
+     * @param V Varaus, jonka tiedoista string kasataan sähköpostia varten
      * @return String, jossa näkyy varattavan laitteen nimi ja varauksen ajankohta.
      */
     public String getVarausAikaString(Varaukset V){
         return varausKasittely.getVarausAikaString(V);
+    }
+    
+    /**
+     * Kutsuu SalasananPalautus.palautaSalasana()
+     * @param email Sähköposti palautetaan
+     * @return true jos palautus onnistui
+     */
+    public boolean palautaSalasana(String email){
+        return salasananPalautus.palautaSalasana(email);
+    }
+    
+    /**
+     * Kutsuu VarausAccessObject.readVaraukset()
+     *
+     * @return palauttaa taulukon kaikista varaus -olioista
+     */
+    public Varaukset[] haeKaikkiVarauksetOikeasti(){
+        return varausDAO.readVaraukset();
     }
 }

@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,20 +44,25 @@ public class palautasalasanaController implements Initializable {
     private Label vanhasalasanaLabel;
     @FXML
     private Label virheLabel;
+    private Controller controller;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+  
+        controller = View.controller;
     }    
 
     @FXML
     private void palautaemail(MouseEvent event) {
-        //Tähän email toiminnallisuus
+      
+        if(emailTextField.getText() != null){
+        controller.palautaSalasana(emailTextField.getText());
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
         popup.hide();
+        }
     }
     
     /**

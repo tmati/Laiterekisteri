@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.PasswordField?>
 
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="500.0" style="-fx-background-color: black; -fx-background-radius: 15px;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SalasananvaihtoController">
@@ -29,16 +30,16 @@
                 <Font name="Arial Black" size="15.0" />
             </font>
         </Button>
-        <TextField fx:id="vanhasalasanaTextField" layoutX="14.0" layoutY="153.0" prefHeight="37.0" prefWidth="472.0" promptText="Vanha salasana">
+        <PasswordField fx:id="vanhasalasanaTextField" layoutX="14.0" layoutY="153.0" prefHeight="37.0" prefWidth="472.0" promptText="Vanha salasana">
             <font>
                 <Font size="16.0" />
             </font>
-        </TextField>
-        <TextField fx:id="uusisalasana1TextField" layoutX="14.0" layoutY="223.0" prefHeight="37.0" prefWidth="472.0" promptText="Uusi salasana">
+        </PasswordField>
+        <PasswordField fx:id="uusisalasana1TextField" layoutX="14.0" layoutY="223.0" prefHeight="37.0" prefWidth="472.0" promptText="Uusi salasana">
             <font>
                 <Font size="16.0" />
             </font>
-        </TextField>
+        </PasswordField>
         <Label fx:id="uusisalasanaLabel" layoutX="19.0" layoutY="196.0" text="UUSI SALASANA" textFill="WHITE">
             <font>
                 <Font size="18.0" />
@@ -54,11 +55,11 @@
                 <Font name="System Bold" size="14.0" />
             </font>
         </Label>
-        <TextField fx:id="uusisalasana2TextField" layoutX="14.0" layoutY="295.0" prefHeight="37.0" prefWidth="472.0" promptText="Uusi salasana">
+        <PasswordField fx:id="uusisalasana2TextField" layoutX="14.0" layoutY="295.0" prefHeight="37.0" prefWidth="472.0" promptText="Uusi salasana">
             <font>
                 <Font size="16.0" />
             </font>
-        </TextField>
+        </PasswordField>
         <Label fx:id="uusisalasana2Label" layoutX="16.0" layoutY="269.0" text="UUSI SALASANA UUDELLEEN" textFill="WHITE">
             <font>
                 <Font size="18.0" />
