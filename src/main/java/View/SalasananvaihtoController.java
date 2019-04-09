@@ -59,8 +59,7 @@ public class SalasananvaihtoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Hae käyttäjän nimi tähän
-        usernameLabel.setText("");
+        usernameLabel.setText(View.loggedIn.getNimi());
         controller = View.controller;
     }
 

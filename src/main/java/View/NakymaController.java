@@ -149,6 +149,8 @@ public class NakymaController implements Initializable {
     private Button salasananvaihtoBtn;
     @FXML
     private Button updateBtn;
+    @FXML
+    private TableColumn hyvaksyntaColumn;
 
     private Controller controller;
     private DatePicker picker;
@@ -166,6 +168,7 @@ public class NakymaController implements Initializable {
         controller = View.controller;
         BooleanConverter VarattavissaController = new BooleanConverter(controller, "Varattavissa",  "Ei varattavissa");
         BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
+        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "HYLÄTTY");
         LuvanvaraisuusConverter ResLC = new LuvanvaraisuusConverter(controller, "Vapaa käyttö", "Esimiehen hyväksyttävä", "Ylläpitäjän hyväksyttävä");
         Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
         logoView.setImage(image);
@@ -246,6 +249,9 @@ public class NakymaController implements Initializable {
         CC.setConverter(AktiivisuusController);
         palautettuColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("palautettu"));
         palautettuColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), true, false));
+        
+        hyvaksyntaColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("hyvaksytty"));
+        hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(HyvaksyntaController));
 
         categorySelect.setTooltip(new Tooltip("Hakukriteeri"));
 
