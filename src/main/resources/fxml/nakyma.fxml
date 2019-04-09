@@ -64,7 +64,7 @@
             <Insets top="25.0" />
          </GridPane.margin>
       </Label>
-      <ChoiceBox fx:id="categorySelect" prefHeight="38.0" prefWidth="170.0" value="NIMI" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <ChoiceBox fx:id="categorySelect" prefHeight="38.0" prefWidth="227.0" value="NIMI" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="NIMI" />
@@ -75,11 +75,6 @@
             <Insets />
          </GridPane.margin>
       </ChoiceBox>
-      <Button fx:id="searchBtn" mnemonicParsing="false" onMouseClicked="#searchFunction" prefHeight="40.0" prefWidth="86.0" text="HAE" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Button>
       <TabPane fx:id="tabPane" prefHeight="716.0" prefWidth="1554.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3">
          <tabs>
             <Tab fx:id="kaikkiTab" text="Resurssit">
@@ -106,7 +101,7 @@
                <content>
                   <StackPane fx:id="omatStack" prefHeight="530.0" prefWidth="981.0">
                      <children>
-                        <TableView fx:id="omatTable" editable="true" maxWidth="-Infinity" prefHeight="530.0" prefWidth="1491.0">
+                        <TableView fx:id="omatTable" maxWidth="-Infinity" prefHeight="530.0" prefWidth="1491.0">
                            <columns>
                               <TableColumn fx:id="laitenimiColumn" editable="false" prefWidth="289.60010319948196" text="LAITTEEN NIMI" />
                               <TableColumn fx:id="alkupvmColumn" prefWidth="204.7999267578125" resizable="false" text="VARAUKSEN ALKUPVM" />
@@ -128,12 +123,36 @@
       </TabPane>
       <VBox prefHeight="438.0" prefWidth="394.0" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
          <children>
+            <Button fx:id="varausBtn" mnemonicParsing="false" onMouseClicked="#varausNappiPainettu" prefHeight="39.0" prefWidth="348.0" text="TEE VARAUS">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="lisaaresurssiBtn" mnemonicParsing="false" onMouseClicked="#lisaaresurssiNappiPainettu" prefHeight="39.0" prefWidth="348.0" text="LISÄÄ RESURSSI">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="poistaresurssiBtn" mnemonicParsing="false" onMouseClicked="#poistaresurssiNappiPainettu" prefHeight="39.0" prefWidth="348.0" text="POISTA RESURSSI">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </Button>
             <Button fx:id="henkilostoBtn" mnemonicParsing="false" onMouseClicked="#henkilostoBtnPainettu" prefHeight="39.0" prefWidth="363.0" text="HALLINNOI HENKILÖITÄ">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="25.0" />
+                  <Insets bottom="25.0" top="25.0" />
                </VBox.margin>
             </Button>
             <Button fx:id="hallnnoiBtn" mnemonicParsing="false" onMouseClicked="#hallinnoiBtnPainettu" prefHeight="39.0" prefWidth="363.0" text="HALLINNOI VARAUKSIA">
@@ -152,27 +171,6 @@
                   <StackPane fx:id="kalenteriStackPane" prefHeight="246.0" prefWidth="336.0" />
                </content>
             </TitledPane>
-            <Button fx:id="varausBtn" mnemonicParsing="false" onMouseClicked="#varausNappiPainettu" prefHeight="39.0" prefWidth="348.0" text="TEE VARAUS">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="lisaaresurssiBtn" mnemonicParsing="false" onMouseClicked="#lisaaresurssiNappiPainettu" prefHeight="39.0" prefWidth="348.0" text="LISÄÄ RESURSSI">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="25.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="poistaresurssiBtn" mnemonicParsing="false" onMouseClicked="#poistaresurssiNappiPainettu" prefHeight="39.0" prefWidth="348.0" text="POISTA RESURSSI">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="25.0" />
-               </VBox.margin>
-            </Button>
          </children>
          <padding>
             <Insets left="10.0" right="10.0" />

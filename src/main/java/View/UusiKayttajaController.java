@@ -7,15 +7,10 @@ package View;
 
 import Controller.Controller;
 import Model.Kayttaja;
-import Model.KayttajaAccessObject;
-import Model.Resurssit;
-import Model.Varaukset;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;

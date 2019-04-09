@@ -75,6 +75,9 @@ public class KayttajaAdminController implements Initializable {
     private Button updateBtn;
 
     private Controller kontrolleri;
+    
+    @FXML
+    private Button kayttajanvarauksetNappi;
 
     /**
      * Initializes the controller class.
@@ -199,7 +202,18 @@ public class KayttajaAdminController implements Initializable {
             alert.showAndWait();
         }
     }
-
+    
+    @FXML private void kayttajanvarauksetNappiPainettu(MouseEvent event) throws IOException {
+    Kayttaja K = kayttajaTableView.getSelectionModel().getSelectedItem();
+        if (K != null) {
+            View.selected = K;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KayttajanVaraukset.fxml"));
+            Stage stage = (Stage) LogoutBtn.getScene().getWindow();
+            Parent root = loader.load();
+            stage.getScene().setRoot(root);
+    }
+    }
+    
     /**
      * Toiminnallisuus nimi-columnin muokkaamisen päättyessä.
      *
