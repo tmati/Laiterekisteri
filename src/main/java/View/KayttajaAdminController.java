@@ -23,6 +23,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -57,11 +58,7 @@ public class KayttajaAdminController implements Initializable {
     @FXML
     private Button takaisinBtn;
     @FXML
-    private Button tallennaBtn;
-    @FXML
     private Button lisaaBtn;
-    @FXML
-    private Button muutaBtn;
     @FXML
     private Button poistaBtn;
     @FXML
@@ -71,8 +68,7 @@ public class KayttajaAdminController implements Initializable {
     @FXML
     private TableColumn kayttajatunnusColumn;
     Popup popup;
-    @FXML
-    private Button updateBtn;
+ 
 
     private Controller kontrolleri;
 
@@ -106,6 +102,12 @@ public class KayttajaAdminController implements Initializable {
         kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
         bizName.setText(View.BizName);
         usernameLabel.setText(View.loggedIn.getNimi());
+        
+        this.LogoutBtn.setTooltip(new Tooltip("Ulos kirjautuminen"));
+        this.lisaaBtn.setTooltip(new Tooltip("Avaa popupin käyttäjän lisäämistä varten"));
+        this.poistaBtn.setTooltip(new Tooltip("Poistaa valitun käyttäjän järjestelmästä"));
+        this.takaisinBtn.setTooltip((new Tooltip("Palauttaa päänäkymään")));
+       
     }
 
     /**

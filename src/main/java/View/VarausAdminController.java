@@ -30,6 +30,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
@@ -127,6 +128,12 @@ public class VarausAdminController implements Initializable {
 
         Varaukset[] varaukset = controller.haeKasittelemattomatVaraukset();
         varauksetTableView.getItems().addAll(varaukset);
+        
+        this.LogoutBtn.setTooltip(new Tooltip("Ulos kirjautuminen"));
+        this.hylkaaBtn.setTooltip(new Tooltip("Hylkää valitun varauksen"));
+        this.hyvaksyBtn.setTooltip(new Tooltip("Hyväksyy valitun varauksen"));
+        this.takaisinBtn.setTooltip(new Tooltip("Palauttaa päänäkymään"));
+        
     }
 
     /**

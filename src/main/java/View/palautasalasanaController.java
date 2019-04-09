@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -53,6 +54,10 @@ public class palautasalasanaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
   
         controller = View.controller;
+        
+        this.emailTextField.setTooltip(new Tooltip("Tilisi sähköposti"));
+        this.sulkuNappi.setTooltip(new Tooltip("Sulkee popupin"));
+        this.palautaemailNappi.setTooltip(new Tooltip("Palauttaa uuden salasanan sähköpostiin"));
     }    
 
     @FXML
