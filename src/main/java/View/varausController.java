@@ -85,7 +85,7 @@ public class varausController implements Initializable {
         
 
         //Katsoo kaikki varaaukset sille tuoteelle.
-        Varaukset[] varaukset = controller.haeKaikkiVaraukset();
+        Varaukset[] varaukset = controller.haeKaikkiVarauksetOikeasti();
         aVaraukset = controller.ResursinVaraukset(View.booking.getId(), varaukset);
 
         Varaukset[] varaus = controller.getVaraus(aVaraukset);
@@ -104,7 +104,7 @@ public class varausController implements Initializable {
                 if(mistaDp.getValue() != null){
                                    // System.out.println("If lause toimii");
 
-                    mihinDp.setDayCellFactory(controller.dayCellFactoryEnd(varaukset, mistaDp.getValue()));
+                    mihinDp.setDayCellFactory(controller.dayCellFactoryEnd(varaus, mistaDp.getValue()));
                 }else{
                     mihinDp.setDayCellFactory(controller.dayCellFactory(varaus));
                 }

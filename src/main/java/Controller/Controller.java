@@ -400,4 +400,13 @@ public class Controller {
     public boolean palautaSalasana(String email){
         return salasananPalautus.palautaSalasana(email);
     }
+    
+    /**
+     * Kutsuu VarausAccessObject.readVaraukset()
+     *
+     * @return palauttaa taulukon kaikista varaus -olioista
+     */
+    public Varaukset[] haeKaikkiVarauksetOikeasti(){
+        return varausDAO.readVaraukset();
+    }
 }
