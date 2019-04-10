@@ -293,6 +293,16 @@ public class Controller {
     }
     
     /**
+     * Palauttaa datepickerille muokatut päivät.
+     * @param varaukset varaukset joila on varaukset tietyihin päiville.
+     * @param today mistä päivästä eteenpäin voi päiviä valita.
+     * @return Callbackin jossa on muokatuja päiviä.
+     */
+    public Callback dayCellFactoryEnd(Varaukset[] varaukset, LocalDate today){
+        return cellfactory.dayCellFactoryEnd(this, varaukset,today);
+    }
+    
+    /**
      * Tulkitsee boolean-arvon sisältävän choiceboxin. Pyyntö model-luokkaan.
      * @param cb Tulkittava choicebox
      * @return True/false
@@ -389,5 +399,14 @@ public class Controller {
      */
     public boolean palautaSalasana(String email){
         return salasananPalautus.palautaSalasana(email);
+    }
+    
+    /**
+     * Kutsuu VarausAccessObject.readVaraukset()
+     *
+     * @return palauttaa taulukon kaikista varaus -olioista
+     */
+    public Varaukset[] haeKaikkiVarauksetOikeasti(){
+        return varausDAO.readVaraukset();
     }
 }

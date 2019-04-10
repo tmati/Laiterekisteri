@@ -15,8 +15,8 @@
 <GridPane id="bgPane" prefHeight="1166.0" prefWidth="2044.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.KayttajaAdminController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.8" minWidth="0.0" prefWidth="384.6000061035156" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1567.6000244140625" minWidth="10.0" prefWidth="1033.3999938964844" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="317.60009765625" minWidth="0.0" prefWidth="210.39995117187505" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1567.6000244140625" minWidth="10.0" prefWidth="1114.400048828125" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="317.60009765625" minWidth="0.0" prefWidth="129.5999511718751" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="416.80002441406236" minWidth="10.0" prefWidth="366.99995117187495" />
   </columnConstraints>
   <rowConstraints>
@@ -40,6 +40,11 @@
             <Button fx:id="lisaaBtn" mnemonicParsing="false" onMouseClicked="#lisaaBtnPainettu" prefHeight="71.0" prefWidth="336.0" text="LISÄÄ KÄYTTÄJÄ">
                <font>
                   <Font name="System Bold" size="32.0" />
+               </font>
+            </Button>
+            <Button fx:id="kayttajanvarauksetNappi" mnemonicParsing="false" onMouseClicked="#kayttajanvarauksetNappiPainettu" prefHeight="71.0" prefWidth="336.0" text="KÄYTTÄJÄN VARAUKSET">
+               <font>
+                  <Font name="System Bold" size="24.0" />
                </font>
             </Button>
             <Button fx:id="poistaBtn" mnemonicParsing="false" onMouseClicked="#poistaBtnPainettu" prefHeight="71.0" prefWidth="336.0" text="POISTA KÄYTTÄJÄ">
@@ -86,7 +91,7 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Button>
-            <Label fx:id="bizName" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="460.0" text="YRITYS OY" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Label fx:id="bizName" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="1262.0" text="YRITYS OY" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>
@@ -99,6 +104,11 @@
             <Insets right="50.0" />
          </GridPane.margin>
       </GridPane>
+      <Label fx:id="bizName1" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="1038.0" text="KÄYTTÄJÄT" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Label>
    </children>
    <padding>
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

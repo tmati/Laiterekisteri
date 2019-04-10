@@ -116,6 +116,11 @@ public class loginWindowController implements Initializable {
     private void herjaaPuuttuvasta(MouseEvent event) {
         Alert alert = new Alert(AlertType.WARNING, "Tunnus tai salasana puuttuu!");
         alert.showAndWait();
+        if(usernameField.getText().equals("")){
+            usernameField.requestFocus();
+        }else{
+            passwordField.requestFocus();
+        }
     }
 
     /**
@@ -160,10 +165,18 @@ public class loginWindowController implements Initializable {
                     e.printStackTrace();
 
                 }
+            }else{
+                Alert alert = new Alert(AlertType.WARNING, "Tunnus tai salasana puuttuu!");
+                alert.showAndWait();
             }
         } else if (ke.getCode() == KeyCode.ENTER && !loginPossible) {
             Alert alert = new Alert(AlertType.WARNING, "Tunnus tai salasana puuttuu!");
             alert.showAndWait();
+            if(usernameField.getText().equals("")){
+                usernameField.requestFocus();
+            }else{
+                passwordField.requestFocus();
+            }
         }
     }
 

@@ -29,9 +29,14 @@ public class View extends Application {
      * Yrityksen nimi
      */
     public static String BizName = "Long beach Skateboards";
-
+    
     /**
-     * Resurssit
+     * Käyttäjän varausten tarkastelua varten tallennettava olio
+     */
+    public static Kayttaja selected = null;
+    
+    /**
+     * Varaukseen vietävä resurssi
      */
     public static Resurssit booking = null;
 

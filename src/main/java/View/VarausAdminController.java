@@ -170,7 +170,6 @@ public class VarausAdminController implements Initializable {
      */
     @FXML
     private void takaisinBtnPainettu(MouseEvent event) throws IOException {
-        System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
         Parent root = loader.load();
