@@ -86,7 +86,7 @@ public class varausController implements Initializable {
         
 
         //Katsoo kaikki varaaukset sille tuoteelle.
-        Varaukset[] varaukset = controller.haeKaikkiVarauksetOikeasti();
+        Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         aVaraukset = controller.ResursinVaraukset(View.booking.getId(), varaukset);
 
         Varaukset[] varaus = controller.getVaraus(aVaraukset);

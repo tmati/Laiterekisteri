@@ -278,7 +278,7 @@ public class NakymaController implements Initializable {
         kaikkiTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) { //Etsii resursin kaikki varaukset.
                 
-                Varaukset[] varaukset = controller.haeKaikkiVarauksetOikeasti();
+                Varaukset[] varaukset = controller.haeKaikkiVaraukset();
                 picker = null;
 
                 ArrayList<Varaukset> aVaraukset = controller.ResursinVaraukset(kaikkiTableView.getSelectionModel().getSelectedItem().getId(), varaukset);
