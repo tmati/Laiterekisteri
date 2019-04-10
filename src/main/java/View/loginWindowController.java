@@ -73,7 +73,7 @@ public class loginWindowController implements Initializable {
         usernameField.setId("usernameField");
         
         this.passwordField.setTooltip(new Tooltip("Kenttä salasanaa varten"));
-        this.usernameField.setTooltip(new Tooltip("Kenttä käyttäjäniemä varten"));
+        this.usernameField.setTooltip(new Tooltip("Kenttä käyttäjänimeä varten"));
    
        
     }
