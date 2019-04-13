@@ -1,1 +1,1 @@
-![](Kuvatesti/kuva2.png)
+![alt text](Kuvatesti/kuva2.png)
