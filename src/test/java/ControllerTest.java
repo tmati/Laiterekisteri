@@ -30,7 +30,6 @@ import org.junit.Ignore;
  *
  * @author Tommi
  */
-@Ignore
 public class ControllerTest {
 
     Controller kont = new Controller();
