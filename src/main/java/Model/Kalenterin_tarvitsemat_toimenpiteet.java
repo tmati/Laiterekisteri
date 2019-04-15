@@ -14,7 +14,6 @@ import java.util.ArrayList;
  * @author jukka
  */
 public class Kalenterin_tarvitsemat_toimenpiteet {
-    private boolean onnistuu = true;
     
     
     /**
@@ -38,7 +37,7 @@ public class Kalenterin_tarvitsemat_toimenpiteet {
     }
     
     /**
-     * kertoo onko varaus mahdollinen edellisten varauksten kanssa.
+     * Kertoo onko varaus mahdollinen edellisten varausten kanssa.
      * @param aVaraukset Resursin muut varaukset.
      * @param endDate Uuden varauksen loppupäivä.
      * @param startDate Uuden varauksen aloituspäivä.
@@ -50,56 +49,61 @@ public class Kalenterin_tarvitsemat_toimenpiteet {
         for (Varaukset varaukset : aVaraukset) {
             //if (varaukset.getAlkuAika().getMonthValue() <= endDate.getMonthValue() || varaukset.getLoppuAika().getDayOfMonth() >= startDate.getDayOfMonth()) {
                 if (varaukset.getAlkuAika().getMonthValue() == startDate.getMonthValue() && varaukset.getAlkuAika().getMonthValue() == endDate.getMonthValue() && varaukset.getLoppuAika().getMonthValue() == startDate.getMonthValue()) {
+                    if(startDate.getDayOfMonth() == endDate.getDayOfMonth() && startTime.getHour() > endTime.getHour()){
+                        return false;    
+                    }else if(startDate.getDayOfMonth() > endDate.getDayOfMonth()){
+                        return false;    
+                    }
                     if (varaukset.getAlkuAika().getDayOfMonth() == startDate.getDayOfMonth() && varaukset.getAlkuAika().getDayOfMonth() == endDate.getDayOfMonth()) {
                         if (varaukset.getAlkuAika().getHour() > startTime.getHour() && varaukset.getAlkuAika().getHour() < endTime.getHour()) {
-                            onnistuu = false;
+                            return false;
                         }
                     }else if (varaukset.getLoppuAika().getDayOfMonth() == startDate.getDayOfMonth()) {
                         if (varaukset.getLoppuAika().getHour() > startTime.getHour()) {
-                            onnistuu = false;
+                            return false;
                         }
                     }else if (varaukset.getAlkuAika().getDayOfMonth() == endDate.getDayOfMonth()) {
                         if (varaukset.getAlkuAika().getHour() < endTime.getHour()) {
-                            onnistuu = false;
+                            return false;
                         }
                     }else if (varaukset.getLoppuAika().getDayOfMonth() > startDate.getDayOfMonth() && varaukset.getLoppuAika().getDayOfMonth() < endDate.getDayOfMonth()) {
-                        onnistuu = false;
+                        return false;
                     } else if (varaukset.getAlkuAika().getDayOfMonth() > startDate.getDayOfMonth() && varaukset.getAlkuAika().getDayOfMonth() < endDate.getDayOfMonth()) {
-                        onnistuu = false;
+                        return false;
                     }
                 }else if(varaukset.getAlkuAika().getMonthValue() == endDate.getMonthValue() || varaukset.getAlkuAika().getMonthValue() == startDate.getMonthValue() ){
                     if(varaukset.getAlkuAika().getDayOfMonth() == startDate.getDayOfMonth()){
-                        onnistuu = false;
+                        return false;
                     }else if(varaukset.getAlkuAika().getDayOfMonth() == endDate.getDayOfMonth()){
                         if (varaukset.getAlkuAika().getHour() < endTime.getHour()) {
-                            onnistuu = false;
+                            return false;
                         }
                     }
                 }else if(varaukset.getLoppuAika().getMonthValue() == endDate.getMonthValue() || varaukset.getLoppuAika().getMonthValue() == startDate.getMonthValue() ){
                     if(varaukset.getLoppuAika().getDayOfMonth() == endDate.getDayOfMonth()){
-                        onnistuu = false;
+                        return false;
                     }else if(varaukset.getLoppuAika().getDayOfMonth() == startDate.getDayOfMonth()){
                         if (varaukset.getLoppuAika().getHour() > startTime.getHour()) {
-                            onnistuu = false;
+                            return false;
                         }
                     }
                 }else if(varaukset.getLoppuAika().getMonthValue() < endDate.getMonthValue() && varaukset.getLoppuAika().getMonthValue() > startDate.getMonthValue() ){
-                    onnistuu = false;
-                }else if(varaukset.getAlkuAika().getMonthValue() < endDate.getMonthValue() && varaukset.getAlkuAika().getMonthValue() > startDate.getMonthValue() ){
-                    onnistuu = false;
-                }else if(varaukset.getAlkuAika().getDayOfMonth() > varaukset.getLoppuAika().getDayOfMonth() && varaukset.getAlkuAika().getMonthValue() == varaukset.getLoppuAika().getMonthValue() ){
-                    onnistuu = false;
-                }else if(varaukset.getAlkuAika().getMonthValue() > varaukset.getLoppuAika().getMonthValue() ){
-                    onnistuu = false;
+                    return false;
+                }else if(startDate.getDayOfMonth() > endDate.getDayOfMonth() && startDate.getMonthValue() == endDate.getMonthValue() ){
+                    return false;
+                }else if(startDate.getMonthValue() > endDate.getMonthValue() ){
+                    return false;
+                }else if(startTime.getHour() > endTime.getHour() && startDate.getMonthValue() == endDate.getMonthValue() ){
+                    return false;
                 }
             }
         //}
-        return onnistuu;
+        return true;
     }
     
     /**
-     * Medoti joka muutaa Varauksetr ArrayListan Arrayhin.
-     * @param aVaraukset muutettava ArrayList
+     * Metodi, joka muuttaa Varaukset ArrayListan Arrayhin.
+     * @param aVaraukset muutettava ArrayList lista yhden resurssin kaikista varauksista.
      * @return varaus Array
      */
     public Varaukset[] getVaraus(ArrayList<Varaukset> aVaraukset){

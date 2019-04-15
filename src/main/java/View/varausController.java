@@ -3,32 +3,36 @@ package View;
 import Controller.Controller;
 import Model.Resurssit;
 import Model.Varaukset;
-import Model.VarauksetAccessObject;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Popup;
-import javafx.util.Callback;
+import javafx.stage.Window;
 import javafx.util.converter.LocalTimeStringConverter;
+import javafx.scene.control.Tooltip;
 
 /**
  * Varaus-popupin toiminnot.
@@ -80,26 +84,34 @@ public class varausController implements Initializable {
         
         controller = View.controller; 
         
-        //Katsoo kaikki varaaaukset sille tuoteelle.
-        aVaraukset = new ArrayList<Varaukset>();
-        int resurssiId = View.booking.getId();
-        System.out.println(resurssiId);
-        Varaukset[] varaukset = controller.haeKaikkiVaraukset();
-        for(int i=0; i<varaukset.length; i++){
-            if(varaukset[i].getResurssit().getId() == resurssiId){
-                aVaraukset.add(varaukset[i]);   
-                System.out.println("Valitun resursin Id = " + resurssiId + " varauksen Id =  " + varaukset[i].getResurssit().getId());
 
-            }
-        }
-        Varaukset[] varaus = new Varaukset[aVaraukset.size()];
-        for(int i=0; i<aVaraukset.size(); i++){
-            varaus[i] = aVaraukset.get(i);
-        }
+        //Katsoo kaikki varaaukset sille tuoteelle.
+        Varaukset[] varaukset = controller.haeKaikkiVaraukset();
+        aVaraukset = controller.ResursinVaraukset(View.booking.getId(), varaukset);
+
+        Varaukset[] varaus = controller.getVaraus(aVaraukset);
+       
         //Muokaa DatePickereita jotta näkyy varaukset.
         mihinDp.setDayCellFactory(controller.dayCellFactory(varaus));
         mistaDp.setDayCellFactory(controller.dayCellFactory(varaus));
         
+        
+        
+        mistaDp.addEventHandler(ActionEvent.ACTION, 
+                    new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+               // System.out.println("event handler toimii");
+                if(mistaDp.getValue() != null){
+                                   // System.out.println("If lause toimii");
+
+                    mihinDp.setDayCellFactory(controller.dayCellFactoryEnd(varaus, mistaDp.getValue()));
+                }else{
+                    mihinDp.setDayCellFactory(controller.dayCellFactory(varaus));
+                }
+            }
+
+                    });
         // Aikaformaatti
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         //Uusi SpinnerValueFactory-olio. Näitä tarvitaan joka spinnerille.
@@ -190,78 +202,41 @@ public class varausController implements Initializable {
         LocalTime endTime = (LocalTime) mihinSpinner.getValue();
         LocalDateTime endStamp = LocalDateTime.of(endDate, endTime);
         Timestamp ts2 = Timestamp.valueOf(endStamp.format(dtf));
-        boolean onnistuu = true;
-        // Katsoo miten menee siirän tän myöhemmin tod näk modeliin.
-        for (Varaukset varaukset : aVaraukset) {
-            //if (varaukset.getAlkuAika().getMonthValue() <= endDate.getMonthValue() || varaukset.getLoppuAika().getDayOfMonth() >= startDate.getDayOfMonth()) {
-                if (varaukset.getAlkuAika().getMonthValue() == startDate.getMonthValue() && varaukset.getAlkuAika().getMonthValue() == endDate.getMonthValue() && varaukset.getLoppuAika().getMonthValue() == startDate.getMonthValue()) {
-                    if (varaukset.getAlkuAika().getDayOfMonth() == startDate.getDayOfMonth() && varaukset.getAlkuAika().getDayOfMonth() == endDate.getDayOfMonth()) {
-                        if (varaukset.getAlkuAika().getHour() > startTime.getHour() && varaukset.getAlkuAika().getHour() < endTime.getHour()) {
-                            onnistuu = false;
-                        }
-                    }else if (varaukset.getLoppuAika().getDayOfMonth() == startDate.getDayOfMonth()) {
-                        if (varaukset.getLoppuAika().getHour() > startTime.getHour()) {
-                            onnistuu = false;
-                        }
-                    }else if (varaukset.getAlkuAika().getDayOfMonth() == endDate.getDayOfMonth()) {
-                        if (varaukset.getAlkuAika().getHour() < endTime.getHour()) {
-                            onnistuu = false;
-                        }
-                    }else if (varaukset.getLoppuAika().getDayOfMonth() > startDate.getDayOfMonth() && varaukset.getLoppuAika().getDayOfMonth() < endDate.getDayOfMonth()) {
-                        onnistuu = false;
-                    } else if (varaukset.getAlkuAika().getDayOfMonth() > startDate.getDayOfMonth() && varaukset.getAlkuAika().getDayOfMonth() < endDate.getDayOfMonth()) {
-                        onnistuu = false;
-                    }
-                }else if(varaukset.getAlkuAika().getMonthValue() == endDate.getMonthValue() || varaukset.getAlkuAika().getMonthValue() == startDate.getMonthValue() ){
-                    if(varaukset.getAlkuAika().getDayOfMonth() == startDate.getDayOfMonth()){
-                        onnistuu = false;
-                    }else if(varaukset.getAlkuAika().getDayOfMonth() == endDate.getDayOfMonth()){
-                        if (varaukset.getAlkuAika().getHour() < endTime.getHour()) {
-                            onnistuu = false;
-                        }
-                    }
-                }else if(varaukset.getLoppuAika().getMonthValue() == endDate.getMonthValue() || varaukset.getLoppuAika().getMonthValue() == startDate.getMonthValue() ){
-                    if(varaukset.getLoppuAika().getDayOfMonth() == endDate.getDayOfMonth()){
-                        onnistuu = false;
-                    }else if(varaukset.getLoppuAika().getDayOfMonth() == startDate.getDayOfMonth()){
-                        if (varaukset.getLoppuAika().getHour() > startTime.getHour()) {
-                            onnistuu = false;
-                        }
-                    }
-                }else if(varaukset.getLoppuAika().getMonthValue() < endDate.getMonthValue() && varaukset.getLoppuAika().getMonthValue() > startDate.getMonthValue() ){
-                    onnistuu = false;
-                }else if(varaukset.getAlkuAika().getMonthValue() < endDate.getMonthValue() && varaukset.getAlkuAika().getMonthValue() > startDate.getMonthValue() ){
-                    onnistuu = false;
-                }else if(varaukset.getAlkuAika().getDayOfMonth() > varaukset.getLoppuAika().getDayOfMonth() && varaukset.getAlkuAika().getMonthValue() == varaukset.getLoppuAika().getMonthValue() ){
-                    onnistuu = false;
-                }else if(varaukset.getAlkuAika().getMonthValue() > varaukset.getLoppuAika().getMonthValue() ){
-                    onnistuu = false;
-                }
-            }
-        //}
         
-
-        
-        if(onnistuu){
-            System.out.println("Alku: " + startDate.toString() + " | " + startTime.truncatedTo(ChronoUnit.MINUTES).toString());
-            System.out.println("Loppu: " + endDate.toString() + " | " + endTime.truncatedTo(ChronoUnit.MINUTES).toString());
+        if(controller.Onnistuu(aVaraukset, endDate, startDate, endTime, startTime)){
+            //System.out.println("Alku: " + startDate.toString() + " | " + startTime.truncatedTo(ChronoUnit.MINUTES).toString());
+            //System.out.println("Loppu: " + endDate.toString() + " | " + endTime.truncatedTo(ChronoUnit.MINUTES).toString());
 
             //Lisätiedot
             String info = lisatiedotTextbox.getText();
-            System.out.println(info);
-
-            Varaukset V = new Varaukset(View.loggedIn, View.booking, startStamp, endStamp, info, false, View.booking.getNimi(), false);
+            //System.out.println(info);
+            boolean b = false;
+            if(View.booking.getLuvanvaraisuus() == 0){
+                b = true;
+            }
+            Varaukset V = new Varaukset(View.loggedIn, View.booking, startStamp, endStamp, info, false, View.booking.getNimi(), b);
             controller.luoVaraus(V);
+            Varaukset[] varaukset = controller.haeKayttajanVaraukset(View.loggedIn);
+            Popup popup = (Popup) sulkuNappi.getScene().getWindow();
+            Window nakyma = popup.getOwnerWindow();
+            TableView omatTableView = (TableView) nakyma.getScene().lookup("#omatTable");
+            omatTableView.getItems().clear();
+            omatTableView.getItems().addAll(varaukset);
             View.booking = null;
             this.sulkuNappiPainettu(event);
         }else{
             Alert a = new Alert(AlertType.INFORMATION);
             a.setHeaderText("Varauksen teko epäonnistui, koska varauksen aika meni toisen varauksen kanssa päälekäin.");
-            a.setX(0);
-            a.setY(0);
             a.show();            
         }
         
+        this.lisatiedotTextbox.setTooltip(new Tooltip("Kerro varauksen syy"));
+        this.mihinDp.setTooltip(new Tooltip("Valtise varauksen päättymispäivä"));
+        this.mihinSpinner.setTooltip(new Tooltip("Valitse varauksen päättymisaika"));
+        this.mistaDp.setTooltip(new Tooltip("Valitse varauksen alkamispäivä"));
+        this.mistaSpinner.setTooltip(new Tooltip("Valitse varauksen alkamisaika"));
+        this.varausNappi.setTooltip(new Tooltip("Luo varauksen"));
+        this.sulkuNappi.setTooltip(new Tooltip("Sulkee popupin"));
     }
 
     /**
@@ -272,6 +247,11 @@ public class varausController implements Initializable {
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
+        Varaukset[] varaukset = controller.haeKayttajanVaraukset(View.loggedIn);
+        Window nakyma = popup.getOwnerWindow();
+        TableView omatTableView = (TableView) nakyma.getScene().lookup("#omatTable");
+        omatTableView.getItems().clear();
+        omatTableView.getItems().addAll(varaukset);
         popup.hide();
     }
 

@@ -29,9 +29,14 @@ public class View extends Application {
      * Yrityksen nimi
      */
     public static String BizName = "Long beach Skateboards";
-
+    
     /**
-     * Resurssit
+     * Käyttäjän varausten tarkastelua varten tallennettava olio
+     */
+    public static Kayttaja selected = null;
+    
+    /**
+     * Varaukseen vietävä resurssi
      */
     public static Resurssit booking = null;
 
@@ -58,7 +63,7 @@ public class View extends Application {
         Scene scene = new Scene(root, Color.BLACK);
         Image icon = new Image("Taskbar.png");
         stage.getIcons().add(icon);
-        stage.setTitle("Laiterekisteri");
+        stage.setTitle("KeyChain EMS - version 0.221");
         stage.setScene(scene);
         stage.show();
     }
@@ -67,7 +72,7 @@ public class View extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 
 }

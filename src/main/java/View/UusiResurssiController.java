@@ -16,10 +16,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
+import javafx.stage.Window;
 
 /**
  * Uuden resurssin luomiseen liittyvä toiminnalisuus. Toteutus Popup-ikkunassa.
@@ -60,7 +63,14 @@ public class UusiResurssiController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         controller = View.controller;
-
+        
+        this.LuvanvaraisuusChoiceBox.setTooltip(new Tooltip("Valitse resurssin luvanvaraisuus -taso"));
+        this.kuvausTextbox.setTooltip(new Tooltip("Kenttä resurssin kuvausta varten"));
+        this.nimiTextField.setTooltip(new Tooltip("Kenttä resurssin nimeä varten, esim. resurssin malli"));
+        this.sulkuNappi.setTooltip(new Tooltip("Sulkee popupin"));
+        this.tyyppiTextField.setTooltip(new Tooltip("Kenttä resurssin tyyppiä varten, esim. tietokone"));
+        this.uusiresurssiNappi.setTooltip(new Tooltip("Lisää resurssin järjestelmään"));
+       
     }
 
     /**
@@ -91,12 +101,17 @@ public class UusiResurssiController implements Initializable {
     private void uusiresurssiNappiPainettu(MouseEvent event) {
         if (nimiTextField.getText() != null && tyyppiTextField.getText() != null && !LuvanvaraisuusChoiceBox.getValue().equals("Valitse...") && kuvausTextbox.getText() != null) {
             System.out.println("Luodaan uusi resurssi!");
-            Resurssit R = new Resurssit(false, nimiTextField.getText(), tyyppiTextField.getText(), controller.readCb(LuvanvaraisuusChoiceBox), kuvausTextbox.getText());
+            Resurssit R = new Resurssit(true, nimiTextField.getText(), tyyppiTextField.getText(), controller.readCb(LuvanvaraisuusChoiceBox), kuvausTextbox.getText());
             System.out.println(R.getNimi() + " | " + R.getTyyppi() + " | " + R.getLuvanvaraisuus() + " | " + R.getKuvaus());
             controller.luoResurssi(R);
             virheLabel.setDisable(true);
             virheLabel.setOpacity(0);
+            Resurssit[] resurssit = controller.haeKaikkiResurssit();
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
+            Window nakyma = popup.getOwnerWindow();
+            TableView ResurssitTableView = (TableView) nakyma.getScene().lookup("#kaikkiTableView");
+            ResurssitTableView.getItems().clear();
+            ResurssitTableView.getItems().addAll(resurssit);
             popup.hide();
 
         } else {
@@ -107,12 +122,17 @@ public class UusiResurssiController implements Initializable {
 
        
     /**
-     * Sulkee popupin.
+     * Sulkee popupin. Myös taulukon päivitys.
      * @param event Hiiren klikkaus painikkeesta.
      */
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
+        Resurssit[] resurssit = controller.haeKaikkiResurssit();
+        Window nakyma = popup.getOwnerWindow();
+        TableView ResurssitTableView = (TableView) nakyma.getScene().lookup("#kaikkiTableView");
+        ResurssitTableView.getItems().clear();
+        ResurssitTableView.getItems().addAll(resurssit);
         popup.hide();
 
 

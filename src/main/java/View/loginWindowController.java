@@ -12,18 +12,23 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  * Kirjautumisikkunan toiminnallisuus.
@@ -34,8 +39,8 @@ public class loginWindowController implements Initializable {
     @FXML
     private ImageView loginInactive;
     @FXML
-    private ImageView loginActive;
-    @FXML
+    private ImageView loginActive; 
+   @FXML
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
@@ -47,7 +52,9 @@ public class loginWindowController implements Initializable {
     private ImageView bgView;
 
     private boolean loginPossible;
-
+    
+    Popup popup;
+    
     private Controller controller;
 
     /**
@@ -63,6 +70,12 @@ public class loginWindowController implements Initializable {
         logoView.setImage(image);
         centerImage(logoView);
         controller = new Controller();
+        usernameField.setId("usernameField");
+        
+        this.passwordField.setTooltip(new Tooltip("Kenttä salasanaa varten"));
+        this.usernameField.setTooltip(new Tooltip("Kenttä käyttäjänimeä varten"));
+   
+       
     }
 
     /**
@@ -103,6 +116,11 @@ public class loginWindowController implements Initializable {
     private void herjaaPuuttuvasta(MouseEvent event) {
         Alert alert = new Alert(AlertType.WARNING, "Tunnus tai salasana puuttuu!");
         alert.showAndWait();
+        if(usernameField.getText().equals("")){
+            usernameField.requestFocus();
+        }else{
+            passwordField.requestFocus();
+        }
     }
 
     /**
@@ -147,10 +165,18 @@ public class loginWindowController implements Initializable {
                     e.printStackTrace();
 
                 }
+            }else{
+                Alert alert = new Alert(AlertType.WARNING, "Tunnus tai salasana puuttuu!");
+                alert.showAndWait();
             }
         } else if (ke.getCode() == KeyCode.ENTER && !loginPossible) {
             Alert alert = new Alert(AlertType.WARNING, "Tunnus tai salasana puuttuu!");
             alert.showAndWait();
+            if(usernameField.getText().equals("")){
+                usernameField.requestFocus();
+            }else{
+                passwordField.requestFocus();
+            }
         }
     }
 
@@ -172,4 +198,19 @@ public class loginWindowController implements Initializable {
             loginPossible = false;
         }
     }
+    
+    @FXML
+    private void avaaPalautaSalasana(MouseEvent event) throws IOException {
+                if (popup == null || !popup.isShowing()) {
+            popup = new Popup();
+            Object source = event.getSource();
+            Node node = (Node) source;
+            Scene scene = node.getScene();
+            Window window = scene.getWindow();
+            Stage stage = (Stage) window;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/palautasalasana.fxml"));
+            popup.getContent().add((Parent) loader.load());
+            popup.show(window);
+    }
+}
 }

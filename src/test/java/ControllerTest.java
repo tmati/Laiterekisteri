@@ -30,7 +30,6 @@ import org.junit.Ignore;
  *
  * @author Tommi
  */
-
 @Ignore
 public class ControllerTest {
 
@@ -64,14 +63,12 @@ public class ControllerTest {
     @Test
     public void ControllerVarausTestit() {
         Resurssit[] r = kont.haeKaikkiResurssit();
-        LocalDate aloitusPV = LocalDate.parse("2019-04-01");
-        LocalTime aloitusAika = LocalTime.parse("10:00");
-        LocalDate lopetusPV = LocalDate.parse("2019-04-02");
-        LocalTime lopetusAika = LocalTime.parse("16:00");
+        
 
-        LocalDateTime aloitus = LocalDateTime.of(aloitusPV, aloitusAika);
-        LocalDateTime lopetus = LocalDateTime.of(lopetusPV, lopetusAika);
-        Varaukset v = new Varaukset(kay[0], r[1], aloitus, lopetus, "testi", false, "testi", false);
+        LocalDateTime aloitus = LocalDateTime.now();
+        aloitus.plusHours(2);;
+        LocalDateTime lopetus = aloitus.plusHours(2);
+        Varaukset v = new Varaukset(kay[0], r[1], aloitus, lopetus, "testi", false, "testi", true);
         assertTrue("luoVaraus: ei onnistunut",
                 kont.luoVaraus(v));
         assertTrue("readVaraus(): Haku ei onnistunut",
@@ -110,7 +107,8 @@ public class ControllerTest {
                 kont.login(kay[0].getKayttajatunnus(), kay[0].getSalasana()));
         assertFalse("login: pääsi sisään vaikka ei pitänyt",
                 kont.login("asdgfds", "äöädrftrewqsxd"));
-       
+       assertTrue("tarkistaVarausAktiivisuudet: ei onnistunut",
+               kont.tarkistaVarausAktiivisuudet());
         
     }
     

@@ -6,6 +6,7 @@ package View;
 import Controller.Controller;
 import Model.Kayttaja;
 import Model.KayttajaAccessObject;
+import Model.LuvanvaraisuusConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,10 +18,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +36,7 @@ import javafx.util.converter.IntegerStringConverter;
 
 /**
  * Käyttäjänäkymään liittyvät toiminnot.
+ *
  * @author tmati
  */
 public class KayttajaAdminController implements Initializable {
@@ -53,11 +58,7 @@ public class KayttajaAdminController implements Initializable {
     @FXML
     private Button takaisinBtn;
     @FXML
-    private Button tallennaBtn;
-    @FXML
     private Button lisaaBtn;
-    @FXML
-    private Button muutaBtn;
     @FXML
     private Button poistaBtn;
     @FXML
@@ -67,10 +68,12 @@ public class KayttajaAdminController implements Initializable {
     @FXML
     private TableColumn kayttajatunnusColumn;
     Popup popup;
-    @FXML
-    private Button updateBtn;
+ 
 
     private Controller kontrolleri;
+    
+    @FXML
+    private Button kayttajanvarauksetNappi;
 
     /**
      * Initializes the controller class.
@@ -84,31 +87,39 @@ public class KayttajaAdminController implements Initializable {
          * Kontrollerin ilmentymä
          */
         kontrolleri = View.controller;
-        
+        LuvanvaraisuusConverter KayLC = new LuvanvaraisuusConverter(kontrolleri, "Työntekijä", "Esimies", "Ylläpitäjä");
         //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         emailColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("sahkoposti"));
         emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
+        
+        ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
+        CC.setConverter(KayLC);
         valtuudetColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, Integer>("valtuudet"));
-        valtuudetColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        valtuudetColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), 0,1,2));
 
         kayttajatunnusColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("kayttajatunnus"));
         kayttajatunnusColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
         bizName.setText(View.BizName);
         usernameLabel.setText(View.loggedIn.getNimi());
+        
+        this.LogoutBtn.setTooltip(new Tooltip("Ulos kirjautuminen"));
+        this.lisaaBtn.setTooltip(new Tooltip("Avaa popupin käyttäjän lisäämistä varten"));
+        this.poistaBtn.setTooltip(new Tooltip("Poistaa valitun käyttäjän järjestelmästä"));
+        this.takaisinBtn.setTooltip((new Tooltip("Palauttaa päänäkymään")));
+        this.kayttajanvarauksetNappi.setTooltip(new Tooltip("Avaa näkymän, jossa näet valitsemasi käyttäjän varaukset"));
+       
     }
 
     /**
-     * Päivittää napin ulkonäön.
+     * Päivittää käyttäjä -taulun.
      *
-     * @param event MouseEvent
      */
     @FXML
-    public void updateBtnPainettu(MouseEvent event) {
+    public void updateBtnPainettu() {
         kayttajaTableView.getItems().clear();
         kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
     }
@@ -128,7 +139,7 @@ public class KayttajaAdminController implements Initializable {
         stage.getScene().setRoot(root);
         View.loggedIn = null;
     }
-
+    
     /**
      * Käyttäjän painaessa takaisin - painiketta tämä palautetaan takaisin
      * päänäkymään.
@@ -145,9 +156,9 @@ public class KayttajaAdminController implements Initializable {
         stage.getScene().setRoot(root);
     }
 
-    
     /**
      * Avaa uuden käyttäjän lisäämisnäkymän.
+     *
      * @param event Hiiren klikkaus painikkeeseen.
      * @throws IOException Tiedostosta lukemisen vuoksi varauduttava poikkeus
      */
@@ -168,19 +179,45 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Poistaa valitun rivin tietokannasta.
+     *
      * @param event Hiiren klikkaus painikkeeseen.
      */
     @FXML
     private void poistaBtnPainettu(MouseEvent event) {
         Kayttaja K = kayttajaTableView.getSelectionModel().getSelectedItem();
-        kontrolleri.poistaKayttaja(K.getId());
-        this.updateBtnPainettu(event);
-        System.out.println("Poistetaan rivi");
+        if (K != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa käyttäjän?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                kontrolleri.poistaKayttaja(K.getId());
+                this.updateBtnPainettu();
+                System.out.println("Poistetaan rivi");
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse käyttäjä!");
+            alert.showAndWait();
+        }
     }
-
+    
+    @FXML private void kayttajanvarauksetNappiPainettu(MouseEvent event) throws IOException {
+    Kayttaja K = kayttajaTableView.getSelectionModel().getSelectedItem();
+        if (K != null) {
+            View.selected = K;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KayttajanVaraukset.fxml"));
+            Stage stage = (Stage) LogoutBtn.getScene().getWindow();
+            Parent root = loader.load();
+            stage.getScene().setRoot(root);
+    }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse käyttäjä!");
+            alert.showAndWait();
+        }
+    }
+    
     /**
      * Toiminnallisuus nimi-columnin muokkaamisen päättyessä.
-     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa ENTER - painalluksella.
+     *
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa
+     * ENTER - painalluksella.
      */
     @FXML
     private void nimiEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
@@ -192,7 +229,9 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Toiminnalisuus sähköposticolumnin muokkaamisen päättyessä.
-     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa ENTER - painalluksella.
+     *
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa
+     * ENTER - painalluksella.
      */
     @FXML
     private void emailEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
@@ -211,7 +250,9 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Toiminnallisuus valtuudet-columnin muokkaamisen päättyessä.
-     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa ENTER - painalluksella.
+     *
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa
+     * ENTER - painalluksella.
      */
     @FXML
     private void valtuudetEditCommit(TableColumn.CellEditEvent<Kayttaja, Integer> event) {
@@ -223,7 +264,9 @@ public class KayttajaAdminController implements Initializable {
 
     /**
      * Toiminnallisuus käyttäjätunnus-columnin muokkaamisen päättyessä.
-     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa ENTER - painalluksella
+     *
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa
+     * ENTER - painalluksella
      */
     @FXML
     private void kayttajatunnusEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
