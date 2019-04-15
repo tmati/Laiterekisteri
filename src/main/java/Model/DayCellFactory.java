@@ -198,13 +198,10 @@ public class DayCellFactory {
                                         setDisable(true);
                                         setStyle("-fx-background-color: #ff4444;");
                                     }
-
                                 }
-
-                                setDisable(empty || item.compareTo(today) < 0 );
                             }
-
                         }
+                        setDisable(empty || item.compareTo(today) < 0 );
                     }
             };
         }
