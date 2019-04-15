@@ -37,7 +37,7 @@ public class Kalenterin_tarvitsemat_toimenpiteet {
     }
     
     /**
-     * kertoo onko varaus mahdollinen edellisten varauksten kanssa.
+     * Kertoo onko varaus mahdollinen edellisten varausten kanssa.
      * @param aVaraukset Resursin muut varaukset.
      * @param endDate Uuden varauksen loppupäivä.
      * @param startDate Uuden varauksen aloituspäivä.
@@ -102,8 +102,8 @@ public class Kalenterin_tarvitsemat_toimenpiteet {
     }
     
     /**
-     * Medoti joka muutaa Varauksetr ArrayListan Arrayhin.
-     * @param aVaraukset muutettava ArrayList
+     * Metodi, joka muuttaa Varaukset ArrayListan Arrayhin.
+     * @param aVaraukset muutettava ArrayList lista yhden resurssin kaikista varauksista.
      * @return varaus Array
      */
     public Varaukset[] getVaraus(ArrayList<Varaukset> aVaraukset){

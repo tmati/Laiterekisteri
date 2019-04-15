@@ -32,7 +32,7 @@
                         <Insets right="450.0" top="90.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="usernameField" fx:id="usernameField" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi">
+                  <TextField id="usernameField" fx:id="usernameField" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi" stylesheets="@../styles/Styles.css">
                      <font>
                         <Font size="20.0" />
                      </font>

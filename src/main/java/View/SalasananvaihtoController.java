@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
 
@@ -61,6 +62,12 @@ public class SalasananvaihtoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         usernameLabel.setText(View.loggedIn.getNimi());
         controller = View.controller;
+        this.sulkuNappi.setTooltip(new Tooltip("Sulkee popupin"));
+        this.uusisalasana1TextField.setTooltip(new Tooltip("Kenttä uutta salasanaa varten"));
+        this.uusisalasana2TextField.setTooltip(new Tooltip("Toista salasana"));
+        this.vanhasalasanaTextField.setTooltip(new Tooltip("Kenttä vanhaa salasanaa varten"));
+        this.vaihdasalasanaNappi.setTooltip(new Tooltip("Vaihtaa salasanan"));
+        
     }
 
     /**

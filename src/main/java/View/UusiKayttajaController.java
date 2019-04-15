@@ -17,6 +17,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
 import javax.mail.MessagingException;
@@ -67,7 +68,15 @@ public class UusiKayttajaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         controller = View.controller;
-
+        
+        this.emailTextField.setTooltip(new Tooltip("Kenttä sähköpostia varten, ei saa olla olemassa oleva"));
+        this.kayttajatunnusTextField.setTooltip(new Tooltip("Kenttä käyttäjätunnusta varten, ei saa olla olemassa oleva"));
+        this.nimiTextField.setTooltip(new Tooltip("Kenttä käyttäjän nimeä varten"));
+        this.salasanaTextField.setTooltip((new Tooltip("Kenttä väliaikaista salasanaa varten")));
+        this.sulkuNappi.setTooltip(new Tooltip("Sulkee popupin"));
+        this.valtuudetChoiceBox.setTooltip(new Tooltip("Valitse käyttäjän valtuus -taso"));
+        this.luokayttajaNappi.setTooltip(new Tooltip("Luo käyttäjän ja lähettää sähköposti ilmoituksen"));
+       
     }
 
     /**

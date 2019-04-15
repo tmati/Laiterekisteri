@@ -147,8 +147,7 @@ public class NakymaController implements Initializable {
     private Button henkilostoBtn;
     @FXML
     private Button salasananvaihtoBtn;
-    @FXML
-    private Button updateBtn;
+   
     @FXML
     private TableColumn hyvaksyntaColumn;
 
@@ -253,8 +252,19 @@ public class NakymaController implements Initializable {
         hyvaksyntaColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("hyvaksytty"));
         hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(HyvaksyntaController));
 
-        categorySelect.setTooltip(new Tooltip("Hakukriteeri"));
-
+        this.categorySelect.setTooltip(new Tooltip("Hakukriteeri"));
+        this.omatTable.setTooltip(new Tooltip("Omat varauksesi"));
+        this.kaikkiTableView.setTooltip(new Tooltip("Kaikki järjestelmässä olevat resurssit"));
+        this.LogoutBtn.setTooltip(new Tooltip("Ulos kirjautuminen"));
+        this.hallnnoiBtn.setTooltip(new Tooltip("Avaa varauksien hallinta -näkymän"));
+        this.henkilostoBtn.setTooltip(new Tooltip("Avaa käyttäjien hallinta -näkymän"));
+        this.lisaaresurssiBtn.setTooltip(new Tooltip("Avaa popupin resurssin lisäämistä varten"));
+        this.poistaresurssiBtn.setTooltip(new Tooltip("Poistaa valitun resurssin järjestelmästä"));
+        this.salasananvaihtoBtn.setTooltip(new Tooltip("Avaa popupin salasanan vaihto varten"));
+        this.searchBar.setTooltip(new Tooltip("Hakukenttä resursseja tai varauksia varten"));
+        this.varausBtn.setTooltip(new Tooltip("Avaa popupin varauksen luontia varten, valitse resurssi ensin"));
+        this.
+        
         usernameLabel.setText(View.loggedIn.getNimi());
         bizName.setText(View.BizName);
 
@@ -268,7 +278,7 @@ public class NakymaController implements Initializable {
         kaikkiTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) { //Etsii resursin kaikki varaukset.
                 
-                Varaukset[] varaukset = controller.haeKaikkiVarauksetOikeasti();
+                Varaukset[] varaukset = controller.haeKaikkiVaraukset();
                 picker = null;
 
                 ArrayList<Varaukset> aVaraukset = controller.ResursinVaraukset(kaikkiTableView.getSelectionModel().getSelectedItem().getId(), varaukset);

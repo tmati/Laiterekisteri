@@ -32,6 +32,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Popup;
 import javafx.stage.Window;
 import javafx.util.converter.LocalTimeStringConverter;
+import javafx.scene.control.Tooltip;
 
 /**
  * Varaus-popupin toiminnot.
@@ -85,7 +86,7 @@ public class varausController implements Initializable {
         
 
         //Katsoo kaikki varaaukset sille tuoteelle.
-        Varaukset[] varaukset = controller.haeKaikkiVarauksetOikeasti();
+        Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         aVaraukset = controller.ResursinVaraukset(View.booking.getId(), varaukset);
 
         Varaukset[] varaus = controller.getVaraus(aVaraukset);
@@ -228,6 +229,14 @@ public class varausController implements Initializable {
             a.setHeaderText("Varauksen teko epäonnistui, koska varauksen aika meni toisen varauksen kanssa päälekäin.");
             a.show();            
         }
+        
+        this.lisatiedotTextbox.setTooltip(new Tooltip("Kerro varauksen syy"));
+        this.mihinDp.setTooltip(new Tooltip("Valtise varauksen päättymispäivä"));
+        this.mihinSpinner.setTooltip(new Tooltip("Valitse varauksen päättymisaika"));
+        this.mistaDp.setTooltip(new Tooltip("Valitse varauksen alkamispäivä"));
+        this.mistaSpinner.setTooltip(new Tooltip("Valitse varauksen alkamisaika"));
+        this.varausNappi.setTooltip(new Tooltip("Luo varauksen"));
+        this.sulkuNappi.setTooltip(new Tooltip("Sulkee popupin"));
     }
 
     /**
