@@ -104,7 +104,7 @@ public class ControllerTest {
         assertFalse("salasananCryptaus: ei onnistunut",
                 kont.SalasananCryptaus("asd").equalsIgnoreCase("asd"));
         assertTrue("login: ei onnistunut",
-                kont.login(kay[0].getKayttajatunnus(), kay[0].getSalasana()));
+                kont.login("testi", "testi"));
         assertFalse("login: pääsi sisään vaikka ei pitänyt",
                 kont.login("asdgfds", "äöädrftrewqsxd"));
        assertTrue("tarkistaVarausAktiivisuudet: ei onnistunut",
