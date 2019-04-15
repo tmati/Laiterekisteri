@@ -10,14 +10,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-
 /**
  * Luokka varausten käsittelyä varten
  *
  * @author Tommi
  */
 public class VarausKasittely {
-
+    
     private final Controller controller;
     private final VarauksetDAO_IF dao;
 
@@ -33,8 +32,9 @@ public class VarausKasittely {
     }
 
     /**
-     * Käy läpi kaikki varaukset tietokannasta ja päivittää niiden aktiivisuuden oikeaksi.
-     * Jos tietokannassa palautettu = true tarkoittaa, että varaus ei ole aktiivinen ja päinvastoin.
+     * Käy läpi kaikki varaukset tietokannasta ja päivittää niiden aktiivisuuden
+     * oikeaksi. Jos tietokannassa palautettu = true tarkoittaa, että varaus ei
+     * ole aktiivinen ja päinvastoin.
      *
      * @return true kun tietokanta on käyty läpi
      */
@@ -68,7 +68,7 @@ public class VarausKasittely {
      * @return taulukko käyttäjän varauksista
      */
     public Varaukset[] haeKayttajanVaraukset(Kayttaja k) {
-
+        
         Varaukset kaikkiV[] = controller.haeKaikkiVaraukset();
         ArrayList<Varaukset> list = new ArrayList<>();
         for (Varaukset v : kaikkiV) {
@@ -114,6 +114,14 @@ public class VarausKasittely {
         }
         Varaukset[] varaukset = list.toArray(new Varaukset[list.size()]);
         return varaukset;
+    }
+    /**
+     *  Tarkistaa onko varauksen alkamis päivämäärä jo mennyt
+     * @param varaus tarkastettava varaus
+     * @return true jos varauksen alkuaika on jo mennyt
+     */
+    public boolean tarkistaOnkoVarausAlkanut(Varaukset varaus) {
+        return (varaus.getAlkuAika().isBefore(LocalDateTime.now()));
     }
 
     /**
