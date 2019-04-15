@@ -51,7 +51,7 @@
          </GridPane.margin>
       </Label>
       <ImageView fx:id="logoView" fitHeight="138.0" fitWidth="483.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowSpan="2" />
-      <TextField fx:id="searchBar" onKeyReleased="#searchFunction" prefHeight="39.0" prefWidth="1149.0" promptText="Etsi..." GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+      <TextField fx:id="searchBar" onKeyReleased="#searchFunction" prefHeight="39.0" prefWidth="1149.0" promptText="Etsi..." GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" stylesheets="@../styles/Styles.css">
          <font>
             <Font size="18.0" />
          </font>
