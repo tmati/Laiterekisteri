@@ -197,7 +197,6 @@ public class DayCellFactory {
                                 }
                                 setDisable(empty || item.compareTo(today) < 0 );
                             }
-
                         }
                     }
             };
