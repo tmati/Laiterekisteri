@@ -24,7 +24,7 @@
             <ImageView fx:id="logoView" fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
             <VBox alignment="CENTER" prefHeight="107.0" prefWidth="476.0">
                <children>
-                  <Label fx:id="usernameLabel" alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" text="Käyttäjänimi" textFill="WHITE" textOverrun="CLIP">
+                  <Label fx:id="usernameLabel" alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" text="KÄYTTÄJÄNIMI" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -43,6 +43,14 @@
                         <Insets bottom="30.0" top="10.0" />
                      </VBox.margin>
                   </TextField>
+                  <Label fx:id="usernameLabel1" alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" text="SALASANA" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets right="450.0" />
+                     </VBox.margin>
+                  </Label>
                   <PasswordField fx:id="passwordField" alignment="TOP_LEFT" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Salasana" stylesheets="@../styles/Styles.css">
                      <font>
                         <Font size="20.0" />

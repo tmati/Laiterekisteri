@@ -16,12 +16,12 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="876.0" prefWidth="1772.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VarausAdminController">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.79998779296875" minWidth="4.800003814697259" prefWidth="40.800018310546875" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.99999618530273" minWidth="0.0" prefWidth="261.5999816894531" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.60004577636715" minWidth="0.0" prefWidth="182.20001831054688" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="301.2" minWidth="0.0" prefWidth="118.19998168945315" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="520.6000244140625" minWidth="10.0" prefWidth="479.2" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="248.4000366210937" minWidth="10.0" prefWidth="170.39999999999998" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="696.0" minWidth="10.0" prefWidth="660.00009765625" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="472.0" minWidth="0.0" prefWidth="43.199902343749955" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="696.0" minWidth="10.0" prefWidth="644.8000000000001" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="472.0" minWidth="0.0" prefWidth="59.200000000000045" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="0.0" prefWidth="70.40000000000009" />
   </columnConstraints>
   <rowConstraints>
@@ -36,7 +36,7 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="LogoutBtn" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="35.0" prefWidth="90.0" text="LOGOUT" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="LEFT">
+      <Button fx:id="LogoutBtn" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="35.0" prefWidth="94.0" text="LOGOUT" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="LEFT">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -74,19 +74,19 @@
          </GridPane.margin>
       </Button>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" />
-      <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="1534.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="2">
+      <TabPane fx:id="tabPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="951.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <tabs>
             <Tab fx:id="kasittelemattomatTab" text="Käsittelemättömät varaukset">
                <content>
                   <StackPane fx:id="kaikkiStack" prefHeight="530.0" prefWidth="1585.0">
                      <children>
-                        <TableView fx:id="varauksetTableView" editable="true" maxWidth="-Infinity" prefHeight="662.0" prefWidth="1452.0">
+                        <TableView fx:id="varauksetTableView" editable="true" maxWidth="-Infinity" prefHeight="570.0" prefWidth="1498.0">
                            <columns>
-                              <TableColumn fx:id="nimiColumn" prefWidth="288.80003356933594" resizable="false" text="VARAAJAN NIMI" />
-                              <TableColumn fx:id="tavaraColumn" prefWidth="412.0000305175781" resizable="false" text="TAVARA" />
-                              <TableColumn fx:id="alkupvmColumn" minWidth="0.0" onEditCommit="#alkupvmEditCommit" prefWidth="184.0" resizable="false" text="ALKUPVM" />
-                              <TableColumn fx:id="paattymispvmColumn" minWidth="0.0" onEditCommit="#paattymispvmEditCommit" prefWidth="184.0" resizable="false" text="PÄÄTTYMISPVM" />
-                              <TableColumn fx:id="kuvausColumn" maxWidth="500.0" onEditCommit="#kuvausEditCommit" prefWidth="376.0" resizable="false" text="KUVAUS" />
+                              <TableColumn fx:id="nimiColumn" prefWidth="278.4000213742256" resizable="false" text="VARAAJAN NIMI" />
+                              <TableColumn fx:id="tavaraColumn" prefWidth="426.39996337890625" resizable="false" text="TAVARA" />
+                              <TableColumn fx:id="alkupvmColumn" minWidth="0.0" onEditCommit="#alkupvmEditCommit" prefWidth="233.5999755859375" resizable="false" text="ALKUPVM" />
+                              <TableColumn fx:id="paattymispvmColumn" minWidth="0.0" onEditCommit="#paattymispvmEditCommit" prefWidth="192.79998779296875" resizable="false" text="PÄÄTTYMISPVM" />
+                              <TableColumn fx:id="kuvausColumn" maxWidth="692.0000122070312" onEditCommit="#kuvausEditCommit" prefWidth="278.4000244140625" resizable="false" text="KUVAUS" />
                            </columns>
                         </TableView>
                      </children>
@@ -104,7 +104,7 @@
                               <TableColumn fx:id="alkupvmColumn1" prefWidth="204.7999267578125" resizable="false" text="VARAUKSEN ALKUPVM" />
                               <TableColumn fx:id="paattymispvmColumn1" prefWidth="232.00006103515625" resizable="false" text="VARAUKSEN PÄÄTTYMISPVM" />
                               <TableColumn fx:id="varausidColumn" editable="false" prefWidth="120.79998779296875" resizable="false" text="VARAUSID" />
-                              <TableColumn fx:id="varauskuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="365.59991455078125" resizable="false" text="KUVAUS" />
+                              <TableColumn fx:id="varauskuvausColumn" prefWidth="365.59991455078125" resizable="false" text="KUVAUS" />
                               <TableColumn fx:id="palautettuColumn" maxWidth="227.0" minWidth="0.0" prefWidth="141.5999755859375" resizable="false" text="AKTIIVISUUS" />
                               <TableColumn fx:id="hyvaksyntaColumn" maxWidth="330.39990234375" minWidth="0.0" prefWidth="130.4000244140625" resizable="false" text="HYVÄKSYNTÄ" />
                            </columns>

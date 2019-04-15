@@ -9,7 +9,6 @@ import Controller.Controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.MonthDay;
-import java.util.Calendar;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Tooltip;
@@ -106,11 +105,8 @@ public class DayCellFactory {
                                         setDisable(true);
                                         setStyle("-fx-background-color: #ff4444;");
                                     }
-                                }
-                            
-                                                            
-                            }
-                             
+                                }                               
+                            }                             
                         }setDisable(empty || item.compareTo(today) < 0 );  
                     }
             };
@@ -194,13 +190,11 @@ public class DayCellFactory {
                                     } else if(i==erotusp){
                                         setStyle("-fx-background-color: #FFA500;");
                                         setTooltip(new Tooltip("Varaus päätyy " + varaukset[y].getLoppuAika().getHour() + ":0"+ varaukset[y].getLoppuAika().getMinute()));
-                                    }else{
+                                       }else{
                                         setDisable(true);
                                         setStyle("-fx-background-color: #ff4444;");
                                     }
-
                                 }
-
                                 setDisable(empty || item.compareTo(today) < 0 );
                             }
 
