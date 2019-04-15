@@ -20,6 +20,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -286,7 +287,7 @@ public class NakymaController implements Initializable {
                 Varaukset[] varaus = controller.getVaraus(aVaraukset);
 
                 // luo uuden datepickerin johon laitetaan day cell factorin
-                Callback<DatePicker, DateCell> dayCellFactory = controller.dayCellFactory(varaus);
+                Callback<DatePicker, DateCell> dayCellFactory = controller.dayCellFactory(varaus, LocalDate.now());
                 picker = new DatePicker();
                 picker.setDayCellFactory(dayCellFactory);
                 DPS.dispose();
