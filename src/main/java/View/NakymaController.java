@@ -167,7 +167,7 @@ public class NakymaController implements Initializable {
         controller = View.controller;
         BooleanConverter VarattavissaController = new BooleanConverter(controller, "Varattavissa",  "Ei varattavissa");
         BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
-        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "HYLÄTTY");
+        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "KÄSITTELYSSÄ");
         LuvanvaraisuusConverter ResLC = new LuvanvaraisuusConverter(controller, "Vapaa käyttö", "Esimiehen hyväksyttävä", "Ylläpitäjän hyväksyttävä");
         Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
         logoView.setImage(image);
@@ -263,7 +263,7 @@ public class NakymaController implements Initializable {
         this.salasananvaihtoBtn.setTooltip(new Tooltip("Avaa popupin salasanan vaihto varten"));
         this.searchBar.setTooltip(new Tooltip("Hakukenttä resursseja tai varauksia varten"));
         this.varausBtn.setTooltip(new Tooltip("Avaa popupin varauksen luontia varten, valitse resurssi ensin"));
-        this.
+        
         
         usernameLabel.setText(View.loggedIn.getNimi());
         bizName.setText(View.BizName);

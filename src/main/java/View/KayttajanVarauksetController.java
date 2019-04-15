@@ -212,9 +212,10 @@ public class KayttajanVarauksetController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
-                int deleted = toDelete.getId();
-                controller.poistaVaraus(deleted);
+                controller.poistaVaraus(toDelete.getId());
                 System.out.println("poistetaan varaus");
+                controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + " on poistettu esimiehen tai ylläpitäjän toimesta."
+                        + "\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.");
                 kayttajaTable.getItems().clear(); 
                 kayttajaTable.getItems().addAll(controller.haeKayttajanVaraukset(View.selected));
             }
