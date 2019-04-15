@@ -110,6 +110,7 @@ public class KayttajaAdminController implements Initializable {
         this.lisaaBtn.setTooltip(new Tooltip("Avaa popupin käyttäjän lisäämistä varten"));
         this.poistaBtn.setTooltip(new Tooltip("Poistaa valitun käyttäjän järjestelmästä"));
         this.takaisinBtn.setTooltip((new Tooltip("Palauttaa päänäkymään")));
+        this.kayttajanvarauksetNappi.setTooltip(new Tooltip("Avaa näkymän, jossa näet valitsemasi käyttäjän varaukset"));
        
     }
 
@@ -206,7 +207,10 @@ public class KayttajaAdminController implements Initializable {
             Stage stage = (Stage) LogoutBtn.getScene().getWindow();
             Parent root = loader.load();
             stage.getScene().setRoot(root);
-    }
+    }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse käyttäjä!");
+            alert.showAndWait();
+        }
     }
     
     /**

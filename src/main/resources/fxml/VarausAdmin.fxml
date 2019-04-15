@@ -86,7 +86,7 @@
                               <TableColumn fx:id="tavaraColumn" prefWidth="412.0000305175781" resizable="false" text="TAVARA" />
                               <TableColumn fx:id="alkupvmColumn" minWidth="0.0" onEditCommit="#alkupvmEditCommit" prefWidth="184.0" resizable="false" text="ALKUPVM" />
                               <TableColumn fx:id="paattymispvmColumn" minWidth="0.0" onEditCommit="#paattymispvmEditCommit" prefWidth="184.0" resizable="false" text="PÄÄTTYMISPVM" />
-                              <TableColumn fx:id="kuvausColumn" maxWidth="500.0" onEditCommit="#kuvausEditCommit" prefWidth="376.0" resizable="false" text="KUVAUS" />
+                              <TableColumn fx:id="kuvausColumn" maxWidth="500.0" prefWidth="376.0" resizable="false" text="KUVAUS" />
                            </columns>
                         </TableView>
                      </children>
@@ -104,7 +104,7 @@
                               <TableColumn fx:id="alkupvmColumn1" prefWidth="204.7999267578125" resizable="false" text="VARAUKSEN ALKUPVM" />
                               <TableColumn fx:id="paattymispvmColumn1" prefWidth="232.00006103515625" resizable="false" text="VARAUKSEN PÄÄTTYMISPVM" />
                               <TableColumn fx:id="varausidColumn" editable="false" prefWidth="120.79998779296875" resizable="false" text="VARAUSID" />
-                              <TableColumn fx:id="varauskuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="365.59991455078125" resizable="false" text="KUVAUS" />
+                              <TableColumn fx:id="varauskuvausColumn" prefWidth="365.59991455078125" resizable="false" text="KUVAUS" />
                               <TableColumn fx:id="palautettuColumn" maxWidth="227.0" minWidth="0.0" prefWidth="141.5999755859375" resizable="false" text="AKTIIVISUUS" />
                               <TableColumn fx:id="hyvaksyntaColumn" maxWidth="330.39990234375" minWidth="0.0" prefWidth="130.4000244140625" resizable="false" text="HYVÄKSYNTÄ" />
                            </columns>

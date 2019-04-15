@@ -81,7 +81,7 @@ public class KayttajanVarauksetController implements Initializable {
         controller = new Controller();
         ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
         BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
-        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "HYLÄTTY");
+        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "KÄSITTELYSSÄ");
 
 
         laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
@@ -148,6 +148,11 @@ public class KayttajanVarauksetController implements Initializable {
         bizName.setText(View.BizName);
         kayttajaString.setText("Käyttäjän " + View.selected.getNimi() + " varaukset");
         kayttajaTable.getItems().addAll(View.selected.getVarauksets());
+        
+        this.LogoutBtn.setTooltip(new Tooltip("Ulos kirjautuminen"));
+        this.poistaBtn.setTooltip(new Tooltip("Poistaa valitun varauksen ja lähettää ilmoituksen käyttäjälle"));
+        this.takaisinBtn.setTooltip(new Tooltip("Palauttaa hallinnoi henkilöitä -näkymään"));
+        
     }  
     
     /**

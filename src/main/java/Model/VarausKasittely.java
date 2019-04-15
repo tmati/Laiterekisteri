@@ -9,9 +9,7 @@ import Controller.Controller;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.mail.MessagingException;
+
 
 /**
  * Luokka varausten käsittelyä varten
@@ -20,8 +18,8 @@ import javax.mail.MessagingException;
  */
 public class VarausKasittely {
 
-    private Controller controller;
-    private VarauksetDAO_IF dao;
+    private final Controller controller;
+    private final VarauksetDAO_IF dao;
 
     /**
      * Konstruktori
@@ -35,17 +33,14 @@ public class VarausKasittely {
     }
 
     /**
-     * Käy läpi kaikki varaukset tietokannasta ja päivittää niiden aktiivisuuden
-     * oikeaksi Jos tietokannassa palautettu = true tarkoittaa, että varaus ei
-     * ole aktiivinen ja päinvastoin.
+     * Käy läpi kaikki varaukset tietokannasta ja päivittää niiden aktiivisuuden oikeaksi.
+     * Jos tietokannassa palautettu = true tarkoittaa, että varaus ei ole aktiivinen ja päinvastoin.
      *
      * @return true kun tietokanta on käyty läpi
      */
     public boolean tarkistaAktiivisuudet() {
-        LocalDateTime aika = LocalDateTime.now();
-        Varaukset[] varaukset = dao.readVaraukset();
-        for (Varaukset v : varaukset) {
-            if (aika.isAfter(v.getAlkuAika()) && aika.isBefore(v.getLoppuAika()) && v.getHyvaksytty()) {
+        for (Varaukset v : dao.readVaraukset()) {
+            if (LocalDateTime.now().isAfter(v.getAlkuAika()) && LocalDateTime.now().isBefore(v.getLoppuAika()) && v.getHyvaksytty()) {
                 if (!v.isPalautettu()) {
                     v.setPalautettu(true);
                     dao.updateVaraus(v);
@@ -56,7 +51,7 @@ public class VarausKasittely {
                 controller.lahetaSahkoposti(v.getKayttaja().getSahkoposti(), controller.getVarausAikaString(v)
                         + " on päättynyt. Muistathan palauttaa varaamasi resurssin.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.");
                 dao.updateVaraus(v);
-            } else if (!v.getHyvaksytty() && aika.isAfter(v.getAlkuAika())) {
+            } else if (!v.getHyvaksytty() && LocalDateTime.now().isAfter(v.getAlkuAika())) {
                 System.out.println("Varaus poistettu koska ei oltu hyväksytty" + v.getNimi() + " " + v.getId() + " " + v.getKayttaja());
                 controller.lahetaSahkoposti(v.getKayttaja().getSahkoposti(), controller.getVarausAikaString(v)
                         + " on poistunut, koska sitä ei hyväksytty ajoissa.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.");
@@ -77,9 +72,7 @@ public class VarausKasittely {
         Varaukset kaikkiV[] = controller.haeKaikkiVaraukset();
         ArrayList<Varaukset> list = new ArrayList<>();
         for (Varaukset v : kaikkiV) {
-
             if (Objects.equals(v.getKayttaja().getId(), k.getId())) {
-
                 list.add(v);
             }
         }
@@ -94,9 +87,8 @@ public class VarausKasittely {
      * @return true jos poisto onnistui
      */
     public boolean poistaKayttajanVaraukset(int id) {
-        Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         boolean tarkistus = true;
-        for (Varaukset v : varaukset) {
+        for (Varaukset v : controller.haeKaikkiVaraukset()) {
             if (v.getKayttaja().getId() == id) {
                 boolean tulos = controller.poistaVaraus(v.getId());
                 if (!tulos) {
@@ -114,9 +106,8 @@ public class VarausKasittely {
      * @return taulukko käsittelemättömistä varauksista.
      */
     public Varaukset[] haeKasittelemattomat() {
-        Varaukset[] kaikkiV = controller.haeKaikkiVaraukset();
         ArrayList<Varaukset> list = new ArrayList<>();
-        for (Varaukset v : kaikkiV) {
+        for (Varaukset v : controller.haeKaikkiVaraukset()) {
             if (!v.getHyvaksytty()) {
                 list.add(v);
             }

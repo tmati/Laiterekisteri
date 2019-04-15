@@ -256,7 +256,8 @@ public class VarausAdminController implements Initializable {
         System.out.println("Uusi päättymispvm: " + V.getPaattymispvm().toString());
         controller.paivitaVaraus(V);
     }
-
+    
+    
     /**
      * Kuvauksen edit commit - toiminto. Tapahtuu kun varauksen kuvausta
      * muutetaan.
@@ -270,4 +271,5 @@ public class VarausAdminController implements Initializable {
         System.out.println("Uusi Kuvaus: " + V.getKuvaus());
         controller.paivitaVaraus(V);
     }
+
 }
