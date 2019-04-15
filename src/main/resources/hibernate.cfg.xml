@@ -44,8 +44,8 @@ Contributor(s):
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/database_r11?zeroDateTimeBehavior=convertToNull&amp;serverTimezone=Europe/Helsinki</property>
-        <property name="hibernate.connection.username">database_user11</property>
-        <property name="hibernate.connection.password">user_password11</property>
+        <property name="hibernate.connection.username">dbuser</property>
+        <property name="hibernate.connection.password">dbuser</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
         <mapping resource="Model/Resurssit.hbm.xml"/>
         <mapping resource="Model/Kayttaja.hbm.xml"/>
