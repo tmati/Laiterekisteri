@@ -16,6 +16,7 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
 
     private int erotusk;
     private int erotusp;
+    private int erotusv;
 
     /**
      * Laskee kuinka monta kuukauta menee ja mitkä kuukauta. Lisää ne sitten päiviin
@@ -23,13 +24,15 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
      * @param paatymispvm lopetus päivä
      * @return alku ja paatymispvm valilla olevat kuukauksien määrän.
      */
-    private int KuukausiKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm) {
+    private int KuukausiKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm, int vuosiEro) {
+        erotusv = vuosiEro;
         erotusk = 0;
         erotusp = 0;
+        int vuosi = 0;
         if (alkupvm.getMonthValue() > paatymispvm.getMonthValue()) {
-            erotusk = alkupvm.getMonthValue() - paatymispvm.getMonthValue();
+            erotusk = erotusv * 12 + alkupvm.getMonthValue() - paatymispvm.getMonthValue();
         } else if (paatymispvm.getMonthValue() > alkupvm.getMonthValue()) {
-            erotusk = paatymispvm.getMonthValue() - alkupvm.getMonthValue();
+            erotusk = erotusv * 12 + paatymispvm.getMonthValue() - alkupvm.getMonthValue();
             for (int y = 0; y < erotusk; y++) {
                 switch (alkupvm.getMonthValue() + y) {
                     case 1:
@@ -38,11 +41,18 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
                     case 7:
                     case 8:
                     case 10:
-                    case 12:
                         erotusp = erotusp + 31;
                         break;
+                    case 12:
+                        erotusp = erotusp + 31;
+                        vuosi++;
+                        break;
                     case 2:
-                        erotusp = erotusp + 28;
+                        if ((((alkupvm.getYear()+vuosi) % 4 == 0) && ((alkupvm.getYear()+vuosi) % 100 != 0)) || ((alkupvm.getYear()+vuosi) % 400 == 0)) {
+                            erotusp = erotusp + 29;
+                        } else {
+                            erotusp = erotusp + 28;
+                        }
                         break;
                     case 4:
                     case 6:
@@ -55,6 +65,7 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
         } else {
             erotusk = 0;
         }
+
         return erotusk;
     }
 
@@ -65,28 +76,30 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
      * @return niiden kahden erotus
      */
     public int PaivaKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm) {
-        erotusk = KuukausiKesto(alkupvm, paatymispvm);
-        //System.out.println("Erotusp = " + erotusp);
+        erotusk = KuukausiKesto(alkupvm, paatymispvm, VuodenKesto(alkupvm, paatymispvm));
         if (alkupvm.getDayOfMonth() > paatymispvm.getDayOfMonth()) {
             if (erotusk == 0) {
                 erotusp = alkupvm.getDayOfMonth() - paatymispvm.getDayOfMonth() + erotusp;
-                //System.out.println(erotusp);
             } else {
                 erotusp = paatymispvm.getDayOfMonth() - alkupvm.getDayOfMonth() + erotusp;
-                //System.out.println(erotusp);
             }
-
         } else if (erotusk == 0) {
             erotusp = paatymispvm.getDayOfMonth() - alkupvm.getDayOfMonth() + erotusp;
-            //System.out.println(erotusp);
 
         } else {
             erotusp = paatymispvm.getDayOfMonth() - alkupvm.getDayOfMonth() + erotusp;
-            //System.out.println(erotusp);
-
         }
-        //System.out.println(" Ennen palautamista Erotusp = " + erotusp);
         return erotusp;
+    }
+    
+    /**
+     * Laskee paatymis ja alkupvm erotuksen 
+     * @param alkupvm Aloitus päivä
+     * @param paatymispvm lopetus päivä
+     * @return 
+     */
+    private int VuodenKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm){
+        return paatymispvm.getYear() - alkupvm.getYear();
     }
 
 }
