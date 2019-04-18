@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
@@ -335,12 +336,10 @@ public class Controller {
      * @param aVaraukset ArrayLista varattavan tuoteen varauksista.
      * @param endDate Milloin tuleva varaus loppuu. (päivä)
      * @param startDate Milloin tuleva varaus alkaa. (päivä)
-     * @param endTime Milloin tuleva varaus loppuu. (tunnit ja minuutit)
-     * @param startTime Milloin tuleva varaus alkaa. (tunnit ja minuutit)
      * @return true jos vraus on mahdollista ja falsen jos varaus menee toisen varauksen päälle.
      */
-    public boolean Onnistuu(ArrayList<Varaukset> aVaraukset, LocalDate endDate, LocalDate startDate, LocalTime endTime, LocalTime startTime){
-        return kalenteriApu.Onnistuu(aVaraukset, endDate, startDate, endTime, startTime);
+    public boolean Onnistuu(ArrayList<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate){
+        return kalenteriApu.Onnistuu(aVaraukset, endDate, startDate);
     }
     
     
@@ -391,6 +390,15 @@ public class Controller {
      */
     public boolean palautaSalasana(String email){
         return salasananPalautus.palautaSalasana(email);
+    }
+    
+    /**
+     * Kutsuu VarausKasittely.tarkistaOnkoVarausAlkanut
+     * @param varaus tarkistettava varaus
+     * @return true jos varauksen alkamisaika on mennyt jo
+     */
+    public boolean OnkoVarausAlkanut(Varaukset varaus){
+        return varausKasittely.tarkistaOnkoVarausAlkanut(varaus);
     }
     
     

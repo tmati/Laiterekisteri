@@ -6,7 +6,10 @@
 package Model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDate;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -27,8 +30,6 @@ public class Kalenterin_tarvitsemat_toimenpiteet {
         for(int i=0; i<varaukset.length; i++){
             if(varaukset[i].getResurssit().getId() == resurssiId){
                 aVaraukset.add(varaukset[i]);   
-                System.out.println("Valitun resursin Id = " + resurssiId + " varauksen Id =  " + varaukset[i].getResurssit().getId());
-
             }
         }
         
@@ -41,63 +42,19 @@ public class Kalenterin_tarvitsemat_toimenpiteet {
      * @param aVaraukset Resursin muut varaukset.
      * @param endDate Uuden varauksen loppupäivä.
      * @param startDate Uuden varauksen aloituspäivä.
-     * @param endTime Uuden varauksen lopetusaika.
-     * @param startTime Uuden varauksen aloitamisaika
      * @return Truen jos ei ole päälekäisyyksiä varaksen kohdalla ja Fasle jos on.
      */
-    public boolean Onnistuu(ArrayList<Varaukset> aVaraukset, LocalDate endDate, LocalDate startDate, LocalTime endTime, LocalTime startTime){
-        for (Varaukset varaukset : aVaraukset) {
-            //if (varaukset.getAlkuAika().getMonthValue() <= endDate.getMonthValue() || varaukset.getLoppuAika().getDayOfMonth() >= startDate.getDayOfMonth()) {
-                if (varaukset.getAlkuAika().getMonthValue() == startDate.getMonthValue() && varaukset.getAlkuAika().getMonthValue() == endDate.getMonthValue() && varaukset.getLoppuAika().getMonthValue() == startDate.getMonthValue()) {
-                    if(startDate.getDayOfMonth() == endDate.getDayOfMonth() && startTime.getHour() > endTime.getHour()){
-                        return false;    
-                    }else if(startDate.getDayOfMonth() > endDate.getDayOfMonth()){
-                        return false;    
-                    }
-                    if (varaukset.getAlkuAika().getDayOfMonth() == startDate.getDayOfMonth() && varaukset.getAlkuAika().getDayOfMonth() == endDate.getDayOfMonth()) {
-                        if (varaukset.getAlkuAika().getHour() > startTime.getHour() && varaukset.getAlkuAika().getHour() < endTime.getHour()) {
-                            return false;
-                        }
-                    }else if (varaukset.getLoppuAika().getDayOfMonth() == startDate.getDayOfMonth()) {
-                        if (varaukset.getLoppuAika().getHour() > startTime.getHour()) {
-                            return false;
-                        }
-                    }else if (varaukset.getAlkuAika().getDayOfMonth() == endDate.getDayOfMonth()) {
-                        if (varaukset.getAlkuAika().getHour() < endTime.getHour()) {
-                            return false;
-                        }
-                    }else if (varaukset.getLoppuAika().getDayOfMonth() > startDate.getDayOfMonth() && varaukset.getLoppuAika().getDayOfMonth() < endDate.getDayOfMonth()) {
-                        return false;
-                    } else if (varaukset.getAlkuAika().getDayOfMonth() > startDate.getDayOfMonth() && varaukset.getAlkuAika().getDayOfMonth() < endDate.getDayOfMonth()) {
-                        return false;
-                    }
-                }else if(varaukset.getAlkuAika().getMonthValue() == endDate.getMonthValue() || varaukset.getAlkuAika().getMonthValue() == startDate.getMonthValue() ){
-                    if(varaukset.getAlkuAika().getDayOfMonth() == startDate.getDayOfMonth()){
-                        return false;
-                    }else if(varaukset.getAlkuAika().getDayOfMonth() == endDate.getDayOfMonth()){
-                        if (varaukset.getAlkuAika().getHour() < endTime.getHour()) {
-                            return false;
-                        }
-                    }
-                }else if(varaukset.getLoppuAika().getMonthValue() == endDate.getMonthValue() || varaukset.getLoppuAika().getMonthValue() == startDate.getMonthValue() ){
-                    if(varaukset.getLoppuAika().getDayOfMonth() == endDate.getDayOfMonth()){
-                        return false;
-                    }else if(varaukset.getLoppuAika().getDayOfMonth() == startDate.getDayOfMonth()){
-                        if (varaukset.getLoppuAika().getHour() > startTime.getHour()) {
-                            return false;
-                        }
-                    }
-                }else if(varaukset.getLoppuAika().getMonthValue() < endDate.getMonthValue() && varaukset.getLoppuAika().getMonthValue() > startDate.getMonthValue() ){
-                    return false;
-                }else if(startDate.getDayOfMonth() > endDate.getDayOfMonth() && startDate.getMonthValue() == endDate.getMonthValue() ){
-                    return false;
-                }else if(startDate.getMonthValue() > endDate.getMonthValue() ){
-                    return false;
-                }else if(startTime.getHour() > endTime.getHour() && startDate.getMonthValue() == endDate.getMonthValue() ){
-                    return false;
-                }
+    public boolean Onnistuu(ArrayList<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate){
+        if(startDate.isAfter(endDate)){
+            return false;
+        }
+        for (Varaukset varaus : aVaraukset) {
+            if(startDate.isBefore(varaus.getAlkuAika()) && endDate.isBefore(varaus.getLoppuAika())){
+            }else  if(startDate.isAfter(varaus.getAlkuAika()) && endDate.isAfter(varaus.getLoppuAika())){
+            }else{
+                return false;
             }
-        //}
+        }
         return true;
     }
     
