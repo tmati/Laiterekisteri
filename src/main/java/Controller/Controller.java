@@ -392,6 +392,15 @@ public class Controller {
         return salasananPalautus.palautaSalasana(email);
     }
     
+    /**
+     * Kutsuu VarausKasittely.tarkistaOnkoVarausAlkanut
+     * @param varaus tarkistettava varaus
+     * @return true jos varauksen alkamisaika on mennyt jo
+     */
+    public boolean OnkoVarausAlkanut(Varaukset varaus){
+        return varausKasittely.tarkistaOnkoVarausAlkanut(varaus);
+    }
+    
     
 }
 
