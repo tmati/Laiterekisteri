@@ -91,8 +91,7 @@ public class KayttajanVarauksetController implements Initializable {
         alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Timestamp>() {
             @Override
             public String toString(Timestamp object) {
-                String tString = object.toString();
-                return tString;
+                return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(object);
             }
 
             @Override
@@ -114,8 +113,7 @@ public class KayttajanVarauksetController implements Initializable {
 
             @Override
             public String toString(Timestamp object) {
-                String tString = object.toString();
-                return tString;
+                return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(object);
             }
 
             @Override
@@ -185,21 +183,7 @@ public class KayttajanVarauksetController implements Initializable {
         View.loggedIn = null;
         View.selected = null;
     }
-    
-    /**
-     * Taulukon kuvaus-columnin livemuokkaukseen liittyvä toiminto
-     * @param event hiiren klikkaus
-     * 
-     */
-    @FXML
-    private void kuvausOnEditCommit(TableColumn.CellEditEvent<Varaukset, String> event) {
-        Varaukset R = kayttajaTable.getSelectionModel().getSelectedItem();
-        R.setKuvaus(event.getNewValue());
-        System.out.println("Uusi kuvaus: " + R.getKuvaus());
-        controller.paivitaVaraus(R);
-    }
-
-    
+      
     /**
      * Poista-painike. Poistaa taulukosta valittuna olevan rivin ja päivittää tiedon tietokantaan. Myös taulukon uudelleenlataus.
      * @param event Hiiren klikkaus

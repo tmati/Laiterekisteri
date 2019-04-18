@@ -200,10 +200,8 @@ public class NakymaController implements Initializable {
         alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Timestamp>() {
             @Override
             public String toString(Timestamp object) {
-                String tString = object.toString();
-                return tString;
+                return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(object);
             }
-
             @Override
             public Timestamp fromString(String string) {
                 try {
@@ -223,8 +221,7 @@ public class NakymaController implements Initializable {
 
             @Override
             public String toString(Timestamp object) {
-                String tString = object.toString();
-                return tString;
+               return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(object);
             }
 
             @Override
