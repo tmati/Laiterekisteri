@@ -6,6 +6,7 @@
 package View;
 
 import Controller.Controller;
+import Model.BooleanConverter;
 import Model.Kayttaja;
 import Model.Resurssit;
 import Model.Varaukset;
@@ -31,12 +32,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.DateStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import javax.mail.MessagingException;
 
 /**
@@ -74,7 +77,25 @@ public class VarausAdminController implements Initializable {
     private Button hylkaaBtn;
     @FXML
     private Button updateBtn;
-
+    @FXML
+    private TableView kaikkiTable;
+    @FXML
+    private TableColumn varaajannimiColumn;
+    @FXML
+    private TableColumn laitenimiColumn;
+    @FXML
+    private TableColumn kaikkialkupvmColumn;
+    @FXML
+    private TableColumn kaikkipaattymispvmColumn;
+    @FXML
+    private TableColumn varausidColumn;
+    @FXML
+    private TableColumn varauskuvausColumn;
+    @FXML
+    private TableColumn palautettuColumn;
+    @FXML
+    private TableColumn hyvaksyntaColumn;
+    
     private Controller controller;
 
     /**
@@ -86,8 +107,13 @@ public class VarausAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         controller = View.controller;
+        BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
+        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "HYLÄTTY");
+        
+        
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Kayttaja>("kayttaja"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Kayttaja>() {
+            @Override
             public String toString(Kayttaja k) {
                 return k.getNimi();
             }
@@ -128,6 +154,59 @@ public class VarausAdminController implements Initializable {
 
         Varaukset[] varaukset = controller.haeKasittelemattomatVaraukset();
         varauksetTableView.getItems().addAll(varaukset);
+        
+        varaajannimiColumn.setCellValueFactory(new PropertyValueFactory <Varaukset, Kayttaja>("kayttaja"));
+        varaajannimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Kayttaja>() {
+            @Override
+            public String toString(Kayttaja object) {
+                return object.getNimi();
+            }
+            
+            
+            @Override
+            public Kayttaja fromString(String string) {
+                Kayttaja kayttaja2 = (Kayttaja) tavaraColumn.getCellData(this);
+                kayttaja2.setNimi(string);
+                return kayttaja2;
+            }
+        }));
+        
+        laitenimiColumn.setCellFactory(new PropertyValueFactory<Varaukset, Resurssit>("resurssit"));
+        laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Resurssit>() {
+            public String toString(Resurssit b) {
+                return b.getNimi();
+            }
+
+            @Override
+            public Resurssit fromString(String string) {
+                Resurssit resurssit = (Resurssit) tavaraColumn.getCellData(this);
+                resurssit.setNimi(string);
+                return resurssit;
+            }
+        }));
+        
+        kaikkialkupvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("alkupvm"));
+        kaikkialkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter()));
+
+        kaikkipaattymispvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("paattymispvm"));
+        kaikkipaattymispvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter()));
+        
+        varausidColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Integer>("id"));
+        varausidColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        
+        varauskuvausColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("kuvaus"));
+        varauskuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+        ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
+        
+        CC.setConverter(AktiivisuusController);
+        palautettuColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("palautettu"));
+        palautettuColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), true, false));
+        
+        hyvaksyntaColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("hyvaksytty"));
+        hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(HyvaksyntaController));
+                    
+        kaikkiTable.getItems().addAll(controller.haeKaikkiVaraukset());
         
         this.LogoutBtn.setTooltip(new Tooltip("Ulos kirjautuminen"));
         this.hylkaaBtn.setTooltip(new Tooltip("Hylkää valitun varauksen"));

@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -47,11 +48,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -151,9 +154,12 @@ public class NakymaController implements Initializable {
     private Button henkilostoBtn;
     @FXML
     private Button salasananvaihtoBtn;
-   
     @FXML
     private TableColumn hyvaksyntaColumn;
+    @FXML
+    private TableColumn<Varaukset, Varaukset> poistoColumn;
+    @FXML
+    private Button historiaBtn;
 
     private Controller controller;
     private DatePicker picker;
@@ -256,7 +262,26 @@ public class NakymaController implements Initializable {
         
         hyvaksyntaColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("hyvaksytty"));
         hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(HyvaksyntaController));
-
+        
+        poistoColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue())); 
+        poistoColumn.setCellFactory(param -> new TableCell <Varaukset, Varaukset>() {
+            private final Button deleteButton = new Button("Poista");
+            
+            @Override
+            protected void updateItem(Varaukset V, boolean empty) {
+                
+                if (V == null) {
+                    setGraphic(null);
+                    return;
+                }
+                setGraphic(deleteButton);
+                deleteButton.setOnAction(
+                        event -> completeRemove(V)
+                        );
+            }
+        
+        });
+        
         this.categorySelect.setTooltip(new Tooltip("Hakukriteeri"));
         this.omatTable.setTooltip(new Tooltip("Omat varauksesi"));
         this.kaikkiTableView.setTooltip(new Tooltip("Kaikki järjestelmässä olevat resurssit"));
@@ -268,7 +293,6 @@ public class NakymaController implements Initializable {
         this.salasananvaihtoBtn.setTooltip(new Tooltip("Avaa popupin salasanan vaihto varten"));
         this.searchBar.setTooltip(new Tooltip("Hakukenttä resursseja tai varauksia varten"));
         this.varausBtn.setTooltip(new Tooltip("Avaa popupin varauksen luontia varten, valitse resurssi ensin"));
-        
         
         usernameLabel.setText(View.loggedIn.getNimi());
         bizName.setText(View.BizName);
@@ -347,12 +371,21 @@ public class NakymaController implements Initializable {
     }
     
     /**
-     * Päivittää miltä nappi näytää kun se on painettu.
+     * Poistaa taulukosta ja tietokannasta sekä päivittää taulukon
+     * @param V poistettava varaus
+     */
+    public void completeRemove(Varaukset V) {
+        omatTable.getItems().remove(V);
+        controller.poistaVaraus(V.getId());
+        omatTable.refresh();
+    }
+    
+    /**
+     * Päivittää taulukot näkymässä.
      *
-     * @param event Hiiren painallus.
      */
     @FXML
-    public void updateBtnPainettu(MouseEvent event) {
+    public void update() {
         kaikkiTableView.getItems().clear();
         omatTable.getItems().clear();
         Resurssit[] resurssit = controller.haeKaikkiResurssit();
@@ -477,6 +510,16 @@ public class NakymaController implements Initializable {
         Parent root = loader.load();
         stage.getScene().setRoot(root);
     }
+    
+    @FXML
+    public void historiaBtnPainettu(MouseEvent event) throws IOException {
+        View.booking = kaikkiTableView.getSelectionModel().getSelectedItem();
+        System.out.println("Historia");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ResurssiHistoria.fxml"));
+        Stage stage = (Stage) LogoutBtn.getScene().getWindow();
+        Parent root = loader.load();
+        stage.getScene().setRoot(root);
+    }
 
     /**
      * Poistetaan resurssi
@@ -493,7 +536,7 @@ public class NakymaController implements Initializable {
             if (alert.getResult() == ButtonType.YES) {
                 controller.poistaResurssi(toDelete);
                 System.out.println("poistetaan resurssi");
-                this.updateBtnPainettu(event);
+                this.update();
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse resurssi!");
