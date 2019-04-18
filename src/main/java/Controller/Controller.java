@@ -283,14 +283,6 @@ public class Controller {
        return aikalaskuri.PaivaKesto(alkupvm, loppumispvm);
     }
     
-    /**
-     * Palauttaa datepickerille muokatut päivät.
-     * @param varaukset varaukset joila on varaukset tietyihin päiville.
-     * @return Callbackin jossa on muokatuja päiviä.
-     */
-    public Callback dayCellFactory(Varaukset[] varaukset){
-        return cellfactory.dayCellFactory(this, varaukset);
-    }
     
     /**
      * Palauttaa datepickerille muokatut päivät.
@@ -298,8 +290,8 @@ public class Controller {
      * @param today mistä päivästä eteenpäin voi päiviä valita.
      * @return Callbackin jossa on muokatuja päiviä.
      */
-    public Callback dayCellFactoryEnd(Varaukset[] varaukset, LocalDate today){
-        return cellfactory.dayCellFactoryEnd(this, varaukset,today);
+    public Callback dayCellFactory(Varaukset[] varaukset, LocalDate today){
+        return cellfactory.dayCellFactory(this, varaukset,today);
     }
     
     /**
