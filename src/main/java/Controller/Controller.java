@@ -317,8 +317,8 @@ public class Controller {
      * @param aVaraukset Varaus ArrayListasta josta halutaan tehdä array.
      * @return Varaukset Array:na.
      */
-    public Varaukset[] getVaraus(ArrayList<Varaukset> aVaraukset){
-        return kalenteriApu.getVaraus(aVaraukset);
+    public Varaukset[] getVarausTaulukko(ArrayList<Varaukset> aVaraukset){
+        return kalenteriApu.getVarausTaulukko(aVaraukset);
     }
     
     /**

@@ -52,7 +52,7 @@ public class DayCellFactory {
                             erotusp = controller.paivaLaskuri(alkupvm, loppumispvm);
                             for (int i = 0; i <= erotusp; i++) {
                                 if ((alkupvm.getDayOfMonth() + i + liikaPaivat) == 29 || (alkupvm.getDayOfMonth() + i + liikaPaivat) == 31 || (alkupvm.getDayOfMonth() + i + liikaPaivat) == 32 || (alkupvm.getDayOfMonth() + i + liikaPaivat) == 30) {
-                                    switch (alkupvm.getMonthValue() + seuraavaKuukausi) {
+                                    switch ((alkupvm.getMonthValue() + seuraavaKuukausi) % 13) {
                                         case 1:
                                         case 3:
                                         case 5:
@@ -66,7 +66,7 @@ public class DayCellFactory {
                                             break;
                                         case 12:
                                             if ((alkupvm.getDayOfMonth() + i + liikaPaivat) == 32) {
-                                                seuraavaKuukausi++;
+                                                seuraavaKuukausi=+2;
                                                 liikaPaivat = liikaPaivat - 31;
                                                 seuraavaVuosi++;
                                             }
@@ -81,7 +81,7 @@ public class DayCellFactory {
                                             }
                                             break;
                                         case 2:
-                                            if ((alkupvm.getDayOfMonth() + i + liikaPaivat) == 29) {
+                                            if (((alkupvm.getDayOfMonth() + i + liikaPaivat) == 29 && !((alkupvm.getYear() + seuraavaVuosi) % 100!= 0)) || ((alkupvm.getYear() + seuraavaVuosi) % 400 == 0)) {
                                                 seuraavaKuukausi++;
                                                 liikaPaivat = liikaPaivat - 28;
                                             }else if((alkupvm.getDayOfMonth() + i + liikaPaivat) == 30){
@@ -93,7 +93,7 @@ public class DayCellFactory {
                                             break;
                                     }
                                 }
-                                if ( MonthDay.from(item).equals(MonthDay.of((alkupvm.getMonthValue() + seuraavaKuukausi), (alkupvm.getDayOfMonth() + i + liikaPaivat))) && item.getYear() == (alkupvm.getYear() + seuraavaVuosi)) {
+                                if ( MonthDay.from(item).equals(MonthDay.of(((alkupvm.getMonthValue() + seuraavaKuukausi) % 13), (alkupvm.getDayOfMonth() + i + liikaPaivat))) && item.getYear() == (alkupvm.getYear() + seuraavaVuosi)) {
                                     if ((getStyle().equals(oranssi))){
                                         if( erotusp == 0){
                                             setTooltip(new Tooltip("\n" + getTooltip().getText() + "Varaus alkaa " + varaukset[y].getAlkuAika().getHour() + ":0"+ varaukset[y].getAlkuAika().getMinute() + "\nVaraus päätyy " + varaukset[y].getLoppuAika().getHour() + ":0"+ varaukset[y].getLoppuAika().getMinute()));
@@ -111,11 +111,12 @@ public class DayCellFactory {
                                         setTooltip(new Tooltip("Varaus päätyy " + varaukset[y].getLoppuAika().getHour() + ":0"+ varaukset[y].getLoppuAika().getMinute()));
                                        }else{
                                         setStyle("-fx-background-color: #ff4444;");
+                                        setDisable(true);
                                     }
                                 }
                             }
                         }
-                        setDisable(item.compareTo(today) < 0 );
+                        setDisable(item.compareTo(today) < 0 || isDisable());
                     }
             };
         }
