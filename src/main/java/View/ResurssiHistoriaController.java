@@ -7,7 +7,6 @@ package View;
 
 import Controller.Controller;
 import Model.BooleanConverter;
-import Model.Kayttaja;
 import Model.Varaukset;
 import java.io.IOException;
 import java.net.URL;
@@ -111,7 +110,7 @@ public class ResurssiHistoriaController implements Initializable {
                 String tString = object.toString();
                 return tString;
             }
-
+            
             @Override
             public Timestamp fromString(String string) {
                 try {
