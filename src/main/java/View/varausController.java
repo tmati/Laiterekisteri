@@ -90,7 +90,7 @@ public class varausController implements Initializable {
         Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         aVaraukset = controller.ResursinVaraukset(View.booking.getId(), varaukset);
 
-        Varaukset[] varaus = controller.getVaraus(aVaraukset);
+        Varaukset[] varaus = controller.getVarausTaulukko(aVaraukset);
        
         //Muokaa DatePickereita jotta näkyy varaukset.
         mihinDp.setDayCellFactory(controller.dayCellFactory(varaus, LocalDate.now()));

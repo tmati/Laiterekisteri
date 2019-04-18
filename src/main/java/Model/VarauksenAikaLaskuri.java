@@ -29,12 +29,10 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
         erotusk = 0;
         erotusp = 0;
         int vuosi = 0;
-        if (alkupvm.getMonthValue() > paatymispvm.getMonthValue()) {
-            erotusk = erotusv * 12 + alkupvm.getMonthValue() - paatymispvm.getMonthValue();
-        } else if (paatymispvm.getMonthValue() > alkupvm.getMonthValue()) {
+       
             erotusk = erotusv * 12 + paatymispvm.getMonthValue() - alkupvm.getMonthValue();
-            for (int y = 0; y < erotusk; y++) {
-                switch (alkupvm.getMonthValue() + y) {
+            for (int y = 1; y < erotusk; y++) {
+                switch ((alkupvm.getMonthValue() + y) % 12) {
                     case 1:
                     case 3:
                     case 5:
@@ -43,7 +41,7 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
                     case 10:
                         erotusp = erotusp + 31;
                         break;
-                    case 12:
+                    case 0:
                         erotusp = erotusp + 31;
                         vuosi++;
                         break;
@@ -62,10 +60,6 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
                         break;
                 }
             }
-        } else {
-            erotusk = 0;
-        }
-
         return erotusk;
     }
 
@@ -77,17 +71,57 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
      */
     public int PaivaKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm) {
         erotusk = KuukausiKesto(alkupvm, paatymispvm, VuodenKesto(alkupvm, paatymispvm));
-        if (alkupvm.getDayOfMonth() > paatymispvm.getDayOfMonth()) {
-            if (erotusk == 0) {
-                erotusp = alkupvm.getDayOfMonth() - paatymispvm.getDayOfMonth() + erotusp;
-            } else {
-                erotusp = paatymispvm.getDayOfMonth() - alkupvm.getDayOfMonth() + erotusp;
-            }
-        } else if (erotusk == 0) {
-            erotusp = paatymispvm.getDayOfMonth() - alkupvm.getDayOfMonth() + erotusp;
-
-        } else {
-            erotusp = paatymispvm.getDayOfMonth() - alkupvm.getDayOfMonth() + erotusp;
+        if(erotusk == 0){
+            erotusp = paatymispvm.getDayOfMonth() - alkupvm.getDayOfYear() + erotusp; 
+        }else{
+            switch ((alkupvm.getMonthValue())) {
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                    case 8:
+                    case 10:
+                    case 12:
+                        erotusp = erotusp + 31 - alkupvm.getDayOfMonth();
+                        break;
+                    case 2:
+                        if ((((alkupvm.getYear()) % 4 == 0) && ((alkupvm.getYear()) % 100 != 0)) || ((alkupvm.getYear()) % 400 == 0)) {
+                            erotusp = erotusp + 29 - alkupvm.getDayOfMonth();
+                        } else {
+                            erotusp = erotusp + 28 - alkupvm.getDayOfMonth();
+                        }
+                        break;
+                    case 4:
+                    case 6:
+                    case 9:
+                    case 11:
+                        erotusp = erotusp + 30 - alkupvm.getDayOfMonth();
+                        break;
+                }
+            switch ((paatymispvm.getMonthValue())) {
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                    case 8:
+                    case 10:
+                    case 12:
+                        erotusp = erotusp + paatymispvm.getDayOfMonth();
+                        break;
+                    case 2:
+                        if ((((alkupvm.getYear()) % 4 == 0) && ((alkupvm.getYear()) % 100 != 0)) || ((alkupvm.getYear()) % 400 == 0)) {
+                            erotusp = erotusp + paatymispvm.getDayOfMonth();
+                        } else {
+                            erotusp = erotusp + paatymispvm.getDayOfMonth();
+                        }
+                        break;
+                    case 4:
+                    case 6:
+                    case 9:
+                    case 11:
+                        erotusp = erotusp + paatymispvm.getDayOfMonth();
+                        break;
+                }
         }
         return erotusp;
     }
@@ -99,6 +133,7 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
      * @return 
      */
     private int VuodenKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm){
+
         return paatymispvm.getYear() - alkupvm.getYear();
     }
 

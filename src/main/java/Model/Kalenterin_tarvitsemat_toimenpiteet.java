@@ -63,7 +63,7 @@ public class Kalenterin_tarvitsemat_toimenpiteet {
      * @param aVaraukset muutettava ArrayList lista yhden resurssin kaikista varauksista.
      * @return varaus Array
      */
-    public Varaukset[] getVaraus(ArrayList<Varaukset> aVaraukset){
+    public Varaukset[] getVarausTaulukko(ArrayList<Varaukset> aVaraukset){
         Varaukset[] varaus = new Varaukset[aVaraukset.size()];
                 for(int i=0; i<aVaraukset.size(); i++){
                     varaus[i] = aVaraukset.get(i);

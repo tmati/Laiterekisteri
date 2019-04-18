@@ -288,7 +288,7 @@ public class NakymaController implements Initializable {
 
                 ArrayList<Varaukset> aVaraukset = controller.ResursinVaraukset(kaikkiTableView.getSelectionModel().getSelectedItem().getId(), varaukset);
 
-                Varaukset[] varaus = controller.getVaraus(aVaraukset);
+                Varaukset[] varaus = controller.getVarausTaulukko(aVaraukset);
 
                 // luo uuden datepickerin johon laitetaan day cell factorin
                 Callback<DatePicker, DateCell> dayCellFactory = controller.dayCellFactory(varaus, LocalDate.now());
