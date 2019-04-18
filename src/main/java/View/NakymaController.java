@@ -21,6 +21,8 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -29,6 +31,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -156,7 +159,7 @@ public class NakymaController implements Initializable {
     private DatePicker picker;
     private DatePickerSkin DPS;
     private static Node calContent;
-
+    private Resurssit[] kalenterinPienentamaResurssiLista;
     /**
      * Initializes the controller class.
      *
@@ -166,6 +169,7 @@ public class NakymaController implements Initializable {
     @Transactional
     public void initialize(URL url, ResourceBundle rb) {
         controller = View.controller;
+        kalenterinPienentamaResurssiLista = controller.haeKaikkiResurssit();
         BooleanConverter VarattavissaController = new BooleanConverter(controller, "Varattavissa",  "Ei varattavissa");
         BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
         BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "HYLÄTTY");
@@ -274,7 +278,7 @@ public class NakymaController implements Initializable {
         Varaukset[] varauksetArr = controller.haeKayttajanVaraukset(View.loggedIn);
         omatTable.getItems().addAll(varauksetArr);
 
-        picker = new DatePicker();
+        picker = picker();
         //Kuuntelija jos taulukosta valitaan varausta
         kaikkiTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) { //Etsii resursin kaikki varaukset.
@@ -288,7 +292,7 @@ public class NakymaController implements Initializable {
 
                 // luo uuden datepickerin johon laitetaan day cell factorin
                 Callback<DatePicker, DateCell> dayCellFactory = controller.dayCellFactory(varaus, LocalDate.now());
-                picker = new DatePicker();
+                picker = picker();
                 picker.setDayCellFactory(dayCellFactory);
                 DPS.dispose();
                 DPS = new DatePickerSkin(picker);
@@ -301,7 +305,7 @@ public class NakymaController implements Initializable {
         if (picker != null) {
             DPS = new DatePickerSkin(picker);
         } else {
-            DPS = new DatePickerSkin(new DatePicker());
+            DPS = new DatePickerSkin(picker());
         }
 
         calContent = DPS.getPopupContent();
@@ -309,6 +313,39 @@ public class NakymaController implements Initializable {
         
     }
 
+    /**
+     * Palautaa uuden datepickerin, jolla on muutoksiin kuuntelia. Kuuntelia rajaa varauksista siten että ne, jotka eivät voi varata sinä päivänä ei ilmesty tulukkoon.
+     * @return uusi datepicker, jolla on muutoksiin kuuntelia.
+     */
+    public DatePicker picker(){
+        DatePicker picker = new DatePicker();
+        picker.valueProperty().addListener((ov, oldValue, newValue) -> {
+            String tabText = tabPane.getSelectionModel().getSelectedItem().getText();
+          if (tabText.equals("Resurssit") && oldValue!=newValue) {
+            kaikkiTableView.getItems().clear();
+            LocalDate paiva = picker.getValue();
+            Resurssit[] resurssit = controller.haeKaikkiResurssit();
+            Varaukset[] varaukset = controller.haeKaikkiVaraukset();
+            
+            ChronoLocalDateTime paivaAlku = paiva.atTime(LocalTime.MIN);
+            ChronoLocalDateTime paivaLoppu = paiva.atTime(LocalTime.MAX);
+            for (Resurssit resurssi : resurssit) {
+                if (controller.Onnistuu(controller.ResursinVaraukset(resurssi.getId(), varaukset), paivaLoppu, paivaAlku)){
+                    kaikkiTableView.getItems().add(resurssi);
+                    kaikkiTableView.refresh();
+                }
+            }
+            kalenterinPienentamaResurssiLista = new Resurssit[kaikkiTableView.getItems().size()];
+            int i = 0;
+            for(Resurssit resurssi: kaikkiTableView.getItems()){
+                kalenterinPienentamaResurssiLista[i] = resurssi;
+                i++;
+            }
+        }  
+        });
+        return picker;
+    }
+    
     /**
      * Päivittää miltä nappi näytää kun se on painettu.
      *
@@ -541,11 +578,9 @@ public class NakymaController implements Initializable {
         String query = searchBar.getText().toLowerCase();
         String tabText = tabPane.getSelectionModel().getSelectedItem().getText();
         String selectedCategory = categorySelect.getSelectionModel().getSelectedItem().toString();
-        
         if (tabText.equals("Resurssit") && selectedCategory.equals("NIMI")) {
             kaikkiTableView.getItems().clear();
-            Resurssit [] resurssit = controller.haeKaikkiResurssit();
-            for (Resurssit resurssi :resurssit) {
+            for (Resurssit resurssi :kalenterinPienentamaResurssiLista) {
                 String resurssiPienella = resurssi.getNimi().toLowerCase();
                 if (resurssiPienella.indexOf(query)!=-1){
                     kaikkiTableView.getItems().add(resurssi);
@@ -555,8 +590,7 @@ public class NakymaController implements Initializable {
             }
         } else if (tabText.equals("Resurssit") && selectedCategory.equals("KATEGORIA")) {
             kaikkiTableView.getItems().clear();
-            Resurssit[] resurssit = controller.haeKaikkiResurssit();
-            for (Resurssit resurssi : resurssit) {
+            for (Resurssit resurssi : kalenterinPienentamaResurssiLista) {
                 String resurssiPienella = resurssi.getTyyppi().toLowerCase();
 
                 if (resurssiPienella.indexOf(query)!=-1){
@@ -570,7 +604,6 @@ public class NakymaController implements Initializable {
             Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(View.loggedIn);
             omatTable.getItems().clear();
             for (Varaukset varaus :omatVaraukset) {
-                System.out.println("toimii");
                 String resurssiPienella = varaus.getResurssit().getNimi().toLowerCase();
                 if (resurssiPienella.indexOf(query)!=-1){
                     omatTable.getItems().add(varaus);
@@ -583,8 +616,6 @@ public class NakymaController implements Initializable {
             omatTable.getItems().clear();
             for (Varaukset varaus : omatVaraukset) {
                 String resurssiPienella = varaus.getResurssit().getTyyppi().toLowerCase();
-                                    System.out.println("toimii");
-
                 if (resurssiPienella.indexOf(query)!=-1){
                     omatTable.getItems().add(varaus);
                     omatTable.refresh();

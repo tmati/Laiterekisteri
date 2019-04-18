@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -202,11 +203,10 @@ public class varausController implements Initializable {
         LocalTime endTime = (LocalTime) mihinSpinner.getValue();
         LocalDateTime endStamp = LocalDateTime.of(endDate, endTime);
         Timestamp ts2 = Timestamp.valueOf(endStamp.format(dtf));
+        ChronoLocalDateTime alku = startDate.atTime(startTime);
+        ChronoLocalDateTime loppu = endDate.atTime(endTime);
         
-        if(controller.Onnistuu(aVaraukset, endDate, startDate, endTime, startTime)){
-            //System.out.println("Alku: " + startDate.toString() + " | " + startTime.truncatedTo(ChronoUnit.MINUTES).toString());
-            //System.out.println("Loppu: " + endDate.toString() + " | " + endTime.truncatedTo(ChronoUnit.MINUTES).toString());
-
+        if(controller.Onnistuu(aVaraukset, loppu, alku)){
             //Lisätiedot
             String info = lisatiedotTextbox.getText();
             //System.out.println(info);
