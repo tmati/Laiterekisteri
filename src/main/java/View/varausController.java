@@ -92,8 +92,8 @@ public class varausController implements Initializable {
         Varaukset[] varaus = controller.getVaraus(aVaraukset);
        
         //Muokaa DatePickereita jotta näkyy varaukset.
-        mihinDp.setDayCellFactory(controller.dayCellFactory(varaus));
-        mistaDp.setDayCellFactory(controller.dayCellFactory(varaus));
+        mihinDp.setDayCellFactory(controller.dayCellFactory(varaus, LocalDate.now()));
+        mistaDp.setDayCellFactory(controller.dayCellFactory(varaus, LocalDate.now()));
         
         
         
@@ -105,9 +105,9 @@ public class varausController implements Initializable {
                 if(mistaDp.getValue() != null){
                                    // System.out.println("If lause toimii");
 
-                    mihinDp.setDayCellFactory(controller.dayCellFactoryEnd(varaus, mistaDp.getValue()));
+                    mihinDp.setDayCellFactory(controller.dayCellFactory(varaus, mistaDp.getValue()));
                 }else{
-                    mihinDp.setDayCellFactory(controller.dayCellFactory(varaus));
+                    mihinDp.setDayCellFactory(controller.dayCellFactory(varaus, LocalDate.now()));
                 }
             }
 
