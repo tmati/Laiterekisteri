@@ -22,12 +22,12 @@
   <rowConstraints>
       <RowConstraints maxHeight="564.8" minHeight="10.0" prefHeight="123.19999847412107" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="564.8" minHeight="10.0" prefHeight="81.60000000000002" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="892.2000122070314" minHeight="10.0" prefHeight="854.7999999999998" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="187.2000488281251" minHeight="0.0" prefHeight="68.40000000000009" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="892.2000122070314" minHeight="10.0" prefHeight="725.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="193.0" minHeight="0.0" prefHeight="193.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="209.60002441406255" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TableView fx:id="kayttajaTableView" editable="true" maxWidth="-Infinity" prefHeight="767.0" prefWidth="1002.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <TableView fx:id="kayttajaTableView" editable="true" maxWidth="-Infinity" prefHeight="814.0" prefWidth="1002.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <columns>
             <TableColumn fx:id="nimiColumn" onEditCommit="#nimiEditCommit" prefWidth="322.39999693632126" resizable="false" text="NIMI" />
             <TableColumn fx:id="kayttajatunnusColumn" onEditCommit="#kayttajatunnusEditCommit" prefWidth="175.20001220703125" text="KÄYTTÄJÄTUNNUS" />
