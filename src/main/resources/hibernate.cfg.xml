@@ -47,7 +47,6 @@ Contributor(s):
         <property name="hibernate.connection.username">database_user11</property>
         <property name="hibernate.connection.password">user_password11</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
-        <property name="show_sql">true</property>
         <mapping resource="Model/Resurssit.hbm.xml"/>
         <mapping resource="Model/Kayttaja.hbm.xml"/>
         <mapping resource="Model/Varaukset.hbm.xml"/>

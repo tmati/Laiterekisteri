@@ -155,6 +155,8 @@ public class VarausAdminController implements Initializable {
         Varaukset[] varaukset = controller.haeKasittelemattomatVaraukset();
         varauksetTableView.getItems().addAll(varaukset);
         
+        kaikkiTable.getItems().addAll(controller.haeKaikkiVaraukset());
+        
         varaajannimiColumn.setCellValueFactory(new PropertyValueFactory <Varaukset, Kayttaja>("kayttaja"));
         varaajannimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Kayttaja>() {
             @Override
@@ -171,10 +173,11 @@ public class VarausAdminController implements Initializable {
             }
         }));
         
-        laitenimiColumn.setCellFactory(new PropertyValueFactory<Varaukset, Resurssit>("resurssit"));
+
+        laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Resurssit>("resurssit"));
         laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Resurssit>() {
-            public String toString(Resurssit b) {
-                return b.getNimi();
+            public String toString(Resurssit r) {
+                return r.getNimi();
             }
 
             @Override
