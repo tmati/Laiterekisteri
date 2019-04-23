@@ -72,7 +72,7 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
     public int PaivaKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm) {
         erotusk = KuukausiKesto(alkupvm, paatymispvm, VuodenKesto(alkupvm, paatymispvm));
         if(erotusk == 0){
-            erotusp = paatymispvm.getDayOfMonth() - alkupvm.getDayOfYear() + erotusp; 
+            erotusp = paatymispvm.getDayOfMonth() - alkupvm.getDayOfMonth() + erotusp; 
         }else{
             switch ((alkupvm.getMonthValue())) {
                     case 1:
@@ -123,6 +123,7 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
                         break;
                 }
         }
+        System.out.println(erotusp);
         return erotusp;
     }
     
