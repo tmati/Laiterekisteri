@@ -139,9 +139,9 @@ public class ResurssiHistoriaController implements Initializable {
 
         usernameLabel.setText(View.loggedIn.getNimi());
         bizName.setText(View.BizName);
+        System.out.println(View.BizName);
         varausString.setText("Resurssin " + View.booking.getNimi() + " varaukset");
-        varausTable.getItems().addAll(View.booking.getVarauksets());
-        
+        varausTable.getItems().addAll(controller.getVarausTaulukko(controller.ResurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
         this.LogoutBtn.setTooltip(new Tooltip("Uloskirjautuminen"));
         this.takaisinBtn.setTooltip(new Tooltip("Palauttaa päänäkymään"));
     }    

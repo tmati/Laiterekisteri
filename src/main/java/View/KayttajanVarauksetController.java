@@ -35,8 +35,8 @@ import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 /**
- * FXML Controller class
- *  Käyttäjien varausten tutkimiseen käytettävän näkymän controller-luokka
+ * FXML Controller class Käyttäjien varausten tutkimiseen käytettävän näkymän
+ * controller-luokka
  *
  * @author tmati
  */
@@ -70,7 +70,7 @@ public class KayttajanVarauksetController implements Initializable {
     private TableColumn hyvaksyntaColumn;
     @FXML
     private Button poistaBtn;
-    
+
     Controller controller;
 
     /**
@@ -82,7 +82,6 @@ public class KayttajanVarauksetController implements Initializable {
         ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
         BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
         BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "KÄSITTELYSSÄ");
-
 
         laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
         laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -138,7 +137,7 @@ public class KayttajanVarauksetController implements Initializable {
         CC.setConverter(AktiivisuusController);
         palautettuColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("palautettu"));
         palautettuColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), true, false));
-        
+
         hyvaksyntaColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("hyvaksytty"));
         hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(HyvaksyntaController));
 
@@ -146,15 +145,16 @@ public class KayttajanVarauksetController implements Initializable {
         bizName.setText(View.BizName);
         kayttajaString.setText("Käyttäjän " + View.selected.getNimi() + " varaukset");
         kayttajaTable.getItems().addAll(View.selected.getVarauksets());
-        
+
         this.LogoutBtn.setTooltip(new Tooltip("Ulos kirjautuminen"));
         this.poistaBtn.setTooltip(new Tooltip("Poistaa valitun varauksen ja lähettää ilmoituksen käyttäjälle"));
         this.takaisinBtn.setTooltip(new Tooltip("Palauttaa hallinnoi henkilöitä -näkymään"));
-        
-    }  
-    
+
+    }
+
     /**
      * Edelliseen näkymään palaaminen
+     *
      * @param event hiiren klikkaus.
      * @throws IOException Varauduttava tietovirtapoikkeus
      */
@@ -165,11 +165,12 @@ public class KayttajanVarauksetController implements Initializable {
         Stage stage = (Stage) kayttajaString.getScene().getWindow();
         Parent root = loader.load();
         stage.getScene().setRoot(root);
-        
+
     }
-    
+
     /**
      * Logout-toiminto
+     *
      * @param event hiiren klikkaus
      * @throws IOException Varauduttava tietovirtapoikkeus
      */
@@ -183,9 +184,11 @@ public class KayttajanVarauksetController implements Initializable {
         View.loggedIn = null;
         View.selected = null;
     }
-      
+
     /**
-     * Poista-painike. Poistaa taulukosta valittuna olevan rivin ja päivittää tiedon tietokantaan. Myös taulukon uudelleenlataus.
+     * Poista-painike. Poistaa taulukosta valittuna olevan rivin ja päivittää
+     * tiedon tietokantaan. Myös taulukon uudelleenlataus.
+     *
      * @param event Hiiren klikkaus
      * @throws IOException Varauduttava tietovirtapoikkeus
      */
@@ -196,14 +199,14 @@ public class KayttajanVarauksetController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
-                if(!controller.OnkoVarausAlkanut(toDelete)){
-                controller.poistaVaraus(toDelete.getId());
-                System.out.println("poistetaan varaus");
-                controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + " on poistettu esimiehen tai ylläpitäjän toimesta."
-                        + "\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.");
-                kayttajaTable.getItems().clear(); 
-                kayttajaTable.getItems().addAll(controller.haeKayttajanVaraukset(View.selected));
-                }else{
+                if (!controller.OnkoVarausAlkanut(toDelete)) {
+                    controller.poistaVaraus(toDelete.getId());
+                    System.out.println("poistetaan varaus");
+                    controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + " on poistettu esimiehen tai ylläpitäjän toimesta."
+                            + "\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.");
+                    kayttajaTable.getItems().clear();
+                    kayttajaTable.getItems().addAll(controller.haeKayttajanVaraukset(View.selected));
+                } else {
                     alert = new Alert(Alert.AlertType.WARNING, "Et voi poistaa varausta, joka on vanhentunut tai alkanut!");
                     alert.showAndWait();
                 }
