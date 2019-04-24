@@ -12,6 +12,8 @@ import Model.Resurssit;
 import Model.Varaukset;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -136,11 +138,47 @@ public class VarausAdminController implements Initializable {
             }
         }));
 
-        alkupvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("alkupvm"));
-        alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter()));
+        alkupvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Timestamp>("alkupvm"));
+        alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Timestamp>(){
+            @Override
+            public String toString(Timestamp object) {
+                return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(object);
+            }
 
-        paattymispvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Date>("paattymispvm"));
-        paattymispvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter()));
+            @Override
+            public Timestamp fromString(String string) {
+                try {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+                    java.sql.Date parsedDate = (java.sql.Date) dateFormat.parse(string);
+                    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+                    return timestamp;
+                } catch (Exception e) {
+                }
+                return null;
+            }
+        }));
+
+        
+
+        paattymispvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Timestamp>("paattymispvm"));
+        paattymispvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Timestamp>(){
+            @Override
+            public String toString(Timestamp object) {
+                return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(object);
+            }
+
+            @Override
+            public Timestamp fromString(String string) {
+                try {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+                    java.sql.Date parsedDate = (java.sql.Date) dateFormat.parse(string);
+                    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+                    return timestamp;
+                } catch (Exception e) {
+                }
+                return null;
+            }
+        }));
 
         kuvausColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("kuvaus"));
         kuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
