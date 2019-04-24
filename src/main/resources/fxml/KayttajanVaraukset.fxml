@@ -82,12 +82,12 @@
       <TableView fx:id="kayttajaTable" editable="true" maxWidth="-Infinity" prefHeight="785.0" prefWidth="1625.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <columns>
             <TableColumn fx:id="laitenimiColumn" editable="false" prefWidth="289.60010319948196" text="LAITTEEN NIMI" />
-            <TableColumn fx:id="alkupvmColumn" prefWidth="199.99993896484375" resizable="false" text="VARAUKSEN ALKUPVM" />
-            <TableColumn fx:id="paattymispvmColumn" prefWidth="228.0" resizable="false" text="VARAUKSEN PÄÄTTYMISPVM" />
+            <TableColumn fx:id="alkupvmColumn" editable="false" prefWidth="199.99993896484375" resizable="false" text="VARAUKSEN ALKUPVM" />
+            <TableColumn fx:id="paattymispvmColumn" editable="false" prefWidth="228.0" resizable="false" text="VARAUKSEN PÄÄTTYMISPVM" />
             <TableColumn fx:id="varausidColumn" editable="false" prefWidth="108.800048828125" resizable="false" text="VARAUSID" />
-            <TableColumn fx:id="varauskuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="462.39996337890625" resizable="false" text="KUVAUS" />
-            <TableColumn fx:id="palautettuColumn" maxWidth="238.39990234375" minWidth="0.0" prefWidth="132.800048828125" resizable="false" text="AKTIIVISUUS" />
-            <TableColumn fx:id="hyvaksyntaColumn" maxWidth="330.39990234375" minWidth="0.0" prefWidth="173.5999755859375" resizable="false" text="HYVÄKSYNTÄ" />
+            <TableColumn fx:id="varauskuvausColumn" editable="false" prefWidth="462.39996337890625" resizable="false" text="KUVAUS" />
+            <TableColumn fx:id="palautettuColumn" editable="false" maxWidth="238.39990234375" minWidth="0.0" prefWidth="132.800048828125" resizable="false" text="AKTIIVISUUS" />
+            <TableColumn fx:id="hyvaksyntaColumn" editable="false" maxWidth="330.39990234375" minWidth="0.0" prefWidth="173.5999755859375" resizable="false" text="HYVÄKSYNTÄ" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

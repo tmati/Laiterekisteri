@@ -82,11 +82,13 @@
                      <children>
                         <TableView fx:id="varauksetTableView" editable="true" maxWidth="-Infinity" prefHeight="570.0" prefWidth="1498.0">
                            <columns>
-                              <TableColumn fx:id="nimiColumn" prefWidth="278.4000213742256" resizable="false" text="VARAAJAN NIMI" />
-                              <TableColumn fx:id="tavaraColumn" prefWidth="426.39996337890625" resizable="false" text="TAVARA" />
-                              <TableColumn fx:id="alkupvmColumn" minWidth="0.0" onEditCommit="#alkupvmEditCommit" prefWidth="233.5999755859375" resizable="false" text="ALKUPVM" />
-                              <TableColumn fx:id="paattymispvmColumn" minWidth="0.0" onEditCommit="#paattymispvmEditCommit" prefWidth="192.79998779296875" resizable="false" text="PÄÄTTYMISPVM" />
-                              <TableColumn fx:id="kuvausColumn" maxWidth="692.0000122070312" onEditCommit="#kuvausEditCommit" prefWidth="365.6000732421876" resizable="false" text="KUVAUS" />
+
+                              <TableColumn fx:id="nimiColumn" editable="false" prefWidth="278.4000213742256" resizable="false" text="VARAAJAN NIMI" />
+                              <TableColumn fx:id="tavaraColumn" editable="false" prefWidth="426.39996337890625" resizable="false" text="TAVARA" />
+                              <TableColumn fx:id="alkupvmColumn" editable="false" minWidth="0.0" onEditCommit="#alkupvmEditCommit" prefWidth="233.5999755859375" resizable="false" text="ALKUPVM" />
+                              <TableColumn fx:id="paattymispvmColumn" editable="false" minWidth="0.0" onEditCommit="#paattymispvmEditCommit" prefWidth="192.79998779296875" resizable="false" text="PÄÄTTYMISPVM" />
+                              <TableColumn fx:id="kuvausColumn" editable="false" maxWidth="692.0000122070312" onEditCommit="#kuvausEditCommit" prefWidth="365.6000732421876" resizable="false" text="KUVAUS" />
+
                            </columns>
                         </TableView>
                      </children>
