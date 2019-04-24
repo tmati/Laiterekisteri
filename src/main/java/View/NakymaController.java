@@ -378,12 +378,17 @@ public class NakymaController implements Initializable {
      * @param V poistettava varaus
      */
     public void completeRemove(Varaukset V) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-        alert.showAndWait();
-        if (alert.getResult() == ButtonType.YES) {
-            omatTable.getItems().remove(V);
-            controller.poistaVaraus(V.getId());
-            omatTable.refresh();
+        if (!controller.OnkoVarausAlkanut(V)) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                omatTable.getItems().remove(V);
+                controller.poistaVaraus(V.getId());
+                omatTable.refresh();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Et voi poistaa varausta, joka on vanhentunut tai alkanut!");
+            alert.showAndWait();
         }
     }
 
@@ -411,16 +416,21 @@ public class NakymaController implements Initializable {
     public void varausNappiPainettu(MouseEvent event) throws IOException {
         View.booking = kaikkiTableView.getSelectionModel().getSelectedItem();
         if (View.booking != null) {
-            if (popup == null || !popup.isShowing()) {
-                popup = new Popup();
-                Object source = event.getSource();
-                Node node = (Node) source;
-                Scene scene = node.getScene();
-                Window window = scene.getWindow();
-                Stage stage = (Stage) window;
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Varausikkuna.fxml"));
-                popup.getContent().add((Parent) loader.load());
-                popup.show(window);
+            if (View.booking.isStatus()) {
+                if (popup == null || !popup.isShowing()) {
+                    popup = new Popup();
+                    Object source = event.getSource();
+                    Node node = (Node) source;
+                    Scene scene = node.getScene();
+                    Window window = scene.getWindow();
+                    Stage stage = (Stage) window;
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Varausikkuna.fxml"));
+                    popup.getContent().add((Parent) loader.load());
+                    popup.show(window);
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Resurssi ei ole tällä hetkellä varattavissa!");
+                alert.showAndWait();
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse resurssi!");
