@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="815.0" prefWidth="1947.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.NakymaController">
+<GridPane prefHeight="815.0" prefWidth="1947.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.NakymaController" stylesheets="@../styles/Styles.css">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="486.00001831054686" minWidth="0.0" prefWidth="28.39999389648437" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="507.60000610351557" minWidth="0.0" prefWidth="507.60000610351557" />
@@ -213,4 +213,5 @@
    <padding>
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
    </padding>
+   
 </GridPane>

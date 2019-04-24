@@ -8,7 +8,7 @@
 <?import javafx.scene.control.PasswordField?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="500.0" style="-fx-background-color: black; -fx-background-radius: 15px;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SalasananvaihtoController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@../styles/Styles.css" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="500.0" style="-fx-background-color: black; -fx-background-radius: 15px;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SalasananvaihtoController">
     <children>
         <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="71.0" prefHeight="30.0" prefWidth="500.0" text="KÄYTTÄJÄNIMI" textFill="WHITE">
             <font>
