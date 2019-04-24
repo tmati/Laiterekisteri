@@ -25,7 +25,7 @@
       <RowConstraints maxHeight="209.60002441406255" minHeight="0.0" prefHeight="35.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <TableView fx:id="kayttajaTable" editable="true" maxWidth="-Infinity" prefHeight="785.0" prefWidth="1625.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <TableView fx:id="varausTable" editable="true" maxWidth="-Infinity" prefHeight="785.0" prefWidth="1625.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <columns>
             <TableColumn fx:id="varaajaColumn" editable="false" prefWidth="289.60010319948196" text="VARAAJA" />
             <TableColumn fx:id="alkupvmColumn" prefWidth="199.99993896484375" resizable="false" text="VARAUKSEN ALKUPVM" />
@@ -93,6 +93,11 @@
             <Font name="System Bold" size="26.0" />
          </font>
       </Label>
+      <Button fx:id="poistavarausBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#poistavarausBtnPainettu" prefHeight="39.0" prefWidth="178.0" text="POISTA VARAUS" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
    </children>
    <padding>
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

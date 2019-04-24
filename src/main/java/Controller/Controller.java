@@ -317,8 +317,8 @@ public class Controller {
      * @param aVaraukset Varaus ArrayListasta josta halutaan tehdä array.
      * @return Varaukset Array:na.
      */
-    public Varaukset[] getVaraus(ArrayList<Varaukset> aVaraukset){
-        return kalenteriApu.getVaraus(aVaraukset);
+    public Varaukset[] getVarausTaulukko(ArrayList<Varaukset> aVaraukset){
+        return kalenteriApu.getVarausTaulukko(aVaraukset);
     }
     
     /**
@@ -327,7 +327,7 @@ public class Controller {
      * @param varaukset Varaus array josta halutaan saada resursin varaukset.
      * @return ArrayListan jossa on resursin varaukset Arraysta.
      */
-    public ArrayList<Varaukset> ResursinVaraukset(int resurssiId, Varaukset[] varaukset){
+    public ArrayList<Varaukset> ResurssinVaraukset(int resurssiId, Varaukset[] varaukset){
         return kalenteriApu.ResursinVaraukset(resurssiId, varaukset);
     }
     

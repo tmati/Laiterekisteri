@@ -5,7 +5,6 @@ package View;
 
 import Controller.Controller;
 import Model.Kayttaja;
-import Model.KayttajaAccessObject;
 import Model.LuvanvaraisuusConverter;
 import java.io.IOException;
 import java.net.URL;
@@ -32,7 +31,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javafx.util.converter.IntegerStringConverter;
 
 /**
  * Käyttäjänäkymään liittyvät toiminnot.

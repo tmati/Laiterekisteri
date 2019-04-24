@@ -7,13 +7,9 @@ package View;
 
 import Controller.Controller;
 import Model.BooleanConverter;
-import Model.Kayttaja;
-import Model.KayttajaAccessObject;
 import Model.LuvanvaraisuusConverter;
 import Model.Resurssit;
-import Model.ResurssitAccessObject;
 import Model.Varaukset;
-import Model.VarauksetAccessObject;
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import java.io.IOException;
 import java.net.URL;
@@ -24,15 +20,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.ResourceBundle;
-import java.util.Set;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -54,14 +44,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -70,7 +57,6 @@ import javafx.stage.Window;
 import javafx.stage.Popup;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-import javafx.util.converter.BooleanStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import javax.transaction.Transactional;
 
@@ -166,17 +152,18 @@ public class NakymaController implements Initializable {
     private DatePickerSkin DPS;
     private static Node calContent;
     private Resurssit[] kalenterinPienentamaResurssiLista;
+
     /**
      * Initializes the controller class.
      *
-     * @param url url 
+     * @param url url
      * @param rb rb
      */
     @Transactional
     public void initialize(URL url, ResourceBundle rb) {
         controller = View.controller;
         kalenterinPienentamaResurssiLista = controller.haeKaikkiResurssit();
-        BooleanConverter VarattavissaController = new BooleanConverter(controller, "Varattavissa",  "Ei varattavissa");
+        BooleanConverter VarattavissaController = new BooleanConverter(controller, "Varattavissa", "Ei varattavissa");
         BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
         BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "KÄSITTELYSSÄ");
         LuvanvaraisuusConverter ResLC = new LuvanvaraisuusConverter(controller, "Vapaa käyttö", "Esimiehen hyväksyttävä", "Ylläpitäjän hyväksyttävä");
@@ -192,12 +179,12 @@ public class NakymaController implements Initializable {
 
         kuvausColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, String>("kuvaus"));
         kuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        
+
         ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
         CC.setConverter(ResLC);
         luvanvaraisuusColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Integer>("luvanvaraisuus"));
-        luvanvaraisuusColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), 0,1,2));
-        
+        luvanvaraisuusColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), 0, 1, 2));
+
         CC.setConverter(VarattavissaController);
         tilaColumn.setCellValueFactory(new PropertyValueFactory<Resurssit, Boolean>("status"));
         tilaColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), true, false));
@@ -210,8 +197,7 @@ public class NakymaController implements Initializable {
         alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Timestamp>() {
             @Override
             public String toString(Timestamp object) {
-                String tString = object.toString();
-                return tString;
+                return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(object);
             }
 
             @Override
@@ -233,8 +219,7 @@ public class NakymaController implements Initializable {
 
             @Override
             public String toString(Timestamp object) {
-                String tString = object.toString();
-                return tString;
+                return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(object);
             }
 
             @Override
@@ -259,17 +244,17 @@ public class NakymaController implements Initializable {
         CC.setConverter(AktiivisuusController);
         palautettuColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("palautettu"));
         palautettuColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), true, false));
-        
+
         hyvaksyntaColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("hyvaksytty"));
         hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(HyvaksyntaController));
-        
-        poistoColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue())); 
-        poistoColumn.setCellFactory(param -> new TableCell <Varaukset, Varaukset>() {
+
+        poistoColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        poistoColumn.setCellFactory(param -> new TableCell<Varaukset, Varaukset>() {
             private final Button deleteButton = new Button("Poista");
-            
+
             @Override
             protected void updateItem(Varaukset V, boolean empty) {
-                
+
                 if (V == null) {
                     setGraphic(null);
                     return;
@@ -277,11 +262,11 @@ public class NakymaController implements Initializable {
                 setGraphic(deleteButton);
                 deleteButton.setOnAction(
                         event -> completeRemove(V)
-                        );
+                );
             }
-        
+
         });
-        
+
         this.categorySelect.setTooltip(new Tooltip("Hakukriteeri"));
         this.omatTable.setTooltip(new Tooltip("Omat varauksesi"));
         this.kaikkiTableView.setTooltip(new Tooltip("Kaikki järjestelmässä olevat resurssit"));
@@ -293,7 +278,7 @@ public class NakymaController implements Initializable {
         this.salasananvaihtoBtn.setTooltip(new Tooltip("Avaa popupin salasanan vaihto varten"));
         this.searchBar.setTooltip(new Tooltip("Hakukenttä resursseja tai varauksia varten"));
         this.varausBtn.setTooltip(new Tooltip("Avaa popupin varauksen luontia varten, valitse resurssi ensin"));
-        
+
         usernameLabel.setText(View.loggedIn.getNimi());
         bizName.setText(View.BizName);
 
@@ -306,13 +291,13 @@ public class NakymaController implements Initializable {
         //Kuuntelija jos taulukosta valitaan varausta
         kaikkiTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) { //Etsii resursin kaikki varaukset.
-                
+
                 Varaukset[] varaukset = controller.haeKaikkiVaraukset();
                 picker = null;
 
-                ArrayList<Varaukset> aVaraukset = controller.ResursinVaraukset(kaikkiTableView.getSelectionModel().getSelectedItem().getId(), varaukset);
+                ArrayList<Varaukset> aVaraukset = controller.ResurssinVaraukset(kaikkiTableView.getSelectionModel().getSelectedItem().getId(), varaukset);
 
-                Varaukset[] varaus = controller.getVaraus(aVaraukset);
+                Varaukset[] varaus = controller.getVarausTaulukko(aVaraukset);
 
                 // luo uuden datepickerin johon laitetaan day cell factorin
                 Callback<DatePicker, DateCell> dayCellFactory = controller.dayCellFactory(varaus, LocalDate.now());
@@ -334,52 +319,60 @@ public class NakymaController implements Initializable {
 
         calContent = DPS.getPopupContent();
         kalenteriStackPane.getChildren().add(calContent);
-        
+
     }
 
     /**
-     * Palautaa uuden datepickerin, jolla on muutoksiin kuuntelia. Kuuntelia rajaa varauksista siten että ne, jotka eivät voi varata sinä päivänä ei ilmesty tulukkoon.
+     * Palautaa uuden datepickerin, jolla on muutoksiin kuuntelia. Kuuntelia
+     * rajaa varauksista siten että ne, jotka eivät voi varata sinä päivänä ei
+     * ilmesty tulukkoon.
+     *
      * @return uusi datepicker, jolla on muutoksiin kuuntelia.
      */
-    public DatePicker picker(){
+    public DatePicker picker() {
         DatePicker picker = new DatePicker();
         picker.valueProperty().addListener((ov, oldValue, newValue) -> {
             String tabText = tabPane.getSelectionModel().getSelectedItem().getText();
-          if (tabText.equals("Resurssit") && oldValue!=newValue) {
-            kaikkiTableView.getItems().clear();
-            LocalDate paiva = picker.getValue();
-            Resurssit[] resurssit = controller.haeKaikkiResurssit();
-            Varaukset[] varaukset = controller.haeKaikkiVaraukset();
-            
-            ChronoLocalDateTime paivaAlku = paiva.atTime(LocalTime.MIN);
-            ChronoLocalDateTime paivaLoppu = paiva.atTime(LocalTime.MAX);
-            for (Resurssit resurssi : resurssit) {
-                if (controller.Onnistuu(controller.ResursinVaraukset(resurssi.getId(), varaukset), paivaLoppu, paivaAlku)){
-                    kaikkiTableView.getItems().add(resurssi);
-                    kaikkiTableView.refresh();
+            if (tabText.equals("Resurssit") && oldValue != newValue) {
+                kaikkiTableView.getItems().clear();
+                LocalDate paiva = picker.getValue();
+                Resurssit[] resurssit = controller.haeKaikkiResurssit();
+                Varaukset[] varaukset = controller.haeKaikkiVaraukset();
+
+                ChronoLocalDateTime paivaAlku = paiva.atTime(LocalTime.MIN);
+                ChronoLocalDateTime paivaLoppu = paiva.atTime(LocalTime.MAX);
+                for (Resurssit resurssi : resurssit) {
+                    if (controller.Onnistuu(controller.ResurssinVaraukset(resurssi.getId(), varaukset), paivaLoppu, paivaAlku)) {
+                        kaikkiTableView.getItems().add(resurssi);
+                        kaikkiTableView.refresh();
+                    }
+                }
+                kalenterinPienentamaResurssiLista = new Resurssit[kaikkiTableView.getItems().size()];
+                int i = 0;
+                for (Resurssit resurssi : kaikkiTableView.getItems()) {
+                    kalenterinPienentamaResurssiLista[i] = resurssi;
+                    i++;
                 }
             }
-            kalenterinPienentamaResurssiLista = new Resurssit[kaikkiTableView.getItems().size()];
-            int i = 0;
-            for(Resurssit resurssi: kaikkiTableView.getItems()){
-                kalenterinPienentamaResurssiLista[i] = resurssi;
-                i++;
-            }
-        }  
         });
         return picker;
     }
-    
+
     /**
      * Poistaa taulukosta ja tietokannasta sekä päivittää taulukon
+     *
      * @param V poistettava varaus
      */
     public void completeRemove(Varaukset V) {
-        omatTable.getItems().remove(V);
-        controller.poistaVaraus(V.getId());
-        omatTable.refresh();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
+            omatTable.getItems().remove(V);
+            controller.poistaVaraus(V.getId());
+            omatTable.refresh();
+        }
     }
-    
+
     /**
      * Päivittää taulukot näkymässä.
      *
@@ -510,15 +503,20 @@ public class NakymaController implements Initializable {
         Parent root = loader.load();
         stage.getScene().setRoot(root);
     }
-    
+
     @FXML
     public void historiaBtnPainettu(MouseEvent event) throws IOException {
         View.booking = kaikkiTableView.getSelectionModel().getSelectedItem();
-        System.out.println("Historia");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ResurssiHistoria.fxml"));
-        Stage stage = (Stage) LogoutBtn.getScene().getWindow();
-        Parent root = loader.load();
-        stage.getScene().setRoot(root);
+        if (View.booking != null) {
+            System.out.println("Historia");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ResurssiHistoria.fxml"));
+            Stage stage = (Stage) LogoutBtn.getScene().getWindow();
+            Parent root = loader.load();
+            stage.getScene().setRoot(root);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse resurssi!");
+            alert.showAndWait();
+        }
     }
 
     /**
@@ -609,7 +607,7 @@ public class NakymaController implements Initializable {
         System.out.println("Uusi tila: " + " " + R.isStatus());
         controller.paivitaResurssi(R);
     }
-    
+
     /**
      * Hakutoiminnallisuus. Tulokset haetaan valittuna olevan välilehden ja
      * kategorian mukaan.
@@ -623,12 +621,12 @@ public class NakymaController implements Initializable {
         String selectedCategory = categorySelect.getSelectionModel().getSelectedItem().toString();
         if (tabText.equals("Resurssit") && selectedCategory.equals("NIMI")) {
             kaikkiTableView.getItems().clear();
-            for (Resurssit resurssi :kalenterinPienentamaResurssiLista) {
+            for (Resurssit resurssi : kalenterinPienentamaResurssiLista) {
                 String resurssiPienella = resurssi.getNimi().toLowerCase();
-                if (resurssiPienella.indexOf(query)!=-1){
+                if (resurssiPienella.indexOf(query) != -1) {
                     kaikkiTableView.getItems().add(resurssi);
                     kaikkiTableView.refresh();
-                    
+
                 }
             }
         } else if (tabText.equals("Resurssit") && selectedCategory.equals("KATEGORIA")) {
@@ -636,22 +634,22 @@ public class NakymaController implements Initializable {
             for (Resurssit resurssi : kalenterinPienentamaResurssiLista) {
                 String resurssiPienella = resurssi.getTyyppi().toLowerCase();
 
-                if (resurssiPienella.indexOf(query)!=-1){
+                if (resurssiPienella.indexOf(query) != -1) {
                     kaikkiTableView.getItems().add(resurssi);
                     kaikkiTableView.refresh();
                 }
             }
         }
-     
+
         if (tabText.equals("Omat varaukset") && selectedCategory.equals("NIMI")) {
             Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(View.loggedIn);
             omatTable.getItems().clear();
-            for (Varaukset varaus :omatVaraukset) {
+            for (Varaukset varaus : omatVaraukset) {
                 String resurssiPienella = varaus.getResurssit().getNimi().toLowerCase();
-                if (resurssiPienella.indexOf(query)!=-1){
+                if (resurssiPienella.indexOf(query) != -1) {
                     omatTable.getItems().add(varaus);
                     omatTable.refresh();
-                    
+
                 }
             }
         } else if (tabText.equals("Omat varaukset") && selectedCategory.equals("KATEGORIA")) {
@@ -659,7 +657,7 @@ public class NakymaController implements Initializable {
             omatTable.getItems().clear();
             for (Varaukset varaus : omatVaraukset) {
                 String resurssiPienella = varaus.getResurssit().getTyyppi().toLowerCase();
-                if (resurssiPienella.indexOf(query)!=-1){
+                if (resurssiPienella.indexOf(query) != -1) {
                     omatTable.getItems().add(varaus);
                     omatTable.refresh();
                 }
