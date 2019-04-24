@@ -10,15 +10,11 @@ import Model.BooleanConverter;
 import Model.Kayttaja;
 import Model.Resurssit;
 import Model.Varaukset;
-import Model.VarauksetAccessObject;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -155,6 +151,8 @@ public class VarausAdminController implements Initializable {
         Varaukset[] varaukset = controller.haeKasittelemattomatVaraukset();
         varauksetTableView.getItems().addAll(varaukset);
         
+        kaikkiTable.getItems().addAll(controller.haeKaikkiVaraukset());
+        
         varaajannimiColumn.setCellValueFactory(new PropertyValueFactory <Varaukset, Kayttaja>("kayttaja"));
         varaajannimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Kayttaja>() {
             @Override
@@ -171,10 +169,11 @@ public class VarausAdminController implements Initializable {
             }
         }));
         
-        laitenimiColumn.setCellFactory(new PropertyValueFactory<Varaukset, Resurssit>("resurssit"));
+
+        laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Resurssit>("resurssit"));
         laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Resurssit>() {
-            public String toString(Resurssit b) {
-                return b.getNimi();
+            public String toString(Resurssit r) {
+                return r.getNimi();
             }
 
             @Override

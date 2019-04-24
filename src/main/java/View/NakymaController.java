@@ -7,13 +7,9 @@ package View;
 
 import Controller.Controller;
 import Model.BooleanConverter;
-import Model.Kayttaja;
-import Model.KayttajaAccessObject;
 import Model.LuvanvaraisuusConverter;
 import Model.Resurssit;
-import Model.ResurssitAccessObject;
 import Model.Varaukset;
-import Model.VarauksetAccessObject;
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import java.io.IOException;
 import java.net.URL;
@@ -24,15 +20,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.ResourceBundle;
-import java.util.Set;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -54,14 +44,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -70,7 +57,6 @@ import javafx.stage.Window;
 import javafx.stage.Popup;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-import javafx.util.converter.BooleanStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import javax.transaction.Transactional;
 
@@ -379,12 +365,17 @@ public class NakymaController implements Initializable {
      * @param V poistettava varaus
      */
     public void completeRemove(Varaukset V) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-        alert.showAndWait();
-        if (alert.getResult() == ButtonType.YES) {
-            omatTable.getItems().remove(V);
-            controller.poistaVaraus(V.getId());
-            omatTable.refresh();
+        if (!controller.OnkoVarausAlkanut(V)) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                omatTable.getItems().remove(V);
+                controller.poistaVaraus(V.getId());
+                omatTable.refresh();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Et voi poistaa varausta, joka on vanhentunut tai alkanut!");
+            alert.showAndWait();
         }
     }
 
@@ -412,16 +403,21 @@ public class NakymaController implements Initializable {
     public void varausNappiPainettu(MouseEvent event) throws IOException {
         View.booking = kaikkiTableView.getSelectionModel().getSelectedItem();
         if (View.booking != null) {
-            if (popup == null || !popup.isShowing()) {
-                popup = new Popup();
-                Object source = event.getSource();
-                Node node = (Node) source;
-                Scene scene = node.getScene();
-                Window window = scene.getWindow();
-                Stage stage = (Stage) window;
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Varausikkuna.fxml"));
-                popup.getContent().add((Parent) loader.load());
-                popup.show(window);
+            if (View.booking.isStatus()) {
+                if (popup == null || !popup.isShowing()) {
+                    popup = new Popup();
+                    Object source = event.getSource();
+                    Node node = (Node) source;
+                    Scene scene = node.getScene();
+                    Window window = scene.getWindow();
+                    Stage stage = (Stage) window;
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Varausikkuna.fxml"));
+                    popup.getContent().add((Parent) loader.load());
+                    popup.show(window);
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Resurssi ei ole tällä hetkellä varattavissa!");
+                alert.showAndWait();
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse resurssi!");

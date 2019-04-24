@@ -28,8 +28,8 @@
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="507.60000610351557" minWidth="0.0" prefWidth="507.60000610351557" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="781.8" minWidth="10.0" prefWidth="703.6000244140625" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="741.8000244140626" minWidth="10.0" prefWidth="189.20002441406245" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="641.8000244140626" minWidth="0.0" prefWidth="110.79997558593755" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.800048828125" minWidth="0.0" prefWidth="11.600024414062545" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="641.8000244140626" minWidth="0.0" prefWidth="107.00004882812505" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.800048828125" minWidth="0.0" prefWidth="14.199951171875" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.40007324218755" minWidth="10.0" prefWidth="119.60007324218759" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="333.8000000000002" minWidth="10.0" prefWidth="235.60000000000014" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="333.8000000000002" minWidth="0.0" prefWidth="0.0" />
@@ -81,13 +81,13 @@
                <content>
                   <StackPane fx:id="kaikkiStack" prefHeight="530.0" prefWidth="1585.0">
                      <children>
-                        <TableView fx:id="kaikkiTableView" editable="true" maxWidth="-Infinity" prefHeight="530.0" prefWidth="1491.0">
+                        <TableView fx:id="kaikkiTableView" editable="true" maxWidth="-Infinity" prefHeight="522.0" prefWidth="1509.0">
                            <columns>
                               <TableColumn fx:id="nimiColumn" onEditCommit="#nimiOnEditCommit" prefWidth="356.79998779296875" resizable="false" text="NIMI" />
                               <TableColumn fx:id="tyyppiColumn" minWidth="0.0" onEditCommit="#tyyppiOnEditCommit" prefWidth="175.20001220703125" resizable="false" text="TYYPPI" />
                               <TableColumn fx:id="luvanvaraisuusColumn" onEditCommit="#luvanvaraisuusOnEditCommit" prefWidth="168.8001708984375" resizable="false" text="LUVANVARAISUUS" />
-                              <TableColumn fx:id="kuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="668.0001831054688" resizable="false" text="KUVAUS" />
-                              <TableColumn fx:id="tilaColumn" maxWidth="115.2001953125" minWidth="0.0" onEditCommit="#tilaOnEditCommit" prefWidth="114.39990234375" resizable="false" text="TILA" />
+                              <TableColumn fx:id="kuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="663.9999389648438" resizable="false" text="KUVAUS" />
+                              <TableColumn fx:id="tilaColumn" maxWidth="136.0" minWidth="0.0" onEditCommit="#tilaOnEditCommit" prefWidth="136.0" resizable="false" text="TILA" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -124,7 +124,7 @@
       </TabPane>
       <VBox prefHeight="438.0" prefWidth="394.0" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
          <children>
-            <Button fx:id="varausBtn" mnemonicParsing="false" onMouseClicked="#varausNappiPainettu" prefHeight="39.0" prefWidth="348.0" text="TEE VARAUS">
+            <Button fx:id="varausBtn" mnemonicParsing="false" onMouseClicked="#varausNappiPainettu" prefHeight="39.0" prefWidth="348.0" stylesheets="@../styles/Styles.css" text="TEE VARAUS">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

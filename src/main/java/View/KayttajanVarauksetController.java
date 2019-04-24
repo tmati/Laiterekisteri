@@ -7,7 +7,6 @@ package View;
 
 import Controller.Controller;
 import Model.BooleanConverter;
-import Model.Resurssit;
 import Model.Varaukset;
 import java.io.IOException;
 import java.net.URL;

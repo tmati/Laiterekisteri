@@ -93,6 +93,11 @@
             <Font name="System Bold" size="26.0" />
          </font>
       </Label>
+      <Button fx:id="poistavarausBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#poistavarausBtnPainettu" prefHeight="39.0" prefWidth="178.0" text="POISTA VARAUS" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
    </children>
    <padding>
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

@@ -64,6 +64,8 @@ public class ResurssiHistoriaController implements Initializable {
     private TableColumn palautettuColumn;
     @FXML
     private TableColumn hyvaksyntaColumn;
+    @FXML
+    private Button poistavarausNappi;
     
     private Controller controller;
 
@@ -146,6 +148,11 @@ public class ResurssiHistoriaController implements Initializable {
         this.takaisinBtn.setTooltip(new Tooltip("Palauttaa päänäkymään"));
     }    
 
+    /**
+     * Palauttaa käyttäjän edelliseen näkymään
+     * @param event hiiren painallus painikkeesta
+     * @throws IOException Tiedostonkäsittelypoikkeus
+     */
     @FXML
     private void takaisinBtnPainettu(MouseEvent event) throws IOException {
         View.booking = null;
@@ -154,7 +161,13 @@ public class ResurssiHistoriaController implements Initializable {
         Parent root = loader.load();
         stage.getScene().setRoot(root);
     }
-
+    
+    
+    /**
+     * Kirjaa käyttäjän ulos sovelluksesta
+     * @param event hiiren painallus näkymästä
+     * @throws IOException Tiedostoja käsiteltäessä varauduttava poikkeus
+     */
     @FXML
     private void logout(MouseEvent event) throws IOException {
         System.out.println("Logout");
@@ -164,6 +177,16 @@ public class ResurssiHistoriaController implements Initializable {
         stage.getScene().setRoot(root);
         View.loggedIn = null;
         View.booking = null;
+    }
+    
+    
+    //LISÄÄÄÄ TOMMIN VARAUKSENPOISTOFUNKTIO!!!
+    /**
+     * Poistaa varauksen, jos se ei vielä ole alkanut
+     * @param event Hiiren painallus painikkeeseen.
+     */
+    @FXML
+    private void poistavarausBtnPainettu (MouseEvent event) {
     }
     
 }
