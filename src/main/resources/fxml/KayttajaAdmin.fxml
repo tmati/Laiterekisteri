@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane id="bgPane" prefHeight="1166.0" prefWidth="2044.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.KayttajaAdminController">
+<GridPane id="bgPane" prefHeight="1166.0" prefWidth="2044.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.KayttajaAdminController" stylesheets="@../styles/Styles.css">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.8" minWidth="0.0" prefWidth="384.6000061035156" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="1567.6000244140625" minWidth="10.0" prefWidth="1114.400048828125" />

@@ -1,10 +1,16 @@
-.button {
+.button, .button:focused {
     -fx-font-weight: bold;
+     font:"System Bold";
+    -fx-font-size: 18;
 }
 #bgPane{
     -fx-background-image: url("..//bgLarge.png");
     -fx-background-repeat: stretch;
 }
-.promptText, .textField, .text-input, .text-input:focused {
+.textField, .text-input:focused {
     -fx-prompt-text-fill:darkgray; 
+}
+.tooltip{
+    -fx-font-weight: normal;
+    -fx-font-size: 16;
 }

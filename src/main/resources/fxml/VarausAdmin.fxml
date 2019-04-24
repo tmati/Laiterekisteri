@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="876.0" prefWidth="1772.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VarausAdminController">
+<GridPane maxHeight="-Infinity" stylesheets="@../styles/Styles.css" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="876.0" prefWidth="1772.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VarausAdminController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.60004577636715" minWidth="0.0" prefWidth="92.00000610351564" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="301.2" minWidth="0.0" prefWidth="208.79999389648438" />

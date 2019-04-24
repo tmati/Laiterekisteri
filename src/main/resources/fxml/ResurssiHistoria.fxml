@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane id="bgPane" prefHeight="1166.0" prefWidth="2044.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ResurssiHistoriaController">
+<GridPane id="bgPane" prefHeight="1166.0" prefWidth="2044.0" stylesheets="@../styles/Styles.css" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ResurssiHistoriaController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.8" minWidth="0.0" prefWidth="127.20001220703126" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1623.00009765625" minWidth="10.0" prefWidth="1623.00009765625" />
