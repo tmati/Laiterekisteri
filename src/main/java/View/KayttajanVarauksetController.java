@@ -195,23 +195,11 @@ public class KayttajanVarauksetController implements Initializable {
     private void poistaBtnPainettu(MouseEvent event) throws IOException {
         Varaukset toDelete = kayttajaTable.getSelectionModel().getSelectedItem();
         if (toDelete != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-            alert.showAndWait();
-            if (alert.getResult() == ButtonType.YES) {
-                if (!controller.OnkoVarausAlkanut(toDelete)) {
-                    controller.poistaVaraus(toDelete.getId());
-                    System.out.println("poistetaan varaus");
-                    controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + " on poistettu esimiehen tai ylläpitäjän toimesta."
-                            + "\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.");
-                    kayttajaTable.getItems().clear();
-                    kayttajaTable.getItems().addAll(controller.haeKayttajanVaraukset(View.selected));
-                } else {
-                    alert = new Alert(Alert.AlertType.WARNING, "Et voi poistaa varausta, joka on vanhentunut tai alkanut!");
-                    alert.showAndWait();
-                }
-            }
+            controller.poistaVarausBtnToiminto(toDelete);
+            kayttajaTable.getItems().clear();
+            kayttajaTable.getItems().addAll(controller.haeKayttajanVaraukset(View.selected));
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse resurssi!");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse varaus!");
             alert.showAndWait();
         }
     }

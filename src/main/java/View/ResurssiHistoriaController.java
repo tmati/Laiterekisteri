@@ -18,7 +18,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -49,7 +51,7 @@ public class ResurssiHistoriaController implements Initializable {
     @FXML
     private Label varausString;
     @FXML
-    private TableView varausTable;
+    private TableView<Varaukset> varausTable;
     @FXML
     private TableColumn varaajaColumn;
     @FXML
@@ -180,13 +182,23 @@ public class ResurssiHistoriaController implements Initializable {
     }
     
     
-    //LISÄÄÄÄ TOMMIN VARAUKSENPOISTOFUNKTIO!!!
+    
     /**
      * Poistaa varauksen, jos se ei vielä ole alkanut
      * @param event Hiiren painallus painikkeeseen.
      */
     @FXML
     private void poistavarausBtnPainettu (MouseEvent event) {
+        Varaukset toDelete = varausTable.getSelectionModel().getSelectedItem();
+        if (toDelete != null) {
+            controller.poistaVarausBtnToiminto(toDelete);
+            varausTable.getItems().clear();
+            varausTable.getItems().addAll(controller.getVarausTaulukko(controller.ResurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse varaus!");
+            alert.showAndWait();
+        }
+        
     }
     
 }

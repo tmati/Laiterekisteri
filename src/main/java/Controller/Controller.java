@@ -38,7 +38,7 @@ public class Controller {
     private Kalenterin_tarvitsemat_toimenpiteet kalenteriApu;
     private Sahkoposti sahkoposti;
     private SalasananPalautus salasananPalautus;
-
+    private PoistaBtnToiminnot poistaBtnToiminnot;
     /**
      * Controllerin konstruktio
      */
@@ -57,6 +57,7 @@ public class Controller {
         kalenteriApu = new Kalenterin_tarvitsemat_toimenpiteet();
         sahkoposti = new Sahkoposti();
         salasananPalautus = new SalasananPalautus(this);
+        poistaBtnToiminnot = new PoistaBtnToiminnot(this);
        }
 
     /**
@@ -399,6 +400,10 @@ public class Controller {
      */
     public boolean OnkoVarausAlkanut(Varaukset varaus){
         return varausKasittely.tarkistaOnkoVarausAlkanut(varaus);
+    }
+    
+    public boolean poistaVarausBtnToiminto(Varaukset toDelete){
+        return poistaBtnToiminnot.varauksetPoistaBtn(toDelete);
     }
     
     
