@@ -1,0 +1,3 @@
+passwordFieldTooltipfi = Kenttä salasanaa varten
+passwordFieldTooltipen = Field for password
+passwordFieldTooltippor = Campo para senha

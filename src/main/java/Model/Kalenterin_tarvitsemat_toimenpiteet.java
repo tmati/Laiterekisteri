@@ -5,10 +5,7 @@
  */
 package Model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
 
@@ -46,6 +43,9 @@ public class Kalenterin_tarvitsemat_toimenpiteet {
      */
     public boolean Onnistuu(ArrayList<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate){
         if(startDate.isAfter(endDate)){
+            return false;
+        }
+        if(startDate.isBefore(LocalDateTime.now())){
             return false;
         }
         for (Varaukset varaus : aVaraukset) {

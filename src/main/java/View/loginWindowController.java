@@ -71,8 +71,8 @@ public class loginWindowController implements Initializable {
         centerImage(logoView);
         controller = new Controller();
         usernameField.setId("usernameField");
-        
-        this.passwordField.setTooltip(new Tooltip("Kenttä salasanaa varten"));
+
+        this.passwordField.setTooltip(new Tooltip(controller.getConfigTeksti("passwordFieldTooltip")));
         this.usernameField.setTooltip(new Tooltip("Kenttä käyttäjänimeä varten"));
    
        
