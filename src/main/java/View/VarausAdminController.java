@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -91,6 +92,8 @@ public class VarausAdminController implements Initializable {
     private TableColumn palautettuColumn;
     @FXML
     private TableColumn hyvaksyntaColumn;
+    @FXML
+    private TableColumn cbColumn;
     
     private Controller controller;
 
@@ -106,6 +109,7 @@ public class VarausAdminController implements Initializable {
         BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
         BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "HYLÄTTY");
         
+        cbColumn.setCellFactory(CheckBoxTableCell.forTableColumn(cbColumn));
         
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Kayttaja>("kayttaja"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Kayttaja>() {

@@ -179,7 +179,6 @@ public class ResurssiHistoriaController implements Initializable {
         View.booking = null;
     }
     
-    
     //LISÄÄÄÄ TOMMIN VARAUKSENPOISTOFUNKTIO!!!
     /**
      * Poistaa varauksen, jos se ei vielä ole alkanut
@@ -188,5 +187,4 @@ public class ResurssiHistoriaController implements Initializable {
     @FXML
     private void poistavarausBtnPainettu (MouseEvent event) {
     }
-    
 }
