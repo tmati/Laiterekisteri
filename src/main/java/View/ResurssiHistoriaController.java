@@ -180,9 +180,7 @@ public class ResurssiHistoriaController implements Initializable {
         View.loggedIn = null;
         View.booking = null;
     }
-    
-    
-    
+
     /**
      * Poistaa varauksen, jos se ei vielä ole alkanut
      * @param event Hiiren painallus painikkeeseen.
@@ -200,5 +198,4 @@ public class ResurssiHistoriaController implements Initializable {
         }
         
     }
-    
 }

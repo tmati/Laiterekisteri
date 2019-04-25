@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" stylesheets="@../styles/Styles.css" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="876.0" prefWidth="1772.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VarausAdminController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="876.0" prefWidth="1772.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.VarausAdminController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.60004577636715" minWidth="0.0" prefWidth="50.20001831054688" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.4" minWidth="0.0" prefWidth="251.79998168945315" />
@@ -36,7 +36,7 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="LogoutBtn" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="35.0" prefWidth="94.0" text="LOGOUT" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="LEFT">
+      <Button fx:id="LogoutBtn" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="39.0" prefWidth="110.0" text="LOGOUT" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="LEFT">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -49,7 +49,7 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="takaisinBtn" mnemonicParsing="false" onMouseClicked="#takaisinBtnPainettu" prefHeight="35.0" prefWidth="97.0" text="TAKAISIN" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+      <Button fx:id="takaisinBtn" mnemonicParsing="false" onMouseClicked="#takaisinBtnPainettu" prefHeight="39.0" prefWidth="116.0" text="TAKAISIN" GridPane.columnIndex="1" GridPane.halignment="LEFT">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -82,12 +82,13 @@
                      <children>
                         <TableView fx:id="varauksetTableView" editable="true" maxWidth="-Infinity" prefHeight="560.0" prefWidth="1616.0">
                            <columns>
+                              <TableColumn fx:id="nimiColumn1" editable="false" prefWidth="35.99999922513962" resizable="false" />
 
-                              <TableColumn fx:id="nimiColumn" editable="false" prefWidth="278.4000213742256" resizable="false" text="VARAAJAN NIMI" />
-                              <TableColumn fx:id="tavaraColumn" editable="false" prefWidth="495.99993896484375" resizable="false" text="TAVARA" />
-                              <TableColumn fx:id="alkupvmColumn" editable="false" minWidth="0.0" onEditCommit="#alkupvmEditCommit" prefWidth="164.0" resizable="false" text="ALKUPVM" />
-                              <TableColumn fx:id="paattymispvmColumn" editable="false" minWidth="0.0" onEditCommit="#paattymispvmEditCommit" prefWidth="192.79998779296875" resizable="false" text="PÄÄTTYMISPVM" />
-                              <TableColumn fx:id="kuvausColumn" editable="false" maxWidth="692.0000122070312" onEditCommit="#kuvausEditCommit" prefWidth="479.199951171875" resizable="false" text="KUVAUS" />
+                              <TableColumn fx:id="nimiColumn" editable="false" prefWidth="340.0000114440918" resizable="false" text="VARAAJAN NIMI" />
+                              <TableColumn fx:id="tavaraColumn" editable="false" prefWidth="382.3999328613281" resizable="false" text="TAVARA" />
+                              <TableColumn fx:id="alkupvmColumn" editable="false" minWidth="0.0" onEditCommit="#alkupvmEditCommit" prefWidth="160.0" resizable="false" text="ALKUPVM" />
+                              <TableColumn fx:id="paattymispvmColumn" editable="false" minWidth="0.0" onEditCommit="#paattymispvmEditCommit" prefWidth="183.2000732421875" resizable="false" text="PÄÄTTYMISPVM" />
+                              <TableColumn fx:id="kuvausColumn" editable="false" maxWidth="692.0000122070312" onEditCommit="#kuvausEditCommit" prefWidth="509.5999755859375" resizable="false" text="KUVAUS" />
 
                            </columns>
                         </TableView>

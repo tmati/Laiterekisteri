@@ -39,6 +39,9 @@ public class Controller {
     private Sahkoposti sahkoposti;
     private SalasananPalautus salasananPalautus;
     private PoistaBtnToiminnot poistaBtnToiminnot;
+    private LanguageText tekstit;
+
+
     /**
      * Controllerin konstruktio
      */
@@ -58,6 +61,8 @@ public class Controller {
         sahkoposti = new Sahkoposti();
         salasananPalautus = new SalasananPalautus(this);
         poistaBtnToiminnot = new PoistaBtnToiminnot(this);
+        tekstit = LanguageText.getInstance();
+
        }
 
     /**
@@ -406,6 +411,9 @@ public class Controller {
         return poistaBtnToiminnot.varauksetPoistaBtn(toDelete);
     }
     
-    
+    public String getConfigTeksti(String Mihin){
+        return tekstit.getText(Mihin);
+    }
+
 }
 
