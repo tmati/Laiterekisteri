@@ -38,6 +38,7 @@ public class Controller {
     private Kalenterin_tarvitsemat_toimenpiteet kalenteriApu;
     private Sahkoposti sahkoposti;
     private SalasananPalautus salasananPalautus;
+    private LanguageText tekstit;
 
     /**
      * Controllerin konstruktio
@@ -57,6 +58,7 @@ public class Controller {
         kalenteriApu = new Kalenterin_tarvitsemat_toimenpiteet();
         sahkoposti = new Sahkoposti();
         salasananPalautus = new SalasananPalautus(this);
+        tekstit = LanguageText.getInstance();
        }
 
     /**
@@ -401,6 +403,8 @@ public class Controller {
         return varausKasittely.tarkistaOnkoVarausAlkanut(varaus);
     }
     
-    
+    public String getConfigTeksti(String Mihin){
+        return tekstit.getText(Mihin);
+    }
 }
 

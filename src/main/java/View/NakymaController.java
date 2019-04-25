@@ -279,6 +279,7 @@ public class NakymaController implements Initializable {
         this.searchBar.setTooltip(new Tooltip("Hakukenttä resursseja tai varauksia varten"));
         this.varausBtn.setTooltip(new Tooltip("Avaa popupin varauksen luontia varten, valitse resurssi ensin"));
         this.kalenteriPane.setTooltip(new Tooltip("Voit hakea resursseja päivän mukaan\n valitsemalla halutun päivän kalenterissa. Sen mukaan kalenteri näytää resurssit,\n jotka ovat sinäpäivinnä vapaina."));
+        
         usernameLabel.setText(View.loggedIn.getNimi());
         bizName.setText(View.BizName);
 

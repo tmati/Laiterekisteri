@@ -123,7 +123,6 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
                         break;
                 }
         }
-        System.out.println(erotusp);
         return erotusp;
     }
     
