@@ -319,6 +319,27 @@ public class NakymaController implements Initializable {
 
         calContent = DPS.getPopupContent();
         kalenteriStackPane.getChildren().add(calContent);
+        
+        //Rajoittaa käyttöliittymän elementtejä eritason käyttäjille
+        
+        //Työntekijä
+       if(View.loggedIn.getValtuudet()==0){
+           this.henkilostoBtn.setDisable(true);
+           this.henkilostoBtn.setOpacity(0);
+           this.hallnnoiBtn.setDisable(true);
+           this.hallnnoiBtn.setOpacity(0);
+           this.lisaaresurssiBtn.setDisable(true);
+           this.lisaaresurssiBtn.setOpacity(0);
+           this.poistaresurssiBtn.setDisable(true);
+           this.poistaresurssiBtn.setOpacity(0);
+           this.historiaBtn.setDisable(true);
+           this.historiaBtn.setOpacity(0);
+           //Esimies
+       }else if(View.loggedIn.getValtuudet()==1){
+           this.henkilostoBtn.setDisable(true);
+           this.henkilostoBtn.setOpacity(0);
+       }
+       
 
     }
 
