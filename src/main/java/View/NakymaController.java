@@ -335,10 +335,21 @@ public class NakymaController implements Initializable {
            this.poistaresurssiBtn.setOpacity(0);
            this.historiaBtn.setDisable(true);
            this.historiaBtn.setOpacity(0);
+           this.kuvausColumn.setEditable(false);
+           this.nimiColumn.setEditable(false);
+           this.tilaColumn.setEditable(false);
+           this.luvanvaraisuusColumn.setEditable(false);
+           this.tyyppiColumn.setEditable(false);
+           
            //Esimies
        }else if(View.loggedIn.getValtuudet()==1){
            this.henkilostoBtn.setDisable(true);
            this.henkilostoBtn.setOpacity(0);
+           this.kuvausColumn.setEditable(false);
+           this.nimiColumn.setEditable(false);
+           this.tilaColumn.setEditable(false);
+           this.luvanvaraisuusColumn.setEditable(false);
+           this.tyyppiColumn.setEditable(false);
        }
        
 

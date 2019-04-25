@@ -193,7 +193,6 @@ public class VarausAdminController implements Initializable {
         Varaukset[] varaukset = controller.haeKasittelemattomatVaraukset();
         varauksetTableView.getItems().addAll(varaukset);
         
-        kaikkiTable.getItems().addAll(controller.haeKaikkiVaraukset());
         
         varaajannimiColumn.setCellValueFactory(new PropertyValueFactory <Varaukset, Kayttaja>("kayttaja"));
         varaajannimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Kayttaja>() {

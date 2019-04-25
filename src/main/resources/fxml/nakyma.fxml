@@ -154,18 +154,13 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="henkilostoBtn" mnemonicParsing="false" onMouseClicked="#henkilostoBtnPainettu" prefHeight="39.0" prefWidth="363.0" text="HALLINNOI HENKILÖITÄ">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="25.0" top="25.0" />
-               </VBox.margin>
-            </Button>
             <Button fx:id="hallnnoiBtn" mnemonicParsing="false" onMouseClicked="#hallinnoiBtnPainettu" prefHeight="39.0" prefWidth="363.0" text="HALLINNOI VARAUKSIA">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
             </Button>
             <Button fx:id="historiaBtn" mnemonicParsing="false" onMouseClicked="#historiaBtnPainettu" prefHeight="39.0" prefWidth="363.0" text="RESURSSIN VARAUSHISTORIA" textOverrun="CLIP">
                <font>
@@ -173,6 +168,14 @@
                </font>
                <VBox.margin>
                   <Insets top="25.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="henkilostoBtn" mnemonicParsing="false" onMouseClicked="#henkilostoBtnPainettu" prefHeight="39.0" prefWidth="363.0" text="HALLINNOI HENKILÖITÄ">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="25.0" top="25.0" />
                </VBox.margin>
             </Button>
          </children>
