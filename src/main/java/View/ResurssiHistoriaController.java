@@ -145,7 +145,7 @@ public class ResurssiHistoriaController implements Initializable {
         bizName.setText(View.BizName);
         System.out.println(View.BizName);
         varausString.setText("Resurssin " + View.booking.getNimi() + " varaukset");
-        varausTable.getItems().addAll(controller.getVarausTaulukko(controller.ResurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
+        varausTable.getItems().addAll(controller.getVarausTaulukko(controller.resurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
         this.LogoutBtn.setTooltip(new Tooltip("Uloskirjautuminen"));
         this.takaisinBtn.setTooltip(new Tooltip("Palauttaa päänäkymään"));
     }    
@@ -191,7 +191,7 @@ public class ResurssiHistoriaController implements Initializable {
         if (toDelete != null) {
             controller.poistaVarausBtnToiminto(toDelete);
             varausTable.getItems().clear();
-            varausTable.getItems().addAll(controller.getVarausTaulukko(controller.ResurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
+            varausTable.getItems().addAll(controller.getVarausTaulukko(controller.resurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse varaus!");
             alert.showAndWait();

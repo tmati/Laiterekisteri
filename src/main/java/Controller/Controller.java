@@ -332,8 +332,8 @@ public class Controller {
      * @param varaukset Varaus array josta halutaan saada resursin varaukset.
      * @return ArrayListan jossa on resursin varaukset Arraysta.
      */
-    public ArrayList<Varaukset> ResurssinVaraukset(int resurssiId, Varaukset[] varaukset) {
-        return kalenteriApu.ResursinVaraukset(resurssiId, varaukset);
+    public ArrayList<Varaukset> resurssinVaraukset(int resurssiId, Varaukset[] varaukset) {
+        return kalenteriApu.resurssinVaraukset(resurssiId, varaukset);
     }
 
     /**
