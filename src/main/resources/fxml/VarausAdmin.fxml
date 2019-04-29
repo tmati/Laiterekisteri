@@ -18,8 +18,8 @@
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.60004577636715" minWidth="0.0" prefWidth="50.20001831054688" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.4" minWidth="0.0" prefWidth="251.79998168945315" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="520.6000244140625" minWidth="10.0" prefWidth="479.2" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="248.4000366210937" minWidth="10.0" prefWidth="170.39999999999998" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="520.6000244140625" minWidth="10.0" prefWidth="479.99998779296874" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="248.4000366210937" minWidth="10.0" prefWidth="169.60001220703123" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="705.6" minWidth="10.0" prefWidth="585.40009765625" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="472.0" minWidth="0.0" prefWidth="140.59990234375005" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="0.0" prefWidth="48.59999999999991" />
@@ -62,7 +62,7 @@
             <Font name="System Bold" size="32.0" />
          </font>
          <GridPane.margin>
-            <Insets top="25.0" />
+            <Insets right="25.0" top="25.0" />
          </GridPane.margin>
       </Button>
       <Button fx:id="hylkaaBtn" mnemonicParsing="false" onMouseClicked="#hylkaaBtnPainettu" prefHeight="71.0" prefWidth="260.0" text="HYLKÄÄ" textFill="#e50606" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="3">
@@ -70,25 +70,25 @@
             <Font name="System Bold" size="32.0" />
          </font>
          <GridPane.margin>
-            <Insets top="25.0" />
+            <Insets left="25.0" top="25.0" />
          </GridPane.margin>
       </Button>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" />
-      <TabPane fx:id="tabPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="1612.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="2">
+      <TabPane fx:id="tabPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="1628.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <tabs>
             <Tab fx:id="kasittelemattomatTab" text="Käsittelemättömät varaukset">
                <content>
                   <StackPane fx:id="kaikkiStack" prefHeight="570.0" prefWidth="1641.0">
                      <children>
-                        <TableView fx:id="varauksetTableView" editable="true" maxWidth="-Infinity" prefHeight="560.0" prefWidth="1616.0">
+                        <TableView fx:id="varauksetTableView" editable="true" maxWidth="-Infinity" prefHeight="566.0" prefWidth="1628.0">
                            <columns>
-                              <TableColumn fx:id="nimiColumn1" editable="false" prefWidth="35.99999922513962" resizable="false" />
+                              <TableColumn fx:id="cbColumn" prefWidth="35.99999922513962" resizable="false" />
 
                               <TableColumn fx:id="nimiColumn" editable="false" prefWidth="340.0000114440918" resizable="false" text="VARAAJAN NIMI" />
                               <TableColumn fx:id="tavaraColumn" editable="false" prefWidth="382.3999328613281" resizable="false" text="TAVARA" />
                               <TableColumn fx:id="alkupvmColumn" editable="false" minWidth="0.0" onEditCommit="#alkupvmEditCommit" prefWidth="160.0" resizable="false" text="ALKUPVM" />
                               <TableColumn fx:id="paattymispvmColumn" editable="false" minWidth="0.0" onEditCommit="#paattymispvmEditCommit" prefWidth="183.2000732421875" resizable="false" text="PÄÄTTYMISPVM" />
-                              <TableColumn fx:id="kuvausColumn" editable="false" maxWidth="692.0000122070312" onEditCommit="#kuvausEditCommit" prefWidth="509.5999755859375" resizable="false" text="KUVAUS" />
+                              <TableColumn fx:id="kuvausColumn" editable="false" maxWidth="692.0000122070312" onEditCommit="#kuvausEditCommit" prefWidth="522.39990234375" resizable="false" text="KUVAUS" />
 
                            </columns>
                         </TableView>
@@ -121,6 +121,14 @@
             </Tab>
          </tabs>
       </TabPane>
+      <Button fx:id="poistaBtn" mnemonicParsing="false" onMouseClicked="#poistaBtnPainettu" prefHeight="49.0" prefWidth="170.0" text="POISTA" GridPane.columnIndex="3" GridPane.rowIndex="3">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+         <GridPane.margin>
+            <Insets top="25.0" />
+         </GridPane.margin>
+      </Button>
    </children>
    <padding>
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

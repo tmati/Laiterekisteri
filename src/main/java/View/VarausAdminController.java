@@ -15,6 +15,8 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,7 +27,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.CheckBoxTableCell;
@@ -34,6 +39,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.IntegerStringConverter;
@@ -75,7 +81,7 @@ public class VarausAdminController implements Initializable {
     @FXML
     private Button updateBtn;
     @FXML
-    private TableView kaikkiTable;
+    private TableView<Varaukset> kaikkiTable;
     @FXML
     private TableColumn varaajannimiColumn;
     @FXML
@@ -95,7 +101,13 @@ public class VarausAdminController implements Initializable {
     @FXML
     private TableColumn cbColumn;
     
+    @FXML
+    private Button poistaBtn;
+    
     private Controller controller;
+    
+    @FXML
+    private TabPane tabPane;
 
     /**
      * Initializes the controller class.
@@ -105,11 +117,11 @@ public class VarausAdminController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        poistaBtn.setOpacity(0);
+        poistaBtn.setDisable(true);
         controller = View.controller;
         BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
         BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "HYLÄTTY");
-        
-        cbColumn.setCellFactory(CheckBoxTableCell.forTableColumn(cbColumn));
         
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Kayttaja>("kayttaja"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Kayttaja>() {
@@ -157,13 +169,13 @@ public class VarausAdminController implements Initializable {
         
         kaikkiTable.getItems().addAll(controller.haeKaikkiVaraukset());
         
+        
         varaajannimiColumn.setCellValueFactory(new PropertyValueFactory <Varaukset, Kayttaja>("kayttaja"));
         varaajannimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Kayttaja>() {
             @Override
             public String toString(Kayttaja object) {
                 return object.getNimi();
             }
-            
             
             @Override
             public Kayttaja fromString(String string) {
@@ -173,7 +185,6 @@ public class VarausAdminController implements Initializable {
             }
         }));
         
-
         laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Resurssit>("resurssit"));
         laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Resurssit>() {
             public String toString(Resurssit r) {
@@ -216,6 +227,28 @@ public class VarausAdminController implements Initializable {
         this.hyvaksyBtn.setTooltip(new Tooltip("Hyväksyy valitun varauksen"));
         this.takaisinBtn.setTooltip(new Tooltip("Palauttaa päänäkymään"));
         
+        tabPane.getSelectionModel().selectedItemProperty().addListener(
+                new ChangeListener<Tab>(){
+            
+            @Override
+            public void changed(ObservableValue<? extends Tab> ov, Tab kasittelemattomatTab, Tab kaikkiTab) {
+                if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Kaikki varaukset")) {
+                    hylkaaBtn.setDisable(true);
+                    hylkaaBtn.setOpacity(0);
+                    hyvaksyBtn.setOpacity(0);
+                    hyvaksyBtn.setDisable(true);
+                    poistaBtn.setOpacity(1);
+                    poistaBtn.setDisable(false);
+                } else {
+                    hylkaaBtn.setDisable(false);
+                    hylkaaBtn.setOpacity(1);
+                    hyvaksyBtn.setOpacity(1);
+                    hyvaksyBtn.setDisable(false);
+                    poistaBtn.setOpacity(0);
+                    poistaBtn.setDisable(true);
+                }   
+            }
+        });
     }
 
     /**
@@ -339,7 +372,6 @@ public class VarausAdminController implements Initializable {
         controller.paivitaVaraus(V);
     }
     
-    
     /**
      * Kuvauksen edit commit - toiminto. Tapahtuu kun varauksen kuvausta
      * muutetaan.
@@ -353,5 +385,16 @@ public class VarausAdminController implements Initializable {
         System.out.println("Uusi Kuvaus: " + V.getKuvaus());
         controller.paivitaVaraus(V);
     }
-
+    
+    @FXML
+    private void poistaBtnPainettu(MouseEvent event) throws IOException {
+            Varaukset V = kaikkiTable.getSelectionModel().getSelectedItem();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                kaikkiTable.getItems().remove(V);
+                controller.poistaVaraus(V.getId());
+                kaikkiTable.refresh();
+            }
+    }
 }

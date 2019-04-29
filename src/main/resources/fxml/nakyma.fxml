@@ -28,8 +28,8 @@
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="507.60000610351557" minWidth="0.0" prefWidth="507.60000610351557" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="781.8" minWidth="10.0" prefWidth="703.6000244140625" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="741.8000244140626" minWidth="10.0" prefWidth="189.20002441406245" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="641.8000244140626" minWidth="0.0" prefWidth="106.20000000000005" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.800048828125" minWidth="0.0" prefWidth="13.400000000000091" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="641.8000244140626" minWidth="0.0" prefWidth="113.40000000000009" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.800048828125" minWidth="0.0" prefWidth="4.599999999999909" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.40007324218755" minWidth="0.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="354.0" minWidth="10.0" prefWidth="354.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="333.8000000000002" minWidth="0.0" prefWidth="0.0" />
@@ -154,18 +154,13 @@
                   <Insets top="25.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="henkilostoBtn" mnemonicParsing="false" onMouseClicked="#henkilostoBtnPainettu" prefHeight="39.0" prefWidth="363.0" text="HALLINNOI HENKILÖITÄ">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="25.0" top="25.0" />
-               </VBox.margin>
-            </Button>
             <Button fx:id="hallnnoiBtn" mnemonicParsing="false" onMouseClicked="#hallinnoiBtnPainettu" prefHeight="39.0" prefWidth="363.0" text="HALLINNOI VARAUKSIA">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
             </Button>
             <Button fx:id="historiaBtn" mnemonicParsing="false" onMouseClicked="#historiaBtnPainettu" prefHeight="39.0" prefWidth="363.0" text="RESURSSIN VARAUSHISTORIA" textOverrun="CLIP">
                <font>
@@ -173,6 +168,14 @@
                </font>
                <VBox.margin>
                   <Insets top="25.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="henkilostoBtn" mnemonicParsing="false" onMouseClicked="#henkilostoBtnPainettu" prefHeight="39.0" prefWidth="363.0" text="HALLINNOI HENKILÖITÄ">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="25.0" top="25.0" />
                </VBox.margin>
             </Button>
          </children>
@@ -216,5 +219,4 @@
    <padding>
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
    </padding>
-   
 </GridPane>
