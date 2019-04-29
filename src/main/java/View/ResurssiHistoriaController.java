@@ -89,7 +89,7 @@ public class ResurssiHistoriaController implements Initializable {
             @Override
             public String toString(Timestamp object) {
                 String tString = object.toString();
-                return tString;
+                return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(object);
             }
 
             @Override
@@ -112,7 +112,7 @@ public class ResurssiHistoriaController implements Initializable {
             @Override
             public String toString(Timestamp object) {
                 String tString = object.toString();
-                return tString;
+                return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(object);
             }
             
             @Override
