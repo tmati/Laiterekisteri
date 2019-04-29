@@ -174,7 +174,7 @@ public class loginWindowController implements Initializable {
 
                 }
             }else{
-                Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti("loginImpossible"));
+                Alert alert = new Alert(AlertType.WARNING, "Tunnus tai salasana väärin");
                 alert.showAndWait();
             }
         } else if (ke.getCode() == KeyCode.ENTER && !loginPossible) {
