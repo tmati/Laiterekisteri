@@ -69,6 +69,14 @@ public class ControllerTest {
                 kont.haeKayttajanVaraukset(kay[0]).length > 0);
         assertTrue("poistaVaraus: ei onnistunut",
                 kont.poistaVaraus(v.getId()));
+        //Hae käsittelemättömät varaukset
+        Varaukset[] kasit = kont.haeKasittelemattomatVaraukset();
+        assertTrue("haeKasittelattomatVaraukset: ei onnistunut - array on null",
+                kasit != null);
+        for(int i = 0; i < kasit.length; i++){
+            assertFalse("haeKasittelemattomatVaraukset: varaus on jo käsitely",
+                    kasit[i].getHyvaksytty());
+        }
     }
 
     @Test
@@ -124,6 +132,11 @@ public class ControllerTest {
         toka = t.getLoppuAika();
         assertFalse("onnistuu: tarkistus epäonnistui, piti tulla false",
                kont.Onnistuu(kont.resurssinVaraukset(t.getResurssit().getId(), kont.haeKaikkiVaraukset()), toka, eka));
+        
+    }
+    
+    @Test
+    public void controllerSahkopostiTestit(){
         
     }
 }

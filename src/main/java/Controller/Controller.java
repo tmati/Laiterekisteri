@@ -361,7 +361,7 @@ public class Controller {
     }
 
     /**
-     * Kutsuu Sahkoposti.sendEmail()
+     * Kutsuu Sahkoposti.lähetäSähköposti()
      *
      * @param vastaanottaja Sahkopostiosoite johon lähetetään
      * @param viesti lähettettävä viesti
@@ -369,19 +369,7 @@ public class Controller {
      *
      */
     public boolean lahetaSahkoposti(String vastaanottaja, String viesti) {
-        ExecutorService emailExecutor = Executors.newSingleThreadExecutor();
-        emailExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    sahkoposti.sendEmail(vastaanottaja, viesti);
-                } catch (Exception e) {
-                    System.out.println("säie fail" + e);
-                }
-            }
-        });
-        emailExecutor.shutdown(); // it is very important to shutdown your non-singleton ExecutorService.
-        return true;
+        return sahkoposti.lahetaSahkoposti(vastaanottaja, viesti);
     }
 
     /**
