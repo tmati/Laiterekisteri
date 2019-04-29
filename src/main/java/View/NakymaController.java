@@ -275,7 +275,7 @@ public class NakymaController implements Initializable {
         this.henkilostoBtn.setTooltip(new Tooltip("Avaa käyttäjien hallinta -näkymän"));
         this.lisaaresurssiBtn.setTooltip(new Tooltip("Avaa popupin resurssin lisäämistä varten"));
         this.poistaresurssiBtn.setTooltip(new Tooltip("Poistaa valitun resurssin järjestelmästä"));
-        this.salasananvaihtoBtn.setTooltip(new Tooltip("Avaa popupin salasanan vaihto varten"));
+        this.salasananvaihtoBtn.setTooltip(new Tooltip("Avaa popupin salasanan vaihtoa varten"));
         this.searchBar.setTooltip(new Tooltip("Hakukenttä resursseja tai varauksia varten"));
         this.varausBtn.setTooltip(new Tooltip("Avaa popupin varauksen luontia varten, valitse resurssi ensin"));
         this.kalenteriPane.setTooltip(new Tooltip("Voit hakea resursseja päivän mukaan\n valitsemalla halutun päivän kalenterissa. Sen mukaan kalenteri näytää resurssit,\n jotka ovat sinäpäivinnä vapaina."));
@@ -320,6 +320,33 @@ public class NakymaController implements Initializable {
 
         calContent = DPS.getPopupContent();
         kalenteriStackPane.getChildren().add(calContent);
+        
+        //Rajoittaa käyttöliittymän elementtejä eritason käyttäjille
+        
+        //Työntekijä
+       if(View.loggedIn.getValtuudet()==0){
+           this.henkilostoBtn.setDisable(true);
+           this.henkilostoBtn.setOpacity(0);
+           this.hallnnoiBtn.setDisable(true);
+           this.hallnnoiBtn.setOpacity(0);
+           this.lisaaresurssiBtn.setDisable(true);
+           this.lisaaresurssiBtn.setOpacity(0);
+           this.poistaresurssiBtn.setDisable(true);
+           this.poistaresurssiBtn.setOpacity(0);
+           this.historiaBtn.setDisable(true);
+           this.historiaBtn.setOpacity(0);
+           this.kuvausColumn.setEditable(false);
+           this.nimiColumn.setEditable(false);
+           this.tilaColumn.setEditable(false);
+           this.luvanvaraisuusColumn.setEditable(false);
+           this.tyyppiColumn.setEditable(false);
+           
+           //Esimies
+       }else if(View.loggedIn.getValtuudet()==1){
+           this.henkilostoBtn.setDisable(true);
+           this.henkilostoBtn.setOpacity(0);
+       }
+       
 
     }
 
@@ -365,17 +392,9 @@ public class NakymaController implements Initializable {
      * @param V poistettava varaus
      */
     public void completeRemove(Varaukset V) {
-        if (!controller.OnkoVarausAlkanut(V)) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-            alert.showAndWait();
-            if (alert.getResult() == ButtonType.YES) {
-                omatTable.getItems().remove(V);
-                controller.poistaVaraus(V.getId());
-                omatTable.refresh();
-            }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Et voi poistaa varausta, joka on vanhentunut tai alkanut!");
-            alert.showAndWait();
+        if (controller.poistaVarausBtnToiminto(V)) {
+            omatTable.getItems().remove(V);
+            omatTable.refresh();
         }
     }
 
