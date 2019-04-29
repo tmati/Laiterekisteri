@@ -11,18 +11,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
-import javafx.stage.Stage;
-import javafx.stage.Window;
-
 
 /**
  * FXML Controller class
@@ -55,9 +51,15 @@ public class palautasalasanaController implements Initializable {
   
         controller = View.controller;
         
-        this.emailTextField.setTooltip(new Tooltip("Tilisi sähköposti"));
-        this.sulkuNappi.setTooltip(new Tooltip("Sulkee popupin"));
-        this.palautaemailNappi.setTooltip(new Tooltip("Palauttaa uuden salasanan sähköpostiin"));
+        this.emailTextField.setTooltip(new Tooltip(controller.getConfigTeksti("emailTextfield")));
+        this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti("closePopup")));
+        this.palautaemailNappi.setTooltip(new Tooltip(controller.getConfigTeksti("returnEmailTooltip")));
+        palautaemailNappi.setText(controller.getConfigTeksti("returnPasswordButton").toUpperCase());
+        titleLabel.setText(controller.getConfigTeksti("returnPasswordButton").toUpperCase());
+        uusisalasanaLabel.setText(controller.getConfigTeksti("newPasswordLabel"));
+        vanhasalasanaLabel.setText(controller.getConfigTeksti("emailLabel"));
+        virheLabel.setText(controller.getConfigTeksti("formError").toUpperCase());
+        emailTextField.setPromptText(controller.getConfigTeksti("emailLabel"));
     }    
 
     @FXML

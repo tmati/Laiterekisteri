@@ -78,7 +78,7 @@ public class Resurssit implements java.io.Serializable {
 
     /**
      * Getteri resurssin statukselle
-     *
+     * True = varattavissa, false = ei varattavissa
      * @return resurssin status
      */
     @Column(name = "Status", nullable = false)
@@ -88,6 +88,7 @@ public class Resurssit implements java.io.Serializable {
 
     /**
      * Setteri resurssin statukselle
+     * True = varattavissa, false = ei varattavissa
      *
      * @param status resurssin status
      */

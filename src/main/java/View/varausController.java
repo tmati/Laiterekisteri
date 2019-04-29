@@ -1,19 +1,18 @@
 package View;
 
 import Controller.Controller;
-import Model.Resurssit;
 import Model.Varaukset;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -25,9 +24,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.InputEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Popup;
 import javafx.stage.Window;
@@ -87,15 +83,13 @@ public class varausController implements Initializable {
 
         //Katsoo kaikki varaaukset sille tuoteelle.
         Varaukset[] varaukset = controller.haeKaikkiVaraukset();
-        aVaraukset = controller.ResursinVaraukset(View.booking.getId(), varaukset);
+        aVaraukset = controller.ResurssinVaraukset(View.booking.getId(), varaukset);
 
-        Varaukset[] varaus = controller.getVaraus(aVaraukset);
+        Varaukset[] varaus = controller.getVarausTaulukko(aVaraukset);
        
         //Muokaa DatePickereita jotta näkyy varaukset.
-        mihinDp.setDayCellFactory(controller.dayCellFactory(varaus));
-        mistaDp.setDayCellFactory(controller.dayCellFactory(varaus));
-        
-        
+        mihinDp.setDayCellFactory(controller.dayCellFactory(varaus, LocalDate.now()));
+        mistaDp.setDayCellFactory(controller.dayCellFactory(varaus, LocalDate.now()));
         
         mistaDp.addEventHandler(ActionEvent.ACTION, 
                     new EventHandler<ActionEvent>() {
@@ -105,13 +99,13 @@ public class varausController implements Initializable {
                 if(mistaDp.getValue() != null){
                                    // System.out.println("If lause toimii");
 
-                    mihinDp.setDayCellFactory(controller.dayCellFactoryEnd(varaus, mistaDp.getValue()));
+                    mihinDp.setDayCellFactory(controller.dayCellFactory(varaus, mistaDp.getValue()));
                 }else{
-                    mihinDp.setDayCellFactory(controller.dayCellFactory(varaus));
+                    mihinDp.setDayCellFactory(controller.dayCellFactory(varaus, LocalDate.now()));
                 }
             }
 
-                    });
+        });
         // Aikaformaatti
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         //Uusi SpinnerValueFactory-olio. Näitä tarvitaan joka spinnerille.
@@ -181,6 +175,20 @@ public class varausController implements Initializable {
         //ValueFactoryiden määrittäminen spinnereilleen.
         mistaSpinner.setValueFactory(mistaFactory);
         mihinSpinner.setValueFactory(mihinFactory);
+        
+        this.lisatiedotTextbox.setTooltip(new Tooltip(controller.getConfigTeksti("reservationReason")));
+        this.mihinDp.setTooltip(new Tooltip(controller.getConfigTeksti("endDate")));
+        this.mihinSpinner.setTooltip(new Tooltip(controller.getConfigTeksti("endTime")));
+        this.mistaDp.setTooltip(new Tooltip(controller.getConfigTeksti("startDate")));
+        this.mistaSpinner.setTooltip(new Tooltip(controller.getConfigTeksti("startTime")));
+        this.varausNappi.setTooltip(new Tooltip(controller.getConfigTeksti("createResrvation")));
+        this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti("closePopup")));
+        
+        lisatiedotLabel.setText(controller.getConfigTeksti("additionalInformation").toUpperCase());
+        mistaLabel.setText(controller.getConfigTeksti("from").toUpperCase());        
+        mihinLabel.setText(controller.getConfigTeksti("where").toUpperCase());
+        titleLabel.setText(controller.getConfigTeksti("reservationNew").toUpperCase());
+        varausNappi.setText(controller.getConfigTeksti("reservationButton").toUpperCase());
     }
 
     /**
@@ -202,11 +210,10 @@ public class varausController implements Initializable {
         LocalTime endTime = (LocalTime) mihinSpinner.getValue();
         LocalDateTime endStamp = LocalDateTime.of(endDate, endTime);
         Timestamp ts2 = Timestamp.valueOf(endStamp.format(dtf));
+        ChronoLocalDateTime alku = startDate.atTime(startTime);
+        ChronoLocalDateTime loppu = endDate.atTime(endTime);
         
-        if(controller.Onnistuu(aVaraukset, endDate, startDate, endTime, startTime)){
-            //System.out.println("Alku: " + startDate.toString() + " | " + startTime.truncatedTo(ChronoUnit.MINUTES).toString());
-            //System.out.println("Loppu: " + endDate.toString() + " | " + endTime.truncatedTo(ChronoUnit.MINUTES).toString());
-
+        if(controller.Onnistuu(aVaraukset, loppu, alku)){
             //Lisätiedot
             String info = lisatiedotTextbox.getText();
             //System.out.println(info);
@@ -226,17 +233,11 @@ public class varausController implements Initializable {
             this.sulkuNappiPainettu(event);
         }else{
             Alert a = new Alert(AlertType.INFORMATION);
-            a.setHeaderText("Varauksen teko epäonnistui, koska varauksen aika meni toisen varauksen kanssa päälekäin.");
+            a.setHeaderText(controller.getConfigTeksti("alertFailedReservation"));
             a.show();            
         }
         
-        this.lisatiedotTextbox.setTooltip(new Tooltip("Kerro varauksen syy"));
-        this.mihinDp.setTooltip(new Tooltip("Valtise varauksen päättymispäivä"));
-        this.mihinSpinner.setTooltip(new Tooltip("Valitse varauksen päättymisaika"));
-        this.mistaDp.setTooltip(new Tooltip("Valitse varauksen alkamispäivä"));
-        this.mistaSpinner.setTooltip(new Tooltip("Valitse varauksen alkamisaika"));
-        this.varausNappi.setTooltip(new Tooltip("Luo varauksen"));
-        this.sulkuNappi.setTooltip(new Tooltip("Sulkee popupin"));
+        
     }
 
     /**

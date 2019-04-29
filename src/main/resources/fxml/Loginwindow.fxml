@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox id="bgPane" alignment="CENTER" onKeyPressed="#handle" prefHeight="569.0" prefWidth="476.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.loginWindowController">
+<HBox id="bgPane" alignment="CENTER" stylesheets="@../styles/Styles.css" onKeyPressed="#handle" prefHeight="569.0" prefWidth="476.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.loginWindowController">
    <children>
       <VBox alignment="CENTER">
          <children>
@@ -59,7 +59,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </PasswordField>
-                  <Button mnemonicParsing="false" onMouseClicked="#avaaPalautaSalasana" text="PALAUTA SALASANA" underline="true">
+                  <Button fx:id="testBtn" mnemonicParsing="false" onMouseClicked="#avaaPalautaSalasana" text="PALAUTA SALASANA" underline="true">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>

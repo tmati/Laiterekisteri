@@ -34,12 +34,11 @@ import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 /**
- * FXML Controller class Käyttäjien varausten tutkimiseen käytettävän näkymän
- * controller-luokka
+ * FXML Controller class
  *
  * @author tmati
  */
-public class KayttajanVarauksetController implements Initializable {
+public class ResurssiHistoriaController implements Initializable {
 
     @FXML
     private Button takaisinBtn;
@@ -50,11 +49,11 @@ public class KayttajanVarauksetController implements Initializable {
     @FXML
     private Label bizName;
     @FXML
-    private Label kayttajaString;
+    private Label varausString;
     @FXML
-    private TableView<Varaukset> kayttajaTable;
+    private TableView<Varaukset> varausTable;
     @FXML
-    private TableColumn laitenimiColumn;
+    private TableColumn varaajaColumn;
     @FXML
     private TableColumn alkupvmColumn;
     @FXML
@@ -68,27 +67,28 @@ public class KayttajanVarauksetController implements Initializable {
     @FXML
     private TableColumn hyvaksyntaColumn;
     @FXML
-    private Button poistaBtn;
-
-    Controller controller;
+    private Button poistavarausNappi;
+    
+    private Controller controller;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        controller = new Controller();
+     controller = new Controller();
         ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
-        BooleanConverter AktiivisuusController = new BooleanConverter(controller, controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
-        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, controller.getConfigTeksti("acknowlwdge"), controller.getConfigTeksti("inProgress"));
+        BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
+        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "KÄSITTELYSSÄ");
 
-        laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
-        laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        varaajaColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
+        varaajaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         alkupvmColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Timestamp>("alkupvm"));
         alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Timestamp>() {
             @Override
             public String toString(Timestamp object) {
+                String tString = object.toString();
                 return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(object);
             }
 
@@ -111,9 +111,10 @@ public class KayttajanVarauksetController implements Initializable {
 
             @Override
             public String toString(Timestamp object) {
+                String tString = object.toString();
                 return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(object);
             }
-
+            
             @Override
             public Timestamp fromString(String string) {
                 try {
@@ -136,54 +137,38 @@ public class KayttajanVarauksetController implements Initializable {
         CC.setConverter(AktiivisuusController);
         palautettuColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("palautettu"));
         palautettuColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), true, false));
-
+        
         hyvaksyntaColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("hyvaksytty"));
         hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(HyvaksyntaController));
 
         usernameLabel.setText(View.loggedIn.getNimi());
         bizName.setText(View.BizName);
-        kayttajaString.setText(controller.getConfigTeksti("user1") + " " + View.selected.getNimi() + " " + controller.getConfigTeksti("reservations"));
-        kayttajaTable.getItems().addAll(View.selected.getVarauksets());
-
-        takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
-        usernameLabel.setText(controller.getConfigTeksti("userInfo").toUpperCase());
-        LogoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
-        kayttajaString.setText(controller.getConfigTeksti("user").toUpperCase());
-        laitenimiColumn.setText(controller.getConfigTeksti("resourceName").toUpperCase());
-        alkupvmColumn.setText(controller.getConfigTeksti("reservationStartdate").toUpperCase());
-        paattymispvmColumn.setText(controller.getConfigTeksti("reservationEnddate").toUpperCase());
-        varausidColumn.setText(controller.getConfigTeksti("reservationId").toUpperCase());
-        varauskuvausColumn.setText(controller.getConfigTeksti("description").toUpperCase());
-        palautettuColumn.setText(controller.getConfigTeksti("activity").toUpperCase());
-        hyvaksyntaColumn.setText(controller.getConfigTeksti("approval").toUpperCase());
-        poistaBtn.setText(controller.getConfigTeksti("removeReservation").toUpperCase());
-        this.LogoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
-        this.poistaBtn.setTooltip(new Tooltip(controller.getConfigTeksti("removeReservationInfo")));
-        this.takaisinBtn.setTooltip(new Tooltip(controller.getConfigTeksti("returnUsersWindow")));
-
-    }
+        System.out.println(View.BizName);
+        varausString.setText("Resurssin " + View.booking.getNimi() + " varaukset");
+        varausTable.getItems().addAll(controller.getVarausTaulukko(controller.ResurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
+        this.LogoutBtn.setTooltip(new Tooltip("Uloskirjautuminen"));
+        this.takaisinBtn.setTooltip(new Tooltip("Palauttaa päänäkymään"));
+    }    
 
     /**
-     * Edelliseen näkymään palaaminen
-     *
-     * @param event hiiren klikkaus.
-     * @throws IOException Varauduttava tietovirtapoikkeus
+     * Palauttaa käyttäjän edelliseen näkymään
+     * @param event hiiren painallus painikkeesta
+     * @throws IOException Tiedostonkäsittelypoikkeus
      */
     @FXML
     private void takaisinBtnPainettu(MouseEvent event) throws IOException {
-        View.selected = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KayttajaAdmin.fxml"));
-        Stage stage = (Stage) kayttajaString.getScene().getWindow();
+        View.booking = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
+        Stage stage = (Stage) varausString.getScene().getWindow();
         Parent root = loader.load();
         stage.getScene().setRoot(root);
-
     }
-
+    
+    
     /**
-     * Logout-toiminto
-     *
-     * @param event hiiren klikkaus
-     * @throws IOException Varauduttava tietovirtapoikkeus
+     * Kirjaa käyttäjän ulos sovelluksesta
+     * @param event hiiren painallus näkymästä
+     * @throws IOException Tiedostoja käsiteltäessä varauduttava poikkeus
      */
     @FXML
     private void logout(MouseEvent event) throws IOException {
@@ -193,33 +178,24 @@ public class KayttajanVarauksetController implements Initializable {
         Parent root = loader.load();
         stage.getScene().setRoot(root);
         View.loggedIn = null;
-        View.selected = null;
+        View.booking = null;
     }
 
     /**
-     * Poista-painike. Poistaa taulukosta valittuna olevan rivin ja päivittää
-     * tiedon tietokantaan. Myös taulukon uudelleenlataus.
-     *
-     * @param event Hiiren klikkaus
-     * @throws IOException Varauduttava tietovirtapoikkeus
+     * Poistaa varauksen, jos se ei vielä ole alkanut
+     * @param event Hiiren painallus painikkeeseen.
      */
     @FXML
-    private void poistaBtnPainettu(MouseEvent event) throws IOException {
-        Varaukset toDelete = kayttajaTable.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, controller.getConfigTeksti("confirmationRemoveReservation"), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+    private void poistavarausBtnPainettu (MouseEvent event) {
+        Varaukset toDelete = varausTable.getSelectionModel().getSelectedItem();
+        if (toDelete != null) {
+            controller.poistaVarausBtnToiminto(toDelete);
+            varausTable.getItems().clear();
+            varausTable.getItems().addAll(controller.getVarausTaulukko(controller.ResurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse varaus!");
             alert.showAndWait();
-            if (alert.getResult() == ButtonType.YES) {
-                if (!controller.OnkoVarausAlkanut(toDelete)) {
-                    controller.poistaVaraus(toDelete.getId());
-                    //System.out.println("poistetaan varaus");
-                    controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + controller.getConfigTeksti("emailFordeletingReservation"));
-                    kayttajaTable.getItems().clear();
-                    kayttajaTable.getItems().addAll(controller.haeKayttajanVaraukset(View.selected));
-                }else {
-                    Alert alert1 = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("errorChooseReservation"));
-                    alert1.showAndWait();
-                    
-                }
-            }
         }
+        
+    }
 }
