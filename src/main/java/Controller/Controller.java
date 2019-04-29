@@ -406,5 +406,5 @@ public class Controller {
     public String getConfigTeksti(String Mihin){
         return tekstit.getText(Mihin);
     }
-}
+    }
 
