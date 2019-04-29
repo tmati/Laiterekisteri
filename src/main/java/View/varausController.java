@@ -91,8 +91,6 @@ public class varausController implements Initializable {
         mihinDp.setDayCellFactory(controller.dayCellFactory(varaus, LocalDate.now()));
         mistaDp.setDayCellFactory(controller.dayCellFactory(varaus, LocalDate.now()));
         
-        
-        
         mistaDp.addEventHandler(ActionEvent.ACTION, 
                     new EventHandler<ActionEvent>() {
             @Override
@@ -107,7 +105,7 @@ public class varausController implements Initializable {
                 }
             }
 
-                    });
+        });
         // Aikaformaatti
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         //Uusi SpinnerValueFactory-olio. Näitä tarvitaan joka spinnerille.
@@ -177,6 +175,20 @@ public class varausController implements Initializable {
         //ValueFactoryiden määrittäminen spinnereilleen.
         mistaSpinner.setValueFactory(mistaFactory);
         mihinSpinner.setValueFactory(mihinFactory);
+        
+        this.lisatiedotTextbox.setTooltip(new Tooltip(controller.getConfigTeksti("reservationReason")));
+        this.mihinDp.setTooltip(new Tooltip(controller.getConfigTeksti("endDate")));
+        this.mihinSpinner.setTooltip(new Tooltip(controller.getConfigTeksti("endTime")));
+        this.mistaDp.setTooltip(new Tooltip(controller.getConfigTeksti("startDate")));
+        this.mistaSpinner.setTooltip(new Tooltip(controller.getConfigTeksti("startTime")));
+        this.varausNappi.setTooltip(new Tooltip(controller.getConfigTeksti("createResrvation")));
+        this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti("closePopup")));
+        
+        lisatiedotLabel.setText(controller.getConfigTeksti("additionalInformation").toUpperCase());
+        mistaLabel.setText(controller.getConfigTeksti("from").toUpperCase());        
+        mihinLabel.setText(controller.getConfigTeksti("where").toUpperCase());
+        titleLabel.setText(controller.getConfigTeksti("reservationNew").toUpperCase());
+        varausNappi.setText(controller.getConfigTeksti("reservationButton").toUpperCase());
     }
 
     /**
@@ -221,17 +233,11 @@ public class varausController implements Initializable {
             this.sulkuNappiPainettu(event);
         }else{
             Alert a = new Alert(AlertType.INFORMATION);
-            a.setHeaderText("Varauksen teko epäonnistui, koska varauksen aika meni toisen varauksen kanssa päälekäin.");
+            a.setHeaderText(controller.getConfigTeksti("alertFailedReservation"));
             a.show();            
         }
         
-        this.lisatiedotTextbox.setTooltip(new Tooltip("Kerro varauksen syy"));
-        this.mihinDp.setTooltip(new Tooltip("Valtise varauksen päättymispäivä"));
-        this.mihinSpinner.setTooltip(new Tooltip("Valitse varauksen päättymisaika"));
-        this.mistaDp.setTooltip(new Tooltip("Valitse varauksen alkamispäivä"));
-        this.mistaSpinner.setTooltip(new Tooltip("Valitse varauksen alkamisaika"));
-        this.varausNappi.setTooltip(new Tooltip("Luo varauksen"));
-        this.sulkuNappi.setTooltip(new Tooltip("Sulkee popupin"));
+        
     }
 
     /**

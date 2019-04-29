@@ -59,7 +59,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </PasswordField>
-                  <Button mnemonicParsing="false" onMouseClicked="#avaaPalautaSalasana" text="PALAUTA SALASANA" underline="true">
+                  <Button fx:id="testBtn" mnemonicParsing="false" onMouseClicked="#avaaPalautaSalasana" text="PALAUTA SALASANA" underline="true">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
