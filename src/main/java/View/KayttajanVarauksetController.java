@@ -206,13 +206,20 @@ public class KayttajanVarauksetController implements Initializable {
     @FXML
     private void poistaBtnPainettu(MouseEvent event) throws IOException {
         Varaukset toDelete = kayttajaTable.getSelectionModel().getSelectedItem();
-        if (toDelete != null) {
-            controller.poistaVarausBtnToiminto(toDelete);
-            kayttajaTable.getItems().clear();
-            kayttajaTable.getItems().addAll(controller.haeKayttajanVaraukset(View.selected));
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse varaus!");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, controller.getConfigTeksti("confirmationRemoveReservation"), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                if (!controller.OnkoVarausAlkanut(toDelete)) {
+                    controller.poistaVaraus(toDelete.getId());
+                    //System.out.println("poistetaan varaus");
+                    controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + controller.getConfigTeksti("emailFordeletingReservation"));
+                    kayttajaTable.getItems().clear();
+                    kayttajaTable.getItems().addAll(controller.haeKayttajanVaraukset(View.selected));
+                }else {
+                    Alert alert1 = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("errorChooseReservation"));
+                    alert1.showAndWait();
+                    
+                }
+            }
         }
-    }
 }
