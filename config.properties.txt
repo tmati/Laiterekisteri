@@ -1,3 +1,267 @@
 passwordFieldTooltipfi = Kenttä salasanaa varten
 passwordFieldTooltipen = Field for password
 passwordFieldTooltippor = Campo para senha
+
+userNameFieldTooltipfi = Kenttä käyttäjänimeä varten
+userNameFieldTooltipen = Field for username
+userNameFieldTooltippor = Campo para nome de usuário
+
+returnPasswordButonfi = PALAUTA SALASANA
+returnPasswordButonen = return password
+returnPasswordButonpor = retorna senha
+
+returnPasswordButtonfi = PALAUTA SALASANA
+returnPasswordButtonen = return password
+returnPasswordButtonpor = retorna senha
+
+passwordLabelfi = salasana
+passwordLabelen = Password
+passwordLabelpor = senha
+
+userLabelfi = Käyttäjänimi
+userLabelen = username
+userLabelpor = nome de usuário
+
+loginImpossiblefi = Käyttäjänimi tai salasana puuttuu!
+loginImpossibleen = username or password is missing!
+loginImpossiblepor = Nome de usuário ou senha ausência de!
+
+wrongLoginfi = Väärä käyttäjätunnus tai salasana!
+wrongLoginen = Wrong username or password!
+wrongLoginpor = Errado nome de usuário ou senha!
+
+closePopupfi = Sulkee popupin
+closePopupen = Close popup
+closePopuppor = Perto Aparecer
+
+emailTextfieldfi = Tilisi sähköposti
+emailTextfielden = Account email
+emailTextfieldpor = Conta o email
+
+returnEmailTooltipfi = Palauttaa uuden salasanan sähköpostiin
+returnEmailTooltipen = Returns new password to email
+returnEmailTooltippor = Retorna nova senha para o email
+
+noEmailfi = Sähköpostti puutuu
+noEmailen = Email is missing
+noEmailpor = O email é ausência de
+
+newPasswordLabelfi = Anna sähköpostiosoitteesi. Tähän osoitteeseen liittyvän käyttäjän salasana palautetaan.
+newPasswordLabelen = Give your email to which password is returned.
+newPasswordLabelpor = Dar seu o email para qual senho é retornou.
+
+emailLabelfi = Sähköposttiosoite
+emailLabelen = Email address
+emailLabelpor = O email
+
+formErrorfi = TIETOJA PUUTTUU. TÄYTÄ LOPUT KOHDAT JA YRITÄ UUDELLEEN!
+formErroren = Items missing. Fill rest and try again!
+formErrorpor = Unid ausência de. Preencher descansar e experimentar novamente!
+
+reservationButtonfi = tee varaus
+reservationButtonen = make reservation
+reservationButtonpor = faço reserva
+
+reservationNewfi = uusi varaus
+reservationNewen = new reservation
+reservationNewpor = nova reserva
+
+fromfi = mistä
+fromen = from
+frompor = de
+
+wherefi = mihin
+whereen = where
+wherepor = onde
+
+additionalInformationfi = LISÄTIEDOT:
+additionalInformationen = additional information:
+additionalInformationpor = informação adicional:
+
+alertFailedReservationfi = Varauksen teko epäonnistui, koska varauksen aika meni toisen varauksen kanssa päälekäin.
+alertFailedReservationen = Reservation failed because it overlapped other reservation.
+alertFailedReservationpor = Reserva falhou porque isto sobreposto de outros reserva.
+
+createReservationfi = Luo varauksen
+createReservationen = Create reservation
+createReservationpor = Crio reserva
+
+startTimefi = Valitse varauksen alkamisaika
+startTimeen = Choose start time for reservation
+startTimepor = Escolher começar tempo para reserva
+
+startDatefi = Valitse varauksen alkamispäivä
+startDateen = Choose start date for reservation
+startDatepor = Escolher começar encontro para reserva
+
+endTimefi = Valitse varauksen loppumisaika
+endTimeen = Choose end time for reservation
+endTimepor = Escolher fim tempo para reserva
+
+endDatefi = Valitse varauksen loppumispäivä
+endDateen = Choose end date for reservation
+endDatepor = Escolher fim encontro para reserva
+
+reservationReasonfi = Kerro varauksen syy
+reservationReasonen = Reason for reservation
+reservationReasonpor = Razão par reserva
+
+namefi = nimi
+nameen = name
+namepor = nome
+
+authorizationfi = Valtuudet
+authorizationen = authorization
+authorizationpor = autorização
+
+newUserfi = lisää käyttäjä 
+newUseren = new user
+newUserpor = novo do utilizador
+
+userReservationfi = KÄYTTÄJÄN VARAUKSET
+userReservationen = user's reservations
+userReservationpor = Utilizador reserva
+
+removeUserfi = poista käyttäjä
+removeuseren = remove user
+removeuserpor = remover do utilizador
+
+backfi = takaisin
+backen = back
+backpor = de volta
+
+userInfofi = Käyttäjän tiedot 
+userInfoen = user info
+userInfopor = do utilizador info
+
+Logoutfi = kirjaudu ulos
+Logouten = logout
+Logoutpor = sair
+
+userfi = käyttäjät
+useren =  user
+userpor = Comercial
+
+userfi = käyttäjä
+useren = user
+userpor = do utilizador
+
+addUserfi = Avaa popupin käyttäjän lisäämistä varten
+addUseren = Open popup for adding user
+addUserpor = Avrir aparecer para adicionando do utilizador
+
+removeUserfi = Poistaa valitun käyttäjän järjestelmästä
+removeUseren = Remove chosen user from system
+removeUserpor = Remover escolhido do utilizador de sistema
+
+returnButtonfi = Palauttaa päänäkymään
+returnButtonen = return to main view
+returnButtonpor = Retorna para a principal visão
+
+userReservationTooltipfi = Avaa näkymän, jossa näet valitsemasi käyttäjän varaukset
+userReservationTooltipen = Open a view where you can see selected user reservation
+userReservationTooltippor = Abrir uma visão onde você posso vejo selecionado do utilizador reserva
+
+confDeleteUserfi = Oletko varma, että haluat poistaa käyttäjän?
+confDeleteUseren = Do you want remove selected user?
+confDeleteUserpor = Você quer remover o usuário selecionado?
+
+chooseUserfi = Valitse käyttäjä!
+chooseUseren = Choose user!
+chooseUserpor = Escolha o usuário!
+
+emailDublicatefi = Sähköposti on jo käytössä!
+emailDublicateen = Email is already in use!
+emailDublicatepor = O e-mail já está sendo usado!
+
+userNameDublicatefi = Käyttäjätunnus on jo käytössä!
+userNameDublicateen = User identifier is already in use!
+userNameDublicatepor = O identificador de usuários já está em uso!
+
+returnButtonfi = takaisin
+returnButtonen = return
+returnButtonpor = retorna
+
+resourceNamefi = laitteen nimi
+resourceNameen = resource Name
+resourceNamepor = nome do recurso
+
+reservationStartdatefi = varauksen alkamispäivä
+reservationStartdateen = reservation start date
+reservationStartdatepor = data de início da reserva
+
+reservationEnddatefi = varauksen päätymispäivä
+reservationEnddateen = reservation end date
+reservationEnddatepor = data de término da reserva
+
+reservationIdfi = varaus ID
+reservationIden = reservation ID
+reservationIdpor = reserva ID
+
+descriptionfi = kuvaus
+descriptionen = description
+descriptionpor = descrição
+
+activityfi = aktiivisuus
+activityen = activity
+activitypor = atividade
+
+approvalfi = hyväksyntä
+approvalen = approval
+approvalpor = aprovação
+
+removeReservationfi = poista varaus
+removeReservationen = remove reservation
+removeReservationpor = remover reserva
+
+reservationsfi = varaukset  
+reservationsen = reservations
+reservationspor = reservas
+
+logoutInfofi = Ulos kirjautumunen
+logoutInfoen = Logging out
+logoutInfopor = Sair
+
+removeReservationInfofi = Poistaa valitun varauksen ja lähettää ilmoituksen käyttäjälle
+removeReservationInfoen = Remove chosen reservation and send notification to user
+removeReservationInfopor = Remover reserva escolhida e enviar notificação ao usuário
+
+returnUsersWindowfi = Palauttaa hallinnoi henkilöitä -näkymään
+returnUsersWindowen = Return to user control view 
+returnUsersWindowpor = Retornar para a visualização de controle do usuário
+
+confirmationRemoveReservationfi = Oletko varma, että haluat poistaa varauksen?
+confirmationRemoveReservationen = Are you sure that you want remove reservation?
+confirmationRemoveReservationpor = Tem certeza de que deseja remover a reserva?
+
+emailFordeletingReservationfi =  on poistettu esimiehen tai ylläpitäjän toimesta.\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.
+emailFordeletingReservationen = has been removed by the manager or administrator.\n \nThis is an automatic message that does not need to be answered.
+emailFordeletingReservationpor = foi removido pelo gerente ou pelo administrador. \ n \ nEsta é uma mensagem automática que não precisa ser respondida.
+
+errorDeleteReservationfi = Et voi poistaa varausta, joka on vanhentunut tai alkanut!
+errorDeleteReservationen = You cannot delete a reservation that has expired or started!
+errorDeleteReservationpor = Você não pode excluir uma reserva expirada ou iniciada!
+
+errorChooseReservationfi = Valitse varaus!
+errorChooseReservationen = Choose reservation!
+errorChooseReservationpor = Escolha a reserva!
+
+isActivefi = Aktiivinen
+isActiveen = Is active
+isActivepor = Está ativo
+
+isnActivefi = Ei aktiivinen
+isnActiveen = Isn't active
+isnActivepor = não é ativo
+
+acknowledgedfi = HYVÄKSYTTY
+acknowledgeden = acknowledged
+acknowledgedpor = reconhecido
+
+inProgressfi = käsittelyssä
+inProgressen = in progress
+inProgresspor = em progresso
+
+
+
+

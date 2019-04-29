@@ -79,8 +79,8 @@ public class KayttajanVarauksetController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         controller = new Controller();
         ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
-        BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
-        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "KÄSITTELYSSÄ");
+        BooleanConverter AktiivisuusController = new BooleanConverter(controller, controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
+        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, controller.getConfigTeksti("acknowlwdge"), controller.getConfigTeksti("inProgress"));
 
         laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
         laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -142,12 +142,24 @@ public class KayttajanVarauksetController implements Initializable {
 
         usernameLabel.setText(View.loggedIn.getNimi());
         bizName.setText(View.BizName);
-        kayttajaString.setText("Käyttäjän " + View.selected.getNimi() + " varaukset");
+        kayttajaString.setText(controller.getConfigTeksti("user1") + " " + View.selected.getNimi() + " " + controller.getConfigTeksti("reservations"));
         kayttajaTable.getItems().addAll(View.selected.getVarauksets());
 
-        this.LogoutBtn.setTooltip(new Tooltip("Ulos kirjautuminen"));
-        this.poistaBtn.setTooltip(new Tooltip("Poistaa valitun varauksen ja lähettää ilmoituksen käyttäjälle"));
-        this.takaisinBtn.setTooltip(new Tooltip("Palauttaa hallinnoi henkilöitä -näkymään"));
+        takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
+        usernameLabel.setText(controller.getConfigTeksti("userInfo").toUpperCase());
+        LogoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
+        kayttajaString.setText(controller.getConfigTeksti("user").toUpperCase());
+        laitenimiColumn.setText(controller.getConfigTeksti("resourceName").toUpperCase());
+        alkupvmColumn.setText(controller.getConfigTeksti("reservationStartdate").toUpperCase());
+        paattymispvmColumn.setText(controller.getConfigTeksti("reservationEnddate").toUpperCase());
+        varausidColumn.setText(controller.getConfigTeksti("reservationId").toUpperCase());
+        varauskuvausColumn.setText(controller.getConfigTeksti("description").toUpperCase());
+        palautettuColumn.setText(controller.getConfigTeksti("activity").toUpperCase());
+        hyvaksyntaColumn.setText(controller.getConfigTeksti("approval").toUpperCase());
+        poistaBtn.setText(controller.getConfigTeksti("removeReservation").toUpperCase());
+        this.LogoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
+        this.poistaBtn.setTooltip(new Tooltip(controller.getConfigTeksti("removeReservationInfo")));
+        this.takaisinBtn.setTooltip(new Tooltip(controller.getConfigTeksti("returnUsersWindow")));
 
     }
 
@@ -194,25 +206,20 @@ public class KayttajanVarauksetController implements Initializable {
     @FXML
     private void poistaBtnPainettu(MouseEvent event) throws IOException {
         Varaukset toDelete = kayttajaTable.getSelectionModel().getSelectedItem();
-        if (toDelete != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, controller.getConfigTeksti("confirmationRemoveReservation"), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
                 if (!controller.OnkoVarausAlkanut(toDelete)) {
                     controller.poistaVaraus(toDelete.getId());
-                    System.out.println("poistetaan varaus");
-                    controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + " on poistettu esimiehen tai ylläpitäjän toimesta."
-                            + "\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.");
+                    //System.out.println("poistetaan varaus");
+                    controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + controller.getConfigTeksti("emailFordeletingReservation"));
                     kayttajaTable.getItems().clear();
                     kayttajaTable.getItems().addAll(controller.haeKayttajanVaraukset(View.selected));
-                } else {
-                    alert = new Alert(Alert.AlertType.WARNING, "Et voi poistaa varausta, joka on vanhentunut tai alkanut!");
-                    alert.showAndWait();
+                }else {
+                    Alert alert1 = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("errorChooseReservation"));
+                    alert1.showAndWait();
+                    
                 }
             }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse resurssi!");
-            alert.showAndWait();
         }
-    }
 }

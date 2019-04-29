@@ -9,21 +9,9 @@ import Model.Kayttaja;
 import Model.KayttajaAccessObject;
 import Model.Resurssit;
 import Model.Varaukset;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Set;
-import javafx.collections.FXCollections;
-import javafx.scene.control.ChoiceBox;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  * Testi -luokka Controller -luokalle
@@ -63,8 +51,6 @@ public class ControllerTest {
     @Test
     public void ControllerVarausTestit() {
         Resurssit[] r = kont.haeKaikkiResurssit();
-        
-
         LocalDateTime aloitus = LocalDateTime.now();
         aloitus.plusHours(2);;
         LocalDateTime lopetus = aloitus.plusHours(2);
@@ -101,15 +87,21 @@ public class ControllerTest {
     
     @Test
     public void ControllerUtilityTestit(){
+        //Salasanan cryptaus
         assertFalse("salasananCryptaus: ei onnistunut",
                 kont.SalasananCryptaus("asd").equalsIgnoreCase("asd"));
+        //Login
         assertTrue("login: ei onnistunut",
                 kont.login("testi", "testi"));
         assertFalse("login: pääsi sisään vaikka ei pitänyt",
                 kont.login("asdgfds", "äöädrftrewqsxd"));
+        //Varaus aktiivisuuden tarkastus
        assertTrue("tarkistaVarausAktiivisuudet: ei onnistunut",
                kont.tarkistaVarausAktiivisuudet());
-        
+        assertTrue("paivaLaskuri: paivien erotus väärin",
+                kont.paivaLaskuri(LocalDateTime.now(), LocalDateTime.now().plusDays(2)) == 2);
     }
+    
+  
     
 }

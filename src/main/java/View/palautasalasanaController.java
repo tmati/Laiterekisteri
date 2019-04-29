@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -50,9 +51,15 @@ public class palautasalasanaController implements Initializable {
   
         controller = View.controller;
         
-        this.emailTextField.setTooltip(new Tooltip("Tilisi sähköposti"));
-        this.sulkuNappi.setTooltip(new Tooltip("Sulkee popupin"));
-        this.palautaemailNappi.setTooltip(new Tooltip("Palauttaa uuden salasanan sähköpostiin"));
+        this.emailTextField.setTooltip(new Tooltip(controller.getConfigTeksti("emailTextfield")));
+        this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti("closePopup")));
+        this.palautaemailNappi.setTooltip(new Tooltip(controller.getConfigTeksti("returnEmailTooltip")));
+        palautaemailNappi.setText(controller.getConfigTeksti("returnPasswordButton").toUpperCase());
+        titleLabel.setText(controller.getConfigTeksti("returnPasswordButton").toUpperCase());
+        uusisalasanaLabel.setText(controller.getConfigTeksti("newPasswordLabel"));
+        vanhasalasanaLabel.setText(controller.getConfigTeksti("emailLabel"));
+        virheLabel.setText(controller.getConfigTeksti("formError").toUpperCase());
+        emailTextField.setPromptText(controller.getConfigTeksti("emailLabel"));
     }    
 
     @FXML

@@ -42,7 +42,7 @@ public class Kayttaja implements java.io.Serializable {
      * @param salasana käyttäjän salasana
      * @param kayttajatunnus käyttäjän käyttäjätunnus
      * @param sahkoposti käyttäjän sähköposti
-     * @param valtuudet käyttäjän valtuudet
+     * @param valtuudet käyttäjän valtuudet 
      */
     public Kayttaja(String nimi, String salasana, String kayttajatunnus, String sahkoposti, int valtuudet) {
         this.nimi = nimi;
@@ -126,7 +126,7 @@ public class Kayttaja implements java.io.Serializable {
 
     /**
      * Setteri käyttäjän valtuuksille
-     *
+     * 0=työntekijä, 1=esimies, 2=ylläpitäjä
      * @param valtuudet käyttäjän valtuudet
      */
     public void setValtuudet(int valtuudet) {
@@ -135,7 +135,7 @@ public class Kayttaja implements java.io.Serializable {
 
     /**
      * Getteri käyttäjän käyttäjätunnukselle
-     *
+     * 0=työntekijä, 1=esimies, 2=ylläpitäjä
      * @return palauttaa käyttäjän käyttäjätunnuksen
      */
     @Column(name = "Kayttajatunnus", nullable = false, length = 40)

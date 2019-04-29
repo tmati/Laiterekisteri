@@ -65,6 +65,9 @@ public class KayttajaAdminController implements Initializable {
     private GridPane bgPane;
     @FXML
     private TableColumn kayttajatunnusColumn;
+    @FXML
+    private Label bizName1;
+    
     Popup popup;
  
 
@@ -89,26 +92,39 @@ public class KayttajaAdminController implements Initializable {
         //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-
+        nimiColumn.setText(kontrolleri.getConfigTeksti("name").toUpperCase());
+        
         emailColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("sahkoposti"));
         emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        emailColumn.setText(kontrolleri.getConfigTeksti("emailLabel").toUpperCase());
         
         ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
         CC.setConverter(KayLC);
         valtuudetColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, Integer>("valtuudet"));
         valtuudetColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), 0,1,2));
-
+        valtuudetColumn.setText(kontrolleri.getConfigTeksti("authorization").toUpperCase());
+        
         kayttajatunnusColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("kayttajatunnus"));
         kayttajatunnusColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        kayttajatunnusColumn.setText(kontrolleri.getConfigTeksti("useLabel"));
+        
         kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
         bizName.setText(View.BizName);
         usernameLabel.setText(View.loggedIn.getNimi());
         
-        this.LogoutBtn.setTooltip(new Tooltip("Ulos kirjautuminen"));
-        this.lisaaBtn.setTooltip(new Tooltip("Avaa popupin käyttäjän lisäämistä varten"));
-        this.poistaBtn.setTooltip(new Tooltip("Poistaa valitun käyttäjän järjestelmästä"));
-        this.takaisinBtn.setTooltip((new Tooltip("Palauttaa päänäkymään")));
-        this.kayttajanvarauksetNappi.setTooltip(new Tooltip("Avaa näkymän, jossa näet valitsemasi käyttäjän varaukset"));
+        lisaaBtn.setText(kontrolleri.getConfigTeksti("newUser").toUpperCase());
+        kayttajanvarauksetNappi.setText(kontrolleri.getConfigTeksti("usersReservation").toUpperCase());
+        poistaBtn.setText(kontrolleri.getConfigTeksti("removeUser").toUpperCase());
+        takaisinBtn.setText(kontrolleri.getConfigTeksti("back").toUpperCase());
+        usernameLabel.setText(kontrolleri.getConfigTeksti("userInfo").toUpperCase());
+        LogoutBtn.setText(kontrolleri.getConfigTeksti("Logout").toUpperCase());
+        bizName1.setText(kontrolleri.getConfigTeksti("user").toUpperCase());
+        
+        this.LogoutBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("Logout")));
+        this.lisaaBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("addUser")));
+        this.poistaBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("removeUser")));
+        this.takaisinBtn.setTooltip((new Tooltip(kontrolleri.getConfigTeksti("returnButton"))));
+        this.kayttajanvarauksetNappi.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("userReservationTooltip")));
        
     }
 
@@ -184,7 +200,7 @@ public class KayttajaAdminController implements Initializable {
     private void poistaBtnPainettu(MouseEvent event) {
         Kayttaja K = kayttajaTableView.getSelectionModel().getSelectedItem();
         if (K != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa käyttäjän?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, kontrolleri.getConfigTeksti("confDeleteUser") , ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
                 kontrolleri.poistaKayttaja(K.getId());
@@ -192,7 +208,7 @@ public class KayttajaAdminController implements Initializable {
                 System.out.println("Poistetaan rivi");
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse käyttäjä!");
+            Alert alert = new Alert(Alert.AlertType.WARNING, kontrolleri.getConfigTeksti("chooseUser"));
             alert.showAndWait();
         }
     }
@@ -206,7 +222,7 @@ public class KayttajaAdminController implements Initializable {
             Parent root = loader.load();
             stage.getScene().setRoot(root);
     }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse käyttäjä!");
+            Alert alert = new Alert(Alert.AlertType.WARNING, kontrolleri.getConfigTeksti("chooseUser"));
             alert.showAndWait();
         }
     }
@@ -234,7 +250,7 @@ public class KayttajaAdminController implements Initializable {
     @FXML
     private void emailEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
         if (!kontrolleri.tarkistaEmail(event.getNewValue())) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Sähköposti on jo käytössä!");
+            Alert alert = new Alert(Alert.AlertType.WARNING, kontrolleri.getConfigTeksti("emailDublicate"));
             alert.showAndWait();
             kayttajaTableView.getItems().clear();
             kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());

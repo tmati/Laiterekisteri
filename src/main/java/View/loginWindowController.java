@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -50,7 +51,11 @@ public class loginWindowController implements Initializable {
     private Button testBtn;
     @FXML
     private ImageView bgView;
-
+    @FXML
+    private Label usernameLabel;
+    @FXML
+    private Label usernameLabel1;
+    
     private boolean loginPossible;
     
     Popup popup;
@@ -73,9 +78,12 @@ public class loginWindowController implements Initializable {
         usernameField.setId("usernameField");
 
         this.passwordField.setTooltip(new Tooltip(controller.getConfigTeksti("passwordFieldTooltip")));
-        this.usernameField.setTooltip(new Tooltip("Kenttä käyttäjänimeä varten"));
-   
-       
+        this.usernameField.setTooltip(new Tooltip(controller.getConfigTeksti("userNameFieldTooltip")));
+        testBtn.setText(controller.getConfigTeksti("returnPasswordButon").toUpperCase());
+        usernameLabel1.setText(controller.getConfigTeksti("passwordLabel").toUpperCase());
+        usernameLabel.setText(controller.getConfigTeksti("userLabel").toUpperCase());
+        passwordField.setPromptText(controller.getConfigTeksti("passwordLabel"));
+        usernameField.setPromptText(controller.getConfigTeksti("userLabel"));
     }
 
     /**
@@ -114,7 +122,7 @@ public class loginWindowController implements Initializable {
      */
     @FXML
     private void herjaaPuuttuvasta(MouseEvent event) {
-        Alert alert = new Alert(AlertType.WARNING, "Tunnus tai salasana puuttuu!");
+        Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti("loginImpossible"));
         alert.showAndWait();
         if(usernameField.getText().equals("")){
             usernameField.requestFocus();
@@ -141,7 +149,7 @@ public class loginWindowController implements Initializable {
 
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Väärä käyttäjätunnus tai salasana");
+            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("wrongLogin"));
             alert.showAndWait();
         }
     }
@@ -166,11 +174,11 @@ public class loginWindowController implements Initializable {
 
                 }
             }else{
-                Alert alert = new Alert(AlertType.WARNING, "Tunnus tai salasana puuttuu!");
+                Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti("loginImpossible"));
                 alert.showAndWait();
             }
         } else if (ke.getCode() == KeyCode.ENTER && !loginPossible) {
-            Alert alert = new Alert(AlertType.WARNING, "Tunnus tai salasana puuttuu!");
+            Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti("loginImpossible"));
             alert.showAndWait();
             if(usernameField.getText().equals("")){
                 usernameField.requestFocus();

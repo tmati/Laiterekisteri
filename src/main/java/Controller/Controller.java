@@ -1,20 +1,15 @@
-
 package Controller;
 
 import Model.*;
-import java.io.IOException;
 import java.time.LocalDate;
-
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
-import java.util.Set;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Callback;
-import javax.mail.MessagingException;
 
 /**
  * Controlleri
@@ -23,22 +18,22 @@ import javax.mail.MessagingException;
  */
 public class Controller {
 
-    private KayttajaDAO_IF kayttajaDAO;
-    private ResurssitDAO_IF resurssiDAO;
-    private VarauksetDAO_IF varausDAO;
-    private KayttajaTarkistus kayttajaTarkistus;
-    private PasswordConverterInterface crypter = new PasswordConverter();
-    private LoginUtils login;
-    private ChoiceboxUtils cbutils;
-    private BooleanConverter BoolConv;
-    private DayCellFactory cellfactory;
-    private VarauksenAikaLaskuriInterface aikalaskuri;
-    private VarausKasittely varausKasittely;
-    private Resurssikasittely resurssikasittely;
-    private Kalenterin_tarvitsemat_toimenpiteet kalenteriApu;
-    private Sahkoposti sahkoposti;
-    private SalasananPalautus salasananPalautus;
-    private LanguageText tekstit;
+    private final KayttajaDAO_IF kayttajaDAO;
+    private final ResurssitDAO_IF resurssiDAO;
+    private final VarauksetDAO_IF varausDAO;
+    private final KayttajaTarkistus kayttajaTarkistus;
+    private final PasswordConverterInterface crypter;
+    private final LoginUtils login;
+    private final ChoiceboxUtils cbutils;
+    private final DayCellFactory cellfactory;
+    private final VarauksenAikaLaskuriInterface aikalaskuri;
+    private final VarausKasittely varausKasittely;
+    private final Resurssikasittely resurssikasittely;
+    private final Kalenterin_tarvitsemat_toimenpiteet kalenteriApu;
+    private final Sahkoposti sahkoposti;
+    private final SalasananPalautus salasananPalautus;
+    private final PoistaBtnToiminnot poistaBtnToiminnot;
+    private final LanguageText tekstit;
 
     /**
      * Controllerin konstruktio
@@ -50,7 +45,6 @@ public class Controller {
         varausDAO = new VarauksetAccessObject();
         login = new LoginUtils(this);
         cbutils = new ChoiceboxUtils(this);
-        BoolConv = new BooleanConverter(this);
         cellfactory = new DayCellFactory();
         aikalaskuri = new VarauksenAikaLaskuri();
         varausKasittely = new VarausKasittely(varausDAO, this);
@@ -58,8 +52,10 @@ public class Controller {
         kalenteriApu = new Kalenterin_tarvitsemat_toimenpiteet();
         sahkoposti = new Sahkoposti();
         salasananPalautus = new SalasananPalautus(this);
+        poistaBtnToiminnot = new PoistaBtnToiminnot(this);
         tekstit = LanguageText.getInstance();
-       }
+        crypter = new PasswordConverter();
+    }
 
     /**
      * Kutsuu PasswordConverterInterface.passwordConverter()
@@ -111,13 +107,13 @@ public class Controller {
     }
 
     /**
-     * Kutsuu VarausKasittely.poistaKayttajanVaraukset()
-     * Kutsuu KayttajaAccessObject.deleteKayttaja()
+     * Kutsuu VarausKasittely.poistaKayttajanVaraukset() Kutsuu
+     * KayttajaAccessObject.deleteKayttaja()
      *
      * @param id poistettavan käyttäjän id
      * @return palauttaa true jos käyttäjän poista tietokannasta onnistui
      */
-    public boolean poistaKayttaja(int id){
+    public boolean poistaKayttaja(int id) {
         varausKasittely.poistaKayttajanVaraukset(id);
         return kayttajaDAO.deleteKayttaja(id);
     }
@@ -152,21 +148,22 @@ public class Controller {
     }
 
     /**
-     * Kutsuu Controller.tarkistaVarausAKtiivisuudet()
-     * Kutsuu VarausAccessObject.readVaraukset()
+     * Kutsuu Controller.tarkistaVarausAKtiivisuudet() Kutsuu
+     * VarausAccessObject.readVaraukset()
      *
      * @return palauttaa taulukon kaikista varaus -olioista
      */
-    public Varaukset[] haeKaikkiVaraukset(){
+    public Varaukset[] haeKaikkiVaraukset() {
         this.tarkistaVarausAktiivisuudet();
         return varausDAO.readVaraukset();
     }
-    
+
     /**
      * Kutsuu VarausKasittely.tarkistaAktiivisuudet()
+     *
      * @return true jos onnistuu
      */
-    public boolean tarkistaVarausAktiivisuudet(){
+    public boolean tarkistaVarausAktiivisuudet() {
         return varausKasittely.tarkistaAktiivisuudet();
     }
 
@@ -176,18 +173,18 @@ public class Controller {
      * @param kayttaja kayttaja -olio jonka varaukset haetaan
      * @return palauttaa taulukon kaikista käyttäjän varaus -olioista
      */
-    public Varaukset[] haeKayttajanVaraukset(Kayttaja kayttaja){
+    public Varaukset[] haeKayttajanVaraukset(Kayttaja kayttaja) {
         return varausKasittely.haeKayttajanVaraukset(kayttaja);
     }
 
     /**
-     * Kutsuu ResurssiKasittely.poisteResurssinVaraukset()
-     * Kutsuu ResurssiAccessObject.deleteResurssi()
+     * Kutsuu ResurssiKasittely.poisteResurssinVaraukset() Kutsuu
+     * ResurssiAccessObject.deleteResurssi()
      *
      * @param r tietokannasta poistettava resurssi
      * @return palauttaa true jos resurssin poisto tietokannasta onnistui
      */
-    public boolean poistaResurssi(Resurssit r){
+    public boolean poistaResurssi(Resurssit r) {
         resurssikasittely.poistaResurssinVaraukset(r);
         return resurssiDAO.deleteResurssi(r.getId());
     }
@@ -243,7 +240,6 @@ public class Controller {
         return login.loginProcess(userName, this.SalasananCryptaus(passWord));
     }
 
-
     /**
      * Kutsuu VarausAccessObject.readVaraus()
      *
@@ -263,9 +259,8 @@ public class Controller {
     public boolean poistaVaraus(int id) {
         return varausDAO.deleteVaraus(id);
     }
-    
-    
-      /**
+
+    /**
      * Kutsuu ChoiceboxUtils.tulkitseChoiceBox()
      *
      * @param cb choice box elementti jota tulkitaan
@@ -275,98 +270,111 @@ public class Controller {
         return cbutils.tulkitseChoiceBox(cb);
 
     }
-    
+
     /**
-     * Vie paivat varauksen kesto laskuriin ja tuo sen jälkeen, kuinka monta päivää varaus kestää.
+     * Vie paivat varauksen kesto laskuriin ja tuo sen jälkeen, kuinka monta
+     * päivää varaus kestää.
+     *
      * @param alkupvm milloin varaus alkaa
      * @param loppumispvm milloin varaus loppuu
      * @return alkupvm ja loppupvm erotuksen
      */
-    public int paivaLaskuri(LocalDateTime alkupvm, LocalDateTime loppumispvm){
-       return aikalaskuri.PaivaKesto(alkupvm, loppumispvm);
+    public int paivaLaskuri(LocalDateTime alkupvm, LocalDateTime loppumispvm) {
+        return aikalaskuri.PaivaKesto(alkupvm, loppumispvm);
     }
-    
-    
+
     /**
      * Palauttaa datepickerille muokatut päivät.
+     *
      * @param varaukset varaukset joila on varaukset tietyihin päiville.
      * @param today mistä päivästä eteenpäin voi päiviä valita.
      * @return Callbackin jossa on muokatuja päiviä.
      */
-    public Callback dayCellFactory(Varaukset[] varaukset, LocalDate today){
-        return cellfactory.dayCellFactory(this, varaukset,today);
+    public Callback dayCellFactory(Varaukset[] varaukset, LocalDate today) {
+        return cellfactory.dayCellFactory(this, varaukset, today);
     }
-    
+
     /**
      * Tulkitsee boolean-arvon sisältävän choiceboxin. Pyyntö model-luokkaan.
+     *
      * @param cb Tulkittava choicebox
      * @return True/false
      */
     public boolean readBoolCb(String cb) {
         return cbutils.tulkitseBooleanBox(cb);
     }
-    
+
     /**
      * Hakee modelista BooleanConverter-ilmentymän
+     *
      * @return BooleanConverter-olio
      */
     public BooleanConverter getBoolConv() {
         return new BooleanConverter(this);
     }
-    
-        /**
+
+    /**
      * Siirtää ArrayListasta varaus alkiot varaus Array:hin.
+     *
      * @param aVaraukset Varaus ArrayListasta josta halutaan tehdä array.
      * @return Varaukset Array:na.
      */
-    public Varaukset[] getVarausTaulukko(ArrayList<Varaukset> aVaraukset){
+    public Varaukset[] getVarausTaulukko(ArrayList<Varaukset> aVaraukset) {
         return kalenteriApu.getVarausTaulukko(aVaraukset);
     }
-    
+
     /**
-     * Vie parametrit Kalenterin_tarvitsemat_toimenpiteet() luokalle, jossa resurssiId:n avulla varaus Arraysta tehdään ArrayListan jossa on vain sen resursin varaukset.
+     * Vie parametrit Kalenterin_tarvitsemat_toimenpiteet() luokalle, jossa
+     * resurssiId:n avulla varaus Arraysta tehdään ArrayListan jossa on vain sen
+     * resursin varaukset.
+     *
      * @param resurssiId Halutun resursin Id.
      * @param varaukset Varaus array josta halutaan saada resursin varaukset.
      * @return ArrayListan jossa on resursin varaukset Arraysta.
      */
-    public ArrayList<Varaukset> ResurssinVaraukset(int resurssiId, Varaukset[] varaukset){
+    public ArrayList<Varaukset> ResurssinVaraukset(int resurssiId, Varaukset[] varaukset) {
         return kalenteriApu.ResursinVaraukset(resurssiId, varaukset);
     }
-    
+
     /**
-     * Vie parametrit Kalenterin_tarvitsemat_toimenpiteet lu9okalle parametrit. Se kertoo jos varaus sillä ajan hetkellä on mahdollista. Kun verrataan muihin tuoteen varauksiin.
+     * Vie parametrit Kalenterin_tarvitsemat_toimenpiteet lu9okalle parametrit.
+     * Se kertoo jos varaus sillä ajan hetkellä on mahdollista. Kun verrataan
+     * muihin tuoteen varauksiin.
+     *
      * @param aVaraukset ArrayLista varattavan tuoteen varauksista.
      * @param endDate Milloin tuleva varaus loppuu. (päivä)
      * @param startDate Milloin tuleva varaus alkaa. (päivä)
-     * @return true jos vraus on mahdollista ja falsen jos varaus menee toisen varauksen päälle.
+     * @return true jos vraus on mahdollista ja falsen jos varaus menee toisen
+     * varauksen päälle.
      */
-    public boolean Onnistuu(ArrayList<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate){
+    public boolean Onnistuu(ArrayList<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate) {
         return kalenteriApu.Onnistuu(aVaraukset, endDate, startDate);
     }
-    
-    
+
     /**
      * Kutsuu VarausKasittely.haeKasittelemattomat()
+     *
      * @return taulukko käsittelemättömistä varaus -oloista.
      */
-    public Varaukset[] haeKasittelemattomatVaraukset(){
+    public Varaukset[] haeKasittelemattomatVaraukset() {
         return varausKasittely.haeKasittelemattomat();
     }
-    
+
     /**
      * Kutsuu Sahkoposti.sendEmail()
+     *
      * @param vastaanottaja Sahkopostiosoite johon lähetetään
      * @param viesti lähettettävä viesti
      * @return true jos lähetys onnistuu
-     * 
+     *
      */
-    public boolean lahetaSahkoposti(String vastaanottaja, String viesti){
+    public boolean lahetaSahkoposti(String vastaanottaja, String viesti) {
         ExecutorService emailExecutor = Executors.newSingleThreadExecutor();
         emailExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 try {
-                   sahkoposti.sendEmail(vastaanottaja, viesti);
+                    sahkoposti.sendEmail(vastaanottaja, viesti);
                 } catch (Exception e) {
                     System.out.println("säie fail" + e);
                 }
@@ -375,36 +383,50 @@ public class Controller {
         emailExecutor.shutdown(); // it is very important to shutdown your non-singleton ExecutorService.
         return true;
     }
-    
+
     /**
      * Kutsuu VarausKasittely.getVarausAikaString
+     *
      * @param V Varaus, jonka tiedoista string kasataan sähköpostia varten
-     * @return String, jossa näkyy varattavan laitteen nimi ja varauksen ajankohta.
+     * @return String, jossa näkyy varattavan laitteen nimi ja varauksen
+     * ajankohta.
      */
-    public String getVarausAikaString(Varaukset V){
+    public String getVarausAikaString(Varaukset V) {
         return varausKasittely.getVarausAikaString(V);
     }
-    
+
     /**
      * Kutsuu SalasananPalautus.palautaSalasana()
+     *
      * @param email Sähköposti palautetaan
      * @return true jos palautus onnistui
      */
-    public boolean palautaSalasana(String email){
+    public boolean palautaSalasana(String email) {
         return salasananPalautus.palautaSalasana(email);
     }
-    
+
     /**
      * Kutsuu VarausKasittely.tarkistaOnkoVarausAlkanut
+     *
      * @param varaus tarkistettava varaus
      * @return true jos varauksen alkamisaika on mennyt jo
      */
-    public boolean OnkoVarausAlkanut(Varaukset varaus){
+    public boolean OnkoVarausAlkanut(Varaukset varaus) {
         return varausKasittely.tarkistaOnkoVarausAlkanut(varaus);
     }
-    
-    public String getConfigTeksti(String Mihin){
+
+    /**
+     * Kutsuu PoistaBtnToiminnot.varauksetPoistaBtn()
+     *
+     * @param toDelete poistettava varaus
+     * @return true jos poisto onnistuu
+     */
+    public boolean poistaVarausBtnToiminto(Varaukset toDelete) {
+        return poistaBtnToiminnot.varauksetPoistaBtn(toDelete);
+    }
+
+    public String getConfigTeksti(String Mihin) {
         return tekstit.getText(Mihin);
     }
-}
 
+}
