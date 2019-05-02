@@ -102,6 +102,10 @@ public class VarausAdminController implements Initializable {
     private TableColumn hyvaksyntaColumn;
     @FXML
     private TableColumn cbColumn;
+    @FXML
+    private Tab kasittelemattomatTab;
+    @FXML
+    private Tab kaikkiTab;
     
     @FXML
     private Button poistaBtn;
@@ -122,8 +126,10 @@ public class VarausAdminController implements Initializable {
         poistaBtn.setOpacity(0);
         poistaBtn.setDisable(true);
         controller = View.controller;
-        BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
-        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "HYLÄTTY");
+        BooleanConverter AktiivisuusController = new BooleanConverter(controller, controller.getConfigTeksti("isActive").toUpperCase(), controller.getConfigTeksti("isnActive").toUpperCase());
+        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, controller.getConfigTeksti("acknowledged").toUpperCase(), controller.getConfigTeksti("hylatty").toUpperCase());
+        
+        cbColumn.setCellFactory(CheckBoxTableCell.forTableColumn(cbColumn));
         
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Kayttaja>("kayttaja"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Kayttaja>() {
@@ -259,10 +265,31 @@ public class VarausAdminController implements Initializable {
                     
         kaikkiTable.getItems().addAll(controller.haeKaikkiVaraukset());
         
-        this.LogoutBtn.setTooltip(new Tooltip("Ulos kirjautuminen"));
-        this.hylkaaBtn.setTooltip(new Tooltip("Hylkää valitun varauksen"));
-        this.hyvaksyBtn.setTooltip(new Tooltip("Hyväksyy valitun varauksen"));
-        this.takaisinBtn.setTooltip(new Tooltip("Palauttaa päänäkymään"));
+        usernameLabel.setText(controller.getConfigTeksti("userInfo").toUpperCase());
+        LogoutBtn.setText(controller.getConfigTeksti("Logout".toUpperCase()));
+        takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
+        hyvaksyBtn.setText(controller.getConfigTeksti("accept").toUpperCase());
+        hylkaaBtn.setText(controller.getConfigTeksti("hylkaa").toUpperCase());
+        kasittelemattomatTab.setText("kasVaraukset");
+        nimiColumn.setText(controller.getConfigTeksti("varaajaNimi").toUpperCase());
+        tavaraColumn.setText(controller.getConfigTeksti("item").toUpperCase());
+        alkupvmColumn.setText(controller.getConfigTeksti("reservationStartdate").toUpperCase());
+        paattymispvmColumn.setText(controller.getConfigTeksti("reservationEnddate").toUpperCase());
+        kuvausColumn.setText(controller.getConfigTeksti("description").toUpperCase());
+        kaikkiTab.setText(controller.getConfigTeksti("kaikkiVar"));
+        varaajannimiColumn.setText(controller.getConfigTeksti("varaajaNimi").toUpperCase());
+        laitenimiColumn.setText(controller.getConfigTeksti("resourceName").toUpperCase());
+        kaikkialkupvmColumn.setText(controller.getConfigTeksti("reservationStartdate").toUpperCase());
+        kaikkipaattymispvmColumn.setText(controller.getConfigTeksti("reservationEnddate").toUpperCase());
+        varausidColumn.setText(controller.getConfigTeksti("reservationId").toUpperCase());
+        varauskuvausColumn.setText(controller.getConfigTeksti("description").toUpperCase());
+        palautettuColumn.setText(controller.getConfigTeksti("activity").toUpperCase());
+        hyvaksyntaColumn.setText(controller.getConfigTeksti("approval").toUpperCase());
+        
+        this.LogoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
+        this.hylkaaBtn.setTooltip(new Tooltip(controller.getConfigTeksti("hylkaaBtn")));
+        this.hyvaksyBtn.setTooltip(new Tooltip(controller.getConfigTeksti("hyvaksyBtn")));
+        this.takaisinBtn.setTooltip(new Tooltip(controller.getConfigTeksti("returnButton")));
         
         tabPane.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Tab>(){
@@ -306,7 +333,7 @@ public class VarausAdminController implements Initializable {
      * @throws IOException IOException
      */
     public void logout(MouseEvent event) throws IOException {
-        System.out.println("Logout");
+        //System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
         Parent root = loader.load();
@@ -338,19 +365,18 @@ public class VarausAdminController implements Initializable {
     private void hyvaksyBtnPainettu(MouseEvent event){
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
         if (V != null) {
-            Alert alert = new Alert(AlertType.CONFIRMATION, "Oletko varma, että haluat hyväksyä varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            Alert alert = new Alert(AlertType.CONFIRMATION, controller.getConfigTeksti("hyvaksyVarausConf"), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
                 V.setHyvaksytty(true);
                 controller.paivitaVaraus(V);
-                controller.lahetaSahkoposti(V.getKayttaja().getSahkoposti(), controller.getVarausAikaString(V) + " on hyväksytty."
-                        + "\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.");
+                controller.lahetaSahkoposti(V.getKayttaja().getSahkoposti(), controller.getVarausAikaString(V) + controller.getConfigTeksti("hyvaksyVarausEmail"));
                 this.updateBtnPainettu(event);
-                System.out.println("Varaus hyväksytty!");
+                //System.out.println("Varaus hyväksytty!");
                 
             }
         } else {
-            Alert alert = new Alert(AlertType.WARNING, "Valitse käsiteltävä varaus!");
+            Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti("valitseKasVaraus"));
             alert.showAndWait();
         }
     }
@@ -365,17 +391,16 @@ public class VarausAdminController implements Initializable {
     private void hylkaaBtnPainettu(MouseEvent event) throws MessagingException {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
         if (V != null) {
-            Alert alert = new Alert(AlertType.CONFIRMATION, "Oletko varma, että haluat hylätä varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            Alert alert = new Alert(AlertType.CONFIRMATION, controller.getConfigTeksti("hylataVarausConf"), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
                 controller.poistaVaraus(V.getId());
-                controller.lahetaSahkoposti(V.getKayttaja().getSahkoposti(), controller.getVarausAikaString(V) + " on hylätty."
-                        + "\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.");
-                System.out.println("Varaus hylätty!");
+                controller.lahetaSahkoposti(V.getKayttaja().getSahkoposti(), controller.getVarausAikaString(V) + controller.getConfigTeksti("hylataVarausEmail"));
+                //System.out.println("Varaus hylätty!");
                 this.updateBtnPainettu(event);
             }
         } else {
-            Alert alert = new Alert(AlertType.WARNING, "Valitse käsiteltävä varaus!");
+            Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti("valitseKasVaraus"));
             alert.showAndWait();
         }
 
@@ -391,7 +416,7 @@ public class VarausAdminController implements Initializable {
     private void alkupvmEditCommit(TableColumn.CellEditEvent<Varaukset, LocalDateTime> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
         V.setAlkuAika(event.getNewValue());
-        System.out.println("Uusi alkupvm: " + V.getAlkupvm().toString());
+        //System.out.println("Uusi alkupvm: " + V.getAlkupvm().toString());
         controller.paivitaVaraus(V);
     }
 
@@ -405,7 +430,7 @@ public class VarausAdminController implements Initializable {
     private void paattymispvmEditCommit(TableColumn.CellEditEvent<Varaukset, LocalDateTime> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
         V.setLoppuAika(event.getNewValue());
-        System.out.println("Uusi päättymispvm: " + V.getPaattymispvm().toString());
+        //System.out.println("Uusi päättymispvm: " + V.getPaattymispvm().toString());
         controller.paivitaVaraus(V);
     }
     
@@ -419,14 +444,14 @@ public class VarausAdminController implements Initializable {
     private void kuvausEditCommit(TableColumn.CellEditEvent<Varaukset, String> event) {
         Varaukset V = varauksetTableView.getSelectionModel().getSelectedItem();
         V.setKuvaus(event.getNewValue());
-        System.out.println("Uusi Kuvaus: " + V.getKuvaus());
+        //System.out.println("Uusi Kuvaus: " + V.getKuvaus());
         controller.paivitaVaraus(V);
     }
     
     @FXML
     private void poistaBtnPainettu(MouseEvent event) throws IOException {
             Varaukset V = kaikkiTable.getSelectionModel().getSelectedItem();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, controller.getConfigTeksti("confirmationRemoveReservation"), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
                 kaikkiTable.getItems().remove(V);
