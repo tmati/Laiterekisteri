@@ -67,7 +67,7 @@ public class ResurssiHistoriaController implements Initializable {
     @FXML
     private TableColumn hyvaksyntaColumn;
     @FXML
-    private Button poistavarausNappi;
+    private Button poistavarausBtn;
     
     private Controller controller;
 
@@ -150,13 +150,13 @@ public class ResurssiHistoriaController implements Initializable {
         paattymispvmColumn.setText(controller.getConfigTeksti("reservationEnddate").toUpperCase());
         varausidColumn.setText(controller.getConfigTeksti("reservationId").toUpperCase());
         varauskuvausColumn.setText(controller.getConfigTeksti("description").toUpperCase());
-        palautettuColumn.setText(controller.getConfigTeksti("aktiivisuus").toUpperCase());
+        palautettuColumn.setText(controller.getConfigTeksti("activity").toUpperCase());
         hyvaksyntaColumn.setText(controller.getConfigTeksti("approval").toUpperCase());
         takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
         usernameLabel.setText(controller.getConfigTeksti("userInfo").toUpperCase());
         LogoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
-        
-        varausString.setText(controller.getConfigTeksti("resurssin") + View.booking.getNimi() + controller.getConfigTeksti("reservations"));
+        poistavarausBtn.setText(controller.getConfigTeksti("removeReservation").toUpperCase());
+        varausString.setText(controller.getConfigTeksti("resursin") + " " + View.booking.getNimi() + " " + controller.getConfigTeksti("reservations").toLowerCase());
         varausTable.getItems().addAll(controller.getVarausTaulukko(controller.ResurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
         this.LogoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
         this.takaisinBtn.setTooltip(new Tooltip(controller.getConfigTeksti("returnButton")));

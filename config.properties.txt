@@ -592,8 +592,8 @@ kasVaraukseten = Untreated bookings
 kasVarauksetpor = Reservas não tratadas
 
 varaajaNimifi = Varaajan nimi
-varaajaNimifi = Name of the depositor
-varaajaNimifi = Nome do depositante
+varaajaNimien = Name of the depositor
+varaajaNimipor = Nome do depositante
 
 itemfi = Tavara
 itemen = Item
