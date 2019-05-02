@@ -21,7 +21,9 @@ import java.time.LocalTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -78,7 +80,7 @@ public class NakymaController implements Initializable {
     @FXML
     private Label bizName;
     @FXML
-    private ChoiceBox<?> categorySelect;
+    private ChoiceBox<String> categorySelect;
     @FXML
     private Button searchBtn;
     @FXML
@@ -163,10 +165,10 @@ public class NakymaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         controller = View.controller;
         kalenterinPienentamaResurssiLista = controller.haeKaikkiResurssit();
-        BooleanConverter VarattavissaController = new BooleanConverter(controller, "Varattavissa", "Ei varattavissa");
-        BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
-        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "KÄSITTELYSSÄ");
-        LuvanvaraisuusConverter ResLC = new LuvanvaraisuusConverter(controller, "Vapaa käyttö", "Esimiehen hyväksyttävä", "Ylläpitäjän hyväksyttävä");
+        BooleanConverter VarattavissaController = new BooleanConverter(controller, controller.getConfigTeksti("bookable"), controller.getConfigTeksti("notBookable"));
+        BooleanConverter AktiivisuusController = new BooleanConverter(controller, controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
+        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));
+        LuvanvaraisuusConverter ResLC = new LuvanvaraisuusConverter(controller, controller.getConfigTeksti("freeUse"), controller.getConfigTeksti("supApproved"), controller.getConfigTeksti("adApproved"));
         Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
         logoView.setImage(image);
 
@@ -250,35 +252,67 @@ public class NakymaController implements Initializable {
 
         poistoColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         poistoColumn.setCellFactory(param -> new TableCell<Varaukset, Varaukset>() {
-            private final Button deleteButton = new Button("Poista");
+            
+            private final Button deleteButton = new Button(controller.getConfigTeksti("remove"));
 
             @Override
             protected void updateItem(Varaukset V, boolean empty) {
 
-                if (V == null) {
+                if (V == null || !controller.OnkoVarausAlkanut(V)) {
                     setGraphic(null);
                     return;
                 }
                 setGraphic(deleteButton);
                 deleteButton.setOnAction(
-                        event -> completeRemove(V)
+                             event -> completeRemove(V)
+                        
                 );
             }
-
         });
 
-        this.categorySelect.setTooltip(new Tooltip("Hakukriteeri"));
-        this.omatTable.setTooltip(new Tooltip("Omat varauksesi"));
-        this.kaikkiTableView.setTooltip(new Tooltip("Kaikki järjestelmässä olevat resurssit"));
-        this.LogoutBtn.setTooltip(new Tooltip("Ulos kirjautuminen"));
-        this.hallnnoiBtn.setTooltip(new Tooltip("Avaa varauksien hallinta -näkymän"));
-        this.henkilostoBtn.setTooltip(new Tooltip("Avaa käyttäjien hallinta -näkymän"));
-        this.lisaaresurssiBtn.setTooltip(new Tooltip("Avaa popupin resurssin lisäämistä varten"));
-        this.poistaresurssiBtn.setTooltip(new Tooltip("Poistaa valitun resurssin järjestelmästä"));
-        this.salasananvaihtoBtn.setTooltip(new Tooltip("Avaa popupin salasanan vaihtoa varten"));
-        this.searchBar.setTooltip(new Tooltip("Hakukenttä resursseja tai varauksia varten"));
-        this.varausBtn.setTooltip(new Tooltip("Avaa popupin varauksen luontia varten, valitse resurssi ensin"));
-        this.kalenteriPane.setTooltip(new Tooltip("Voit hakea resursseja päivän mukaan\n valitsemalla halutun päivän kalenterissa. Sen mukaan kalenteri näytää resurssit,\n jotka ovat sinäpäivinnä vapaina."));
+        usernameLabel.setText(controller.getConfigTeksti("userInfo"));
+        searchBar.setPromptText(controller.getConfigTeksti("search"));
+        categorySelect.getItems().setAll(controller.getConfigTeksti("name").toUpperCase(),controller.getConfigTeksti("category").toUpperCase()) ;
+        categorySelect.setValue(controller.getConfigTeksti("name").toUpperCase());
+        kaikkiTab.setText(controller.getConfigTeksti("resources"));
+        nimiColumn.setText(controller.getConfigTeksti("name").toUpperCase());
+        tyyppiColumn.setText(controller.getConfigTeksti("type").toUpperCase());
+        luvanvaraisuusColumn.setText(controller.getConfigTeksti("permission").toUpperCase());
+        kuvausColumn.setText(controller.getConfigTeksti("description").toUpperCase());
+        tilaColumn.setText(controller.getConfigTeksti("state").toUpperCase());
+        omatTab.setText(controller.getConfigTeksti("ownReservations"));
+        laitenimiColumn.setText(controller.getConfigTeksti("resourceName").toUpperCase());
+        alkupvmColumn.setText(controller.getConfigTeksti("reservationStartdate").toUpperCase());
+        paattymispvmColumn.setText(controller.getConfigTeksti("reservationEnddate").toUpperCase());
+        varausidColumn.setText(controller.getConfigTeksti("reservationId").toUpperCase());
+        varauskuvausColumn.setText(controller.getConfigTeksti("description").toUpperCase());
+        palautettuColumn.setText(controller.getConfigTeksti("activity").toUpperCase());
+        hyvaksyntaColumn.setText(controller.getConfigTeksti("approval").toUpperCase());
+        poistoColumn.setText(controller.getConfigTeksti("removeReservation").toUpperCase());
+        kalenteriPane.setText(controller.getConfigTeksti("calendar").toUpperCase());
+        lisaaresurssiBtn.setText(controller.getConfigTeksti("addResource").toUpperCase());
+        poistaresurssiBtn.setText(controller.getConfigTeksti("removeResource").toUpperCase());
+        hallnnoiBtn.setText(controller.getConfigTeksti("manageReservations").toUpperCase());
+        historiaBtn.setText(controller.getConfigTeksti("resourceHistory").toUpperCase());
+        henkilostoBtn.setText(controller.getConfigTeksti("manageUsers").toUpperCase());
+        LogoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
+        salasananvaihtoBtn.setText(controller.getConfigTeksti("passwordChange").toUpperCase());
+        varausBtn.setText(controller.getConfigTeksti("makeReservation").toUpperCase());
+        
+        this.categorySelect.setTooltip(new Tooltip(controller.getConfigTeksti("searchBy")));
+        this.omatTable.setTooltip(new Tooltip(controller.getConfigTeksti("ownReservations")));
+        this.kaikkiTableView.setTooltip(new Tooltip(controller.getConfigTeksti("ownTableTooltip")));
+        this.LogoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
+        this.hallnnoiBtn.setTooltip(new Tooltip(controller.getConfigTeksti("hallinnoiBtnTooltip")));
+        this.henkilostoBtn.setTooltip(new Tooltip(controller.getConfigTeksti("henkilostoBtnTooltip")));
+        this.lisaaresurssiBtn.setTooltip(new Tooltip(controller.getConfigTeksti("lisaaRTooltip")));
+        this.poistaresurssiBtn.setTooltip(new Tooltip(controller.getConfigTeksti("poistaRTooltip")));
+        this.salasananvaihtoBtn.setTooltip(new Tooltip(controller.getConfigTeksti("salasanaVaihtoBtn")));
+        this.searchBar.setTooltip(new Tooltip(controller.getConfigTeksti("searchBarTooltip")));
+        this.varausBtn.setTooltip(new Tooltip(controller.getConfigTeksti("varausBtnTooltip")));
+        this.kalenteriPane.setTooltip(new Tooltip(controller.getConfigTeksti("kalenteriStackPaneTooltip")));
+        
+        
         
         usernameLabel.setText(View.loggedIn.getNimi());
         bizName.setText(View.BizName);
@@ -361,7 +395,7 @@ public class NakymaController implements Initializable {
         DatePicker picker = new DatePicker();
         picker.valueProperty().addListener((ov, oldValue, newValue) -> {
             String tabText = tabPane.getSelectionModel().getSelectedItem().getText();
-            if (tabText.equals("Resurssit") && oldValue != newValue) {
+            if (tabText.equals(controller.getConfigTeksti("resources")) && oldValue != newValue) {
                 kaikkiTableView.getItems().clear();
                 LocalDate paiva = picker.getValue();
                 Resurssit[] resurssit = controller.haeKaikkiResurssit();
@@ -435,11 +469,11 @@ public class NakymaController implements Initializable {
                     popup.show(window);
                 }
             } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING, "Resurssi ei ole tällä hetkellä varattavissa!");
+                Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("resourceNotAbleReservation"));
                 alert.showAndWait();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse resurssi!");
+            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("chooseResource"));
             alert.showAndWait();
         }
     }
@@ -494,7 +528,7 @@ public class NakymaController implements Initializable {
      */
     @FXML
     public void logout(MouseEvent event) throws IOException {
-        System.out.println("Logout");
+        //System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
         Parent root = loader.load();
@@ -511,7 +545,7 @@ public class NakymaController implements Initializable {
      */
     @FXML
     public void hallinnoiBtnPainettu(MouseEvent event) throws IOException {
-        System.out.println("Hallinoidaan varauksia!");
+        //System.out.println("Hallinoidaan varauksia!");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/VarausAdmin.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
         Parent root = loader.load();
@@ -527,7 +561,7 @@ public class NakymaController implements Initializable {
      */
     @FXML
     public void henkilostoBtnPainettu(MouseEvent event) throws IOException {
-        System.out.println("Hallinoidaan henkilöstöä!");
+        //System.out.println("Hallinoidaan henkilöstöä!");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KayttajaAdmin.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
         Parent root = loader.load();
@@ -538,13 +572,13 @@ public class NakymaController implements Initializable {
     public void historiaBtnPainettu(MouseEvent event) throws IOException {
         View.booking = kaikkiTableView.getSelectionModel().getSelectedItem();
         if (View.booking != null) {
-            System.out.println("Historia");
+            //System.out.println("Historia");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ResurssiHistoria.fxml"));
             Stage stage = (Stage) LogoutBtn.getScene().getWindow();
             Parent root = loader.load();
             stage.getScene().setRoot(root);
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse resurssi!");
+            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("chooseResource"));
             alert.showAndWait();
         }
     }
@@ -559,15 +593,15 @@ public class NakymaController implements Initializable {
     public void poistaresurssiNappiPainettu(MouseEvent event) throws IOException {
         Resurssit toDelete = kaikkiTableView.getSelectionModel().getSelectedItem();
         if (toDelete != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa resurssin?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, controller.getConfigTeksti("alertConfirmationRemoveResource"), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
                 controller.poistaResurssi(toDelete);
-                System.out.println("poistetaan resurssi");
+                //System.out.println("poistetaan resurssi");
                 this.update();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse resurssi!");
+            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("chooseResource"));
             alert.showAndWait();
         }
     }
@@ -581,7 +615,7 @@ public class NakymaController implements Initializable {
     private void nimiOnEditCommit(TableColumn.CellEditEvent<Resurssit, String> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setNimi(event.getNewValue());
-        System.out.println("Uusi nimi: " + R.getNimi());
+        //System.out.println("Uusi nimi: " + R.getNimi());
         controller.paivitaResurssi(R);
     }
 
@@ -594,7 +628,7 @@ public class NakymaController implements Initializable {
     private void tyyppiOnEditCommit(TableColumn.CellEditEvent<Resurssit, String> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setTyyppi(event.getNewValue());
-        System.out.println("Uusi Tyyppi: " + R.getTyyppi());
+        //System.out.println("Uusi Tyyppi: " + R.getTyyppi());
         controller.paivitaResurssi(R);
     }
 
@@ -608,7 +642,7 @@ public class NakymaController implements Initializable {
     private void luvanvaraisuusOnEditCommit(TableColumn.CellEditEvent<Resurssit, Integer> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setLuvanvaraisuus((event.getNewValue()));
-        System.out.println("Uusi luvanvaraisuusarvo: " + R.getLuvanvaraisuus());
+        //System.out.println("Uusi luvanvaraisuusarvo: " + R.getLuvanvaraisuus());
         controller.paivitaResurssi(R);
     }
 
@@ -621,7 +655,7 @@ public class NakymaController implements Initializable {
     private void kuvausOnEditCommit(TableColumn.CellEditEvent<Resurssit, String> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setKuvaus(event.getNewValue());
-        System.out.println("Uusi kuvaus: " + R.getKuvaus());
+        //System.out.println("Uusi kuvaus: " + R.getKuvaus());
         controller.paivitaResurssi(R);
     }
 
@@ -634,7 +668,7 @@ public class NakymaController implements Initializable {
     private void tilaOnEditCommit(TableColumn.CellEditEvent<Resurssit, Boolean> event) {
         Resurssit R = kaikkiTableView.getSelectionModel().getSelectedItem();
         R.setStatus(event.getNewValue());
-        System.out.println("Uusi tila: " + " " + R.isStatus());
+        //System.out.println("Uusi tila: " + " " + R.isStatus());
         controller.paivitaResurssi(R);
     }
 
@@ -649,7 +683,7 @@ public class NakymaController implements Initializable {
         String query = searchBar.getText().toLowerCase();
         String tabText = tabPane.getSelectionModel().getSelectedItem().getText();
         String selectedCategory = categorySelect.getSelectionModel().getSelectedItem().toString();
-        if (tabText.equals("Resurssit") && selectedCategory.equals("NIMI")) {
+        if (tabText.equals(controller.getConfigTeksti("resources")) && selectedCategory.equals(controller.getConfigTeksti("name").toUpperCase())) {
             kaikkiTableView.getItems().clear();
             for (Resurssit resurssi : kalenterinPienentamaResurssiLista) {
                 String resurssiPienella = resurssi.getNimi().toLowerCase();
@@ -659,7 +693,7 @@ public class NakymaController implements Initializable {
 
                 }
             }
-        } else if (tabText.equals("Resurssit") && selectedCategory.equals("KATEGORIA")) {
+        } else if (tabText.equals(controller.getConfigTeksti("resources")) && selectedCategory.equals(controller.getConfigTeksti("category").toUpperCase())) {
             kaikkiTableView.getItems().clear();
             for (Resurssit resurssi : kalenterinPienentamaResurssiLista) {
                 String resurssiPienella = resurssi.getTyyppi().toLowerCase();
@@ -671,7 +705,7 @@ public class NakymaController implements Initializable {
             }
         }
 
-        if (tabText.equals("Omat varaukset") && selectedCategory.equals("NIMI")) {
+        if (tabText.equals(controller.getConfigTeksti("ownReservations")) && selectedCategory.equals(controller.getConfigTeksti("name").toUpperCase())) {
             Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(View.loggedIn);
             omatTable.getItems().clear();
             for (Varaukset varaus : omatVaraukset) {
@@ -682,7 +716,7 @@ public class NakymaController implements Initializable {
 
                 }
             }
-        } else if (tabText.equals("Omat varaukset") && selectedCategory.equals("KATEGORIA")) {
+        } else if (tabText.equals(controller.getConfigTeksti("ownReservations")) && selectedCategory.equals(controller.getConfigTeksti("category").toUpperCase())) {
             Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(View.loggedIn);
             omatTable.getItems().clear();
             for (Varaukset varaus : omatVaraukset) {

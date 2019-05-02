@@ -51,8 +51,17 @@ public class UusiKayttajaController implements Initializable {
     private ChoiceBox<String> valtuudetChoiceBox;
     @FXML
     private TableView<Kayttaja> kayttajaTableView;
-
-
+    @FXML
+    private Label uusisalasanaLabel;
+    @FXML
+    private Label vanhasalasanaLabel;
+    @FXML
+    private Label choiceBoxLabel;
+    @FXML
+    private Label vanhasalasanaLabel1;
+    @FXML
+    private Label vanhasalasanaLabel11;
+    
     /**
      * Controller-ilmentymä
      */
@@ -69,13 +78,28 @@ public class UusiKayttajaController implements Initializable {
         // TODO
         controller = View.controller;
         
-        this.emailTextField.setTooltip(new Tooltip("Kenttä sähköpostia varten, ei saa olla olemassa oleva"));
-        this.kayttajatunnusTextField.setTooltip(new Tooltip("Kenttä käyttäjätunnusta varten, ei saa olla olemassa oleva"));
-        this.nimiTextField.setTooltip(new Tooltip("Kenttä käyttäjän nimeä varten"));
-        this.salasanaTextField.setTooltip((new Tooltip("Kenttä väliaikaista salasanaa varten")));
-        this.sulkuNappi.setTooltip(new Tooltip("Sulkee popupin"));
-        this.valtuudetChoiceBox.setTooltip(new Tooltip("Valitse käyttäjän valtuus -taso"));
-        this.luokayttajaNappi.setTooltip(new Tooltip("Luo käyttäjän ja lähettää sähköposti ilmoituksen"));
+        luokayttajaNappi.setText(controller.getConfigTeksti("createUser").toUpperCase());
+        titleLabel.setText(controller.getConfigTeksti("newUser").toUpperCase());
+        emailTextField.setText(controller.getConfigTeksti("emailLabel"));
+        uusisalasanaLabel.setText(controller.getConfigTeksti("userName").toUpperCase());
+        vanhasalasanaLabel.setText(controller.getConfigTeksti("emailLabel").toUpperCase());
+        virheLabel.setText(controller.getConfigTeksti("formError").toUpperCase());
+        nimiTextField.setPromptText(controller.getConfigTeksti("name"));
+        valtuudetChoiceBox.getItems().setAll(controller.getConfigTeksti("choose"), controller.getConfigTeksti("employee"), controller.getConfigTeksti("superior"), controller.getConfigTeksti("administrator")) ;
+        valtuudetChoiceBox.setValue(controller.getConfigTeksti("choose"));
+        choiceBoxLabel.setText(controller.getConfigTeksti("userAut"));
+        salasanaTextField.setPromptText(controller.getConfigTeksti("password"));
+        vanhasalasanaLabel1.setText(controller.getConfigTeksti("password").toUpperCase());
+        kayttajatunnusTextField.setPromptText(controller.getConfigTeksti("kayttajaTunnus"));
+        vanhasalasanaLabel11.setText(controller.getConfigTeksti("kayttajaTunnus"));
+        
+        this.emailTextField.setTooltip(new Tooltip(controller.getConfigTeksti("newUserEmailInfo")));
+        this.kayttajatunnusTextField.setTooltip(new Tooltip(controller.getConfigTeksti("newUserIdInfo")));
+        this.nimiTextField.setTooltip(new Tooltip(controller.getConfigTeksti("newUserNameInfo")));
+        this.salasanaTextField.setTooltip(new Tooltip(controller.getConfigTeksti("newUserPasswordInfo")));
+        this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti("closePopup")));
+        this.valtuudetChoiceBox.setTooltip(new Tooltip(controller.getConfigTeksti("chooseUserAutInfo")));
+        this.luokayttajaNappi.setTooltip(new Tooltip(controller.getConfigTeksti("createNewUserInfo")));
        
     }
 
@@ -87,11 +111,11 @@ public class UusiKayttajaController implements Initializable {
      */
     int tulkitseChoiceBox(ChoiceBox cb) {
         int selectedOption = -1;
-        if (cb.getValue().equals("Työntekijä")) {
+        if (cb.getValue().equals(controller.getConfigTeksti("employee"))) {
             selectedOption = 0;
-        } else if (cb.getValue().equals("Esimies")) {
+        } else if (cb.getValue().equals(controller.getConfigTeksti("superior"))) {
             selectedOption = 1;
-        } else if (cb.getValue().equals("Ylläpitäjä")) {
+        } else if (cb.getValue().equals(controller.getConfigTeksti("administrator"))) {
             selectedOption = 2;
         }
         return selectedOption;
@@ -106,16 +130,16 @@ public class UusiKayttajaController implements Initializable {
      */
     @FXML
     private void luokayttajaNappiPainettu(MouseEvent event) throws MessagingException {
-        if (nimiTextField.getText().isEmpty() || emailTextField.getText().isEmpty() || salasanaTextField.getText().isEmpty() || kayttajatunnusTextField.getText().isEmpty() || valtuudetChoiceBox.getValue().equals("Valitse...")) {
-            virheLabel.setText("Tietoja puuttuu. Täytä kaikki kohdat ja yritä uudelleen.");
+        if (nimiTextField.getText().isEmpty() || emailTextField.getText().isEmpty() || salasanaTextField.getText().isEmpty() || kayttajatunnusTextField.getText().isEmpty() || valtuudetChoiceBox.getValue().equals(controller.getConfigTeksti("choose"))) {
+            virheLabel.setText(controller.getConfigTeksti("newUserErrorLabel1"));
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
         } else if (!controller.tarkistaUsername(kayttajatunnusTextField.getText())) {
-            virheLabel.setText("Käyttäjätunnus on jo varattu. Kokeile toista tunnusta.");
+            virheLabel.setText(controller.getConfigTeksti("newUserErrorLabel2"));
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
         } else if (!controller.tarkistaEmail(emailTextField.getText())) {
-            virheLabel.setText("Sähköposti on jo varattu. Kokeile toista osoitetta.");
+            virheLabel.setText(controller.getConfigTeksti("newUserErrorLabel3"));
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
         } else {
@@ -123,11 +147,10 @@ public class UusiKayttajaController implements Initializable {
             System.out.println(J.getNimi() + " | " + J.getSalasana() + " | " + J.getKayttajatunnus() + " | " + J.getSahkoposti() + " | " + J.getValtuudet());
             controller.luoKayttaja(J);
 
-            controller.lahetaSahkoposti(J.getSahkoposti(), "Hei,\n\nsinulle on luotu keyChain käyttäjä.\n"
-                    + "Käyttäjätunnus: " + J.getKayttajatunnus() + "\n"
-                    + "Salasana: " + salasanaTextField.getText() + "\n"
-                    + "Muistathan vaihtaa salasanasi, kun kirjaudut sisään ensimmäisen kerran.\n\n"
-                    + "Tämä on automaattinen viesti, johon ei tarvitse vastata.");
+            controller.lahetaSahkoposti(J.getSahkoposti(), controller.getConfigTeksti("newUserEmail")
+                    + J.getKayttajatunnus() + "\n"
+                    + controller.getConfigTeksti("newUserEmailP")
+                    + controller.getConfigTeksti("newUserEmailCon"));
 
             Kayttaja[] kayttajat = controller.haeKaikkiKayttajat();
 
