@@ -146,7 +146,6 @@ public class KayttajanVarauksetController implements Initializable {
         kayttajaTable.getItems().addAll(View.selected.getVarauksets());
 
         takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
-        usernameLabel.setText(controller.getConfigTeksti("userInfo").toUpperCase());
         LogoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
         kayttajaString.setText(controller.getConfigTeksti("user").toUpperCase());
         laitenimiColumn.setText(controller.getConfigTeksti("resourceName").toUpperCase());

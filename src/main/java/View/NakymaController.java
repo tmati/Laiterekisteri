@@ -270,7 +270,6 @@ public class NakymaController implements Initializable {
             }
         });
 
-        usernameLabel.setText(controller.getConfigTeksti("userInfo"));
         searchBar.setPromptText(controller.getConfigTeksti("search"));
         categorySelect.getItems().setAll(controller.getConfigTeksti("name").toUpperCase(),controller.getConfigTeksti("category").toUpperCase()) ;
         categorySelect.setValue(controller.getConfigTeksti("name").toUpperCase());

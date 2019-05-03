@@ -260,7 +260,6 @@ public class VarausAdminController implements Initializable {
                     
         kaikkiTable.getItems().addAll(controller.haeKaikkiVaraukset());
         
-        usernameLabel.setText(controller.getConfigTeksti("userInfo").toUpperCase());
         LogoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
         takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
         hyvaksyBtn.setText(controller.getConfigTeksti("accept").toUpperCase());
