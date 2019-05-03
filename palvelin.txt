@@ -18,3 +18,8 @@ käyttäjä: dbuser
 salasana: dbuser
 
 https://netbeans.org/community/releases/73/cpp-setup-instructions.html#compilers_windows
+
+HUOM!
+hibernate vaatii yhdistämistä varten tunnelin: -L 3306:10.114.32.10:3306 tunnus@edunix.metropolia.fi -N
+Lisäksi ongelmana voi olla, että lokaali tietokanta esim marjadb kuuntelee porttia 3306 joten sitä saattaa joutu vaihtamaan:
+C:\Program Files\MariaDB 10.2\data\my.ini ja sieltä pitää muuttaa portti 3306 joksikin muuksi. Sen jälkeen käynnistää kone uudestaan tai restarttaa mysql/marjadb service.

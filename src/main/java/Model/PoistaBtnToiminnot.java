@@ -39,7 +39,7 @@ public class PoistaBtnToiminnot {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
-            if (!controller.OnkoVarausAlkanut(toDelete)) {
+            if (!controller.onkoVarausAlkanut(toDelete)) {
                 controller.poistaVaraus(toDelete.getId());
                 System.out.println("poistetaan varaus");
                 controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + " on poistettu esimiehen tai ylläpitäjän toimesta."

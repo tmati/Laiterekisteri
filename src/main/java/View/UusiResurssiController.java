@@ -73,7 +73,7 @@ public class UusiResurssiController implements Initializable {
         itemLabel.setText(controller.getConfigTeksti("giveInfo"));
         uusiresurssiNappi.setText(controller.getConfigTeksti("createNewResource"));
         titleLabel.setText(controller.getConfigTeksti("newResource"));
-        kuvausTextbox.setText(controller.getConfigTeksti("description"));
+        kuvausTextbox.setPromptText(controller.getConfigTeksti("description"));
         nimiTextField.setPromptText(controller.getConfigTeksti("name"));
         tyyppiTextField.setPromptText(controller.getConfigTeksti("type"));
         LuvanvaraisuusChoiceBox.getItems().setAll(controller.getConfigTeksti("choose"), controller.getConfigTeksti("freeUse"), controller.getConfigTeksti("supApproved"), controller.getConfigTeksti("adApproved")) ;
@@ -114,6 +114,7 @@ public class UusiResurssiController implements Initializable {
   
 
     /**
+
      * Luodaan uusi resurssi ikkunaan annetuista parametreistä. Tietojen puuttuessa heitetään herja. Onnistuneen luonnin yhteysessä suljeataan popup.
      * @param event Hiiren klikkaus painikkeesta.
      */

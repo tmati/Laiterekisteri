@@ -59,8 +59,8 @@ public class LanguageText {
     }
     
     /**
-     * Muutaa kieltä tiedostosta otetaan.
-     * @param maa hyväksyttyä stringejä ovat fi, en ja por ja se kertoo miksi kieleksi se laitaa ne tekstit.
+     * Muutaa kieltä, jolla tiedostosta haetaan.
+     * @param maa hyväksyttyä stringejä ovat fi, en ja por ja se kertoo mille kielelle käyttöliittymä asetetaan.
      */
     public void setMaa(String maa){
         if("fi".equals(maa) || "en".equals(maa) || "por".equals(maa)){
@@ -68,5 +68,14 @@ public class LanguageText {
         }else if("pt".equals(maa)){
             this.maa = "pt";
         }
+       
+    }
+    
+    /**
+     * getteri kielelle, joka käytössä
+     * @return kieli, joka valittuna
+     */
+    public String getMaa(){
+        return maa;
     }
 }

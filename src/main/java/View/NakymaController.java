@@ -256,7 +256,9 @@ public class NakymaController implements Initializable {
             @Override
             protected void updateItem(Varaukset V, boolean empty) {
 
+
                 if (V == null) {
+
                     setGraphic(null);
                     return;
                 }
@@ -268,7 +270,6 @@ public class NakymaController implements Initializable {
             }
         });
 
-        usernameLabel.setText(controller.getConfigTeksti("userInfo"));
         searchBar.setPromptText(controller.getConfigTeksti("search"));
         categorySelect.getItems().setAll(controller.getConfigTeksti("name").toUpperCase(),controller.getConfigTeksti("category").toUpperCase()) ;
         categorySelect.setValue(controller.getConfigTeksti("name").toUpperCase());
@@ -328,7 +329,7 @@ public class NakymaController implements Initializable {
                 Varaukset[] varaukset = controller.haeKaikkiVaraukset();
                 picker = null;
 
-                ArrayList<Varaukset> aVaraukset = controller.ResurssinVaraukset(kaikkiTableView.getSelectionModel().getSelectedItem().getId(), varaukset);
+                ArrayList<Varaukset> aVaraukset = controller.resurssinVaraukset(kaikkiTableView.getSelectionModel().getSelectedItem().getId(), varaukset);
 
                 Varaukset[] varaus = controller.getVarausTaulukko(aVaraukset);
 
@@ -402,7 +403,7 @@ public class NakymaController implements Initializable {
                 ChronoLocalDateTime paivaAlku = paiva.atTime(LocalTime.MIN);
                 ChronoLocalDateTime paivaLoppu = paiva.atTime(LocalTime.MAX);
                 for (Resurssit resurssi : resurssit) {
-                    if (controller.Onnistuu(controller.ResurssinVaraukset(resurssi.getId(), varaukset), paivaLoppu, paivaAlku)) {
+                    if (controller.Onnistuu(controller.resurssinVaraukset(resurssi.getId(), varaukset), paivaLoppu, paivaAlku)) {
                         kaikkiTableView.getItems().add(resurssi);
                         kaikkiTableView.refresh();
                     }

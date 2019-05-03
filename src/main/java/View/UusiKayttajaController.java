@@ -80,7 +80,7 @@ public class UusiKayttajaController implements Initializable {
         
         luokayttajaNappi.setText(controller.getConfigTeksti("createUser").toUpperCase());
         titleLabel.setText(controller.getConfigTeksti("newUser").toUpperCase());
-        emailTextField.setText(controller.getConfigTeksti("emailLabel"));
+        emailTextField.setPromptText(controller.getConfigTeksti("emailLabel"));
         uusisalasanaLabel.setText(controller.getConfigTeksti("userName").toUpperCase());
         vanhasalasanaLabel.setText(controller.getConfigTeksti("emailLabel").toUpperCase());
         virheLabel.setText(controller.getConfigTeksti("formError").toUpperCase());
@@ -88,8 +88,8 @@ public class UusiKayttajaController implements Initializable {
         valtuudetChoiceBox.getItems().setAll(controller.getConfigTeksti("choose"), controller.getConfigTeksti("employee"), controller.getConfigTeksti("superior"), controller.getConfigTeksti("administrator")) ;
         valtuudetChoiceBox.setValue(controller.getConfigTeksti("choose"));
         choiceBoxLabel.setText(controller.getConfigTeksti("userAut"));
-        salasanaTextField.setPromptText(controller.getConfigTeksti("password"));
-        vanhasalasanaLabel1.setText(controller.getConfigTeksti("password").toUpperCase());
+        salasanaTextField.setPromptText(controller.getConfigTeksti("passwordLabel"));
+        vanhasalasanaLabel1.setText(controller.getConfigTeksti("passwordLabel").toUpperCase());
         kayttajatunnusTextField.setPromptText(controller.getConfigTeksti("kayttajaTunnus"));
         vanhasalasanaLabel11.setText(controller.getConfigTeksti("kayttajaTunnus"));
         

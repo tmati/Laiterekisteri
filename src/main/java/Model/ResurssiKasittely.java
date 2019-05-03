@@ -13,7 +13,7 @@ import javax.mail.MessagingException;
  * Luokka resurssien käsittelyä varten
  * @author Tommi
  */
-public class Resurssikasittely {
+public class ResurssiKasittely {
 
     Controller controller;
 
@@ -21,7 +21,7 @@ public class Resurssikasittely {
      *  Konstruktori
      * @param c viite controller -luokkaan
      */
-    public Resurssikasittely(Controller c) {
+    public ResurssiKasittely(Controller c) {
         this.controller = c;
     }
 

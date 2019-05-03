@@ -6,8 +6,6 @@ import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Callback;
 
@@ -28,7 +26,7 @@ public class Controller {
     private final DayCellFactory cellfactory;
     private final VarauksenAikaLaskuriInterface aikalaskuri;
     private final VarausKasittely varausKasittely;
-    private final Resurssikasittely resurssikasittely;
+    private final ResurssiKasittely resurssikasittely;
     private final Kalenterin_tarvitsemat_toimenpiteet kalenteriApu;
     private final Sahkoposti sahkoposti;
     private final SalasananPalautus salasananPalautus;
@@ -38,7 +36,9 @@ public class Controller {
     /**
      * Controllerin konstruktio
      */
-    public Controller() {
+    public Controller() {        
+        tekstit = LanguageText.getInstance();
+
         kayttajaDAO = new KayttajaAccessObject();
         kayttajaTarkistus = new KayttajaTarkistus(this);
         resurssiDAO = new ResurssitAccessObject();
@@ -48,12 +48,11 @@ public class Controller {
         cellfactory = new DayCellFactory();
         aikalaskuri = new VarauksenAikaLaskuri();
         varausKasittely = new VarausKasittely(varausDAO, this);
-        resurssikasittely = new Resurssikasittely(this);
+        resurssikasittely = new ResurssiKasittely(this);
         kalenteriApu = new Kalenterin_tarvitsemat_toimenpiteet();
-        sahkoposti = new Sahkoposti();
+        sahkoposti = new Sahkoposti(this);
         salasananPalautus = new SalasananPalautus(this);
         poistaBtnToiminnot = new PoistaBtnToiminnot(this);
-        tekstit = LanguageText.getInstance();
         crypter = new PasswordConverter();
     }
 
@@ -266,10 +265,10 @@ public class Controller {
      * @param cb choice box elementti jota tulkitaan
      * @return choice boxia vastaavan kokonais luvun
      */
-    public int readCb(ChoiceBox cb) {
+   public int readCb(ChoiceBox cb) {
         return cbutils.tulkitseChoiceBox(cb);
 
-    }
+   }
 
     /**
      * Vie paivat varauksen kesto laskuriin ja tuo sen jälkeen, kuinka monta
@@ -292,16 +291,6 @@ public class Controller {
      */
     public Callback dayCellFactory(Varaukset[] varaukset, LocalDate today) {
         return cellfactory.dayCellFactory(this, varaukset, today);
-    }
-
-    /**
-     * Tulkitsee boolean-arvon sisältävän choiceboxin. Pyyntö model-luokkaan.
-     *
-     * @param cb Tulkittava choicebox
-     * @return True/false
-     */
-    public boolean readBoolCb(String cb) {
-        return cbutils.tulkitseBooleanBox(cb);
     }
 
     /**
@@ -332,8 +321,8 @@ public class Controller {
      * @param varaukset Varaus array josta halutaan saada resursin varaukset.
      * @return ArrayListan jossa on resursin varaukset Arraysta.
      */
-    public ArrayList<Varaukset> ResurssinVaraukset(int resurssiId, Varaukset[] varaukset) {
-        return kalenteriApu.ResursinVaraukset(resurssiId, varaukset);
+    public ArrayList<Varaukset> resurssinVaraukset(int resurssiId, Varaukset[] varaukset) {
+        return kalenteriApu.resurssinVaraukset(resurssiId, varaukset);
     }
 
     /**
@@ -361,7 +350,7 @@ public class Controller {
     }
 
     /**
-     * Kutsuu Sahkoposti.sendEmail()
+     * Kutsuu Sahkoposti.lähetäSähköposti()
      *
      * @param vastaanottaja Sahkopostiosoite johon lähetetään
      * @param viesti lähettettävä viesti
@@ -369,19 +358,7 @@ public class Controller {
      *
      */
     public boolean lahetaSahkoposti(String vastaanottaja, String viesti) {
-        ExecutorService emailExecutor = Executors.newSingleThreadExecutor();
-        emailExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    sahkoposti.sendEmail(vastaanottaja, viesti);
-                } catch (Exception e) {
-                    System.out.println("säie fail" + e);
-                }
-            }
-        });
-        emailExecutor.shutdown(); // it is very important to shutdown your non-singleton ExecutorService.
-        return true;
+        return sahkoposti.lahetaSahkoposti(vastaanottaja, viesti);
     }
 
     /**
@@ -411,7 +388,7 @@ public class Controller {
      * @param varaus tarkistettava varaus
      * @return true jos varauksen alkamisaika on mennyt jo
      */
-    public boolean OnkoVarausAlkanut(Varaukset varaus) {
+    public boolean onkoVarausAlkanut(Varaukset varaus) {
         return varausKasittely.tarkistaOnkoVarausAlkanut(varaus);
     }
 

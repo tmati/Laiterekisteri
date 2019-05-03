@@ -15,7 +15,7 @@ import javafx.scene.control.Tooltip;
 import javafx.util.Callback;
 
 /**
- * Luoka joka muokaa datepickerin päiviä joko punaisiksi tai oransiksi.
+ * Luokka, joka muokkaa datepickerin päiviä joko punaisiksi tai oranssiksi.
  * @author jukka
  */
 public class DayCellFactory {

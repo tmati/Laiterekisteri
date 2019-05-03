@@ -41,15 +41,11 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
     public boolean createVaraus(Varaukset varaus) {
         Session s = sf.openSession();
         Transaction tran = null;
-
         try {
             tran = s.beginTransaction();
             s.saveOrUpdate(varaus);
             tran.commit();
         } catch (Exception e) {
-            if (tran != null) {
-                tran.rollback();
-            }
             e.printStackTrace();
             return false;
         } finally {
@@ -79,9 +75,6 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             Hibernate.initialize(haettu.getResurssit());
             s.getTransaction().commit();
         } catch (Exception e) {
-            if (transaktio != null) {
-                transaktio.rollback();
-            }
             throw e;
         } finally {
             s.close();
@@ -107,9 +100,6 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             varaukset = result.toArray(new Varaukset[result.size()]);
             s.getTransaction().commit();
         } catch (Exception e) {
-            if (tran != null) {
-                tran.rollback();
-            }
             e.printStackTrace();
 
         } finally {
@@ -147,9 +137,6 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
-            if (tran != null) {
-                tran.rollback();
-            }
             e.printStackTrace();
             return false;
 
@@ -180,9 +167,6 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
-            if (tran != null) {
-                tran.rollback();
-            }
             e.printStackTrace();
             return false;
 

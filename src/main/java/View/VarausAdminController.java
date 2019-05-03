@@ -125,7 +125,6 @@ public class VarausAdminController implements Initializable {
         BooleanConverter AktiivisuusController = new BooleanConverter(controller, controller.getConfigTeksti("isActive").toUpperCase(), controller.getConfigTeksti("isnActive").toUpperCase());
         BooleanConverter HyvaksyntaController = new BooleanConverter(controller, controller.getConfigTeksti("acknowledged").toUpperCase(), controller.getConfigTeksti("hylatty").toUpperCase());
         
-        cbColumn.setCellFactory(CheckBoxTableCell.forTableColumn(cbColumn));
         
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Kayttaja>("kayttaja"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Kayttaja>() {
@@ -261,8 +260,7 @@ public class VarausAdminController implements Initializable {
                     
         kaikkiTable.getItems().addAll(controller.haeKaikkiVaraukset());
         
-        usernameLabel.setText(controller.getConfigTeksti("userInfo").toUpperCase());
-        LogoutBtn.setText(controller.getConfigTeksti("Logout".toUpperCase()));
+        LogoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
         takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
         hyvaksyBtn.setText(controller.getConfigTeksti("accept").toUpperCase());
         hylkaaBtn.setText(controller.getConfigTeksti("hylkaa").toUpperCase());
@@ -281,6 +279,7 @@ public class VarausAdminController implements Initializable {
         varauskuvausColumn.setText(controller.getConfigTeksti("description").toUpperCase());
         palautettuColumn.setText(controller.getConfigTeksti("activity").toUpperCase());
         hyvaksyntaColumn.setText(controller.getConfigTeksti("approval").toUpperCase());
+        poistaBtn.setText(controller.getConfigTeksti("remove").toUpperCase());
         
         this.LogoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
         this.hylkaaBtn.setTooltip(new Tooltip(controller.getConfigTeksti("hylkaaBtn")));

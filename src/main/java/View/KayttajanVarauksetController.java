@@ -80,7 +80,7 @@ public class KayttajanVarauksetController implements Initializable {
         controller = new Controller();
         ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
         BooleanConverter AktiivisuusController = new BooleanConverter(controller, controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
-        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, controller.getConfigTeksti("acknowlwdge"), controller.getConfigTeksti("inProgress"));
+        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));
 
         laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
         laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -146,7 +146,6 @@ public class KayttajanVarauksetController implements Initializable {
         kayttajaTable.getItems().addAll(View.selected.getVarauksets());
 
         takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
-        usernameLabel.setText(controller.getConfigTeksti("userInfo").toUpperCase());
         LogoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
         kayttajaString.setText(controller.getConfigTeksti("user").toUpperCase());
         laitenimiColumn.setText(controller.getConfigTeksti("resourceName").toUpperCase());
@@ -209,7 +208,7 @@ public class KayttajanVarauksetController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, controller.getConfigTeksti("confirmationRemoveReservation"), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
-                if (!controller.OnkoVarausAlkanut(toDelete)) {
+                if (!controller.onkoVarausAlkanut(toDelete)) {
                     controller.poistaVaraus(toDelete.getId());
                     //System.out.println("poistetaan varaus");
                     controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + controller.getConfigTeksti("emailFordeletingReservation"));

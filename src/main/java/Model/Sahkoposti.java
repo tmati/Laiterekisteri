@@ -5,7 +5,10 @@
  */
 package Model;
 
+import Controller.Controller;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.Message;
@@ -24,15 +27,19 @@ public class Sahkoposti {
 
     private Properties emailProperties;
     private Session mailSession;
+    private Controller controller;
     private final String emailHost = "smtp.gmail.com";
-    private final String fromUser = "keychainems@gmail.com";//just the id alone without @gmail.com
-    private final String fromUserEmailPassword = "kissatkoiria";
+    private final String fromUser = "keychainems@gmail.com";
+    private final String fromUserEmailPassword;
     private final String emailSubject = "KeyChain automatic message";
+ 
     /**
      * Konstruktori
      * Kutsuu setMailServerProperties()
      */
-    public Sahkoposti() {
+    public Sahkoposti(Controller controller) {
+        this.controller = controller;
+        fromUserEmailPassword = controller.getConfigTeksti("kissatkoiria");
         setMailServerProperties();
     }
     
@@ -46,7 +53,6 @@ public class Sahkoposti {
         emailProperties.put("mail.smtp.port", emailPort);
         emailProperties.put("mail.smtp.auth", "true");
         emailProperties.put("mail.smtp.starttls.enable", "true");
-
     }
     
     /**
@@ -55,7 +61,7 @@ public class Sahkoposti {
      * @param viesti lähetettävä viesti
      * @return true jos lähetys onnistui
      */
-    public boolean sendEmail(String vastaanottaja, String viesti) {
+    private boolean sendEmail(String vastaanottaja, String viesti) {
 
         MimeMessage emailMessage;
         mailSession = Session.getDefaultInstance(emailProperties, null);
@@ -75,6 +81,32 @@ public class Sahkoposti {
         } catch (MessagingException ex) {
             return false;
         }
+        return true;
+    }
+    
+    
+    
+    /**
+     * Metodi joka kutsuu sähköpostin lähettähää säikeessä. 
+     * Vähentää viivettä joka tulisi ilman säiettä
+     * @param vastaanottaja vastaanottajan sähköposti
+     * @param viesti lähetettävä viesti
+     * @return true jos lähetys onnistuu
+     */
+    public boolean lahetaSahkoposti(String vastaanottaja, String viesti){
+        ExecutorService emailExecutor = Executors.newSingleThreadExecutor();
+        
+        emailExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                 sendEmail(vastaanottaja, viesti);
+                } catch (Exception e) {
+                    System.out.println("säie fail" + e);
+                }
+            }
+        });
+        emailExecutor.shutdown();
         return true;
     }
 

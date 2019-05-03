@@ -66,7 +66,7 @@ public class ResurssiHistoriaController implements Initializable {
     @FXML
     private TableColumn hyvaksyntaColumn;
     @FXML
-    private Button poistavarausNappi;
+    private Button poistavarausBtn;
     
     private Controller controller;
 
@@ -142,6 +142,7 @@ public class ResurssiHistoriaController implements Initializable {
 
         usernameLabel.setText(View.loggedIn.getNimi());
         bizName.setText(View.BizName);
+
         //System.out.println(View.BizName);
         
         varaajaColumn.setText(controller.getConfigTeksti("varaaja").toUpperCase());
@@ -152,13 +153,15 @@ public class ResurssiHistoriaController implements Initializable {
         palautettuColumn.setText(controller.getConfigTeksti("activity").toUpperCase());
         hyvaksyntaColumn.setText(controller.getConfigTeksti("approval").toUpperCase());
         takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
-        usernameLabel.setText(controller.getConfigTeksti("userInfo").toUpperCase());
         LogoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
-        
-        varausString.setText(controller.getConfigTeksti("resurssin") + View.booking.getNimi() + controller.getConfigTeksti("reservations"));
-        varausTable.getItems().addAll(controller.getVarausTaulukko(controller.ResurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
+
+        poistavarausBtn.setText(controller.getConfigTeksti("removeReservation").toUpperCase());
+        varausString.setText(controller.getConfigTeksti("resursin") + " " + View.booking.getNimi() + " " + controller.getConfigTeksti("reservations").toLowerCase());
+        varausTable.getItems().addAll(controller.getVarausTaulukko(controller.resurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
+
         this.LogoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
         this.takaisinBtn.setTooltip(new Tooltip(controller.getConfigTeksti("returnButton")));
+
     }    
 
     /**
@@ -202,7 +205,7 @@ public class ResurssiHistoriaController implements Initializable {
         if (toDelete != null) {
             controller.poistaVarausBtnToiminto(toDelete);
             varausTable.getItems().clear();
-            varausTable.getItems().addAll(controller.getVarausTaulukko(controller.ResurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
+            varausTable.getItems().addAll(controller.getVarausTaulukko(controller.resurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("errorChooseReservation"));
             alert.showAndWait();

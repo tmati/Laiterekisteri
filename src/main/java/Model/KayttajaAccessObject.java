@@ -46,9 +46,6 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
             s.saveOrUpdate(kayttaja);
             tran.commit();
         } catch (Exception e) {
-            if (tran != null) {
-                tran.rollback();
-            }
             e.printStackTrace();
             return false;
         } finally {
@@ -76,9 +73,6 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
             s.load(haettu, id);
             s.getTransaction().commit();
         } catch (Exception e) {
-            if (transaktio != null) {
-                transaktio.rollback();
-            }
             throw e;
         } finally {
             s.close();
@@ -104,9 +98,6 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
             kayttajat = result.toArray(new Kayttaja[result.size()]);
             s.getTransaction().commit();
         } catch (Exception e) {
-            if (tran != null) {
-                tran.rollback();
-            }
             e.printStackTrace();
 
         } finally {
@@ -142,9 +133,6 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
-            if (tran != null) {
-                tran.rollback();
-            }
             e.printStackTrace();
             return false;
 
@@ -178,10 +166,6 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
-
-            if (tran != null) {
-                tran.rollback();
-            }
             e.printStackTrace();
             return false;
 
