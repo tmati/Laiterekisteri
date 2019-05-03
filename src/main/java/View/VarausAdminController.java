@@ -125,7 +125,6 @@ public class VarausAdminController implements Initializable {
         BooleanConverter AktiivisuusController = new BooleanConverter(controller, controller.getConfigTeksti("isActive").toUpperCase(), controller.getConfigTeksti("isnActive").toUpperCase());
         BooleanConverter HyvaksyntaController = new BooleanConverter(controller, controller.getConfigTeksti("acknowledged").toUpperCase(), controller.getConfigTeksti("hylatty").toUpperCase());
         
-        cbColumn.setCellFactory(CheckBoxTableCell.forTableColumn(cbColumn));
         
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Kayttaja>("kayttaja"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Kayttaja>() {
