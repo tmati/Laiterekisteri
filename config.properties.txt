@@ -19,8 +19,8 @@ passwordLabelen = Password
 passwordLabelpor = senha
 
 userLabelfi = Käyttäjänimi
-userLabelen = username
-userLabelpor = nome de usuário
+userLabelen = Username
+userLabelpor = Nome de usuário
 
 loginImpossiblefi = Käyttäjänimi tai salasana puuttuu!
 loginImpossibleen = username or password is missing!
