@@ -65,6 +65,8 @@ public class LanguageText {
     public void setMaa(String maa){
         if("fi".equals(maa) || "en".equals(maa) || "por".equals(maa)){
             this.maa = maa;
+        }else if("pt".equals(maa)){
+            this.maa = "pt";
         }
        
     }

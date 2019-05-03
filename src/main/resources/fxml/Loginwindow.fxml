@@ -2,94 +2,117 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox id="bgPane" alignment="CENTER" stylesheets="@../styles/Styles.css" onKeyPressed="#handle" prefHeight="569.0" prefWidth="476.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.loginWindowController">
+<HBox id="bgPane" alignment="CENTER" onKeyPressed="#handle" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.loginWindowController">
    <children>
-      <VBox alignment="CENTER">
+      <VBox>
          <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <VBox.margin>
-                  <Insets bottom="30.0" />
-               </VBox.margin>
-            </VBox>
-            <ImageView fx:id="logoView" fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
-            <VBox alignment="CENTER" prefHeight="107.0" prefWidth="476.0">
+            <GridPane prefHeight="1080.0" prefWidth="1920.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="969.5999755859375" minWidth="10.0" prefWidth="640.8000366210938" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="983.1999267578125" minWidth="10.0" prefWidth="649.6000488281251" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="714.399951171875" minWidth="10.0" prefWidth="630.399951171875" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="1057.800048828125" minHeight="10.0" prefHeight="63.80000305175781" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1027.1999862670898" minHeight="10.0" prefHeight="1016.5999969482423" vgrow="SOMETIMES" />
+               </rowConstraints>
                <children>
-                  <Label fx:id="usernameLabel" alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" text="KÄYTTÄJÄNIMI" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets right="450.0" top="90.0" />
-                     </VBox.margin>
-                  </Label>
-                  <TextField id="usernameField" fx:id="usernameField" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi" stylesheets="@../styles/Styles.css">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <VBox.margin>
-                        <Insets bottom="30.0" top="10.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <Label fx:id="usernameLabel1" alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" text="SALASANA" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets right="450.0" />
-                     </VBox.margin>
-                  </Label>
-                  <PasswordField fx:id="passwordField" alignment="TOP_LEFT" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Salasana" stylesheets="@../styles/Styles.css">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </PasswordField>
-                  <Button fx:id="testBtn" mnemonicParsing="false" onMouseClicked="#avaaPalautaSalasana" text="PALAUTA SALASANA" underline="true">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Button>
+                  <ButtonBar prefHeight="55.0" prefWidth="502.0" GridPane.columnIndex="2" GridPane.valignment="TOP">
+                    <buttons>
+                      <Button fx:id="fiBtn" minWidth="0.0" mnemonicParsing="false" onMouseClicked="#fiBtnPainettu" prefHeight="39.0" text="FI" textOverrun="CLIP" />
+                        <Button fx:id="engBtn" alignment="TOP_CENTER" mnemonicParsing="false" onMouseClicked="#engBtnPainettu" text="ENG" />
+                        <Button fx:id="porBtn" mnemonicParsing="false" onMouseClicked="#porBtnPainettu" text="POR" />
+                    </buttons>
+                     <GridPane.margin>
+                        <Insets right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </ButtonBar>
+                  <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <ImageView fx:id="logoView" fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
+                        <VBox alignment="CENTER" prefHeight="660.0" prefWidth="650.0">
+                           <children>
+                              <Label fx:id="usernameLabel" alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" text="KÄYTTÄJÄNIMI" textFill="WHITE" textOverrun="CLIP">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets right="450.0" top="90.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField id="usernameField" fx:id="usernameField" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Käyttäjänimi" stylesheets="@../styles/Styles.css">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets bottom="30.0" top="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label fx:id="usernameLabel1" alignment="BOTTOM_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" text="SALASANA" textFill="WHITE" textOverrun="CLIP">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets right="450.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <PasswordField fx:id="passwordField" alignment="TOP_LEFT" onKeyReleased="#checkVal" prefHeight="44.0" prefWidth="442.0" promptText="Salasana" stylesheets="@../styles/Styles.css">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </PasswordField>
+                              <Button fx:id="testBtn" mnemonicParsing="false" onMouseClicked="#avaaPalautaSalasana" prefHeight="50.0" prefWidth="282.0" text="PALAUTA SALASANA">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="loginBtn" mnemonicParsing="false" prefHeight="91.0" prefWidth="584.0" text="KIRJAUDU SISÄÄN" textOverrun="CLIP" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets top="50.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="29.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets bottom="150.0" top="75.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets top="50.0" />
+                     </padding>
+                  </VBox>
                </children>
-               <padding>
-                  <Insets bottom="150.0" top="75.0" />
-               </padding>
-            </VBox>
-            <StackPane alignment="TOP_CENTER" prefHeight="150.0" prefWidth="200.0">
-               <children>
-                  <ImageView fx:id="loginActive" fitHeight="106.0" fitWidth="476.0" onMouseClicked="#loginAttempt" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../loginActive.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="loginInactive" fitHeight="156.0" fitWidth="476.0" onMouseClicked="#herjaaPuuttuvasta" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../loginInactive.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <VBox.margin>
-                  <Insets top="-100.0" />
-               </VBox.margin>
-            </StackPane>
+            </GridPane>
          </children>
-         <padding>
-            <Insets top="50.0" />
-         </padding>
       </VBox>
    </children>
 </HBox>

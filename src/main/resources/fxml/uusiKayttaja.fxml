@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@../styles/Styles.css" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="600.0" style="-fx-background-color: black; -fx-background-radius: 15px;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UusiKayttajaController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="600.0" style="-fx-background-color: black; -fx-background-radius: 15px;" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UusiKayttajaController">
     <children>
-        <Button fx:id="luokayttajaNappi" layoutX="224.0" layoutY="501.0" mnemonicParsing="false" onMouseClicked="#luokayttajaNappiPainettu" text="LUO KÄYTTÄJÄ">
+        <Button fx:id="luokayttajaNappi" layoutX="153.0" layoutY="489.0" mnemonicParsing="false" onMouseClicked="#luokayttajaNappiPainettu" prefHeight="49.0" prefWidth="291.0" text="LUO KÄYTTÄJÄ">
             <font>
                 <Font name="Futura Bk BT Book" size="15.0" />
             </font>
@@ -32,12 +32,12 @@
                 <Font size="16.0" />
             </font>
         </TextField>
-        <Label fx:id="uusisalasanaLabel" layoutX="61.0" layoutY="87.0" text="KÄYTTÄJÄN NIMI" textFill="WHITE">
+        <Label fx:id="uusisalasanaLabel" layoutX="61.0" layoutY="87.0" prefHeight="27.0" prefWidth="500.0" text="KÄYTTÄJÄN NIMI" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-        <Label fx:id="vanhasalasanaLabel" layoutX="61.0" layoutY="302.0" text="SÄHKÖPOSTIOSOITE" textFill="WHITE">
+        <Label fx:id="vanhasalasanaLabel" layoutX="61.0" layoutY="302.0" prefHeight="27.0" prefWidth="500.0" text="SÄHKÖPOSTIOSOITE" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>
@@ -62,7 +62,8 @@
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <Label layoutX="50.0" layoutY="396.0" text="KÄYTTÄJÄN VALTUUDET:" textFill="WHITE">
+
+        <Label fx:id="choiceBoxLabel" layoutX="50.0" layoutY="396.0" text="KÄYTTÄJÄN VALTUUDET:" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>
@@ -72,7 +73,7 @@
                 <Font size="16.0" />
             </font>
         </PasswordField>
-        <Label fx:id="vanhasalasanaLabel1" layoutX="59.0" layoutY="231.0" text="SALASANA" textFill="WHITE">
+        <Label fx:id="vanhasalasanaLabel1" layoutX="59.0" layoutY="231.0" prefHeight="27.0" prefWidth="500.0" text="SALASANA" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>
@@ -82,7 +83,7 @@
                 <Font size="16.0" />
             </font>
         </TextField>
-        <Label fx:id="vanhasalasanaLabel11" layoutX="61.0" layoutY="158.0" text="KÄYTTÄJÄTUNNUS" textFill="WHITE">
+        <Label fx:id="vanhasalasanaLabel11" layoutX="61.0" layoutY="158.0" prefHeight="27.0" prefWidth="500.0" text="KÄYTTÄJÄTUNNUS" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>

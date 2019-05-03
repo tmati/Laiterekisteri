@@ -401,8 +401,20 @@ public class Controller {
         return poistaBtnToiminnot.varauksetPoistaBtn(toDelete);
     }
 
+    /**
+     * Tuo tiedostosta tekstiä sillä kielellä mikä maa on
+     * @param Mihin mistä kohtaaa tiedostosta otetaan tietoja
+     * @return Stringin joka on halutulla kielellä jos ei löydy antaa nullin
+     */
     public String getConfigTeksti(String Mihin) {
         return tekstit.getText(Mihin);
     }
 
+    /**
+     * Asettaa LanguageTextin Maa parametrin käy vain fi, en, por tai pt
+     * @param Maa mihin Maa
+     */
+    public void setMaa(String Maa){
+        tekstit.setMaa(Maa);
+    }
 }

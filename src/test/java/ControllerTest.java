@@ -160,7 +160,7 @@ public class ControllerTest {
 
         //Kieliasetusten haku
         assertTrue("getConfigTeksti: haku ei onnistunut",
-                kont.getConfigTeksti("name").equals("name"));
+                kont.getConfigTeksti("logoutInfo") != null);
         assertTrue("getConfigTeksti: haku ei onnistunut",
                 kont.getConfigTeksti("") == null);
 

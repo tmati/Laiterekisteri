@@ -20,7 +20,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -78,8 +77,8 @@ public class ResurssiHistoriaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
      controller = new Controller();
         ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
-        BooleanConverter AktiivisuusController = new BooleanConverter(controller, "Aktiivinen", "Ei aktiivinen");
-        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, "HYVÄKSYTTY", "KÄSITTELYSSÄ");
+        BooleanConverter AktiivisuusController = new BooleanConverter(controller, controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
+        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));
 
         varaajaColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
         varaajaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -143,11 +142,25 @@ public class ResurssiHistoriaController implements Initializable {
 
         usernameLabel.setText(View.loggedIn.getNimi());
         bizName.setText(View.BizName);
-        System.out.println(View.BizName);
-        varausString.setText("Resurssin " + View.booking.getNimi() + " varaukset");
+
+        //System.out.println(View.BizName);
+        
+        varaajaColumn.setText(controller.getConfigTeksti("varaaja").toUpperCase());
+        alkupvmColumn.setText(controller.getConfigTeksti("reservationStartdate").toUpperCase());
+        paattymispvmColumn.setText(controller.getConfigTeksti("reservationEnddate").toUpperCase());
+        varausidColumn.setText(controller.getConfigTeksti("reservationId").toUpperCase());
+        varauskuvausColumn.setText(controller.getConfigTeksti("description").toUpperCase());
+        palautettuColumn.setText(controller.getConfigTeksti("activity").toUpperCase());
+        hyvaksyntaColumn.setText(controller.getConfigTeksti("approval").toUpperCase());
+        takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
+        usernameLabel.setText(controller.getConfigTeksti("userInfo").toUpperCase());
+        LogoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
+        
+        varausString.setText(controller.getConfigTeksti("resurssin") + View.booking.getNimi() + controller.getConfigTeksti("reservations"));
         varausTable.getItems().addAll(controller.getVarausTaulukko(controller.resurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
-        this.LogoutBtn.setTooltip(new Tooltip("Uloskirjautuminen"));
-        this.takaisinBtn.setTooltip(new Tooltip("Palauttaa päänäkymään"));
+        this.LogoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
+        this.takaisinBtn.setTooltip(new Tooltip(controller.getConfigTeksti("returnButton")));
+
     }    
 
     /**
@@ -172,7 +185,7 @@ public class ResurssiHistoriaController implements Initializable {
      */
     @FXML
     private void logout(MouseEvent event) throws IOException {
-        System.out.println("Logout");
+        //System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
         Stage stage = (Stage) LogoutBtn.getScene().getWindow();
         Parent root = loader.load();
@@ -193,7 +206,7 @@ public class ResurssiHistoriaController implements Initializable {
             varausTable.getItems().clear();
             varausTable.getItems().addAll(controller.getVarausTaulukko(controller.resurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Valitse varaus!");
+            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("errorChooseReservation"));
             alert.showAndWait();
         }
         

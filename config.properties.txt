@@ -14,16 +14,16 @@ returnPasswordButtonfi = PALAUTA SALASANA
 returnPasswordButtonen = return password
 returnPasswordButtonpor = retorna senha
 
-passwordLabelfi = salasana
+passwordLabelfi = Salasana
 passwordLabelen = Password
-passwordLabelpor = senha
+passwordLabelpor = Senha
 
 userLabelfi = Käyttäjänimi
-userLabelen = username
-userLabelpor = nome de usuário
+userLabelen = Username
+userLabelpor = Nome de usuário
 
 loginImpossiblefi = Käyttäjänimi tai salasana puuttuu!
-loginImpossibleen = username or password is missing!
+loginImpossibleen = Username or password is missing!
 loginImpossiblepor = Nome de usuário ou senha ausência de!
 
 wrongLoginfi = Väärä käyttäjätunnus tai salasana!
@@ -42,7 +42,7 @@ returnEmailTooltipfi = Palauttaa uuden salasanan sähköpostiin
 returnEmailTooltipen = Returns new password to email
 returnEmailTooltippor = Retorna nova senha para o email
 
-noEmailfi = Sähköpostti puutuu
+noEmailfi = Sähköposti puutuu
 noEmailen = Email is missing
 noEmailpor = O email é ausência de
 
@@ -50,7 +50,7 @@ newPasswordLabelfi = Anna sähköpostiosoitteesi. Tähän osoitteeseen liittyvän käy
 newPasswordLabelen = Give your email to which password is returned.
 newPasswordLabelpor = Dar seu o email para qual senho é retornou.
 
-emailLabelfi = Sähköposttiosoite
+emailLabelfi = Sähköpostiosoite
 emailLabelen = Email address
 emailLabelpor = O email
 
@@ -58,25 +58,25 @@ formErrorfi = TIETOJA PUUTTUU. TÄYTÄ LOPUT KOHDAT JA YRITÄ UUDELLEEN!
 formErroren = Items missing. Fill rest and try again!
 formErrorpor = Unid ausência de. Preencher descansar e experimentar novamente!
 
-reservationButtonfi = tee varaus
-reservationButtonen = make reservation
-reservationButtonpor = faço reserva
+reservationButtonfi = Tee varaus
+reservationButtonen = Make reservation
+reservationButtonpor = Faço reserva
 
-reservationNewfi = uusi varaus
-reservationNewen = new reservation
-reservationNewpor = nova reserva
+reservationNewfi = Uusi varaus
+reservationNewen = New reservation
+reservationNewpor = Nova reserva
 
-fromfi = mistä
-fromen = from
-frompor = de
+fromfi = Mistä
+fromen = From
+frompor = De
 
-wherefi = mihin
-whereen = where
-wherepor = onde
+wherefi = Mihin
+whereen = Where
+wherepor = Onde
 
 additionalInformationfi = LISÄTIEDOT:
-additionalInformationen = additional information:
-additionalInformationpor = informação adicional:
+additionalInformationen = Additional information:
+additionalInformationpor = Informação adicional:
 
 alertFailedReservationfi = Varauksen teko epäonnistui, koska varauksen aika meni toisen varauksen kanssa päälekäin.
 alertFailedReservationen = Reservation failed because it overlapped other reservation.
@@ -106,56 +106,56 @@ reservationReasonfi = Kerro varauksen syy
 reservationReasonen = Reason for reservation
 reservationReasonpor = Razão par reserva
 
-namefi = nimi
-nameen = name
-namepor = nome
+namefi = Nimi
+nameen = Name
+namepor = Nome
 
 authorizationfi = Valtuudet
-authorizationen = authorization
-authorizationpor = autorização
+authorizationen = Authorization
+authorizationpor = Autorização
 
-newUserfi = lisää käyttäjä 
-newUseren = new user
-newUserpor = novo do utilizador
+newUserfi = Lisää käyttäjä 
+newUseren = New user
+newUserpor = Novo do utilizador
 
 userReservationfi = KÄYTTÄJÄN VARAUKSET
-userReservationen = user's reservations
+userReservationen = User's reservations
 userReservationpor = Utilizador reserva
 
-removeUserfi = poista käyttäjä
-removeuseren = remove user
-removeuserpor = remover do utilizador
+removeUserfi = Poista käyttäjä
+removeuseren = Remove user
+removeuserpor = Remover do utilizador
 
-backfi = takaisin
-backen = back
-backpor = de volta
+backfi = Takaisin
+backen = Back
+backpor = De volta
 
 userInfofi = Käyttäjän tiedot 
-userInfoen = user info
-userInfopor = do utilizador info
+userInfoen = User info
+userInfopor = Do utilizador info
 
-Logoutfi = kirjaudu ulos
-Logouten = logout
-Logoutpor = sair
+Logoutfi = Kirjaudu ulos
+Logouten = Logout
+Logoutpor = Sair
 
-userfi = käyttäjät
-useren =  user
+userfi = Käyttäjät
+useren =  User
 userpor = Comercial
 
-userfi = käyttäjä
-useren = user
-userpor = do utilizador
+userfi = Käyttäjä
+useren = User
+userpor = Do utilizador
 
 addUserfi = Avaa popupin käyttäjän lisäämistä varten
 addUseren = Open popup for adding user
 addUserpor = Avrir aparecer para adicionando do utilizador
 
-removeUserfi = Poistaa valitun käyttäjän järjestelmästä
-removeUseren = Remove chosen user from system
-removeUserpor = Remover escolhido do utilizador de sistema
+removeUserfi = Poista valittu käyttäjän
+removeUseren = Remove chosen user
+removeUserpor = Remover escolhido do utilizador
 
 returnButtonfi = Palauttaa päänäkymään
-returnButtonen = return to main view
+returnButtonen = Return to main view
 returnButtonpor = Retorna para a principal visão
 
 userReservationTooltipfi = Avaa näkymän, jossa näet valitsemasi käyttäjän varaukset
@@ -178,45 +178,45 @@ userNameDublicatefi = Käyttäjätunnus on jo käytössä!
 userNameDublicateen = User identifier is already in use!
 userNameDublicatepor = O identificador de usuários já está em uso!
 
-returnButtonfi = takaisin
-returnButtonen = return
-returnButtonpor = retorna
+returnButtonfi = Takaisin
+returnButtonen = Return
+returnButtonpor = Retorna
 
-resourceNamefi = laitteen nimi
-resourceNameen = resource Name
-resourceNamepor = nome do recurso
+resourceNamefi = Laitteen nimi
+resourceNameen = Resource Name
+resourceNamepor = Nome do recurso
 
-reservationStartdatefi = varauksen alkamispäivä
-reservationStartdateen = reservation start date
-reservationStartdatepor = data de início da reserva
+reservationStartdatefi = Varauksen alkamispäivä
+reservationStartdateen = Reservation start date
+reservationStartdatepor = Data de início da reserva
 
-reservationEnddatefi = varauksen päätymispäivä
-reservationEnddateen = reservation end date
-reservationEnddatepor = data de término da reserva
+reservationEnddatefi = Varauksen päätymispäivä
+reservationEnddateen = Reservation end date
+reservationEnddatepor = Data de término da reserva
 
-reservationIdfi = varaus ID
-reservationIden = reservation ID
-reservationIdpor = reserva ID
+reservationIdfi = Varaus ID
+reservationIden = Reservation ID
+reservationIdpor = Reserva ID
 
-descriptionfi = kuvaus
-descriptionen = description
-descriptionpor = descrição
+descriptionfi = Kuvaus
+descriptionen = Description
+descriptionpor = Descrição
 
-activityfi = aktiivisuus
-activityen = activity
-activitypor = atividade
+activityfi = Aktiivisuus
+activityen = Activity
+activitypor = Atividade
 
-approvalfi = hyväksyntä
-approvalen = approval
-approvalpor = aprovação
+approvalfi = Hyväksyntä
+approvalen = Approval
+approvalpor = Aprovação
 
-removeReservationfi = poista varaus
-removeReservationen = remove reservation
-removeReservationpor = remover reserva
+removeReservationfi = Poista varaus
+removeReservationen = Remove reservation
+removeReservationpor = Remover reserva
 
-reservationsfi = varaukset  
-reservationsen = reservations
-reservationspor = reservas
+reservationsfi = Varaukset  
+reservationsen = Reservations
+reservationspor = Reservas
 
 logoutInfofi = Ulos kirjautumunen
 logoutInfoen = Logging out
@@ -252,16 +252,381 @@ isActivepor = Está ativo
 
 isnActivefi = Ei aktiivinen
 isnActiveen = Isn't active
-isnActivepor = não é ativo
+isnActivepor = Não é ativo
 
 acknowledgedfi = HYVÄKSYTTY
-acknowledgeden = acknowledged
-acknowledgedpor = reconhecido
+acknowledgeden = Acknowledged
+acknowledgedpor = Reconhecido
 
-inProgressfi = käsittelyssä
-inProgressen = in progress
-inProgresspor = em progresso
+inProgressfi = Käsittelyssä
+inProgressen = In progress
+inProgresspor = Em progresso
 
+bookablefi = Varattavissa
+bookableen = Bookable
+bookablepor = Reservado
 
+notBookablefi = Ei varattavissa
+notBookableen = Not bookable
+notBookablepor = Não pode ser reservado
 
+freeUsefi = Vapaa käyttö
+freeUseen = Free use
+freeUsepor = Uso livre
 
+supApprovedfi = Esimiehen hyväksyttävä
+supApproveden = Approved by the supervisor
+supApprovedpor = Aprovado pelo supervisor
+
+adApprovedfi = Ylläpitäjän hyväksyttävä
+adApproveden = Admin acceptable
+adApprovedpor = Admin Aceitável
+
+searchfi = Hae...
+searchen = Search...
+searchpor = Procurar...
+
+categoryfi = Kategoria
+categoryen = Category
+categorypor = Categoria
+
+resourcesfi = Resurssit
+resourcesen = Resources
+resourcespor = Recursos
+
+ownReservationsfi = Omat varaukset
+ownReservationsen = Own reservations
+ownReservationspor = Reservas próprias
+
+typefi = Tyyppi
+typeen = Type
+typepor = Tipo
+
+permissionfi = Luvanvaraisuus
+permissionen = Permission
+permissionpor = Permissão
+
+statefi = Tila
+stateen = State
+statepor = Estado
+
+resourceNamefi = Laitteen nimi
+resourceNameen = Device name
+resourceNamepor = Nome do dispositivo
+
+calendarfi = Kalenteri
+calendaren = Calendar
+calendarpor = Calendário
+
+addResourcefi = Lisää resurssi 
+addResourceen = Add resource
+addResourcepor = Adicionar recurso
+
+removeResourcefi = Poista resurssi
+removeResourceen = Remove resource
+removeResourcepor = Remover recurso
+
+manageReservationsfi = Hallinoi varauksia
+manageReservationsen = Manage reservations
+manageReservationspor = Gerenciar reservas
+
+resourceHistoryfi = Resurssin varaushistoria
+resourceHistoryen = Resource history
+resourceHistorypor = Histórico de recursos
+
+manageUsersfi = Hallinoi henkilöitä
+manageUsersen = Manage users
+manageUserspor = Gerenciar usuários
+
+passwordChangefi = Salasanan vaihto 
+passwordChangeen = Change password
+passwordChangepor = Mudar senha
+
+makeReservationfi = Tee varaus
+makeReservationen = Make reservation
+makeReservationpor = Fazer reserva
+
+accountNamefi = Käyttäjätunnus
+accountNameen = User name
+accountNamepor = Nome de usuário
+
+removefi = Poista
+removeen = Remove
+removepor = Remover
+
+searchByfi = Hakukriteeri
+searchByfi = Search by
+searchBypor = Procurar por
+
+ownTableTooltipfi = Kaikki järjestelmässä olevat resurssit
+ownTableTooltipen = All resources in the system
+ownTableTooltippor = Todos os recursos no sistema
+
+hallinnoiBtnTooltipfi = Avaa varauksien hallinta -näkymän
+hallinnoiBtnTooltipen = Opens the Manage Reserves view
+hallinnoiBtnTooltippor = Abre a visualização Gerenciar Reservas
+
+henkilostoBtnTooltipfi = Avaa käyttäjien hallinta -näkymän
+henkilostoBtnTooltipen = Opens the User Management view
+henkilostoBtnTooltippor = Abre a visualização Gerenciamento de usuários
+
+lisaaRTooltipfi = Avaa popupin resurssin lisäämistä varten
+lisaaRTooltipen = Open popup to add resource
+lisaaRTooltippor = Abrir pop-up para adicionar recurso
+
+poistaRTooltipfi = Poistaa valitun resurssin järjestelmästä
+poistaRTooltipen = Removes the selected resource from the system
+poistaRTooltippor = Remove o recurso selecionado do sistema
+
+salasanaVaihtoBtnfi = Avaa popupin salasanan vaihtoa varten
+salasanaVaihtoBtnen = Open a popup to change your password
+salasanaVaihtoBtnpor = Abra um pop-up para alterar sua senha
+
+searchBarTooltipfi = Hakukenttä resursseja tai varauksia varten
+searchBarTooltipen = Search box for resources or reservations
+searchBarTooltippor = Caixa de pesquisa de recursos ou reservas
+
+varausBtnTooltipfi = Avaa popupin varauksen luontia varten, valitse resurssi ensin
+varausBtnTooltipen = Open a popup to create a reservation, select a resource first
+varausBtnTooltippor = Abra um pop-up para criar uma reserva, selecione um recurso primeiro
+
+kalenteriStackPaneTooltipfi = Voit hakea resursseja päivän mukaan\n valitsemalla halutun päivän kalenterissa. Sen mukaan kalenteri näytää resurssit,\n jotka ovat sinäpäivinnä vapaina.
+kalenteriStackPaneTooltipen = You can search for resources by day\n by selecting the desired day in the calendar.\n According to it, the calendar shows resources that are free from the day.
+kalenteriStackPaneTooltippor = Você pode procurar recursos por dia selecionando o dia\n desejado no calendário.\n Segundo ele, o calendário mostra recursos que estão livres do dia.
+
+resourceNotAbleReservationfi = Resurssi ei ole tällä hetkellä varattavissa!
+resourceNotAbleReservationen = The resource is currently unavailable!
+resourceNotAbleReservationpor = O recurso está indisponível no momento!
+
+chooseResourcefi = Valitse resurssi!
+chooseResourceen = Choose resource!
+chooseResourcepor = Escolha o recurso!
+
+alertConfirmationRemoveResourcefi = Oletko varma, että haluat poistaa resurssin?
+alertConfirmationRemoveResourceen = Are you sure you want to remove the resource?
+alertConfirmationRemoveResourcepor = Tem certeza de que deseja remover o recurso?
+
+varaajafi = Varaaja
+varaajaen = Person
+varaajapor = Pessoa
+
+resursinfi = Resurssin
+resursinen = Resource's
+resursinpor = Recursos
+
+passwordChangeErrormsgfi = TIETOJA PUUTTUU. TÄYTÄ LOPUT KOHDAT JA YRITÄ UUDELLEEN!
+passwordChangeErrormsgen = Information missing. COMPLETE FINAL ITEMS AND TRY IT!
+passwordChangeErrormsgpor = Informação em falta. COMPLETE ITENS FINAL E TENTE!
+
+changePasswordfi = Vaihda salasana
+changePassworden = Change password
+changePasswordpor = Mudar senha
+
+changePasswordTitlefi = Salasanan vaihto
+changePasswordTitleen = Password change
+changePasswordTitlepor = Senha mudar
+
+oldPasswordfi = Vanha salasana
+oldPassworden = Old Password
+oldPasswordpor = Velho senho
+
+newPasswordfi = Uusi salasana
+newPassworden = New Password
+newPasswordpor = Novo senho
+
+newPswFieldInfofi = Kenttä uutta salasanaa varten
+newPswFieldInfoen = Field for new password
+newPswFieldInfopor = Campo para nova senha
+
+repeatPasswordfi = Toista salasana
+repeatPassworden = Repeat password
+repeatPasswordpor = Repetir senha
+
+oldPswFieldInfofi = Kenttä vanha salasanaa varten
+oldPswFieldInfoen = Field for old password
+oldPswFieldInfopor = Campo para velho senha
+
+changePasswordInfofi = Vaihtaa salasanaa
+changePasswordInfoen = Change password
+changePasswordInfopor = Mudar senha
+
+newPasswordError1fi = Uusi salasana ei täsmää tekstikentissä.
+newPasswordError1en = The new password does not match the text fields.
+newPasswordError1por = A nova senha não corresponde aos campos de texto.
+
+newPasswordError2fi = Vanha salasana väärin.
+newPasswordError2en = Old password wrong.
+newPasswordError2por = Senha antiga errada.
+
+createUserfi = Luo käyttäjä
+createUseren = Create user
+createUserpor = Criar usuário
+
+newUserfi = Uusi käyttäjä
+newUseren = New user
+newUserpor = Neo usuário
+
+userNamefi = Käyttäjän nimi
+userNameen = User's name
+userNamepor = Nome do usuário
+
+choosefi = Valitse...
+chooseen = Choose...
+choosepor = Escolher...
+
+employeefi = Työntekijä
+employeeen = Employee
+employeepor = Empregado
+
+superiorfi = Esimies
+superioren = Superior
+superiorpor = Superior
+
+administratorfi = Ylläpitäjä
+administratoren = Administrator
+administratorpor = Administrador
+
+userAutfi = KÄYTTÄJÄN VALTUUDET:
+userAuten = USER AUTHORIZATIONS:
+userAutpor = AUTORIZAÇÕES DO USUÁRIO:
+
+kayttajaTunnusfi = Käyttäjätunnus
+kayttajaTunnusen = User name
+kayttajaTunnuspor = Nome de usuário
+
+newUserEmailInfofi = Kenttä sähköpostia varten, ei saa olla olemassa oleva.
+newUserEmailInfoen = The field for email must not be an existing one.
+newUserEmailInfopor = O campo para email não deve ser um existente.
+
+newUserIdInfofi = Kenttä käyttäjätunnusta varten, ei saa olla olemassa oleva.
+newUserIdInfoen = The field for user name must not be an existing one.
+newUserIdInfopor = O campo para nome de usuário não deve ser um existente.
+
+newUserNameInfofi = Kenttä käyttäjän nimeä varten.
+newUserNameInfoen = Field for user real name.
+newUserNameInfopor = Campo para nome de usuário.
+
+newUserPasswordInfofi = Kenttä väliaikaista salasanaa varten.
+newUserPasswordInfoen = Field for temporary password.
+newUserPasswordInfopor = Campo para senha temporária.
+
+chooseUserAutInfofi = Valitse käyttäjän valtuutus -taso
+chooseUserAutInfoen = Select the user authorization level
+chooseUserAutInfopor = Selecione o nível de autorização do usuário
+
+createNewUserInfofi = Luo käyttäjän ja lähettää sähköposti ilmoituksen
+createNewUserInfoen = Create a user and send an email notification
+createNewUserInfopor = Crie um usuário e envie uma notificação por email
+
+newUserErrorLabel1fi = Tietoja puuttuu. Täytä kaikki kohdat ja yritä uudelleen.
+newUserErrorLabel1en = Missing information. Fill in all the points and try again.
+newUserErrorLabel1por = Faltando informação. Preencha todos os pontos e tente novamente.
+
+newUserErrorLabel2fi = Käyttäjätunnus on jo varattu. Kokeile toista tunnusta.
+newUserErrorLabel2en = Your username has already been reserved. Try another ID.
+newUserErrorLabel2por = Seu nome de usuário já foi reservado. Tente outro ID.
+
+newUserErrorLabel3fi = Sähköposti on jo varattu. Kokeile toista osoitetta.
+newUserErrorLabel3en = Email is already busy. Try another address.
+newUserErrorLabel3por = O email já está ocupado. Tente outro endereço.
+
+newUserEmailfi = Hei,\n\nsinulle on luotu keyChain käyttäjä.\nKäyttäjätunnus: 
+newUserEmailen = Hi, a KeyChain user has been created for you.\nUser name: 
+newUserEmailpor = Oi,\n\num usuário do KeyChain foi criado para você.\nNome do usuário: 
+
+newUserEmailPfi = Salasana: 
+newUserEmailPen = Password: 
+newUserEmailPpor = Senha: 
+
+newUserEmailConfi = \nMuistathan vaihtaa salasanasi, kun kirjaudut sisään ensimmäisen kerran.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.
+newUserEmailConen = \nPlease remember to change your password when you log in for the first time.\n\n
+This is an automatic message that does not need to be answered.
+newUserEmailConpor = \nPor favor, lembre-se de alterar sua senha quando você entrar pela primeira vez.\n\nEsta é uma mensagem automática que não precisa ser respondida.
+
+giveInfofi = ANNA TIEDOT:
+giveInfoen = GIVE DETAILS:
+giveInfopor = DÊ DETALHES:
+
+createNewResourcefi = LUO UUSI RESURSSI
+createNewResourceen = CREATE A NEW RESOURCE
+createNewResourcepor = CRIAR UM NOVO RECURSO
+
+newResourcefi = UUSI RESURSSI
+newResourceen = NEW RESOURCE
+newResourcepor = NOVO RECURSO
+
+newResourceChoiceBoxInfofi = Valitse resurssin luvanvaraisuus -taso
+newResourceChoiceBoxInfoen = Select the resource permission requirement level
+newResourceChoiceBoxInfopor = Selecione o nível de requisito de permissão de recurso
+
+newResourceTextBoxInfofi = Kenttä resurssin kuvausta varten
+newResourceTextBoxInfoen = Field for resource description
+newResourceTextBoxInfopor = Campo para descrição do recurso
+
+newResourceNameInfofi = Kenttä resurssin nimeä varten, esim. resurssin malli
+newResourceNameInfoen = A field for a resource name, eg a resource model
+newResourceNameInfopor = Um campo para um nome de recurso, por exemplo, um modelo de recurso
+
+newResourceTypeInfofi = Kenttä resurssin tyyppiä varten, esim. tietokone
+newResourceTypeInfoen = Field for resource type, eg computer
+newResourceTypeInfopor = Campo para o tipo de recurso, por exemplo, computador
+
+newResourceInfofi = Lisää resurssin järjestelmään
+newResourceInfoen = Add a resource to your system
+newResourceInfopor = Adicione um recurso ao seu sistema
+
+hylattyfi = Hylätty
+hylattyen = Abandoned
+hylattypor = Abandonado
+
+acceptfi = Hyväksy
+accepten = accept
+acceptpor = aceitar
+
+hylkaafi = Hylkää
+hylkaaen = Reject
+hylkaapor = Rejeitar
+
+kasVarauksetfi = Käsittelemättömät varaukset
+kasVaraukseten = Untreated bookings
+kasVarauksetpor = Reservas não tratadas
+
+varaajaNimifi = Varaajan nimi
+varaajaNimifi = Name of the depositor
+varaajaNimifi = Nome do depositante
+
+itemfi = Tavara
+itemen = Item
+itempor = Item
+
+kaikkiVarfi = Kaikki varaukset
+kaikkiVaren = All reservations
+kaikkiVarpor = Todas as reservas
+
+hylkaaBtnfi = Hylkää valitun varauksen
+hylkaaBtnen = Reject the selected reservation
+hylkaaBtnpor = Rejeitar a reserva selecionada
+
+hyvaksyBtnfi = Hyväksyy valitun varauksen
+hyvaksyBtnen = Accepts the selected reservation
+hyvaksyBtnpor = Aceita a reserva selecionada
+
+hyvaksyVarausConffi = Oletko varma, että haluat hyväksyä varauksen?
+hyvaksyVarausConfen = Are you sure you want to accept the reservation?
+hyvaksyVarausConfpor = Tem certeza de que deseja aceitar a reserva?
+
+hyvaksyVarausEmailfi = on hyväksytty.\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.
+hyvaksyVarausEmailen = has been accepted.\n \nThis is an automatic message that does not need to be answered.
+hyvaksyVarausEmailpor = foi aceito.\n \nEsta é uma mensagem automática que não precisa ser respondida.
+
+valitseKasVarausfi = Valitse käsiteltävä varaus!
+valitseKasVarausen = Select the reservation to be processed!
+valitseKasVarauspor = Selecione a reserva a ser processada!
+
+hylataVarausConffi = Oletko varma, että haluat hylätä varauksen?
+hylataVarausConfen = Are you sure you want to reject the reservation?
+hylataVarausConfpor = Tem certeza de que deseja rejeitar a reserva?
+
+hylataVarausEmailfi = on hylätty.\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.
+hylataVarausEmailen = has been rejected.\n \nThis is an automatic message that does not need to be answered.
+hylataVarausEmailpor = foi rejeitado.\n \nEsta é uma mensagem automática que não precisa ser respondida.

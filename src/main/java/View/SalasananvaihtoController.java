@@ -47,7 +47,7 @@ public class SalasananvaihtoController implements Initializable {
     private TextField uusisalasana2TextField;
     @FXML
     private Label uusisalasana2Label;
-
+    
     Controller controller;
 
     /**
@@ -60,11 +60,22 @@ public class SalasananvaihtoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         usernameLabel.setText(View.loggedIn.getNimi());
         controller = View.controller;
-        this.sulkuNappi.setTooltip(new Tooltip("Sulkee popupin"));
-        this.uusisalasana1TextField.setTooltip(new Tooltip("Kenttä uutta salasanaa varten"));
-        this.uusisalasana2TextField.setTooltip(new Tooltip("Toista salasana"));
-        this.vanhasalasanaTextField.setTooltip(new Tooltip("Kenttä vanhaa salasanaa varten"));
-        this.vaihdasalasanaNappi.setTooltip(new Tooltip("Vaihtaa salasanan"));
+        
+        vaihdasalasanaNappi.setText(controller.getConfigTeksti("changePassword").toUpperCase());
+        titleLabel.setText(controller.getConfigTeksti("changePasswordTitle").toUpperCase());
+        vanhasalasanaTextField.setPromptText(controller.getConfigTeksti("oldPassword"));
+        uusisalasana1TextField.setPromptText(controller.getConfigTeksti("newPassword"));
+        uusisalasanaLabel.setText(controller.getConfigTeksti("newPassword").toUpperCase());
+        vanhasalasanaLabel.setText(controller.getConfigTeksti("oldPassword").toUpperCase());
+        uusisalasana2TextField.setPromptText(controller.getConfigTeksti("newPassword"));
+        uusisalasana2Label.setText(controller.getConfigTeksti("newPassword").toUpperCase());
+        virheLabel.setText(controller.getConfigTeksti("passwordChangeErrormsg").toUpperCase());
+        
+        this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti("closePopup")));
+        this.uusisalasana1TextField.setTooltip(new Tooltip(controller.getConfigTeksti("newPswFieldInfo")));
+        this.uusisalasana2TextField.setTooltip(new Tooltip(controller.getConfigTeksti("repeatPassword")));
+        this.vanhasalasanaTextField.setTooltip(new Tooltip(controller.getConfigTeksti("oldPswFieldInfo")));
+        this.vaihdasalasanaNappi.setTooltip(new Tooltip(controller.getConfigTeksti("changePasswordInfo")));
         
     }
 
@@ -84,11 +95,11 @@ public class SalasananvaihtoController implements Initializable {
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
             popup.hide();
         } else if (!uusisalasana1TextField.getText().equals(uusisalasana2TextField.getText())) {
-            virheLabel.setText("Uusi salasana ei täsmää tekstikentissä.");
+            virheLabel.setText(controller.getConfigTeksti("newPasswordError1"));
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
         } else if (!vanhasalasanaTextField.getText().equals(View.loggedIn.getSalasana())) {
-            virheLabel.setText("Vanha salasana väärin.");
+            virheLabel.setText(controller.getConfigTeksti("newPasswordError2"));
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
 
