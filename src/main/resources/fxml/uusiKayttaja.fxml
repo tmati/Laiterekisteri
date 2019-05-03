@@ -62,7 +62,8 @@
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <Label layoutX="50.0" layoutY="405.0" text="KÄYTTÄJÄN VALTUUDET:" textFill="WHITE">
+
+        <Label fx:id="choiceBoxLabel" layoutX="50.0" layoutY="396.0" text="KÄYTTÄJÄN VALTUUDET:" textFill="WHITE">
             <font>
                 <Font size="30.0" />
             </font>

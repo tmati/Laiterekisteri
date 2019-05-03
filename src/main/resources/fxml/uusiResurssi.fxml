@@ -57,22 +57,22 @@
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <Label layoutX="17.0" layoutY="100.0" text="NIMI" textFill="WHITE">
+        <Label fx:id="nimiLabel" layoutX="17.0" layoutY="100.0" text="NIMI" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-        <Label layoutX="17.0" layoutY="189.0" text="TYYPPI" textFill="WHITE">
+        <Label fx:id="tyyppiLabel" layoutX="17.0" layoutY="189.0" text="TYYPPI" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-        <Label layoutX="261.0" layoutY="189.0" text="LUVANVARAISUUS" textFill="WHITE">
+        <Label fx:id="lupaLabel" layoutX="261.0" layoutY="189.0" text="LUVANVARAISUUS" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-        <Label layoutX="17.0" layoutY="261.0" text="KUVAUS" textFill="WHITE">
+        <Label fx:id="kuvausLabel" layoutX="17.0" layoutY="261.0" text="KUVAUS" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>

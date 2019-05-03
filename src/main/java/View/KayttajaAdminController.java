@@ -88,7 +88,7 @@ public class KayttajaAdminController implements Initializable {
          * Kontrollerin ilmentymä
          */
         kontrolleri = View.controller;
-        LuvanvaraisuusConverter KayLC = new LuvanvaraisuusConverter(kontrolleri, "Työntekijä", "Esimies", "Ylläpitäjä");
+        LuvanvaraisuusConverter KayLC = new LuvanvaraisuusConverter(kontrolleri, kontrolleri.getConfigTeksti("freeUse"), kontrolleri.getConfigTeksti("supApproved"), kontrolleri.getConfigTeksti("adApproved"));
         //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -106,21 +106,21 @@ public class KayttajaAdminController implements Initializable {
         
         kayttajatunnusColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("kayttajatunnus"));
         kayttajatunnusColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        kayttajatunnusColumn.setText(kontrolleri.getConfigTeksti("useLabel"));
+        kayttajatunnusColumn.setText(kontrolleri.getConfigTeksti("accountName").toUpperCase());
         
         kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
         bizName.setText(View.BizName);
         usernameLabel.setText(View.loggedIn.getNimi());
         
         lisaaBtn.setText(kontrolleri.getConfigTeksti("newUser").toUpperCase());
-        //kayttajanvarauksetNappi.setText(kontrolleri.getConfigTeksti("usersReservation").toUpperCase());
+        kayttajanvarauksetNappi.setText(kontrolleri.getConfigTeksti("userReservation").toUpperCase());
         poistaBtn.setText(kontrolleri.getConfigTeksti("removeUser").toUpperCase());
         takaisinBtn.setText(kontrolleri.getConfigTeksti("back").toUpperCase());
         usernameLabel.setText(kontrolleri.getConfigTeksti("userInfo").toUpperCase());
         LogoutBtn.setText(kontrolleri.getConfigTeksti("Logout").toUpperCase());
         bizName1.setText(kontrolleri.getConfigTeksti("user").toUpperCase());
         
-        this.LogoutBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("Logout")));
+        this.LogoutBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("LogoutInfo")));
         this.lisaaBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("addUser")));
         this.poistaBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("removeUser")));
         this.takaisinBtn.setTooltip((new Tooltip(kontrolleri.getConfigTeksti("returnButton"))));
