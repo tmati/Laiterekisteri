@@ -31,9 +31,9 @@
             <TableColumn fx:id="alkupvmColumn" prefWidth="199.99993896484375" resizable="false" text="VARAUKSEN ALKUPVM" />
             <TableColumn fx:id="paattymispvmColumn" prefWidth="228.0" resizable="false" text="VARAUKSEN PÄÄTTYMISPVM" />
             <TableColumn fx:id="varausidColumn" editable="false" prefWidth="108.800048828125" resizable="false" text="VARAUSID" />
-            <TableColumn fx:id="varauskuvausColumn" editable="false" prefWidth="462.39996337890625" resizable="false" text="KUVAUS" />
-            <TableColumn fx:id="palautettuColumn" maxWidth="238.39990234375" minWidth="0.0" prefWidth="132.800048828125" resizable="false" text="AKTIIVISUUS" />
-            <TableColumn fx:id="hyvaksyntaColumn" maxWidth="330.39990234375" minWidth="0.0" prefWidth="238.4001220703126" resizable="false" text="HYVÄKSYNTÄ" />
+            <TableColumn fx:id="varauskuvausColumn" editable="false" prefWidth="409.59991455078125" resizable="false" text="KUVAUS" />
+            <TableColumn fx:id="palautettuColumn" maxWidth="238.39990234375" minWidth="0.0" prefWidth="146.4000244140625" resizable="false" text="AKTIIVISUUS" />
+            <TableColumn fx:id="hyvaksyntaColumn" maxWidth="330.39990234375" minWidth="0.0" prefWidth="280.0" resizable="false" text="HYVÄKSYNTÄ" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

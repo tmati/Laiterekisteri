@@ -149,7 +149,7 @@ public class ResurssiHistoriaController implements Initializable {
         paattymispvmColumn.setText(controller.getConfigTeksti("reservationEnddate").toUpperCase());
         varausidColumn.setText(controller.getConfigTeksti("reservationId").toUpperCase());
         varauskuvausColumn.setText(controller.getConfigTeksti("description").toUpperCase());
-        palautettuColumn.setText(controller.getConfigTeksti("aktiivisuus").toUpperCase());
+        palautettuColumn.setText(controller.getConfigTeksti("activity").toUpperCase());
         hyvaksyntaColumn.setText(controller.getConfigTeksti("approval").toUpperCase());
         takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
         usernameLabel.setText(controller.getConfigTeksti("userInfo").toUpperCase());

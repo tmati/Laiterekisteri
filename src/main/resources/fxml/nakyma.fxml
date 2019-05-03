@@ -88,9 +88,9 @@
                            <columns>
                               <TableColumn fx:id="nimiColumn" onEditCommit="#nimiOnEditCommit" prefWidth="356.79998779296875" resizable="false" text="NIMI" />
                               <TableColumn fx:id="tyyppiColumn" minWidth="0.0" onEditCommit="#tyyppiOnEditCommit" prefWidth="175.20001220703125" resizable="false" text="TYYPPI" />
-                              <TableColumn fx:id="luvanvaraisuusColumn" onEditCommit="#luvanvaraisuusOnEditCommit" prefWidth="168.8001708984375" resizable="false" text="LUVANVARAISUUS" />
-                              <TableColumn fx:id="kuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="663.9999389648438" resizable="false" text="KUVAUS" />
-                              <TableColumn fx:id="tilaColumn" maxWidth="136.0" minWidth="0.0" onEditCommit="#tilaOnEditCommit" prefWidth="136.0" resizable="false" text="TILA" />
+                              <TableColumn fx:id="luvanvaraisuusColumn" onEditCommit="#luvanvaraisuusOnEditCommit" prefWidth="228.79998779296875" resizable="false" text="LUVANVARAISUUS" />
+                              <TableColumn fx:id="kuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="485.599853515625" resizable="false" text="KUVAUS" />
+                              <TableColumn fx:id="tilaColumn" maxWidth="289.60009765625" minWidth="0.0" onEditCommit="#tilaOnEditCommit" prefWidth="229.5999755859375" resizable="false" text="TILA" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -106,14 +106,14 @@
                      <children>
                         <TableView fx:id="omatTable" maxWidth="-Infinity" prefHeight="546.0" prefWidth="1499.0">
                            <columns>
-                              <TableColumn fx:id="laitenimiColumn" editable="false" prefWidth="240.80002385377884" resizable="false" text="LAITTEEN NIMI" />
-                              <TableColumn fx:id="alkupvmColumn" prefWidth="216.00003051757812" resizable="false" text="VARAUKSEN ALKUPVM" />
-                              <TableColumn fx:id="paattymispvmColumn" prefWidth="228.00006103515625" resizable="false" text="VARAUKSEN PÄÄTTYMISPVM" />
-                              <TableColumn fx:id="varausidColumn" editable="false" prefWidth="124.0" resizable="false" text="VARAUSID" />
-                              <TableColumn fx:id="varauskuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="305.5999755859375" resizable="false" text="KUVAUS" />
-                              <TableColumn fx:id="palautettuColumn" maxWidth="227.0" minWidth="0.0" prefWidth="132.0" resizable="false" text="AKTIIVISUUS" />
-                              <TableColumn fx:id="hyvaksyntaColumn" maxWidth="330.39990234375" minWidth="0.0" prefWidth="139.9998779296875" resizable="false" text="HYVÄKSYNTÄ" />
-                              <TableColumn fx:id="poistoColumn" maxWidth="330.39990234375" minWidth="0.0" prefWidth="121.60009765625" resizable="false" text="POISTO" />
+                              <TableColumn fx:id="laitenimiColumn" editable="false" prefWidth="167.99997651576996" resizable="false" text="LAITTEEN NIMI" />
+                              <TableColumn fx:id="alkupvmColumn" prefWidth="174.4000244140625" resizable="false" text="VARAUKSEN ALKUPVM" />
+                              <TableColumn fx:id="paattymispvmColumn" prefWidth="206.39993286132812" resizable="false" text="VARAUKSEN PÄÄTTYMISPVM" />
+                              <TableColumn fx:id="varausidColumn" editable="false" prefWidth="124.79998779296875" resizable="false" text="VARAUSID" />
+                              <TableColumn fx:id="varauskuvausColumn" onEditCommit="#kuvausOnEditCommit" prefWidth="361.59991455078125" resizable="false" text="KUVAUS" />
+                              <TableColumn fx:id="palautettuColumn" maxWidth="227.0" minWidth="0.0" prefWidth="147.2000732421875" resizable="false" text="AKTIIVISUUS" />
+                              <TableColumn fx:id="hyvaksyntaColumn" maxWidth="330.39990234375" minWidth="0.0" prefWidth="160.800048828125" resizable="false" text="HYVÄKSYNTÄ" />
+                              <TableColumn fx:id="poistoColumn" maxWidth="330.39990234375" minWidth="0.0" prefWidth="144.800048828125" resizable="false" text="POISTO" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

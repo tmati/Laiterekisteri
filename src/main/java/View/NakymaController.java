@@ -21,9 +21,7 @@ import java.time.LocalTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -258,7 +256,7 @@ public class NakymaController implements Initializable {
             @Override
             protected void updateItem(Varaukset V, boolean empty) {
 
-                if (V == null || !controller.OnkoVarausAlkanut(V)) {
+                if (V == null) {
                     setGraphic(null);
                     return;
                 }

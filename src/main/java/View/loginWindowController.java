@@ -224,16 +224,32 @@ public class loginWindowController implements Initializable {
      */
     @FXML
     private void fiBtnPainettu(MouseEvent event) {
-    //JUKKA
+        controller.setMaa("fi");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
+            Stage stage = (Stage) logoView.getScene().getWindow();
+            Parent root = loader.load();
+            stage.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    
+
     /**
      * Kielivalinta englanninkieliselle käytölle
      * @param event hiiren klikkaus
      */
     @FXML
     private void engBtnPainettu(MouseEvent event) {
-    //LISÄÄ
+    controller.setMaa("en");
+            try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
+            Stage stage = (Stage) logoView.getScene().getWindow();
+            Parent root = loader.load();
+            stage.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     /**
@@ -242,6 +258,14 @@ public class loginWindowController implements Initializable {
      */
     @FXML
     private void porBtnPainettu(MouseEvent event) {
-    //NÄMÄ
+    controller.setMaa("por");
+            try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
+            Stage stage = (Stage) logoView.getScene().getWindow();
+            Parent root = loader.load();
+            stage.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
