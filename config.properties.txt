@@ -355,7 +355,7 @@ removeen = Remove
 removepor = Remover
 
 searchByfi = Hakukriteeri
-searchByfi = Search by
+searchByen = Search by
 searchBypor = Procurar por
 
 ownTableTooltipfi = Kaikki järjestelmässä olevat resurssit
