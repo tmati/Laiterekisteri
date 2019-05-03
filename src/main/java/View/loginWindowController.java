@@ -82,6 +82,7 @@ public class loginWindowController implements Initializable {
         usernameLabel.setText(controller.getConfigTeksti("userLabel").toUpperCase());
         passwordField.setPromptText(controller.getConfigTeksti("passwordLabel"));
         usernameField.setPromptText(controller.getConfigTeksti("userLabel"));
+        loginBtn.setText(controller.getConfigTeksti("logIn").toUpperCase());
     }
 
     /**

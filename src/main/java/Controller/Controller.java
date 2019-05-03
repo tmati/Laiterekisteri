@@ -48,7 +48,7 @@ public class Controller {
         varausKasittely = new VarausKasittely(varausDAO, this);
         resurssikasittely = new ResurssiKasittely(this);
         kalenteriApu = new Kalenterin_tarvitsemat_toimenpiteet();
-        sahkoposti = new Sahkoposti();
+        sahkoposti = new Sahkoposti(this);
         salasananPalautus = new SalasananPalautus(this);
         poistaBtnToiminnot = new PoistaBtnToiminnot(this);
         tekstit = LanguageText.getInstance();

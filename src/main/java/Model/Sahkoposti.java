@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Controller.Controller;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,16 +27,19 @@ public class Sahkoposti {
 
     private Properties emailProperties;
     private Session mailSession;
+    private Controller controller;
     private final String emailHost = "smtp.gmail.com";
     private final String fromUser = "keychainems@gmail.com";
-    private final String fromUserEmailPassword = "kissatkoiria";
+    private final String fromUserEmailPassword;
     private final String emailSubject = "KeyChain automatic message";
  
     /**
      * Konstruktori
      * Kutsuu setMailServerProperties()
      */
-    public Sahkoposti() {
+    public Sahkoposti(Controller controller) {
+        this.controller = controller;
+        fromUserEmailPassword = controller.getConfigTeksti("kissatkoiria");
         setMailServerProperties();
     }
     

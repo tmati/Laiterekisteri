@@ -630,3 +630,13 @@ hylataVarausConfpor = Tem certeza de que deseja rejeitar a reserva?
 hylataVarausEmailfi = on hyl‰tty.\n \nT‰m‰ on automaattinen viesti, johon ei tarvitse vastata.
 hylataVarausEmailen = has been rejected.\n \nThis is an automatic message that does not need to be answered.
 hylataVarausEmailpor = foi rejeitado.\n \nEsta È uma mensagem autom·tica que n„o precisa ser respondida.
+
+logInfi = Kirjaudu sis‰‰n
+logInen = Log in
+logInpor = Entrar
+
+kissatkoiriafi = kissatkoiria
+kissatkoiriaen = kissatkoiria
+kissatkoiriapor = kissatkoiria
+
+
