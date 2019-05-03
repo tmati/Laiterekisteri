@@ -36,7 +36,9 @@ public class Controller {
     /**
      * Controllerin konstruktio
      */
-    public Controller() {
+    public Controller() {        
+        tekstit = LanguageText.getInstance();
+
         kayttajaDAO = new KayttajaAccessObject();
         kayttajaTarkistus = new KayttajaTarkistus(this);
         resurssiDAO = new ResurssitAccessObject();
@@ -51,7 +53,6 @@ public class Controller {
         sahkoposti = new Sahkoposti(this);
         salasananPalautus = new SalasananPalautus(this);
         poistaBtnToiminnot = new PoistaBtnToiminnot(this);
-        tekstit = LanguageText.getInstance();
         crypter = new PasswordConverter();
     }
 
