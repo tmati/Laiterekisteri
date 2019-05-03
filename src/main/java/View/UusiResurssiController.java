@@ -7,7 +7,6 @@ package View;
 
 import Controller.Controller;
 import Model.Resurssit;
-import Model.ResurssitAccessObject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;

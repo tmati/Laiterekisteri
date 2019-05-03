@@ -32,7 +32,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.CheckBoxTableCell;
@@ -41,7 +40,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import javafx.util.StringConverter;
 import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.IntegerStringConverter;
@@ -106,10 +104,8 @@ public class VarausAdminController implements Initializable {
     private Tab kasittelemattomatTab;
     @FXML
     private Tab kaikkiTab;
-    
     @FXML
     private Button poistaBtn;
-    
     private Controller controller;
     
     @FXML
@@ -317,7 +313,6 @@ public class VarausAdminController implements Initializable {
 
     /**
      * Päivittää napin ulkonäön.
-     *
      * @param event Painikkeen klikkaus.
      */
     public void updateBtnPainettu(MouseEvent event) {
@@ -328,7 +323,6 @@ public class VarausAdminController implements Initializable {
 
     /*
      * Kirjaa käyttäjän ulos.
-     *
      * @param event Painikkeen klikkaus
      * @throws IOException IOException
      */
@@ -358,7 +352,6 @@ public class VarausAdminController implements Initializable {
     /**
      * Toiminta varauksen hyväksyntänapin painalluksen jälkeen. Hyväksyy
      * varauksen ja päivittää sen tietokantaan.
-     *
      * @param event Hiiren klikkaus painikkeeseen
      */
     @FXML
@@ -372,8 +365,8 @@ public class VarausAdminController implements Initializable {
                 controller.paivitaVaraus(V);
                 controller.lahetaSahkoposti(V.getKayttaja().getSahkoposti(), controller.getVarausAikaString(V) + controller.getConfigTeksti("hyvaksyVarausEmail"));
                 this.updateBtnPainettu(event);
-                //System.out.println("Varaus hyväksytty!");
-                
+                System.out.println("Varaus hyväksytty!");
+
             }
         } else {
             Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti("valitseKasVaraus"));
@@ -384,7 +377,6 @@ public class VarausAdminController implements Initializable {
     /**
      * Toiminta varauksen hylkäysnapin painalluksen jälkeen. Hylkää varauksen ja
      * päivittää sen tietokantaan.
-     *
      * @param event Hiiren klikkaus painikkeeseen
      */
     @FXML
@@ -409,7 +401,6 @@ public class VarausAdminController implements Initializable {
     /**
      * Alkupvm Taulun edit commit - toiminto. Tapahtuu kun varauksen päivämäärää
      * muutetaan.
-     *
      * @param event Arvon muuttamisen jälkeen tapahtuva Enter-painallus
      */
     @FXML
@@ -423,7 +414,6 @@ public class VarausAdminController implements Initializable {
     /**
      * Päättymispvm taulun edit commit - toiminto. Tapahtuu kun varauksen
      * päivämäärää muutetaan.
-     *
      * @param event Arvon muuttumisen jälkeen tapahtuva Enter-painallus
      */
     @FXML
@@ -437,7 +427,6 @@ public class VarausAdminController implements Initializable {
     /**
      * Kuvauksen edit commit - toiminto. Tapahtuu kun varauksen kuvausta
      * muutetaan.
-     *
      * @param event Arvon muuttamisen jälkeen tapahtuva Enter - painallus.
      */
     @FXML
@@ -448,6 +437,11 @@ public class VarausAdminController implements Initializable {
         controller.paivitaVaraus(V);
     }
     
+    /**
+     * Varauksen poisto-painikkeen painallus.
+     * @param event Hiiren klikkaus painikkeeseen.
+     * @throws IOException Tiedostonkäsittelypoikkeus.
+     */
     @FXML
     private void poistaBtnPainettu(MouseEvent event) throws IOException {
             Varaukset V = kaikkiTable.getSelectionModel().getSelectedItem();

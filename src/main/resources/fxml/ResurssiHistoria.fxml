@@ -41,8 +41,8 @@
       </TableView>
       <GridPane prefHeight="122.0" prefWidth="1093.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.6000030517578" minWidth="10.0" prefWidth="142.79998168945312" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1356.6" minWidth="10.0" prefWidth="1283.0000244140624" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.6000030517578" minWidth="10.0" prefWidth="167.7999755859375" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1356.6" minWidth="10.0" prefWidth="1256.6000244140625" />
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="1479.8" minWidth="10.0" prefWidth="146.99997558593736" />
             <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="471.2000732421875" minWidth="0.0" prefWidth="253.00007324218745" />
          </columnConstraints>
@@ -51,7 +51,7 @@
             <RowConstraints maxHeight="67.99999885559082" minHeight="10.0" prefHeight="55.4" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="takaisinBtn" mnemonicParsing="false" onMouseClicked="#takaisinBtnPainettu" prefHeight="35.0" prefWidth="126.0" text="TAKAISIN" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+            <Button fx:id="takaisinBtn" mnemonicParsing="false" onMouseClicked="#takaisinBtnPainettu" prefHeight="50.0" prefWidth="144.0" text="TAKAISIN" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

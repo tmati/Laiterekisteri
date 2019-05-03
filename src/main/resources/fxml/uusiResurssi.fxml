@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" stylesheets="@../styles/Styles.css" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: black; -fx-background-radius: 15px;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UusiResurssiController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: black; -fx-background-radius: 15px;" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UusiResurssiController">
     <children>
         <Label fx:id="itemLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="63.0" prefHeight="30.0" prefWidth="500.0" text="ANNA TIEDOT:" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="Futura Bk BT Book" size="25.0" />
             </font>
         </Label>
-        <Button fx:id="uusiresurssiNappi" layoutX="172.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#uusiresurssiNappiPainettu" text="LUO UUSI RESURSSI">
+        <Button fx:id="uusiresurssiNappi" layoutX="147.0" layoutY="435.0" mnemonicParsing="false" onMouseClicked="#uusiresurssiNappiPainettu" text="LUO UUSI RESURSSI">
             <font>
                 <Font name="Futura Bk BT Book" size="15.0" />
             </font>
