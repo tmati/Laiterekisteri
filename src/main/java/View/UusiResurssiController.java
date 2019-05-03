@@ -74,26 +74,6 @@ public class UusiResurssiController implements Initializable {
     }
 
     /**
-     * Tulkitsee ChoiceBoxin valinnan resurssiparametrin kaipaamaksi numeroksi.
-     *
-     * @param cb Käsiteltävä choicebox.
-     * @return Luvanvaraisuustasoa vastaava numeroarvo.
-     */
-    int tulkitseChoiceBox(ChoiceBox cb) {
-        int selectedOption = -1;
-        if (cb.getValue().equals("Vapaa käyttö")) {
-            selectedOption = 0;
-        } else if (cb.getValue().equals("Esimiehen hyväksyttävä")) {
-            selectedOption = 1;
-        } else if (cb.getValue().equals("Ylläpitäjän hyväksyttävä")) {
-            selectedOption = 2;
-        }
-        return selectedOption;
-    }
-
-  
-
-    /**
      * Luodaan uusi resurssi ikkunaan annetuista parametreistä. Tietojen puuttuessa heitetään herja. Onnistuneen luonnin yhteysessä suljeataan popup.
      * @param event Hiiren klikkaus painikkeesta.
      */

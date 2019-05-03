@@ -46,9 +46,6 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
             s.saveOrUpdate(resurssi);
             tran.commit();
         } catch (Exception e) {
-            if (tran != null) {
-                tran.rollback();
-            }
             e.printStackTrace();
             return false;
         } finally {
@@ -78,9 +75,6 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
             System.out.println(haettu.getId());
             s.getTransaction().commit();
         } catch (Exception e) {
-            if (transaktio != null) {
-                transaktio.rollback();
-            }
             throw e;
         } finally {
             s.close();
@@ -106,9 +100,7 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
             resurssit = result.toArray(new Resurssit[result.size()]);
             s.getTransaction().commit();
         } catch (Exception e) {
-            if (tran != null) {
-                tran.rollback();
-            }
+
             e.printStackTrace();
 
         } finally {
@@ -144,9 +136,7 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
-            if (tran != null) {
-                tran.rollback();
-            }
+
             e.printStackTrace();
             return false;
 
@@ -178,9 +168,7 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
-            if (tran != null) {
-                tran.rollback();
-            }
+
             e.printStackTrace();
             return false;
 

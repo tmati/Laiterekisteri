@@ -209,7 +209,7 @@ public class KayttajanVarauksetController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, controller.getConfigTeksti("confirmationRemoveReservation"), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
-                if (!controller.OnkoVarausAlkanut(toDelete)) {
+                if (!controller.onkoVarausAlkanut(toDelete)) {
                     controller.poistaVaraus(toDelete.getId());
                     //System.out.println("poistetaan varaus");
                     controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + controller.getConfigTeksti("emailFordeletingReservation"));

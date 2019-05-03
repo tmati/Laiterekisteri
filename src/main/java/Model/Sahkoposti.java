@@ -27,9 +27,10 @@ public class Sahkoposti {
     private Properties emailProperties;
     private Session mailSession;
     private final String emailHost = "smtp.gmail.com";
-    private final String fromUser = "keychainems@gmail.com";//just the id alone without @gmail.com
+    private final String fromUser = "keychainems@gmail.com";
     private final String fromUserEmailPassword = "kissatkoiria";
     private final String emailSubject = "KeyChain automatic message";
+ 
     /**
      * Konstruktori
      * Kutsuu setMailServerProperties()
@@ -90,19 +91,19 @@ public class Sahkoposti {
      */
     public boolean lahetaSahkoposti(String vastaanottaja, String viesti){
         ExecutorService emailExecutor = Executors.newSingleThreadExecutor();
-        boolean tulos = false;
+        
         emailExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 try {
-                    sendEmail(vastaanottaja, viesti);
+                 sendEmail(vastaanottaja, viesti);
                 } catch (Exception e) {
                     System.out.println("säie fail" + e);
                 }
             }
         });
         emailExecutor.shutdown();
-        return tulos;
+        return true;
     }
 
 }
