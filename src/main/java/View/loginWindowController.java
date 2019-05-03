@@ -37,10 +37,8 @@ import javafx.stage.Window;
  */
 public class loginWindowController implements Initializable {
 
-    @FXML
-    private ImageView loginInactive;
-    @FXML
-    private ImageView loginActive; 
+   @FXML
+   private Button loginBtn;
    @FXML
     private TextField usernameField;
     @FXML
@@ -197,19 +195,17 @@ public class loginWindowController implements Initializable {
     @FXML
     private void checkVal(KeyEvent event) throws IOException {
         if (!usernameField.getText().trim().equals("") && !passwordField.getText().trim().equals("")) {
-            loginInactive.setOpacity(0);
-            loginInactive.setDisable(true);
-            loginPossible = true;
+            loginBtn.setStyle("-fx-background-color: black;");
+            loginPossible = true;;
         } else {
-            loginInactive.setOpacity(1);
-            loginInactive.setDisable(false);
+            loginBtn.setStyle("-fx-background-color: #353535;");
             loginPossible = false;
         }
     }
     
     @FXML
     private void avaaPalautaSalasana(MouseEvent event) throws IOException {
-                if (popup == null || !popup.isShowing()) {
+        if (popup == null || !popup.isShowing()) {
             popup = new Popup();
             Object source = event.getSource();
             Node node = (Node) source;
@@ -219,6 +215,33 @@ public class loginWindowController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/palautasalasana.fxml"));
             popup.getContent().add((Parent) loader.load());
             popup.show(window);
+        }
     }
-}
+
+    /**
+     * Kielivalinta suomenkieliselle käytölle
+     * @param event hiiren klikkaus
+     */
+    @FXML
+    private void fiBtnPainettu(MouseEvent event) {
+    //JUKKA
+    }
+    
+    /**
+     * Kielivalinta englanninkieliselle käytölle
+     * @param event hiiren klikkaus
+     */
+    @FXML
+    private void engBtnPainettu(MouseEvent event) {
+    //LISÄÄ
+    }
+    
+    /**
+     * Kielivalinta portugalinkieliselle käytölle
+     * @param event hiiren klikkaus
+     */
+    @FXML
+    private void porBtnPainettu(MouseEvent event) {
+    //NÄMÄ
+    }
 }
