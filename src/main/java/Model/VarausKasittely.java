@@ -47,14 +47,14 @@ public class VarausKasittely {
                 }
             } else if (v.isPalautettu()) {
                 v.setPalautettu(false);
-                System.out.println("Varaus päättynyt");
+                //System.out.println("Varaus päättynyt");
                 controller.lahetaSahkoposti(v.getKayttaja().getSahkoposti(), controller.getVarausAikaString(v)
-                        + " on päättynyt. Muistathan palauttaa varaamasi resurssin.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.");
+                        + " " + controller.getConfigTeksti("emailReservaEnd"));
                 dao.updateVaraus(v);
             } else if (!v.getHyvaksytty() && LocalDateTime.now().isAfter(v.getAlkuAika())) {
-                System.out.println("Varaus poistettu koska ei oltu hyväksytty" + v.getNimi() + " " + v.getId() + " " + v.getKayttaja());
+                //System.out.println("Varaus poistettu koska ei oltu hyväksytty" + v.getNimi() + " " + v.getId() + " " + v.getKayttaja());
                 controller.lahetaSahkoposti(v.getKayttaja().getSahkoposti(), controller.getVarausAikaString(v)
-                        + " on poistunut, koska sitä ei hyväksytty ajoissa.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.");
+                        + " " + controller.getConfigTeksti("emailReservaFail"));
                 controller.poistaVaraus(v.getId());
             }
         }
@@ -132,7 +132,7 @@ public class VarausKasittely {
      * ajankohta.
      */
     public String getVarausAikaString(Varaukset V) {
-        return "Hei,\n\nVarauksesi resurssille " + V.getNimi() + " ajalle " + V.getAlkuAika().getHour() + "." + V.getAlkuAika().getDayOfMonth() + "."
+        return controller.getConfigTeksti("emailReservationTime") + V.getNimi() + controller.getConfigTeksti("forTime") + V.getAlkuAika().getHour() + "." + V.getAlkuAika().getDayOfMonth() + "."
                 + V.getAlkuAika().getYear() + "-" + V.getLoppuAika().getHour() + "." + V.getLoppuAika().getDayOfMonth()
                 + "." + V.getLoppuAika().getYear();
     }

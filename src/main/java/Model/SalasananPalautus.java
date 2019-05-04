@@ -29,8 +29,8 @@ public class SalasananPalautus {
                 String salasana = this.getRandomSalasana();
                 k.setSalasana(controller.SalasananCryptaus(salasana));
                 controller.paivitaKayttaja(k);
-                controller.lahetaSahkoposti(k.getSahkoposti(), "Hei,\n\nSalasanasi on resetoitu.\nUusi salasanasi on: " + salasana
-                + "\nMuistathan vaihtaa salasanasi, kun kirjaudut sisään.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.");
+                controller.lahetaSahkoposti(k.getSahkoposti(), controller.getConfigTeksti("emailReturnPassword") + salasana
+                + controller.getConfigTeksti("emailReturnPasswordCon"));
                 return true;
             }
         }

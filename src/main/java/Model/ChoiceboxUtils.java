@@ -30,25 +30,25 @@ public class ChoiceboxUtils {
      */
     public int tulkitseChoiceBox(ChoiceBox cb) {
         int selectedOption = -1;
-        if (cb.getValue().equals("Vapaa käyttö") || cb.getValue().equals("Työntekijä")) {
+        if (cb.getValue().equals(kontrolleri.getConfigTeksti("freeUse")) || cb.getValue().equals(kontrolleri.getConfigTeksti("employee"))) {
             selectedOption = 0;
-        } else if (cb.getValue().equals("Esimiehen hyväksyttävä") || cb.getValue().equals("Esimies")) {
+        } else if (cb.getValue().equals(kontrolleri.getConfigTeksti("supApproved")) || cb.getValue().equals(kontrolleri.getConfigTeksti("superior"))) {
             selectedOption = 1;
-        } else if (cb.getValue().equals("Ylläpitäjän hyväksyttävä") || cb.getValue().equals("Ylläpitäjä")) {
+        } else if (cb.getValue().equals(kontrolleri.getConfigTeksti("adApproved")) || cb.getValue().equals(kontrolleri.getConfigTeksti("administrator"))) {
             selectedOption = 2;
         }
         return selectedOption;
     }
 
     public boolean tulkitseBooleanBox(String cb) {
-        return cb.equals("Saatavilla");
+        return cb.equals(kontrolleri.getConfigTeksti("saatavilla"));
     }
 
     public void teeLuettava(ChoiceBox cb) {
         if (cb.getValue().equals("true")) {
-            cb.setValue("Ei varattavissa");
+            cb.setValue(kontrolleri.getConfigTeksti("notBookable"));
         } else if (cb.getValue().equals("false")) {
-            cb.setValue("Varattavissa");
+            cb.setValue(kontrolleri.getConfigTeksti("bookable"));
 
         }
     }

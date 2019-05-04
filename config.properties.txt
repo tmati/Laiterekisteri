@@ -639,4 +639,40 @@ kissatkoiriafi = kissatkoiria
 kissatkoiriaen = kissatkoiria
 kissatkoiriapor = kissatkoiria
 
+saatavillafi = Saatavilla
+saatavillaen = At hand
+saatavillapor = À mão
+
+alertConfirmationRemoveReservationfi = Oletko varma, että haluat poistaa varauksen?
+alertConfirmationRemoveReservationen = Are you sure you want to remove the reservation?
+alertConfirmationRemoveReservationpor = Tem certeza de que deseja remover o reserva?
+
+alertRemoveOldReservationfi = Et voi poistaa varausta, joka on vanhentunut tai alkanut!
+alertRemoveOldReservationen = You cannot delete a reservation that is out of date or has started!
+alertRemoveOldReservationpor = Você não pode excluir uma reserva desatualizada ou iniciada!
+
+emailReturnPasswordfi = Hei,\n\nSalasanasi on resetoitu.\nUusi salasanasi on: 
+emailReturnPassworden = Hi,\n\nYour password has been reset.\nYour new password is: 
+emailReturnPasswordpor = Oi,\n\nSua senha foi redefinida.\nSua nova senha é: 
+
+emailReturnPasswordConfi = \nMuistathan vaihtaa salasanasi, kun kirjaudut sisään.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.
+emailReturnPasswordConen = \nRemember to change your password when you sign in.\n\nThis is an automatic message that does not need to be answered.
+emailReturnPasswordConpor = \nLembre-se de alterar sua senha quando você entrar.\n\nEsta é uma mensagem automática que não precisa ser respondida.
+
+emailReservaEndfi =  on päättynyt. Muistathan palauttaa varaamasi resurssin.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.
+emailReservaEnden =  has ended. Please remember to return the resource you have booked.\n\nThis is an automatic message that does not need to be answered.
+emailReservaEndpor = terminou. Por favor, lembre-se de devolver o recurso que você reservou.\n\nEsta é uma mensagem automática que não precisa ser respondida.
+
+emailReservaFailfi =  on poistunut, koska sitä ei hyväksytty ajoissa.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.
+emailReservaFailen = has disappeared because it was not accepted on time.\n\nThis is an automatic message that does not need to be answered.
+emailReservaFailpor = desapareceu porque não foi aceite a tempo.\n\nEsta é uma mensagem automática que não precisa ser respondida.
+
+emailReservationTimefi = Hei,\n\nVarauksesi resurssille 
+emailReservationTimeen = Hi,\n\nReserve your resource
+emailReservationTimepor = Oi,\n\nReserve seu recurso
+
+forTimefi =  ajalle 
+forTimeen =  over 
+forTimepor =  sobre 
+
 
