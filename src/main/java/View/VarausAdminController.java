@@ -264,7 +264,7 @@ public class VarausAdminController implements Initializable {
         takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
         hyvaksyBtn.setText(controller.getConfigTeksti("accept").toUpperCase());
         hylkaaBtn.setText(controller.getConfigTeksti("hylkaa").toUpperCase());
-        kasittelemattomatTab.setText("kasVaraukset");
+        kasittelemattomatTab.setText(controller.getConfigTeksti("kasVaraukset").toUpperCase());
         nimiColumn.setText(controller.getConfigTeksti("varaajaNimi").toUpperCase());
         tavaraColumn.setText(controller.getConfigTeksti("item").toUpperCase());
         alkupvmColumn.setText(controller.getConfigTeksti("reservationStartdate").toUpperCase());

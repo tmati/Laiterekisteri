@@ -115,7 +115,7 @@ public class KayttajaAdminController implements Initializable {
         lisaaBtn.setText(kontrolleri.getConfigTeksti("newUser").toUpperCase());
         kayttajanvarauksetNappi.setText(kontrolleri.getConfigTeksti("userReservation").toUpperCase());
         poistaBtn.setText(kontrolleri.getConfigTeksti("removeUser").toUpperCase());
-        takaisinBtn.setText(kontrolleri.getConfigTeksti("back").toUpperCase());
+        takaisinBtn.setText(kontrolleri.getConfigTeksti("returnButton").toUpperCase());
         LogoutBtn.setText(kontrolleri.getConfigTeksti("Logout").toUpperCase());
         bizName1.setText(kontrolleri.getConfigTeksti("user").toUpperCase());
         

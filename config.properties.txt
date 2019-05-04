@@ -128,13 +128,13 @@ removeuserpor = Remover do utilizador
 
 backfi = Takaisin
 backen = Back
-backpor = De volta
+backpor = atr·s
 
 userInfofi = K‰ytt‰j‰n tiedot 
 userInfoen = User info
 userInfopor = Do utilizador info
 
-Logoutfi = Kirjaudu ulos
+Logoutfi = Logout
 Logouten = Logout
 Logoutpor = Sair
 
@@ -152,7 +152,7 @@ addUserpor = Avrir aparecer para adicionando do utilizador
 
 removeUserfi = Poista valittu k‰ytt‰j‰n
 removeUseren = Remove chosen user
-removeUserpor = Remover escolhido do utilizador
+removeUserpor = Remover escolhido o usu·rio
 
 returnButtonfi = Palauttaa p‰‰n‰kym‰‰n
 returnButtonen = Return to main view
