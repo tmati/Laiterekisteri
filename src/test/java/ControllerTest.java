@@ -181,9 +181,9 @@ public class ControllerTest {
 
         //kasattu string sähköpostia varten
         assertTrue("getVarausAikaString: string ei ollut oikeanlainen",
-                kont.getVarausAikaString(t).equals("Hei,\n\nVarauksesi resurssille " + t.getNimi() + " ajalle " + t.getAlkuAika().getHour() + "." + t.getAlkuAika().getDayOfMonth() + "."
-                        + t.getAlkuAika().getYear() + "-" + t.getLoppuAika().getHour() + "." + t.getLoppuAika().getDayOfMonth()
-                        + "." + t.getLoppuAika().getYear()));
+                kont.getVarausAikaString(t).equals(kont.getConfigTeksti("emailReservationTime") + t.getNimi() + " " + kont.getConfigTeksti("forTime")+ " " + t.getAlkuAika().getHour() + "." + t.getAlkuAika().getDayOfMonth() + "."
+                + t.getAlkuAika().getYear() + "-" + t.getLoppuAika().getHour() + "." + t.getLoppuAika().getDayOfMonth()
+                + "." + t.getLoppuAika().getYear()));
 
         //poistaa testi käyttäjän
         kont.poistaKayttaja(k.getId());

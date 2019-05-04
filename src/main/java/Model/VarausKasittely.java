@@ -132,7 +132,7 @@ public class VarausKasittely {
      * ajankohta.
      */
     public String getVarausAikaString(Varaukset V) {
-        return controller.getConfigTeksti("emailReservationTime") + V.getNimi() + controller.getConfigTeksti("forTime") + V.getAlkuAika().getHour() + "." + V.getAlkuAika().getDayOfMonth() + "."
+        return controller.getConfigTeksti("emailReservationTime") + V.getNimi() + " " + controller.getConfigTeksti("forTime")+ " " + V.getAlkuAika().getHour() + "." + V.getAlkuAika().getDayOfMonth() + "."
                 + V.getAlkuAika().getYear() + "-" + V.getLoppuAika().getHour() + "." + V.getLoppuAika().getDayOfMonth()
                 + "." + V.getLoppuAika().getYear();
     }
