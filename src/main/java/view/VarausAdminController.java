@@ -5,6 +5,7 @@
  */
 package view;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import controller.Controller;
 import model.BooleanConverter;
 import model.Kayttaja;
@@ -169,7 +170,7 @@ public class VarausAdminController implements Initializable {
                     return new java.sql.Timestamp(parsedDate.getTime());
                 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                     Logger.logMsg(0, e.getMessage());
                 }
                 return null;
             }
@@ -192,7 +193,7 @@ public class VarausAdminController implements Initializable {
                     return new java.sql.Timestamp(parsedDate.getTime());
                     
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Logger.logMsg(0, e.getMessage());
                 }
                 return null;
             }

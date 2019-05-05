@@ -5,6 +5,7 @@
  */
 package model;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -45,7 +46,7 @@ public class LanguageText {
         try{
             properties.load(new FileInputStream("config.properties.txt"));
         }catch(IOException e){
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
         }
     }
     

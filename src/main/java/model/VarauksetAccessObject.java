@@ -5,6 +5,7 @@
  */
 package model;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -27,7 +28,7 @@ public class VarauksetAccessObject implements VarauksetDAOIF {
         try {
             sf = HibernateUtil.getSessionFactory();
         } catch (Exception e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
         }
     }
 
@@ -46,7 +47,7 @@ public class VarauksetAccessObject implements VarauksetDAOIF {
             s.saveOrUpdate(varaus);
             tran.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
             return false;
         } finally {
             s.close();
@@ -73,7 +74,7 @@ public class VarauksetAccessObject implements VarauksetDAOIF {
             Hibernate.initialize(haettu.getResurssit());
             s.getTransaction().commit();
         } catch (Exception e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
         } finally {
             s.close();
         }
@@ -97,7 +98,7 @@ public class VarauksetAccessObject implements VarauksetDAOIF {
             varaukset = result.toArray(new Varaukset[result.size()]);
             s.getTransaction().commit();
         } catch (Exception e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
 
         } finally {
             s.close();
@@ -131,7 +132,7 @@ public class VarauksetAccessObject implements VarauksetDAOIF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
             return false;
 
         } finally {
@@ -158,7 +159,7 @@ public class VarauksetAccessObject implements VarauksetDAOIF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
             return false;
         } finally {
             s.close();

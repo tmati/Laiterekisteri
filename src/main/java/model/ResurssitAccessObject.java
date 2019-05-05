@@ -5,6 +5,7 @@
  */
 package model;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,7 +27,7 @@ public class ResurssitAccessObject implements ResurssitDAOIF {
         try {
             sf = HibernateUtil.getSessionFactory();
         } catch (Exception e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
         }
     }
 
@@ -46,7 +47,7 @@ public class ResurssitAccessObject implements ResurssitDAOIF {
             s.saveOrUpdate(resurssi);
             tran.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
             return false;
         } finally {
             s.close();
@@ -71,7 +72,7 @@ public class ResurssitAccessObject implements ResurssitDAOIF {
             s.load(haettu, id);
             s.getTransaction().commit();
         } catch (Exception e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
         } finally {
             s.close();
         }
@@ -96,7 +97,7 @@ public class ResurssitAccessObject implements ResurssitDAOIF {
             s.getTransaction().commit();
         } catch (Exception e) {
 
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
 
         } finally {
             s.close();
@@ -129,7 +130,7 @@ public class ResurssitAccessObject implements ResurssitDAOIF {
             s.getTransaction().commit();
         } catch (Exception e) {
 
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
             return false;
 
         } finally {
@@ -161,7 +162,7 @@ public class ResurssitAccessObject implements ResurssitDAOIF {
             s.getTransaction().commit();
         } catch (Exception e) {
 
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
             return false;
 
         } finally {

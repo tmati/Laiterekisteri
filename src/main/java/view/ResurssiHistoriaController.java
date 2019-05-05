@@ -5,6 +5,7 @@
  */
 package view;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import controller.Controller;
 import model.BooleanConverter;
 import model.Varaukset;
@@ -97,7 +98,7 @@ public class ResurssiHistoriaController implements Initializable {
                     Date parsedDate = (Date) dateFormat.parse(string);
                     return new java.sql.Timestamp(parsedDate.getTime());
                 } catch (Exception e) {
-                    e.printStackTrace();
+                     Logger.logMsg(0, e.getMessage());
                 }
                 return null;
             }
@@ -120,7 +121,7 @@ public class ResurssiHistoriaController implements Initializable {
                     return new java.sql.Timestamp(parsedDate.getTime());
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Logger.logMsg(0, e.getMessage());
                 }
                 return null;
             }

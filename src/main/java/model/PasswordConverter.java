@@ -5,6 +5,7 @@
  */
 package model;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -32,7 +33,7 @@ public class PasswordConverter implements PasswordConverterInterface {
             //Get complete hashed password in hex format
             password = sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
         }
         return password;
     }

@@ -5,6 +5,7 @@
  */
 package model;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,7 +27,7 @@ public class KayttajaAccessObject implements KayttajaDAOIF {
         try {
             sf = HibernateUtil.getSessionFactory();
         } catch (Exception e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
         }
     }
 
@@ -46,7 +47,7 @@ public class KayttajaAccessObject implements KayttajaDAOIF {
             s.saveOrUpdate(kayttaja);
             tran.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.logMsg(0, e.getMessage());
             return false;
         } finally {
             s.close();
@@ -71,7 +72,7 @@ public class KayttajaAccessObject implements KayttajaDAOIF {
             s.load(haettu, id);
             s.getTransaction().commit();
         } catch (Exception e) {
-             e.printStackTrace();
+              Logger.logMsg(0, e.getMessage());
         } finally {
             s.close();
         }
@@ -95,7 +96,7 @@ public class KayttajaAccessObject implements KayttajaDAOIF {
             kayttajat = result.toArray(new Kayttaja[result.size()]);
             s.getTransaction().commit();
         } catch (Exception e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
         } finally {
             s.close();
         }
@@ -126,7 +127,7 @@ public class KayttajaAccessObject implements KayttajaDAOIF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
             return false;
 
         } finally {
@@ -158,7 +159,7 @@ public class KayttajaAccessObject implements KayttajaDAOIF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
             return false;
 
         } finally {

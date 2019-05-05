@@ -5,6 +5,7 @@
  */
 package view;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import controller.Controller;
 import java.io.IOException;
 import java.net.URL;
@@ -53,8 +54,8 @@ public class LoginWindowController implements Initializable {
     private Label usernameLabel1;
     
     private boolean loginPossible;
-    private final String loginEiOnnistu = "loginImpossible";
-    private final String loginFXML = "/fxml/Loginwindow.fxml";
+    private static final String LOGINIMPOSSIBLE = "loginImpossible";
+    private static final String LOGINFXML = "/fxml/Loginwindow.fxml";
     Popup popup;
     
     private Controller controller;
@@ -120,7 +121,7 @@ public class LoginWindowController implements Initializable {
      */
     @FXML
     private void herjaaPuuttuvasta(MouseEvent event) {
-        Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti(loginEiOnnistu));
+        Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti(LOGINIMPOSSIBLE));
         alert.showAndWait();
         if(usernameField.getText().equals("")){
             usernameField.requestFocus();
@@ -142,7 +143,7 @@ public class LoginWindowController implements Initializable {
                 Parent root = loader.load();
                 stage.getScene().setRoot(root);
             } catch (IOException e) {
-                e.printStackTrace();
+                Logger.logMsg(0, e.getMessage());
 
             }
         } else {
@@ -166,15 +167,15 @@ public class LoginWindowController implements Initializable {
                     Parent root = loader.load();
                     stage.getScene().setRoot(root);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                     Logger.logMsg(0, e.getMessage());
 
                 }
             }else{
-                Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti(loginEiOnnistu));
+                Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti(LOGINIMPOSSIBLE));
                 alert.showAndWait();
             }
         } else if (ke.getCode() == KeyCode.ENTER && !loginPossible) {
-            Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti(loginEiOnnistu));
+            Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti(LOGINIMPOSSIBLE));
             alert.showAndWait();
             if(usernameField.getText().equals("")){
                 usernameField.requestFocus();
@@ -223,12 +224,12 @@ public class LoginWindowController implements Initializable {
     private void fiBtnPainettu(MouseEvent event) {
         controller.setMaa("fi");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(loginFXML));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGINFXML));
             Stage stage = (Stage) logoView.getScene().getWindow();
             Parent root = loader.load();
             stage.getScene().setRoot(root);
         } catch (IOException e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
         }
     }
 
@@ -240,12 +241,12 @@ public class LoginWindowController implements Initializable {
     private void engBtnPainettu(MouseEvent event) {
     controller.setMaa("en");
             try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(loginFXML));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGINFXML));
             Stage stage = (Stage) logoView.getScene().getWindow();
             Parent root = loader.load();
             stage.getScene().setRoot(root);
         } catch (IOException e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
         }
     }
     
@@ -257,12 +258,12 @@ public class LoginWindowController implements Initializable {
     private void porBtnPainettu(MouseEvent event) {
     controller.setMaa("por");
             try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(loginFXML));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGINFXML));
             Stage stage = (Stage) logoView.getScene().getWindow();
             Parent root = loader.load();
             stage.getScene().setRoot(root);
         } catch (IOException e) {
-            e.printStackTrace();
+             Logger.logMsg(0, e.getMessage());
         }
     }
 }
