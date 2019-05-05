@@ -10,7 +10,7 @@ package Model;
  *
  * @author Tommi
  */
-public interface VarauksetDAO_IF {
+public interface VarauksetDAOIF {
 
     /**
      * Vie varauksen tietokantaan

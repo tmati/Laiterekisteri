@@ -10,7 +10,7 @@ package Model;
  *
  * @author Tommi
  */
-public interface KayttajaDAO_IF {
+public interface KayttajaDAOIF {
 
     /**
      * Vie uuden käyttäjän tietokantaan

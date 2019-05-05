@@ -5,7 +5,7 @@
  */
 package Model;
 
-import Controller.Controller;
+import controller.Controller;
 
 /**
  * Luokka käyttäjän tietojen tarkistukseen

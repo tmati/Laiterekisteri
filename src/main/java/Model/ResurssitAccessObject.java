@@ -15,7 +15,7 @@ import org.hibernate.Transaction;
  *
  * @author Tommi
  */
-public class ResurssitAccessObject implements ResurssitDAO_IF {
+public class ResurssitAccessObject implements ResurssitDAOIF {
 
     SessionFactory sf = null;
 
@@ -64,18 +64,14 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
     @Override
     public Resurssit readResurssi(int id) {
         Session s = sf.openSession();
-        Transaction transaktio = null;
-
         s = sf.openSession();
         s.beginTransaction();
         Resurssit haettu = new Resurssit();
         try {
-
             s.load(haettu, id);
-            System.out.println(haettu.getId());
             s.getTransaction().commit();
         } catch (Exception e) {
-            throw e;
+            e.printStackTrace();
         } finally {
             s.close();
         }
@@ -90,7 +86,6 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
     @Override
     public Resurssit[] readResurssit() {
         Session s = sf.openSession();
-        Transaction tran = null;
         Resurssit[] resurssit = null;
         try {
             s = sf.openSession();
@@ -112,27 +107,24 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
     /**
      * Päivittää resurssin tietokantaan
      *
-     * @param resurssi päivitettävä resurssi
+     * @param resurssi paivitettava resurssi
      * @return true jos resurssin päivitys onnistui
      */
     @Override
     public boolean updateResurssi(Resurssit resurssi) {
         Session s = sf.openSession();
-        Transaction tran = null;
         try {
             s = sf.openSession();
             s.beginTransaction();
-            Resurssit päivitettävä = (Resurssit) s.get(Resurssit.class, resurssi.getId());
-            if (päivitettävä != null) {
-                päivitettävä.setLuvanvaraisuus(resurssi.getLuvanvaraisuus());
-                päivitettävä.setKuvaus(resurssi.getKuvaus());
-                päivitettävä.setNimi(resurssi.getNimi());
-                päivitettävä.setTyyppi(resurssi.getTyyppi());
-                päivitettävä.setStatus(resurssi.isStatus());
-                päivitettävä.setVarauksets(resurssi.getVarauksets());
-                s.saveOrUpdate(päivitettävä);
-            } else {
-                System.out.println("Ei löytynyt päivitettävää!");
+            Resurssit paivitettava = (Resurssit) s.get(Resurssit.class, resurssi.getId());
+            if (paivitettava != null) {
+                paivitettava.setLuvanvaraisuus(resurssi.getLuvanvaraisuus());
+                paivitettava.setKuvaus(resurssi.getKuvaus());
+                paivitettava.setNimi(resurssi.getNimi());
+                paivitettava.setTyyppi(resurssi.getTyyppi());
+                paivitettava.setStatus(resurssi.isStatus());
+                paivitettava.setVarauksets(resurssi.getVarauksets());
+                s.saveOrUpdate(paivitettava);
             }
             s.getTransaction().commit();
         } catch (Exception e) {
@@ -155,7 +147,6 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
     @Override
     public boolean deleteResurssi(int id) {
         Session s = sf.openSession();
-        Transaction tran = null;
         try {
             s = sf.openSession();
             s.beginTransaction();
@@ -163,8 +154,6 @@ public class ResurssitAccessObject implements ResurssitDAO_IF {
             Resurssit poistettava = (Resurssit) s.get(Resurssit.class, valittu.getId());
             if (poistettava != null) {
                 s.delete(poistettava);
-            } else {
-                System.out.println("Ei löytynyt poistettavaa resurssia");
             }
             s.getTransaction().commit();
         } catch (Exception e) {

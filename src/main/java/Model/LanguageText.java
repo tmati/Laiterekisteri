@@ -15,7 +15,7 @@ import java.util.Properties;
  */
 public class LanguageText {
     
-    private static LanguageText INSTANCE = null;
+    private static LanguageText instace = null;
     private final Properties properties = new Properties();
     private String maa = "en";
     
@@ -31,17 +31,17 @@ public class LanguageText {
      * @return Instansin LanguageText luokasta
      */
     public static LanguageText getInstance() {
-        if(INSTANCE == null){
-            INSTANCE = new LanguageText();
-            INSTANCE.PropertiesConstructor();
+        if(instace == null){
+            instace = new LanguageText();
+            instace.propertiesConstructor();
         }
-        return INSTANCE;
+        return instace;
     }
     
     /**
      * avaa tiedoston propertiesselle
      */
-    private void PropertiesConstructor(){
+    private void propertiesConstructor(){
         try{
             properties.load(new FileInputStream("config.properties.txt"));
         }catch(IOException e){

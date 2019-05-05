@@ -1,6 +1,6 @@
-package View;
+package view;
 
-import Controller.Controller;
+import controller.Controller;
 import Model.Varaukset;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -213,7 +213,7 @@ public class varausController implements Initializable {
         ChronoLocalDateTime alku = startDate.atTime(startTime);
         ChronoLocalDateTime loppu = endDate.atTime(endTime);
         
-        if(controller.Onnistuu(aVaraukset, loppu, alku)){
+        if(controller.onnistuu(aVaraukset, loppu, alku)){
             //Lisätiedot
             String info = lisatiedotTextbox.getText();
             //System.out.println(info);

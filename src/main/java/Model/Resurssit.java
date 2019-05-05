@@ -27,7 +27,7 @@ public class Resurssit implements java.io.Serializable {
     private String tyyppi;
     private int luvanvaraisuus;
     private String kuvaus;
-    private Set<Varaukset> varauksets = new HashSet<Varaukset>(0);
+    private Set<Varaukset> varauksets = new HashSet<>(0);
 
     /**
      * Tyhjä konstuktori

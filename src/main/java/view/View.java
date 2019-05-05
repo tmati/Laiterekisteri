@@ -1,6 +1,6 @@
-package View;
+package view;
 
-import Controller.Controller;
+import controller.Controller;
 import Model.Kayttaja;
 import Model.Resurssit;
 import javafx.application.Application;

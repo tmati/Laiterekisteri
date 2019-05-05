@@ -19,6 +19,6 @@ public interface VarauksenAikaLaskuriInterface {
      * @param paatymispvm mihin päivät loppuvat.
      * @return palautaa näiden kahden päivien erotukset asiakaalle.
      */
-    public int PaivaKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm);
+    public int paivaKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm);
     
 }

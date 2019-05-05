@@ -16,7 +16,6 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
 
     private int erotusk;
     private int erotusp;
-    private int erotusv;
 
     /**
      * Laskee kuinka monta kuukauta menee ja mitkä kuukauta. Lisää ne sitten päiviin
@@ -24,8 +23,8 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
      * @param paatymispvm lopetus päivä
      * @return alku ja paatymispvm valilla olevat kuukauksien määrän.
      */
-    private int KuukausiKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm, int vuosiEro) {
-        erotusv = vuosiEro;
+    private int kuukausiKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm, int vuosiEro) {
+        int erotusv = vuosiEro;
         erotusk = 0;
         erotusp = 0;
         int vuosi = 0;
@@ -69,8 +68,8 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
      * @param paatymispvm loppumispäivä
      * @return niiden kahden erotus
      */
-    public int PaivaKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm) {
-        erotusk = KuukausiKesto(alkupvm, paatymispvm, VuodenKesto(alkupvm, paatymispvm));
+    public int paivaKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm) {
+        erotusk = kuukausiKesto(alkupvm, paatymispvm, vuodenKesto(alkupvm, paatymispvm));
         if(erotusk == 0){
             erotusp = paatymispvm.getDayOfMonth() - alkupvm.getDayOfMonth() + erotusp; 
         }else{
@@ -132,7 +131,7 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
      * @param paatymispvm lopetus päivä
      * @return 
      */
-    private int VuodenKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm){
+    private int vuodenKesto(LocalDateTime alkupvm, LocalDateTime paatymispvm){
 
         return paatymispvm.getYear() - alkupvm.getYear();
     }

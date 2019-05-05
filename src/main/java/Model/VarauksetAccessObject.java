@@ -16,7 +16,7 @@ import org.hibernate.Transaction;
  *
  * @author Tommi
  */
-public class VarauksetAccessObject implements VarauksetDAO_IF {
+public class VarauksetAccessObject implements VarauksetDAOIF {
 
     SessionFactory sf = null;
 
@@ -64,8 +64,6 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
     @Override
     public Varaukset readVaraus(int id) {
         Session s = sf.openSession();
-        Transaction transaktio = null;
-
         s = sf.openSession();
         s.beginTransaction();
         Varaukset haettu = new Varaukset();
@@ -75,7 +73,7 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             Hibernate.initialize(haettu.getResurssit());
             s.getTransaction().commit();
         } catch (Exception e) {
-            throw e;
+            e.printStackTrace();
         } finally {
             s.close();
         }
@@ -90,7 +88,6 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
     @Override
     public Varaukset[] readVaraukset() {
         Session s = sf.openSession();
-        Transaction tran = null;
         Varaukset[] varaukset = null;
         try {
             s = sf.openSession();
@@ -117,23 +114,20 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
     @Override
     public boolean updateVaraus(Varaukset varaus) {
         Session s = sf.openSession();
-        Transaction tran = null;
         try {
             s = sf.openSession();
             s.beginTransaction();
-            Varaukset päivitettävä = (Varaukset) s.get(Varaukset.class, varaus.getId());
-            if (päivitettävä != null) {
-                päivitettävä.setHyvaksytty(varaus.getHyvaksytty());
-                päivitettävä.setKayttaja(varaus.getKayttaja());
-                päivitettävä.setResurssit(varaus.getResurssit());
-                päivitettävä.setAlkupvm(varaus.getAlkupvm());
-                päivitettävä.setPaattymispvm(varaus.getPaattymispvm());
-                päivitettävä.setKuvaus(varaus.getKuvaus());
-                päivitettävä.setPalautettu(varaus.isPalautettu());
-                päivitettävä.setNimi(varaus.getNimi());
-                s.saveOrUpdate(päivitettävä);
-            } else {
-                System.out.println("Ei löytynyt päivitettävää");
+            Varaukset paivitettava = (Varaukset) s.get(Varaukset.class, varaus.getId());
+            if (paivitettava != null) {
+                paivitettava.setHyvaksytty(varaus.getHyvaksytty());
+                paivitettava.setKayttaja(varaus.getKayttaja());
+                paivitettava.setResurssit(varaus.getResurssit());
+                paivitettava.setAlkupvm(varaus.getAlkupvm());
+                paivitettava.setPaattymispvm(varaus.getPaattymispvm());
+                paivitettava.setKuvaus(varaus.getKuvaus());
+                paivitettava.setPalautettu(varaus.isPalautettu());
+                paivitettava.setNimi(varaus.getNimi());
+                s.saveOrUpdate(paivitettava);
             }
             s.getTransaction().commit();
         } catch (Exception e) {
@@ -154,7 +148,6 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
      */
     public boolean deleteVaraus(int id) {
         Session s = sf.openSession();
-        Transaction tran = null;
         try {
             s = sf.openSession();
             s.beginTransaction();
@@ -162,14 +155,11 @@ public class VarauksetAccessObject implements VarauksetDAO_IF {
             Varaukset poistettava = (Varaukset) s.get(Varaukset.class, valittu.getId());
             if (poistettava != null) {
                 s.delete(poistettava);
-            } else {
-                System.out.println("Ei löytynyt poistettavaa varausta");
             }
             s.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-
         } finally {
             s.close();
         }

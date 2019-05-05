@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane id="bgPane" prefHeight="1166.0" prefWidth="2044.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.KayttajaAdminController" stylesheets="@../styles/Styles.css">
+<GridPane id="bgPane" prefHeight="1166.0" prefWidth="2044.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.KayttajaAdminController" stylesheets="@../styles/Styles.css">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.8" minWidth="0.0" prefWidth="384.6000061035156" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="1567.6000244140625" minWidth="10.0" prefWidth="1114.400048828125" />
@@ -83,7 +83,7 @@
                   <Insets right="20.0" />
                </padding>
             </Label>
-            <Button fx:id="LogoutBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="35.0" prefWidth="85.0" text="LOGOUT" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Button fx:id="logoutBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="35.0" prefWidth="85.0" text="LOGOUT" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

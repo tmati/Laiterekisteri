@@ -1,9 +1,9 @@
 /**
  *
  */
-package View;
+package view;
 
-import Controller.Controller;
+import controller.Controller;
 import Model.Kayttaja;
 import Model.LuvanvaraisuusConverter;
 import java.io.IOException;
@@ -42,7 +42,7 @@ public class KayttajaAdminController implements Initializable {
     @FXML
     private Label usernameLabel;
     @FXML
-    private Button LogoutBtn;
+    private Button logoutBtn;
     @FXML
     private Label bizName;
     @FXML
@@ -88,7 +88,7 @@ public class KayttajaAdminController implements Initializable {
          * Kontrollerin ilmentymä
          */
         kontrolleri = View.controller;
-        LuvanvaraisuusConverter KayLC = new LuvanvaraisuusConverter(kontrolleri, kontrolleri.getConfigTeksti("freeUse"), kontrolleri.getConfigTeksti("supApproved"), kontrolleri.getConfigTeksti("adApproved"));
+        LuvanvaraisuusConverter KayLC = new LuvanvaraisuusConverter(kontrolleri.getConfigTeksti("freeUse"), kontrolleri.getConfigTeksti("supApproved"), kontrolleri.getConfigTeksti("adApproved"));
         //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -116,10 +116,10 @@ public class KayttajaAdminController implements Initializable {
         kayttajanvarauksetNappi.setText(kontrolleri.getConfigTeksti("userReservation").toUpperCase());
         poistaBtn.setText(kontrolleri.getConfigTeksti("removeUser").toUpperCase());
         takaisinBtn.setText(kontrolleri.getConfigTeksti("back").toUpperCase());
-        LogoutBtn.setText(kontrolleri.getConfigTeksti("Logout").toUpperCase());
+        logoutBtn.setText(kontrolleri.getConfigTeksti("Logout").toUpperCase());
         bizName1.setText(kontrolleri.getConfigTeksti("user").toUpperCase());
         
-        this.LogoutBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("LogoutInfo")));
+        this.logoutBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("LogoutInfo")));
         this.lisaaBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("addUser")));
         this.poistaBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("removeUser")));
         this.takaisinBtn.setTooltip((new Tooltip(kontrolleri.getConfigTeksti("returnButton"))));
@@ -147,7 +147,7 @@ public class KayttajaAdminController implements Initializable {
     public void logout(MouseEvent event) throws IOException {
         System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
-        Stage stage = (Stage) LogoutBtn.getScene().getWindow();
+        Stage stage = (Stage) logoutBtn.getScene().getWindow();
         Parent root = loader.load();
         stage.getScene().setRoot(root);
         View.loggedIn = null;
@@ -164,7 +164,7 @@ public class KayttajaAdminController implements Initializable {
     private void takaisinBtnPainettu(MouseEvent event) throws IOException {
         System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
-        Stage stage = (Stage) LogoutBtn.getScene().getWindow();
+        Stage stage = (Stage) logoutBtn.getScene().getWindow();
         Parent root = loader.load();
         stage.getScene().setRoot(root);
     }
@@ -217,7 +217,7 @@ public class KayttajaAdminController implements Initializable {
         if (K != null) {
             View.selected = K;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KayttajanVaraukset.fxml"));
-            Stage stage = (Stage) LogoutBtn.getScene().getWindow();
+            Stage stage = (Stage) logoutBtn.getScene().getWindow();
             Parent root = loader.load();
             stage.getScene().setRoot(root);
     }else{

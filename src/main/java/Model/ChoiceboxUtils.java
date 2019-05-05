@@ -5,10 +5,8 @@
  */
 package Model;
 
-import Controller.Controller;
+import controller.Controller;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
 
 /**
  *
@@ -16,10 +14,9 @@ import javafx.scene.control.TableColumn;
  */
 public class ChoiceboxUtils {
 
-    private Controller kontrolleri;
+    
 
-    public ChoiceboxUtils(Controller kontrolleri) {
-        this.kontrolleri = kontrolleri;
+    public ChoiceboxUtils() {
     }
 
     /**

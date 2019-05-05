@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package view;
 
-import Controller.Controller;
+import controller.Controller;
 import Model.BooleanConverter;
 import Model.Kayttaja;
 import Model.Resurssit;
@@ -122,8 +122,8 @@ public class VarausAdminController implements Initializable {
         poistaBtn.setOpacity(0);
         poistaBtn.setDisable(true);
         controller = View.controller;
-        BooleanConverter AktiivisuusController = new BooleanConverter(controller, controller.getConfigTeksti("isActive").toUpperCase(), controller.getConfigTeksti("isnActive").toUpperCase());
-        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, controller.getConfigTeksti("acknowledged").toUpperCase(), controller.getConfigTeksti("hylatty").toUpperCase());
+        BooleanConverter AktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive").toUpperCase(), controller.getConfigTeksti("isnActive").toUpperCase());
+        BooleanConverter HyvaksyntaController = new BooleanConverter(controller.getConfigTeksti("acknowledged").toUpperCase(), controller.getConfigTeksti("hylatty").toUpperCase());
         
         
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Kayttaja>("kayttaja"));
@@ -264,7 +264,7 @@ public class VarausAdminController implements Initializable {
         takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
         hyvaksyBtn.setText(controller.getConfigTeksti("accept").toUpperCase());
         hylkaaBtn.setText(controller.getConfigTeksti("hylkaa").toUpperCase());
-        kasittelemattomatTab.setText("kasVaraukset");
+        kasittelemattomatTab.setText(controller.getConfigTeksti("kasVaraukset").toUpperCase());
         nimiColumn.setText(controller.getConfigTeksti("varaajaNimi").toUpperCase());
         tavaraColumn.setText(controller.getConfigTeksti("item").toUpperCase());
         alkupvmColumn.setText(controller.getConfigTeksti("reservationStartdate").toUpperCase());
@@ -290,7 +290,9 @@ public class VarausAdminController implements Initializable {
             
             @Override
             public void changed(ObservableValue<? extends Tab> ov, Tab kasittelemattomatTab, Tab kaikkiTab) {
-                if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Kaikki varaukset")) {
+                if (tabPane.getSelectionModel().getSelectedItem().getText().equals("Kaikki varaukset") 
+                        || tabPane.getSelectionModel().getSelectedItem().getText().equals("All reservations")
+                        || tabPane.getSelectionModel().getSelectedItem().getText().equals("Todas as reservas")){
                     hylkaaBtn.setDisable(true);
                     hylkaaBtn.setOpacity(0);
                     hyvaksyBtn.setOpacity(0);

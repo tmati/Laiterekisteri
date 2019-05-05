@@ -11,7 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>View.View</mainClass>
+        <mainClass>view.View</mainClass>
     </properties>
 
     <organization>
@@ -70,7 +70,7 @@
                         <manifest>
                             <addClasspath>false</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>View.View</mainClass>
+                            <mainClass>view.View</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

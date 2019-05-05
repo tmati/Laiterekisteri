@@ -5,8 +5,8 @@
  */
 package Model;
 
-import Controller.Controller;
-import View.View;
+import controller.Controller;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
@@ -41,7 +41,6 @@ public class PoistaBtnToiminnot {
         if (alert.getResult() == ButtonType.YES) {
             if (!controller.onkoVarausAlkanut(toDelete)) {
                 controller.poistaVaraus(toDelete.getId());
-                System.out.println("poistetaan varaus");
                 controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + " on poistettu esimiehen tai ylläpitäjän toimesta."
                         + "\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.");
                 return true;

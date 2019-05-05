@@ -5,13 +5,9 @@
  */
 package Model;
 
-import Controller.Controller;
-import View.View;
-import java.io.IOException;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.stage.Stage;
+import controller.Controller;
+import view.View;
+
 
 /**
  * Tarkistus luokka sisään kirjautumista varten

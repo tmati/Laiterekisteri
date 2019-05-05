@@ -5,9 +5,8 @@
  */
 package Model;
 
-import Controller.Controller;
+import controller.Controller;
 import java.util.Objects;
-import javax.mail.MessagingException;
 
 /**
  * Luokka resurssien käsittelyä varten
@@ -36,7 +35,6 @@ public class ResurssiKasittely {
         boolean tarkistus = true;
         for (Varaukset v : varaukset) {
             if (Objects.equals(v.getResurssit().getId(), r.getId())) {
-                System.out.println("testi");
                 boolean tulos = controller.poistaVaraus(v.getId());
                 if (!tulos) {
                     tarkistus = tulos;

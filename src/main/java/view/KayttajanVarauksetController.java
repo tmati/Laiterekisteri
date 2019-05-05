@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package view;
 
-import Controller.Controller;
+import controller.Controller;
 import Model.BooleanConverter;
 import Model.Varaukset;
 import java.io.IOException;
@@ -79,8 +79,8 @@ public class KayttajanVarauksetController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         controller = new Controller();
         ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
-        BooleanConverter AktiivisuusController = new BooleanConverter(controller, controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
-        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));
+        BooleanConverter AktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
+        BooleanConverter HyvaksyntaController = new BooleanConverter(controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));
 
         laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
         laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());

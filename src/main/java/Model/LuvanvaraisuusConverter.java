@@ -5,7 +5,7 @@
  */
 package Model;
 
-import Controller.Controller;
+import controller.Controller;
 import javafx.util.StringConverter;
 
 /**
@@ -17,13 +17,10 @@ public class LuvanvaraisuusConverter extends StringConverter<Integer> {
      private String low;
      private String med;
      private String high;
-     private Controller kontrolleri;
-    public LuvanvaraisuusConverter(Controller kontrolleri){
-        this.kontrolleri = kontrolleri;
+    public LuvanvaraisuusConverter(){
     }
     
-    public LuvanvaraisuusConverter(Controller kontrolleri, String low, String med, String high) {
-        this.kontrolleri = kontrolleri;
+    public LuvanvaraisuusConverter(String low, String med, String high) {
         this.low = low;
         this.med = med;
         this.high = high;

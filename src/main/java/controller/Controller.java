@@ -1,6 +1,27 @@
-package Controller;
+package controller;
 
-import Model.*;
+import Model.DayCellFactory;
+import Model.Resurssit;
+import Model.ResurssiKasittely;
+import Model.VarausKasittely;
+import Model.Kayttaja;
+import Model.ResurssitAccessObject;
+import Model.VarauksetAccessObject;
+import Model.Sahkoposti;
+import Model.BooleanConverter;
+import Model.ChoiceboxUtils;
+import Model.Varaukset;
+import Model.PasswordConverter;
+import Model.LanguageText;
+import Model.KayttajaAccessObject;
+import Model.PoistaBtnToiminnot;
+import Model.VarauksenAikaLaskuri;
+import Model.KayttajaTarkistus;
+import Model.VarauksenAikaLaskuriInterface;
+import Model.LoginUtils;
+import Model.PasswordConverterInterface;
+import Model.KalenterinTarvitsematToimenpiteet;
+import Model.SalasananPalautus;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
@@ -8,6 +29,9 @@ import java.util.ArrayList;
 
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Callback;
+import Model.KayttajaDAOIF;
+import Model.ResurssitDAOIF;
+import Model.VarauksetDAOIF;
 
 /**
  * Controlleri
@@ -16,9 +40,9 @@ import javafx.util.Callback;
  */
 public class Controller {
 
-    private final KayttajaDAO_IF kayttajaDAO;
-    private final ResurssitDAO_IF resurssiDAO;
-    private final VarauksetDAO_IF varausDAO;
+    private final KayttajaDAOIF kayttajaDAO;
+    private final ResurssitDAOIF resurssiDAO;
+    private final VarauksetDAOIF varausDAO;
     private final KayttajaTarkistus kayttajaTarkistus;
     private final PasswordConverterInterface crypter;
     private final LoginUtils login;
@@ -27,7 +51,7 @@ public class Controller {
     private final VarauksenAikaLaskuriInterface aikalaskuri;
     private final VarausKasittely varausKasittely;
     private final ResurssiKasittely resurssikasittely;
-    private final Kalenterin_tarvitsemat_toimenpiteet kalenteriApu;
+    private final KalenterinTarvitsematToimenpiteet kalenteriApu;
     private final Sahkoposti sahkoposti;
     private final SalasananPalautus salasananPalautus;
     private final PoistaBtnToiminnot poistaBtnToiminnot;
@@ -42,12 +66,12 @@ public class Controller {
         resurssiDAO = new ResurssitAccessObject();
         varausDAO = new VarauksetAccessObject();
         login = new LoginUtils(this);
-        cbutils = new ChoiceboxUtils(this);
+        cbutils = new ChoiceboxUtils();
         cellfactory = new DayCellFactory();
         aikalaskuri = new VarauksenAikaLaskuri();
         varausKasittely = new VarausKasittely(varausDAO, this);
         resurssikasittely = new ResurssiKasittely(this);
-        kalenteriApu = new Kalenterin_tarvitsemat_toimenpiteet();
+        kalenteriApu = new KalenterinTarvitsematToimenpiteet();
         sahkoposti = new Sahkoposti();
         salasananPalautus = new SalasananPalautus(this);
         poistaBtnToiminnot = new PoistaBtnToiminnot(this);
@@ -61,7 +85,7 @@ public class Controller {
      * @param password Encryptattava salasana.
      * @return Palautaa encryptattatun salasanan.
      */
-    public String SalasananCryptaus(String password) {
+    public String salasananCryptaus(String password) {
         return crypter.passwordConverter(password);
     }
 
@@ -235,7 +259,7 @@ public class Controller {
      * @return true jos kirjautumistiedot oikein
      */
     public boolean login(String userName, String passWord) {
-        return login.loginProcess(userName, this.SalasananCryptaus(passWord));
+        return login.loginProcess(userName, this.salasananCryptaus(passWord));
     }
 
     /**
@@ -278,7 +302,7 @@ public class Controller {
      * @return alkupvm ja loppupvm erotuksen
      */
     public int paivaLaskuri(LocalDateTime alkupvm, LocalDateTime loppumispvm) {
-        return aikalaskuri.PaivaKesto(alkupvm, loppumispvm);
+        return aikalaskuri.paivaKesto(alkupvm, loppumispvm);
     }
 
     /**
@@ -298,7 +322,7 @@ public class Controller {
      * @return BooleanConverter-olio
      */
     public BooleanConverter getBoolConv() {
-        return new BooleanConverter(this);
+        return new BooleanConverter();
     }
 
     /**
@@ -312,9 +336,9 @@ public class Controller {
     }
 
     /**
-     * Vie parametrit Kalenterin_tarvitsemat_toimenpiteet() luokalle, jossa
-     * resurssiId:n avulla varaus Arraysta tehdään ArrayListan jossa on vain sen
-     * resursin varaukset.
+     * Vie parametrit KalenterinTarvitsematToimenpiteet() luokalle, jossa
+ resurssiId:n avulla varaus Arraysta tehdään ArrayListan jossa on vain sen
+ resursin varaukset.
      *
      * @param resurssiId Halutun resursin Id.
      * @param varaukset Varaus array josta halutaan saada resursin varaukset.
@@ -325,7 +349,7 @@ public class Controller {
     }
 
     /**
-     * Vie parametrit Kalenterin_tarvitsemat_toimenpiteet lu9okalle parametrit.
+     * Vie parametrit KalenterinTarvitsematToimenpiteet lu9okalle parametrit.
      * Se kertoo jos varaus sillä ajan hetkellä on mahdollista. Kun verrataan
      * muihin tuoteen varauksiin.
      *
@@ -335,8 +359,8 @@ public class Controller {
      * @return true jos vraus on mahdollista ja falsen jos varaus menee toisen
      * varauksen päälle.
      */
-    public boolean Onnistuu(ArrayList<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate) {
-        return kalenteriApu.Onnistuu(aVaraukset, endDate, startDate);
+    public boolean onnistuu(ArrayList<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate) {
+        return kalenteriApu.onnistuu(aVaraukset, endDate, startDate);
     }
 
     /**
@@ -363,12 +387,12 @@ public class Controller {
     /**
      * Kutsuu VarausKasittely.getVarausAikaString
      *
-     * @param V Varaus, jonka tiedoista string kasataan sähköpostia varten
+     * @param v Varaus, jonka tiedoista string kasataan sähköpostia varten
      * @return String, jossa näkyy varattavan laitteen nimi ja varauksen
      * ajankohta.
      */
-    public String getVarausAikaString(Varaukset V) {
-        return varausKasittely.getVarausAikaString(V);
+    public String getVarausAikaString(Varaukset v) {
+        return varausKasittely.getVarausAikaString(v);
     }
 
     /**
@@ -403,18 +427,18 @@ public class Controller {
 
     /**
      * Tuo tiedostosta tekstiä sillä kielellä mikä maa on
-     * @param Mihin mistä kohtaaa tiedostosta otetaan tietoja
+     * @param mihin mistä kohtaaa tiedostosta otetaan tietoja
      * @return Stringin joka on halutulla kielellä jos ei löydy antaa nullin
      */
-    public String getConfigTeksti(String Mihin) {
-        return tekstit.getText(Mihin);
+    public String getConfigTeksti(String mihin) {
+        return tekstit.getText(mihin);
     }
 
     /**
      * Asettaa LanguageTextin Maa parametrin käy vain fi, en, por tai pt
-     * @param Maa mihin Maa
+     * @param maa mihin kieleen vaihdetaan
      */
-    public void setMaa(String Maa){
-        tekstit.setMaa(Maa);
+    public void setMaa(String maa){
+        tekstit.setMaa(maa);
     }
 }

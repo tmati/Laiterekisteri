@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author jukka
  */
-public class Kalenterin_tarvitsemat_toimenpiteet {
+public class KalenterinTarvitsematToimenpiteet {
 
     /**
      * Antaa valitusta resurssin kaikki varaukset ArrayListana.
@@ -23,7 +23,7 @@ public class Kalenterin_tarvitsemat_toimenpiteet {
      * @return ArrayListan jossa on kaikki resursin varaukset.
      */
     public ArrayList<Varaukset> resurssinVaraukset(int resurssiId, Varaukset[] varaukset) {
-        ArrayList<Varaukset> aVaraukset = new ArrayList<Varaukset>();
+        ArrayList<Varaukset> aVaraukset = new ArrayList<>();
         for (int i = 0; i < varaukset.length; i++) {
             if (varaukset[i].getResurssit().getId() == resurssiId) {
                 aVaraukset.add(varaukset[i]);
@@ -43,7 +43,7 @@ public class Kalenterin_tarvitsemat_toimenpiteet {
      * @return Truen jos ei ole päälekäisyyksiä varaksen kohdalla ja Fasle jos
      * on.
      */
-    public boolean Onnistuu(ArrayList<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate) {
+    public boolean onnistuu(ArrayList<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate) {
         if (startDate.isAfter(endDate)) {
             return false;
         }

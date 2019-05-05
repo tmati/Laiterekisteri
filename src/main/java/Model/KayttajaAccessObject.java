@@ -15,7 +15,7 @@ import org.hibernate.Transaction;
  *
  * @author Tommi
  */
-public class KayttajaAccessObject implements KayttajaDAO_IF {
+public class KayttajaAccessObject implements KayttajaDAOIF {
 
     SessionFactory sf = null;
 
@@ -64,8 +64,6 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
     @Override
     public Kayttaja readKayttaja(int id) {
         Session s = sf.openSession();
-        Transaction transaktio = null;
-
         s = sf.openSession();
         s.beginTransaction();
         Kayttaja haettu = new Kayttaja();
@@ -73,7 +71,7 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
             s.load(haettu, id);
             s.getTransaction().commit();
         } catch (Exception e) {
-            throw e;
+             e.printStackTrace();
         } finally {
             s.close();
         }
@@ -88,7 +86,6 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
     @Override
     public Kayttaja[] readKayttajat() {
         Session s = sf.openSession();
-        Transaction tran = null;
         Kayttaja[] kayttajat = null;
         try {
             s = sf.openSession();
@@ -99,7 +96,6 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
             s.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
-
         } finally {
             s.close();
         }
@@ -109,25 +105,24 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
     /**
      * Päivittää käyttäjän tietokantaan
      *
-     * @param kayttaja päivitettävä käyttäjä
+     * @param kayttaja paivitettava käyttäjä
      * @return palauttaa true jos käyttäjän päivitys onnistui
      */
     @Override
     public boolean updateKayttaja(Kayttaja kayttaja) {
         Session s = sf.openSession();
-        Transaction tran = null;
         try {
             s = sf.openSession();
             s.beginTransaction();
 
-            Kayttaja päivitettävä = (Kayttaja) s.get(Kayttaja.class, kayttaja.getId());
-            if (päivitettävä != null) {
-                päivitettävä.setSalasana(kayttaja.getSalasana());
-                päivitettävä.setNimi(kayttaja.getNimi());
-                päivitettävä.setKayttajatunnus(kayttaja.getKayttajatunnus());
-                päivitettävä.setSahkoposti(kayttaja.getSahkoposti());
-                päivitettävä.setSalasana(kayttaja.getSalasana());
-                päivitettävä.setValtuudet(kayttaja.getValtuudet());
+            Kayttaja paivitettava = (Kayttaja) s.get(Kayttaja.class, kayttaja.getId());
+            if (paivitettava != null) {
+                paivitettava.setSalasana(kayttaja.getSalasana());
+                paivitettava.setNimi(kayttaja.getNimi());
+                paivitettava.setKayttajatunnus(kayttaja.getKayttajatunnus());
+                paivitettava.setSahkoposti(kayttaja.getSahkoposti());
+                paivitettava.setSalasana(kayttaja.getSalasana());
+                paivitettava.setValtuudet(kayttaja.getValtuudet());
             } else {
                 System.out.println("Ei löytynyt päivitettävää!");
             }
@@ -152,8 +147,6 @@ public class KayttajaAccessObject implements KayttajaDAO_IF {
     public boolean deleteKayttaja(int id) {
 
         Session s = sf.openSession();
-        Transaction tran = null;
-
         try {
             s = sf.openSession();
             s.beginTransaction();

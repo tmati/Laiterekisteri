@@ -27,7 +27,7 @@ public class Kayttaja implements java.io.Serializable {
     private int valtuudet;
     private String kayttajatunnus;
     private String sahkoposti;
-    private Set<Varaukset> varauksets = new HashSet<Varaukset>(0);
+    private Set<Varaukset> varauksets = new HashSet<>(0);
 
     /**
      * Tyhjä konstruktori

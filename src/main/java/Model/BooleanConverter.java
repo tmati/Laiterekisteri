@@ -5,7 +5,7 @@
  */
 package Model;
 
-import Controller.Controller;
+import controller.Controller;
 import javafx.util.StringConverter;
 
 /**
@@ -14,32 +14,30 @@ import javafx.util.StringConverter;
  */
 public class BooleanConverter extends StringConverter<Boolean> {
     
-     private Controller kontrolleri;
-     String TrueString;
-     String FalseString;
+ 
+     private String trueString;
+     private String falseString;
     /**
      * Muuttaa boolean-arvot selkolukuisiksi.
-     * @param kontrolleri viittaus Controlleriin
+     * 
      */
-    public BooleanConverter(Controller kontrolleri){
-        this.kontrolleri = kontrolleri;
+    public BooleanConverter(){
     }
     
-    public BooleanConverter (Controller kontrolleri, String TrueString, String FalseString) {
-        this.kontrolleri = kontrolleri;
-        this.TrueString = TrueString;
-        this.FalseString = FalseString;
+    public BooleanConverter (String trueString, String falseString) {
+        this.trueString = trueString;
+        this.falseString = falseString;
     }
     
     public String toString(Boolean object) {
         if (object) {
-            return TrueString;
+            return trueString;
         }
-        return FalseString;
+        return falseString;
     }
 
      @Override
     public Boolean fromString(String string) {
-        return string.equals(TrueString);
+        return string.equals(trueString);
     }
 }

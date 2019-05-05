@@ -5,7 +5,7 @@
  */
 package Model;
 
-import Controller.Controller;
+import controller.Controller;
 
 /**
  *
@@ -13,7 +13,7 @@ import Controller.Controller;
  */
 public class SalasananPalautus {
     private Controller controller;
-    private final String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    private static final String merkit = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                     + "0123456789"
                                     + "abcdefghijklmnopqrstuvxyz"; 
     private final StringBuilder sb = new StringBuilder(8);
@@ -27,7 +27,7 @@ public class SalasananPalautus {
         for(Kayttaja k : kayttajat){
             if (k.getSahkoposti().equals(email)){
                 String salasana = this.getRandomSalasana();
-                k.setSalasana(controller.SalasananCryptaus(salasana));
+                k.setSalasana(controller.salasananCryptaus(salasana));
                 controller.paivitaKayttaja(k);
                 controller.lahetaSahkoposti(k.getSahkoposti(), "Hei,\n\nSalasanasi on resetoitu.\nUusi salasanasi on: " + salasana
                 + "\nMuistathan vaihtaa salasanasi, kun kirjaudut sisään.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.");
@@ -39,8 +39,8 @@ public class SalasananPalautus {
     
     private String getRandomSalasana(){
          for (int i = 0; i < 9; i++) { 
-            int index = (int)(AlphaNumericString.length() * Math.random()); 
-            sb.append(AlphaNumericString.charAt(index)); 
+            int index = (int)(merkit.length() * Math.random()); 
+            sb.append(merkit.charAt(index)); 
         } 
         return sb.toString(); 
     }

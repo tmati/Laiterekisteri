@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package view;
 
-import Controller.Controller;
+import controller.Controller;
 import Model.BooleanConverter;
 import Model.LuvanvaraisuusConverter;
 import Model.Resurssit;
@@ -165,10 +165,10 @@ public class NakymaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         controller = View.controller;
         kalenterinPienentamaResurssiLista = controller.haeKaikkiResurssit();
-        BooleanConverter VarattavissaController = new BooleanConverter(controller, controller.getConfigTeksti("bookable"), controller.getConfigTeksti("notBookable"));
-        BooleanConverter AktiivisuusController = new BooleanConverter(controller, controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
-        BooleanConverter HyvaksyntaController = new BooleanConverter(controller, controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));
-        LuvanvaraisuusConverter ResLC = new LuvanvaraisuusConverter(controller, controller.getConfigTeksti("freeUse"), controller.getConfigTeksti("supApproved"), controller.getConfigTeksti("adApproved"));
+        BooleanConverter VarattavissaController = new BooleanConverter(controller.getConfigTeksti("bookable"), controller.getConfigTeksti("notBookable"));
+        BooleanConverter AktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
+        BooleanConverter HyvaksyntaController = new BooleanConverter(controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));
+        LuvanvaraisuusConverter ResLC = new LuvanvaraisuusConverter(controller.getConfigTeksti("freeUse"), controller.getConfigTeksti("supApproved"), controller.getConfigTeksti("adApproved"));
         Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
         logoView.setImage(image);
 
@@ -403,7 +403,7 @@ public class NakymaController implements Initializable {
                 ChronoLocalDateTime paivaAlku = paiva.atTime(LocalTime.MIN);
                 ChronoLocalDateTime paivaLoppu = paiva.atTime(LocalTime.MAX);
                 for (Resurssit resurssi : resurssit) {
-                    if (controller.Onnistuu(controller.resurssinVaraukset(resurssi.getId(), varaukset), paivaLoppu, paivaAlku)) {
+                    if (controller.onnistuu(controller.resurssinVaraukset(resurssi.getId(), varaukset), paivaLoppu, paivaAlku)) {
                         kaikkiTableView.getItems().add(resurssi);
                         kaikkiTableView.refresh();
                     }

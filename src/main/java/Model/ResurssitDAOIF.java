@@ -10,7 +10,7 @@ package Model;
  *
  * @author Tommi
  */
-public interface ResurssitDAO_IF {
+public interface ResurssitDAOIF {
 
     /**
      * Vie resurssin tietokantaan

@@ -5,7 +5,7 @@
  */
 package Model;
 
-import Controller.Controller;
+import controller.Controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.MonthDay;
@@ -16,6 +16,7 @@ import javafx.util.Callback;
 
 /**
  * Luokka, joka muokkaa datepickerin päiviä joko punaisiksi tai oranssiksi.
+ *
  * @author jukka
  */
 public class DayCellFactory {
@@ -26,10 +27,12 @@ public class DayCellFactory {
     private LocalDateTime alkupvm;
     private LocalDateTime loppumispvm;
     private int seuraavaVuosi;
-    
-    
+    private String alkaa = "Varaus alkaa ";
+
     /**
-     * Muokaa datepickerin päiviä niin että varatut ovat ounaisia ja reuna päivät ovat oranseja.
+     * Muokaa datepickerin päiviä niin että varatut ovat ounaisia ja reuna
+     * päivät ovat oranseja.
+     *
      * @param controller Kuka kutsui tätä
      * @param varaukset lista mistä katsotaan mitkä päivät ovat varattuja
      * @param today mistä päivästä alkaen ei voi valita
@@ -66,7 +69,7 @@ public class DayCellFactory {
                                             break;
                                         case 12:
                                             if ((alkupvm.getDayOfMonth() + i + liikaPaivat) == 32) {
-                                                seuraavaKuukausi=+2;
+                                                seuraavaKuukausi = +2;
                                                 liikaPaivat = liikaPaivat - 31;
                                                 seuraavaVuosi++;
                                             }
@@ -81,35 +84,38 @@ public class DayCellFactory {
                                             }
                                             break;
                                         case 2:
-                                            if (((alkupvm.getDayOfMonth() + i + liikaPaivat) == 29 && !((alkupvm.getYear() + seuraavaVuosi) % 100!= 0)) || ((alkupvm.getYear() + seuraavaVuosi) % 400 == 0)) {
+                                            if (((alkupvm.getDayOfMonth() + i + liikaPaivat) == 29 && !((alkupvm.getYear() + seuraavaVuosi) % 100 != 0)) || ((alkupvm.getYear() + seuraavaVuosi) % 400 == 0)) {
                                                 seuraavaKuukausi++;
                                                 liikaPaivat = liikaPaivat - 28;
-                                            }else if((alkupvm.getDayOfMonth() + i + liikaPaivat) == 30){
-                                                if ((((alkupvm.getYear() + seuraavaVuosi) % 4 == 0) && ((alkupvm.getYear() + seuraavaVuosi) % 100!= 0)) || ((alkupvm.getYear() + seuraavaVuosi) % 400 == 0)){
+                                            } else if ((alkupvm.getDayOfMonth() + i + liikaPaivat) == 30) {
+                                                if ((((alkupvm.getYear() + seuraavaVuosi) % 4 == 0) && ((alkupvm.getYear() + seuraavaVuosi) % 100 != 0)) || ((alkupvm.getYear() + seuraavaVuosi) % 400 == 0)) {
                                                     seuraavaKuukausi++;
                                                     liikaPaivat = liikaPaivat - 29;
                                                 }
                                             }
                                             break;
+                                        default:
                                     }
+                                
+                                
                                 }
-                                if ( MonthDay.from(item).equals(MonthDay.of(((alkupvm.getMonthValue() + seuraavaKuukausi) % 13), (alkupvm.getDayOfMonth() + i + liikaPaivat))) && item.getYear() == (alkupvm.getYear() + seuraavaVuosi)) {
-                                    if ((getStyle().equals(oranssi))){
-                                        if( erotusp == 0){
-                                            setTooltip(new Tooltip("\n" + getTooltip().getText() + "Varaus alkaa " + varaukset[y].getAlkuAika().getHour() + ":0"+ varaukset[y].getAlkuAika().getMinute() + "\nVaraus päätyy " + varaukset[y].getLoppuAika().getHour() + ":0"+ varaukset[y].getLoppuAika().getMinute()));
-                                        }else{
-                                            setTooltip(new Tooltip("\n" + getTooltip().getText() + "Varaus alkaa " + varaukset[y].getAlkuAika().getHour() + ":0"+ varaukset[y].getAlkuAika().getMinute()));
+                                if (MonthDay.from(item).equals(MonthDay.of(((alkupvm.getMonthValue() + seuraavaKuukausi) % 13), (alkupvm.getDayOfMonth() + i + liikaPaivat))) && item.getYear() == (alkupvm.getYear() + seuraavaVuosi)) {
+                                    if ((getStyle().equals(oranssi))) {
+                                        if (erotusp == 0) {
+                                            setTooltip(new Tooltip("\n" + getTooltip().getText() + alkaa + varaukset[y].getAlkuAika().getHour() + ":0" + varaukset[y].getAlkuAika().getMinute() + "\nVaraus päätyy " + varaukset[y].getLoppuAika().getHour() + ":0" + varaukset[y].getLoppuAika().getMinute()));
+                                        } else {
+                                            setTooltip(new Tooltip("\n" + getTooltip().getText() + alkaa + varaukset[y].getAlkuAika().getHour() + ":0" + varaukset[y].getAlkuAika().getMinute()));
                                         }
-                                    }else if (erotusp == 0){
+                                    } else if (erotusp == 0) {
                                         setStyle(oranssi);
-                                        setTooltip(new Tooltip("Varaus alkaa " + varaukset[y].getAlkuAika().getHour() + ":0"+ varaukset[y].getAlkuAika().getMinute() + "\nVaraus päätyy " + varaukset[y].getLoppuAika().getHour() + ":0"+ varaukset[y].getLoppuAika().getMinute()));
-                                    }else if (i == 0) {
+                                        setTooltip(new Tooltip(alkaa  + varaukset[y].getAlkuAika().getHour() + ":0" + varaukset[y].getAlkuAika().getMinute() + "\nVaraus päätyy " + varaukset[y].getLoppuAika().getHour() + ":0" + varaukset[y].getLoppuAika().getMinute()));
+                                    } else if (i == 0) {
                                         setStyle(oranssi);
-                                        setTooltip(new Tooltip("Varaus alkaa " + varaukset[y].getAlkuAika().getHour() + ":0"+ varaukset[y].getAlkuAika().getMinute()));
-                                    } else if(i==erotusp){
+                                        setTooltip(new Tooltip(alkaa  + varaukset[y].getAlkuAika().getHour() + ":0" + varaukset[y].getAlkuAika().getMinute()));
+                                    } else if (i == erotusp) {
                                         setStyle(oranssi);
-                                        setTooltip(new Tooltip("Varaus päätyy " + varaukset[y].getLoppuAika().getHour() + ":0"+ varaukset[y].getLoppuAika().getMinute()));
-                                       }else{
+                                        setTooltip(new Tooltip("Varaus päätyy " + varaukset[y].getLoppuAika().getHour() + ":0" + varaukset[y].getLoppuAika().getMinute()));
+                                    } else {
                                         setStyle("-fx-background-color: #ff4444;");
                                         setDisable(true);
                                     }
@@ -118,8 +124,8 @@ public class DayCellFactory {
                         }
                         setDisable(item.compareTo(today) < 0 || isDisable());
                     }
-            };
-        }
+                };
+            }
         };
 
     }

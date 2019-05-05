@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package view;
 
-import Controller.Controller;
+import controller.Controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -87,8 +87,8 @@ public class SalasananvaihtoController implements Initializable {
     @FXML
     private void vaihdasalasanaNappiPainettu(MouseEvent event) {
         //Sisään kirjautuneena oleva käyttäjä tähän
-        if (controller.SalasananCryptaus(vanhasalasanaTextField.getText()).equals(View.loggedIn.getSalasana()) && uusisalasana1TextField.getText().equals(uusisalasana2TextField.getText())) {
-            View.loggedIn.setSalasana(controller.SalasananCryptaus(uusisalasana2TextField.getText()));
+        if (controller.salasananCryptaus(vanhasalasanaTextField.getText()).equals(View.loggedIn.getSalasana()) && uusisalasana1TextField.getText().equals(uusisalasana2TextField.getText())) {
+            View.loggedIn.setSalasana(controller.salasananCryptaus(uusisalasana2TextField.getText()));
             controller.paivitaKayttaja(View.loggedIn);
             virheLabel.setDisable(true);
             virheLabel.setOpacity(0);

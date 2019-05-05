@@ -8,8 +8,6 @@ package Model;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -25,11 +23,10 @@ import javax.mail.internet.MimeMessage;
 public class Sahkoposti {
 
     private Properties emailProperties;
-    private Session mailSession;
-    private final String emailHost = "smtp.gmail.com";
-    private final String fromUser = "keychainems@gmail.com";
-    private final String fromUserEmailPassword = "kissatkoiria";
-    private final String emailSubject = "KeyChain automatic message";
+    private static final String emailHost = "smtp.gmail.com";
+    private static final String fromUser = "keychainems@gmail.com";
+    private static final String fromUserEmailPassword = "kissatkoiria";
+    private static final String emailSubject = "KeyChain automatic message";
  
     /**
      * Konstruktori
@@ -60,7 +57,7 @@ public class Sahkoposti {
     private boolean sendEmail(String vastaanottaja, String viesti) {
 
         MimeMessage emailMessage;
-        mailSession = Session.getDefaultInstance(emailProperties, null);
+        Session mailSession = Session.getDefaultInstance(emailProperties, null);
         emailMessage = new MimeMessage(mailSession);
 
         try {
@@ -71,12 +68,9 @@ public class Sahkoposti {
             transport.connect(emailHost, fromUser, fromUserEmailPassword);
             transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
             transport.close();
-            System.out.println("Email sent successfully.");
-        } catch (AddressException ex) {
+        } catch (Exception e) {
             return false;
-        } catch (MessagingException ex) {
-            return false;
-        }
+        } 
         return true;
     }
     
@@ -92,14 +86,11 @@ public class Sahkoposti {
     public boolean lahetaSahkoposti(String vastaanottaja, String viesti){
         ExecutorService emailExecutor = Executors.newSingleThreadExecutor();
         
-        emailExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                 sendEmail(vastaanottaja, viesti);
-                } catch (Exception e) {
-                    System.out.println("säie fail" + e);
-                }
+        emailExecutor.execute(() -> {
+            try {
+                sendEmail(vastaanottaja, viesti);
+            } catch (Exception e) {
+                emailExecutor.shutdown();
             }
         });
         emailExecutor.shutdown();

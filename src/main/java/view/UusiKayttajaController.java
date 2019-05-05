@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package view;
 
-import Controller.Controller;
+import controller.Controller;
 import Model.Kayttaja;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -143,7 +143,7 @@ public class UusiKayttajaController implements Initializable {
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
         } else {
-            Kayttaja J = new Kayttaja(nimiTextField.getText(), controller.SalasananCryptaus(salasanaTextField.getText()), kayttajatunnusTextField.getText(), emailTextField.getText(), controller.readCb(valtuudetChoiceBox));
+            Kayttaja J = new Kayttaja(nimiTextField.getText(), controller.salasananCryptaus(salasanaTextField.getText()), kayttajatunnusTextField.getText(), emailTextField.getText(), controller.readCb(valtuudetChoiceBox));
             System.out.println(J.getNimi() + " | " + J.getSalasana() + " | " + J.getKayttajatunnus() + " | " + J.getSahkoposti() + " | " + J.getValtuudet());
             controller.luoKayttaja(J);
 
