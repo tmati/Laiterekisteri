@@ -6,7 +6,7 @@
 package view;
 
 import controller.Controller;
-import Model.Resurssit;
+import model.Resurssit;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;

@@ -6,8 +6,8 @@
 package view;
 
 import controller.Controller;
-import Model.BooleanConverter;
-import Model.Varaukset;
+import model.BooleanConverter;
+import model.Varaukset;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -44,7 +44,7 @@ public class ResurssiHistoriaController implements Initializable {
     @FXML
     private Label usernameLabel;
     @FXML
-    private Button LogoutBtn;
+    private Button logoutBtn;
     @FXML
     private Label bizName;
     @FXML
@@ -141,9 +141,9 @@ public class ResurssiHistoriaController implements Initializable {
         hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(HyvaksyntaController));
 
         usernameLabel.setText(View.loggedIn.getNimi());
-        bizName.setText(View.BizName);
+        bizName.setText(View.bizName);
 
-        //System.out.println(View.BizName);
+        //System.out.println(View.bizName);
         
         varaajaColumn.setText(controller.getConfigTeksti("varaaja").toUpperCase());
         alkupvmColumn.setText(controller.getConfigTeksti("reservationStartdate").toUpperCase());
@@ -153,13 +153,13 @@ public class ResurssiHistoriaController implements Initializable {
         palautettuColumn.setText(controller.getConfigTeksti("activity").toUpperCase());
         hyvaksyntaColumn.setText(controller.getConfigTeksti("approval").toUpperCase());
         takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
-        LogoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
+        logoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
 
         poistavarausBtn.setText(controller.getConfigTeksti("removeReservation").toUpperCase());
         varausString.setText(controller.getConfigTeksti("resursin") + " " + View.booking.getNimi() + " " + controller.getConfigTeksti("reservations").toLowerCase());
         varausTable.getItems().addAll(controller.getVarausTaulukko(controller.resurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
 
-        this.LogoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
+        this.logoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
         this.takaisinBtn.setTooltip(new Tooltip(controller.getConfigTeksti("returnButton")));
 
     }    
@@ -188,7 +188,7 @@ public class ResurssiHistoriaController implements Initializable {
     private void logout(MouseEvent event) throws IOException {
         //System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
-        Stage stage = (Stage) LogoutBtn.getScene().getWindow();
+        Stage stage = (Stage) logoutBtn.getScene().getWindow();
         Parent root = loader.load();
         stage.getScene().setRoot(root);
         View.loggedIn = null;

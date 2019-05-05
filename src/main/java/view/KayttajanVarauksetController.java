@@ -6,8 +6,8 @@
 package view;
 
 import controller.Controller;
-import Model.BooleanConverter;
-import Model.Varaukset;
+import model.BooleanConverter;
+import model.Varaukset;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -46,7 +46,7 @@ public class KayttajanVarauksetController implements Initializable {
     @FXML
     private Label usernameLabel;
     @FXML
-    private Button LogoutBtn;
+    private Button logoutBtn;
     @FXML
     private Label bizName;
     @FXML
@@ -78,9 +78,9 @@ public class KayttajanVarauksetController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         controller = new Controller();
-        ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
-        BooleanConverter AktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
-        BooleanConverter HyvaksyntaController = new BooleanConverter(controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));
+        ChoiceBoxTableCell cc = new ChoiceBoxTableCell();
+        BooleanConverter aktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
+        BooleanConverter hyvaksyntaController = new BooleanConverter(controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));
 
         laitenimiColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
         laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -97,9 +97,10 @@ public class KayttajanVarauksetController implements Initializable {
                 try {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
                     Date parsedDate = (Date) dateFormat.parse(string);
-                    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
-                    return timestamp;
+                    return new java.sql.Timestamp(parsedDate.getTime());
+                  
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 return null;
             }
@@ -119,9 +120,10 @@ public class KayttajanVarauksetController implements Initializable {
                 try {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
                     Date parsedDate = (Date) dateFormat.parse(string);
-                    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
-                    return timestamp;
+                    return new java.sql.Timestamp(parsedDate.getTime());
+
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 return null;
             }
@@ -133,20 +135,20 @@ public class KayttajanVarauksetController implements Initializable {
         varauskuvausColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("kuvaus"));
         varauskuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        CC.setConverter(AktiivisuusController);
+        cc.setConverter(aktiivisuusController);
         palautettuColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("palautettu"));
-        palautettuColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), true, false));
+        palautettuColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(cc.getConverter(), true, false));
 
         hyvaksyntaColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("hyvaksytty"));
-        hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(HyvaksyntaController));
+        hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(hyvaksyntaController));
 
         usernameLabel.setText(View.loggedIn.getNimi());
-        bizName.setText(View.BizName);
+        bizName.setText(View.bizName);
         kayttajaString.setText(controller.getConfigTeksti("user1") + " " + View.selected.getNimi() + " " + controller.getConfigTeksti("reservations"));
         kayttajaTable.getItems().addAll(View.selected.getVarauksets());
 
         takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
-        LogoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
+        logoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
         kayttajaString.setText(controller.getConfigTeksti("user").toUpperCase());
         laitenimiColumn.setText(controller.getConfigTeksti("resourceName").toUpperCase());
         alkupvmColumn.setText(controller.getConfigTeksti("reservationStartdate").toUpperCase());
@@ -156,7 +158,7 @@ public class KayttajanVarauksetController implements Initializable {
         palautettuColumn.setText(controller.getConfigTeksti("activity").toUpperCase());
         hyvaksyntaColumn.setText(controller.getConfigTeksti("approval").toUpperCase());
         poistaBtn.setText(controller.getConfigTeksti("removeReservation").toUpperCase());
-        this.LogoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
+        this.logoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
         this.poistaBtn.setTooltip(new Tooltip(controller.getConfigTeksti("removeReservationInfo")));
         this.takaisinBtn.setTooltip(new Tooltip(controller.getConfigTeksti("returnUsersWindow")));
 
@@ -186,9 +188,8 @@ public class KayttajanVarauksetController implements Initializable {
      */
     @FXML
     private void logout(MouseEvent event) throws IOException {
-        System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
-        Stage stage = (Stage) LogoutBtn.getScene().getWindow();
+        Stage stage = (Stage) logoutBtn.getScene().getWindow();
         Parent root = loader.load();
         stage.getScene().setRoot(root);
         View.loggedIn = null;
@@ -210,7 +211,6 @@ public class KayttajanVarauksetController implements Initializable {
             if (alert.getResult() == ButtonType.YES) {
                 if (!controller.onkoVarausAlkanut(toDelete)) {
                     controller.poistaVaraus(toDelete.getId());
-                    //System.out.println("poistetaan varaus");
                     controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + controller.getConfigTeksti("emailFordeletingReservation"));
                     kayttajaTable.getItems().clear();
                     kayttajaTable.getItems().addAll(controller.haeKayttajanVaraukset(View.selected));

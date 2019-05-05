@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 6, 2019 4:26:26 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="database_r11" name="model.Varaukset" optimistic-lock="version" table="Varaukset">
+    <id name="id" type="java.lang.Integer">
+      <column name="Id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.Kayttaja" fetch="select" name="kayttaja">
+      <column name="KayttajaId" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="model.Resurssit" fetch="select" name="resurssit">
+      <column name="ResurssiId" not-null="true"/>
+    </many-to-one>
+    <property name="alkupvm" type="timestamp">
+      <column length="26" name="Alkupvm" not-null="true"/>
+    </property>
+    <property name="paattymispvm" type="timestamp">
+      <column length="26" name="Paattymispvm" not-null="true"/>
+    </property>
+    <property name="kuvaus" type="string">
+      <column length="40" name="Kuvaus" not-null="true"/>
+    </property>
+    <property name="palautettu" type="boolean">
+      <column name="Palautettu" not-null="true"/>
+    </property>
+    <property name="nimi" type="string">
+      <column length="40" name="Nimi" not-null="true"/>
+    </property>
+    <property name="hyvaksytty" type="java.lang.Boolean">
+      <column name="Hyvaksytty"/>
+    </property>
+  </class>
+</hibernate-mapping>

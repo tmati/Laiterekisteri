@@ -1,8 +1,8 @@
 package view;
 
 import controller.Controller;
-import Model.Kayttaja;
-import Model.Resurssit;
+import model.Kayttaja;
+import model.Resurssit;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,7 +27,7 @@ public class View extends Application {
     /**
      * Yrityksen nimi
      */
-    public static String BizName = "Long beach Skateboards";
+    public static String bizName = "Long beach Skateboards";
     
     /**
      * Käyttäjän varausten tarkastelua varten tallennettava olio
@@ -53,10 +53,7 @@ public class View extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         controller = new Controller();
-        /*Fullscreen sovellusnäkymää varten poista alta kommenteista.
-          Pitäisi tehdä windowsin ikkunatoimintoja vastaavat painikkeet johonkin.
-         */
-        //stage.initStyle(StageStyle.TRANSPARENT);
+
         stage.setMaximized(true);
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Loginwindow.fxml"));
         Scene scene = new Scene(root, Color.BLACK);

@@ -6,7 +6,7 @@
 package view;
 
 import controller.Controller;
-import Model.Kayttaja;
+import model.Kayttaja;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;

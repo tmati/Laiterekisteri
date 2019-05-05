@@ -5,9 +5,9 @@
  */
 
 import controller.Controller;
-import Model.Kayttaja;
-import Model.Resurssit;
-import Model.Varaukset;
+import model.Kayttaja;
+import model.Resurssit;
+import model.Varaukset;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
@@ -21,6 +21,8 @@ import org.junit.Ignore;
  *
  * @author Tommi
  */
+
+
 public class ControllerTest {
 
     static Controller kont;
@@ -181,7 +183,8 @@ public class ControllerTest {
 
         //kasattu string sähköpostia varten
         assertTrue("getVarausAikaString: string ei ollut oikeanlainen",
-                kont.getVarausAikaString(t).equals(kont.getConfigTeksti("emailReservationTime") + t.getNimi() + " " + kont.getConfigTeksti("forTime")+ " " + t.getAlkuAika().getHour() + "." + t.getAlkuAika().getDayOfMonth() + "."
+                kont.getVarausAikaString(t).equals(kont.getConfigTeksti("emailReservationTime") + t.getNimi() + " " 
+                + kont.getConfigTeksti("forTime")+ " " + t.getAlkuAika().getHour() + "." +t.getAlkuAika().getDayOfMonth() + "."
                 + t.getAlkuAika().getYear() + "-" + t.getLoppuAika().getHour() + "." + t.getLoppuAika().getDayOfMonth()
                 + "." + t.getLoppuAika().getYear()));
 

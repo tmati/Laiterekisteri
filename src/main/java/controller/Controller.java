@@ -1,27 +1,27 @@
 package controller;
 
-import Model.DayCellFactory;
-import Model.Resurssit;
-import Model.ResurssiKasittely;
-import Model.VarausKasittely;
-import Model.Kayttaja;
-import Model.ResurssitAccessObject;
-import Model.VarauksetAccessObject;
-import Model.Sahkoposti;
-import Model.BooleanConverter;
-import Model.ChoiceboxUtils;
-import Model.Varaukset;
-import Model.PasswordConverter;
-import Model.LanguageText;
-import Model.KayttajaAccessObject;
-import Model.PoistaBtnToiminnot;
-import Model.VarauksenAikaLaskuri;
-import Model.KayttajaTarkistus;
-import Model.VarauksenAikaLaskuriInterface;
-import Model.LoginUtils;
-import Model.PasswordConverterInterface;
-import Model.KalenterinTarvitsematToimenpiteet;
-import Model.SalasananPalautus;
+import model.DayCellFactory;
+import model.Resurssit;
+import model.ResurssiKasittely;
+import model.VarausKasittely;
+import model.Kayttaja;
+import model.ResurssitAccessObject;
+import model.VarauksetAccessObject;
+import model.Sahkoposti;
+import model.BooleanConverter;
+import model.ChoiceboxUtils;
+import model.Varaukset;
+import model.PasswordConverter;
+import model.LanguageText;
+import model.KayttajaAccessObject;
+import model.PoistaBtnToiminnot;
+import model.VarauksenAikaLaskuri;
+import model.KayttajaTarkistus;
+import model.VarauksenAikaLaskuriInterface;
+import model.LoginUtils;
+import model.PasswordConverterInterface;
+import model.KalenterinTarvitsematToimenpiteet;
+import model.SalasananPalautus;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
@@ -29,9 +29,9 @@ import java.util.ArrayList;
 
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Callback;
-import Model.KayttajaDAOIF;
-import Model.ResurssitDAOIF;
-import Model.VarauksetDAOIF;
+import model.KayttajaDAOIF;
+import model.ResurssitDAOIF;
+import model.VarauksetDAOIF;
 
 /**
  * Controlleri

@@ -4,8 +4,8 @@
 package view;
 
 import controller.Controller;
-import Model.Kayttaja;
-import Model.LuvanvaraisuusConverter;
+import model.Kayttaja;
+import model.LuvanvaraisuusConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -89,7 +89,7 @@ public class KayttajaAdminController implements Initializable {
          */
         kontrolleri = View.controller;
 
-        LuvanvaraisuusConverter KayLC = new LuvanvaraisuusConverter(kontrolleri.getConfigTeksti("employee"), kontrolleri.getConfigTeksti("superior"), kontrolleri.getConfigTeksti("administrator"));
+        LuvanvaraisuusConverter kayLC = new LuvanvaraisuusConverter(kontrolleri.getConfigTeksti("employee"), kontrolleri.getConfigTeksti("superior"), kontrolleri.getConfigTeksti("administrator"));
 
         //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("nimi"));
@@ -100,10 +100,10 @@ public class KayttajaAdminController implements Initializable {
         emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         emailColumn.setText(kontrolleri.getConfigTeksti("emailLabel").toUpperCase());
         
-        ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
-        CC.setConverter(KayLC);
+        ChoiceBoxTableCell cc = new ChoiceBoxTableCell();
+        cc.setConverter(kayLC);
         valtuudetColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, Integer>("valtuudet"));
-        valtuudetColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), 0,1,2));
+        valtuudetColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(cc.getConverter(), 0,1,2));
         valtuudetColumn.setText(kontrolleri.getConfigTeksti("authorization").toUpperCase());
         
         kayttajatunnusColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("kayttajatunnus"));
@@ -111,7 +111,7 @@ public class KayttajaAdminController implements Initializable {
         kayttajatunnusColumn.setText(kontrolleri.getConfigTeksti("accountName").toUpperCase());
         
         kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
-        bizName.setText(View.BizName);
+        bizName.setText(View.bizName);
         usernameLabel.setText(View.loggedIn.getNimi());
         
         lisaaBtn.setText(kontrolleri.getConfigTeksti("newUser").toUpperCase());
@@ -147,7 +147,6 @@ public class KayttajaAdminController implements Initializable {
      */
     @FXML
     public void logout(MouseEvent event) throws IOException {
-        System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
         Stage stage = (Stage) logoutBtn.getScene().getWindow();
         Parent root = loader.load();
@@ -164,7 +163,6 @@ public class KayttajaAdminController implements Initializable {
      */
     @FXML
     private void takaisinBtnPainettu(MouseEvent event) throws IOException {
-        System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
         Stage stage = (Stage) logoutBtn.getScene().getWindow();
         Parent root = loader.load();
@@ -185,7 +183,6 @@ public class KayttajaAdminController implements Initializable {
             Node node = (Node) source;
             Scene scene = node.getScene();
             Window window = scene.getWindow();
-            Stage stage = (Stage) window;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/uusiKayttaja.fxml"));
             popup.getContent().add((Parent) loader.load());
             popup.show(window);
@@ -199,14 +196,13 @@ public class KayttajaAdminController implements Initializable {
      */
     @FXML
     private void poistaBtnPainettu(MouseEvent event) {
-        Kayttaja K = kayttajaTableView.getSelectionModel().getSelectedItem();
-        if (K != null) {
+        Kayttaja k = kayttajaTableView.getSelectionModel().getSelectedItem();
+        if (k != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, kontrolleri.getConfigTeksti("confDeleteUser") , ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
-                kontrolleri.poistaKayttaja(K.getId());
+                kontrolleri.poistaKayttaja(k.getId());
                 this.updateBtnPainettu();
-                System.out.println("Poistetaan rivi");
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, kontrolleri.getConfigTeksti("chooseUser"));
@@ -215,9 +211,9 @@ public class KayttajaAdminController implements Initializable {
     }
     
     @FXML private void kayttajanvarauksetNappiPainettu(MouseEvent event) throws IOException {
-    Kayttaja K = kayttajaTableView.getSelectionModel().getSelectedItem();
-        if (K != null) {
-            View.selected = K;
+    Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();
+        if (kayttaja != null) {
+            View.selected = kayttaja;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KayttajanVaraukset.fxml"));
             Stage stage = (Stage) logoutBtn.getScene().getWindow();
             Parent root = loader.load();
@@ -236,10 +232,9 @@ public class KayttajaAdminController implements Initializable {
      */
     @FXML
     private void nimiEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
-        Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
-        J.setNimi(event.getNewValue());
-        System.out.println("Uusi nimi: " + J.getNimi());
-        kontrolleri.paivitaKayttaja(J);
+        Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();
+        kayttaja.setNimi(event.getNewValue());
+        kontrolleri.paivitaKayttaja(kayttaja);
     }
 
     /**
@@ -256,10 +251,9 @@ public class KayttajaAdminController implements Initializable {
             kayttajaTableView.getItems().clear();
             kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
         } else {
-            Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
-            J.setSahkoposti(event.getNewValue());
-            System.out.println("Uusi email: " + J.getSahkoposti());
-            kontrolleri.paivitaKayttaja(J);
+            Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();
+            kayttaja.setSahkoposti(event.getNewValue());
+            kontrolleri.paivitaKayttaja(kayttaja);
         }
     }
 
@@ -271,10 +265,9 @@ public class KayttajaAdminController implements Initializable {
      */
     @FXML
     private void valtuudetEditCommit(TableColumn.CellEditEvent<Kayttaja, Integer> event) {
-        Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
-        J.setValtuudet(event.getNewValue());
-        System.out.println("Uudet valtuudet: " + J.getValtuudet());
-        kontrolleri.paivitaKayttaja(J);
+        Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();
+        kayttaja.setValtuudet(event.getNewValue());
+        kontrolleri.paivitaKayttaja(kayttaja);
     }
 
     /**
@@ -291,10 +284,9 @@ public class KayttajaAdminController implements Initializable {
             kayttajaTableView.getItems().clear();
             kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
         } else {
-            Kayttaja J = kayttajaTableView.getSelectionModel().getSelectedItem();
-            J.setKayttajatunnus(event.getNewValue());
-            System.out.println("Uusi tunnus: " + J.getKayttajatunnus());
-            kontrolleri.paivitaKayttaja(J);
+            Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();
+            kayttaja.setKayttajatunnus(event.getNewValue());
+            kontrolleri.paivitaKayttaja(kayttaja);
         }
     }
 }

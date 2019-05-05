@@ -53,7 +53,7 @@
                   <Insets right="20.0" />
                </padding>
             </Label>
-            <Button fx:id="LogoutBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="35.0" prefWidth="85.0" text="LOGOUT" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Button fx:id="logoutBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="35.0" prefWidth="85.0" text="LOGOUT" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
