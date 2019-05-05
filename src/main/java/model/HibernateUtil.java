@@ -24,8 +24,9 @@ public class HibernateUtil {
             // Create the SessionFactory from standard (hibernate.cfg.xml) 
             // config file.
             sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-        } catch (Exception e) {
-            Logger.logMsg(4, e.getMessage());
+        } catch (Throwable ex) {
+            throw new ExceptionInInitializerError(ex);
+
         }
     }
 
