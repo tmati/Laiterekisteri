@@ -47,7 +47,7 @@
                 <Font size="16.0" />
             </font>
         </TextField>
-        <ChoiceBox fx:id="LuvanvaraisuusChoiceBox" layoutX="261.0" layoutY="214.0" prefHeight="37.0" prefWidth="225.0" value="Valitse...">
+        <ChoiceBox fx:id="luvanvaraisuusChoiceBox" layoutX="261.0" layoutY="214.0" prefHeight="37.0" prefWidth="225.0" value="Valitse...">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Valitse..." />

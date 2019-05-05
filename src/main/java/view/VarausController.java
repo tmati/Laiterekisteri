@@ -3,13 +3,12 @@ package view;
 import controller.Controller;
 import model.Varaukset;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -66,10 +65,10 @@ public class VarausController implements Initializable {
 
     private Controller controller;
     
-    private ArrayList<Varaukset> aVaraukset;
+    private List<Varaukset> aVaraukset;
 
     /**
-     * Initializes the controller class.
+     * Initializes the CONTROLLER class.
      *
      * @param url URL
      * @param rb ResourceBundle
@@ -78,7 +77,7 @@ public class VarausController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
        
         
-        controller = View.controller; 
+        controller = View.CONTROLLER; 
         
 
         //Katsoo kaikki varaaukset sille tuoteelle.
@@ -201,7 +200,6 @@ public class VarausController implements Initializable {
         LocalTime startTime = (LocalTime) mistaSpinner.getValue();
 
         LocalDateTime startStamp = LocalDateTime.of(startDate, startTime);
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         
         //Loppuen
         LocalDate endDate = mihinDp.getValue();

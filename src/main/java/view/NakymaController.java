@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.event.Event;
@@ -152,16 +153,19 @@ public class NakymaController implements Initializable {
     private DatePickerSkin dps;
     private static Node calContent;
     private Resurssit[] kalenterinPienentamaResurssiLista;
-
+    private final String kategoria = "category";
+    private final String resurssit = "resources";
+    private final String omat = "ownReservations";
+    private final String chooseResource = "chooseResource";
     /**
-     * Initializes the controller class.
+     * Initializes the CONTROLLER class.
      *
      * @param url url
      * @param rb rb
      */
     @Transactional
     public void initialize(URL url, ResourceBundle rb) {
-        controller = View.controller;
+        controller = View.CONTROLLER;
         kalenterinPienentamaResurssiLista = controller.haeKaikkiResurssit();
         BooleanConverter varattavissaController = new BooleanConverter(controller.getConfigTeksti("bookable"), controller.getConfigTeksti("notBookable"));
         BooleanConverter aktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
@@ -271,15 +275,15 @@ public class NakymaController implements Initializable {
         });
 
         searchBar.setPromptText(controller.getConfigTeksti("search"));
-        categorySelect.getItems().setAll(controller.getConfigTeksti("name").toUpperCase(),controller.getConfigTeksti("category").toUpperCase()) ;
+        categorySelect.getItems().setAll(controller.getConfigTeksti("name").toUpperCase(),controller.getConfigTeksti(kategoria).toUpperCase()) ;
         categorySelect.setValue(controller.getConfigTeksti("name").toUpperCase());
-        kaikkiTab.setText(controller.getConfigTeksti("resources"));
+        kaikkiTab.setText(controller.getConfigTeksti(resurssit));
         nimiColumn.setText(controller.getConfigTeksti("name").toUpperCase());
         tyyppiColumn.setText(controller.getConfigTeksti("type").toUpperCase());
         luvanvaraisuusColumn.setText(controller.getConfigTeksti("permission").toUpperCase());
         kuvausColumn.setText(controller.getConfigTeksti("description").toUpperCase());
         tilaColumn.setText(controller.getConfigTeksti("state").toUpperCase());
-        omatTab.setText(controller.getConfigTeksti("ownReservations"));
+        omatTab.setText(controller.getConfigTeksti(omat));
         laitenimiColumn.setText(controller.getConfigTeksti("resourceName").toUpperCase());
         alkupvmColumn.setText(controller.getConfigTeksti("reservationStartdate").toUpperCase());
         paattymispvmColumn.setText(controller.getConfigTeksti("reservationEnddate").toUpperCase());
@@ -299,7 +303,7 @@ public class NakymaController implements Initializable {
         varausBtn.setText(controller.getConfigTeksti("makeReservation").toUpperCase());
         
         this.categorySelect.setTooltip(new Tooltip(controller.getConfigTeksti("searchBy")));
-        this.omatTable.setTooltip(new Tooltip(controller.getConfigTeksti("ownReservations")));
+        this.omatTable.setTooltip(new Tooltip(controller.getConfigTeksti(omat)));
         this.kaikkiTableView.setTooltip(new Tooltip(controller.getConfigTeksti("ownTableTooltip")));
         this.logoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
         this.hallnnoiBtn.setTooltip(new Tooltip(controller.getConfigTeksti("hallinnoiBtnTooltip")));
@@ -314,7 +318,7 @@ public class NakymaController implements Initializable {
         
         
         usernameLabel.setText(View.loggedIn.getNimi());
-        bizName.setText(View.bizName);
+        bizName.setText(View.BIZNAME);
 
         Resurssit[] resurssit = controller.haeKaikkiResurssit();
         kaikkiTableView.getItems().addAll(resurssit);
@@ -329,7 +333,7 @@ public class NakymaController implements Initializable {
                 Varaukset[] varaukset = controller.haeKaikkiVaraukset();
                 picker = null;
 
-                ArrayList<Varaukset> aVaraukset = controller.resurssinVaraukset(kaikkiTableView.getSelectionModel().getSelectedItem().getId(), varaukset);
+                List<Varaukset> aVaraukset = controller.resurssinVaraukset(kaikkiTableView.getSelectionModel().getSelectedItem().getId(), varaukset);
 
                 Varaukset[] varaus = controller.getVarausTaulukko(aVaraukset);
 
@@ -394,7 +398,7 @@ public class NakymaController implements Initializable {
         DatePicker p = new DatePicker();
         p.valueProperty().addListener((ov, oldValue, newValue) -> {
             String tabText = tabPane.getSelectionModel().getSelectedItem().getText();
-            if (tabText.equals(controller.getConfigTeksti("resources")) && oldValue != newValue) {
+            if (tabText.equals(controller.getConfigTeksti(resurssit)) && oldValue != newValue) {
                 kaikkiTableView.getItems().clear();
                 LocalDate paiva = p.getValue();
                 Resurssit[] resurssit = controller.haeKaikkiResurssit();
@@ -471,7 +475,7 @@ public class NakymaController implements Initializable {
                 alert.showAndWait();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("chooseResource"));
+            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti(chooseResource));
             alert.showAndWait();
         }
     }
@@ -568,7 +572,7 @@ public class NakymaController implements Initializable {
             Parent root = loader.load();
             stage.getScene().setRoot(root);
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("chooseResource"));
+            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti(chooseResource));
             alert.showAndWait();
         }
     }
@@ -590,7 +594,7 @@ public class NakymaController implements Initializable {
                 this.update();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("chooseResource"));
+            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti(chooseResource));
             alert.showAndWait();
         }
     }
@@ -667,7 +671,7 @@ public class NakymaController implements Initializable {
         String query = searchBar.getText().toLowerCase();
         String tabText = tabPane.getSelectionModel().getSelectedItem().getText();
         String selectedCategory = categorySelect.getSelectionModel().getSelectedItem().toString();
-        if (tabText.equals(controller.getConfigTeksti("resources")) && selectedCategory.equals(controller.getConfigTeksti("name").toUpperCase())) {
+        if (tabText.equals(controller.getConfigTeksti(resurssit)) && selectedCategory.equals(controller.getConfigTeksti("name").toUpperCase())) {
             kaikkiTableView.getItems().clear();
             for (Resurssit resurssi : kalenterinPienentamaResurssiLista) {
                 String resurssiPienella = resurssi.getNimi().toLowerCase();
@@ -677,7 +681,7 @@ public class NakymaController implements Initializable {
 
                 }
             }
-        } else if (tabText.equals(controller.getConfigTeksti("resources")) && selectedCategory.equals(controller.getConfigTeksti("category").toUpperCase())) {
+        } else if (tabText.equals(controller.getConfigTeksti(resurssit)) && selectedCategory.equals(controller.getConfigTeksti(kategoria).toUpperCase())) {
             kaikkiTableView.getItems().clear();
             for (Resurssit resurssi : kalenterinPienentamaResurssiLista) {
                 String resurssiPienella = resurssi.getTyyppi().toLowerCase();
@@ -689,7 +693,7 @@ public class NakymaController implements Initializable {
             }
         }
 
-        if (tabText.equals(controller.getConfigTeksti("ownReservations")) && selectedCategory.equals(controller.getConfigTeksti("name").toUpperCase())) {
+        if (tabText.equals(controller.getConfigTeksti(omat)) && selectedCategory.equals(controller.getConfigTeksti("name").toUpperCase())) {
             Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(View.loggedIn);
             omatTable.getItems().clear();
             for (Varaukset varaus : omatVaraukset) {
@@ -700,7 +704,7 @@ public class NakymaController implements Initializable {
 
                 }
             }
-        } else if (tabText.equals(controller.getConfigTeksti("ownReservations")) && selectedCategory.equals(controller.getConfigTeksti("category").toUpperCase())) {
+        } else if (tabText.equals(controller.getConfigTeksti(omat)) && selectedCategory.equals(controller.getConfigTeksti(kategoria).toUpperCase())) {
             Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(View.loggedIn);
             omatTable.getItems().clear();
             for (Varaukset varaus : omatVaraukset) {

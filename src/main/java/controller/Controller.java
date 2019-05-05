@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Callback;
@@ -332,7 +333,7 @@ public class Controller {
      * @param aVaraukset Varaus ArrayListasta josta halutaan tehdä array.
      * @return Varaukset Array:na.
      */
-    public Varaukset[] getVarausTaulukko(ArrayList<Varaukset> aVaraukset) {
+    public Varaukset[] getVarausTaulukko(List<Varaukset> aVaraukset) {
         return kalenteriApu.getVarausTaulukko(aVaraukset);
     }
 
@@ -345,7 +346,7 @@ public class Controller {
      * @param varaukset Varaus array josta halutaan saada resursin varaukset.
      * @return ArrayListan jossa on resursin varaukset Arraysta.
      */
-    public ArrayList<Varaukset> resurssinVaraukset(int resurssiId, Varaukset[] varaukset) {
+    public List<Varaukset> resurssinVaraukset(int resurssiId, Varaukset[] varaukset) {
         return kalenteriApu.resurssinVaraukset(resurssiId, varaukset);
     }
 
@@ -360,7 +361,7 @@ public class Controller {
      * @return true jos vraus on mahdollista ja falsen jos varaus menee toisen
      * varauksen päälle.
      */
-    public boolean onnistuu(ArrayList<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate) {
+    public boolean onnistuu(List<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate) {
         return kalenteriApu.onnistuu(aVaraukset, endDate, startDate);
     }
 

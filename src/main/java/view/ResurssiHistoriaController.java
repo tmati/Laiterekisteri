@@ -71,14 +71,14 @@ public class ResurssiHistoriaController implements Initializable {
     private Controller controller;
 
     /**
-     * Initializes the controller class.
+     * Initializes the CONTROLLER class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
      controller = new Controller();
-        ChoiceBoxTableCell CC = new ChoiceBoxTableCell();
-        BooleanConverter AktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
-        BooleanConverter HyvaksyntaController = new BooleanConverter(controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));
+        ChoiceBoxTableCell cc = new ChoiceBoxTableCell();
+        BooleanConverter aktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
+        BooleanConverter hyvaksyntaController = new BooleanConverter(controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));
 
         varaajaColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("nimi"));
         varaajaColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -87,7 +87,6 @@ public class ResurssiHistoriaController implements Initializable {
         alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Timestamp>() {
             @Override
             public String toString(Timestamp object) {
-                String tString = object.toString();
                 return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(object);
             }
 
@@ -96,9 +95,9 @@ public class ResurssiHistoriaController implements Initializable {
                 try {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
                     Date parsedDate = (Date) dateFormat.parse(string);
-                    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
-                    return timestamp;
+                    return new java.sql.Timestamp(parsedDate.getTime());
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 return null;
             }
@@ -110,7 +109,6 @@ public class ResurssiHistoriaController implements Initializable {
 
             @Override
             public String toString(Timestamp object) {
-                String tString = object.toString();
                 return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(object);
             }
             
@@ -119,9 +117,10 @@ public class ResurssiHistoriaController implements Initializable {
                 try {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
                     Date parsedDate = (Date) dateFormat.parse(string);
-                    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
-                    return timestamp;
+                    return new java.sql.Timestamp(parsedDate.getTime());
+
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 return null;
             }
@@ -133,17 +132,16 @@ public class ResurssiHistoriaController implements Initializable {
         varauskuvausColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("kuvaus"));
         varauskuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        CC.setConverter(AktiivisuusController);
+        cc.setConverter(aktiivisuusController);
         palautettuColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("palautettu"));
-        palautettuColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(CC.getConverter(), true, false));
+        palautettuColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(cc.getConverter(), true, false));
         
         hyvaksyntaColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("hyvaksytty"));
-        hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(HyvaksyntaController));
+        hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(hyvaksyntaController));
 
         usernameLabel.setText(View.loggedIn.getNimi());
-        bizName.setText(View.bizName);
+        bizName.setText(View.BIZNAME);
 
-        //System.out.println(View.bizName);
         
         varaajaColumn.setText(controller.getConfigTeksti("varaaja").toUpperCase());
         alkupvmColumn.setText(controller.getConfigTeksti("reservationStartdate").toUpperCase());
@@ -186,7 +184,6 @@ public class ResurssiHistoriaController implements Initializable {
      */
     @FXML
     private void logout(MouseEvent event) throws IOException {
-        //System.out.println("Logout");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
         Stage stage = (Stage) logoutBtn.getScene().getWindow();
         Parent root = loader.load();

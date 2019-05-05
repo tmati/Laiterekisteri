@@ -8,6 +8,7 @@ package model;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -22,7 +23,7 @@ public class KalenterinTarvitsematToimenpiteet {
      * @param varaukset Kaikki varaukset.
      * @return ArrayListan jossa on kaikki resursin varaukset.
      */
-    public ArrayList<Varaukset> resurssinVaraukset(int resurssiId, Varaukset[] varaukset) {
+    public List<Varaukset> resurssinVaraukset(int resurssiId, Varaukset[] varaukset) {
         ArrayList<Varaukset> aVaraukset = new ArrayList<>();
         for (int i = 0; i < varaukset.length; i++) {
             if (varaukset[i].getResurssit().getId() == resurssiId) {
@@ -43,7 +44,7 @@ public class KalenterinTarvitsematToimenpiteet {
      * @return Truen jos ei ole päälekäisyyksiä varaksen kohdalla ja Fasle jos
      * on.
      */
-    public boolean onnistuu(ArrayList<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate) {
+    public boolean onnistuu(List<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate) {
         if (startDate.isAfter(endDate)) {
             return false;
         }
@@ -52,11 +53,13 @@ public class KalenterinTarvitsematToimenpiteet {
         }
         for (Varaukset varaus : aVaraukset) {
             if (startDate.isBefore(varaus.getAlkuAika()) && endDate.isBefore(varaus.getLoppuAika())) {
+                return true;
             } else if (startDate.isAfter(varaus.getAlkuAika()) && endDate.isAfter(varaus.getLoppuAika())) {
+                return true;
             } else {
                 return false;
             }
-        }
+    }
         return true;
     }
 
@@ -67,7 +70,7 @@ public class KalenterinTarvitsematToimenpiteet {
      * varauksista.
      * @return varaus Array
      */
-    public Varaukset[] getVarausTaulukko(ArrayList<Varaukset> aVaraukset) {
+    public Varaukset[] getVarausTaulukko(List<Varaukset> aVaraukset) {
         Varaukset[] varaus = new Varaukset[aVaraukset.size()];
         for (int i = 0; i < aVaraukset.size(); i++) {
             varaus[i] = aVaraukset.get(i);

@@ -43,12 +43,12 @@ public class PalautasalasanaController implements Initializable {
     private Controller controller;
 
     /**
-     * Initializes the controller class.
+     * Initializes the CONTROLLER class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
   
-        controller = View.controller;
+        controller = View.CONTROLLER;
         
         this.emailTextField.setTooltip(new Tooltip(controller.getConfigTeksti("emailTextfield")));
         this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti("closePopup")));

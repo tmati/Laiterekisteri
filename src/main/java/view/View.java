@@ -27,7 +27,7 @@ public class View extends Application {
     /**
      * Yrityksen nimi
      */
-    public static String bizName = "Long beach Skateboards";
+    public static final String BIZNAME = "Long beach Skateboards";
     
     /**
      * Käyttäjän varausten tarkastelua varten tallennettava olio
@@ -42,7 +42,7 @@ public class View extends Application {
     /**
      * Controller - ilmentymä
      */
-    public static Controller controller;
+    public static final Controller CONTROLLER;
 
     /**
      *
@@ -52,7 +52,7 @@ public class View extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        controller = new Controller();
+        CONTROLLER = new Controller();
 
         stage.setMaximized(true);
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Loginwindow.fxml"));

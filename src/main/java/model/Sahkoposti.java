@@ -22,10 +22,10 @@ import javax.mail.internet.MimeMessage;
 public class Sahkoposti {
 
     private Properties emailProperties;
-    private static final String emailHost = "smtp.gmail.com";
-    private static final String fromUser = "keychainems@gmail.com";
+    private static final String EMAILHOST = "smtp.gmail.com";
+    private static final String FROMUSER = "keychainems@gmail.com";
     private final String fromUserEmailPassword;
-    private static final String emailSubject = "KeyChain automatic message";
+    private static final String EMAILSUBJECT = "KeyChain automatic message";
 
  
     /**
@@ -64,10 +64,10 @@ public class Sahkoposti {
 
         try {
             emailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(vastaanottaja));
-            emailMessage.setSubject(emailSubject);
+            emailMessage.setSubject(EMAILSUBJECT);
             emailMessage.setText(viesti);
             Transport transport = mailSession.getTransport("smtp");
-            transport.connect(emailHost, fromUser, fromUserEmailPassword);
+            transport.connect(EMAILHOST, FROMUSER, fromUserEmailPassword);
             transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
             transport.close();
         } catch (Exception e) {

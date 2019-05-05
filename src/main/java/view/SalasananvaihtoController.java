@@ -47,11 +47,11 @@ public class SalasananvaihtoController implements Initializable {
     private TextField uusisalasana2TextField;
     @FXML
     private Label uusisalasana2Label;
-    
+    private String newPassword = "newPassword";
     Controller controller;
 
     /**
-     * Initializes the controller class.
+     * Initializes the CONTROLLER class.
      *
      * @param url URL
      * @param rb ResourceBundle
@@ -59,16 +59,16 @@ public class SalasananvaihtoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         usernameLabel.setText(View.loggedIn.getNimi());
-        controller = View.controller;
+        controller = View.CONTROLLER;
         
         vaihdasalasanaNappi.setText(controller.getConfigTeksti("changePassword").toUpperCase());
         titleLabel.setText(controller.getConfigTeksti("changePasswordTitle").toUpperCase());
         vanhasalasanaTextField.setPromptText(controller.getConfigTeksti("oldPassword"));
-        uusisalasana1TextField.setPromptText(controller.getConfigTeksti("newPassword"));
-        uusisalasanaLabel.setText(controller.getConfigTeksti("newPassword").toUpperCase());
+        uusisalasana1TextField.setPromptText(controller.getConfigTeksti(newPassword));
+        uusisalasanaLabel.setText(controller.getConfigTeksti(newPassword).toUpperCase());
         vanhasalasanaLabel.setText(controller.getConfigTeksti("oldPassword").toUpperCase());
-        uusisalasana2TextField.setPromptText(controller.getConfigTeksti("newPassword"));
-        uusisalasana2Label.setText(controller.getConfigTeksti("newPassword").toUpperCase());
+        uusisalasana2TextField.setPromptText(controller.getConfigTeksti(newPassword));
+        uusisalasana2Label.setText(controller.getConfigTeksti(newPassword).toUpperCase());
         virheLabel.setText(controller.getConfigTeksti("passwordChangeErrormsg").toUpperCase());
         
         this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti("closePopup")));

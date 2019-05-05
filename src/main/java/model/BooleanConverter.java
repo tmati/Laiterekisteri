@@ -5,7 +5,6 @@
  */
 package model;
 
-import controller.Controller;
 import javafx.util.StringConverter;
 
 /**

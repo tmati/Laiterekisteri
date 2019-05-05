@@ -23,7 +23,6 @@ import javafx.stage.Popup;
 import javax.mail.MessagingException;
 import javafx.stage.Window;
 
-
 /**
  * Uuden käyttäjän luontipopupin toiminnallisuus
  *
@@ -61,23 +60,24 @@ public class UusiKayttajaController implements Initializable {
     private Label vanhasalasanaLabel1;
     @FXML
     private Label vanhasalasanaLabel11;
-    
+
+    private String choose = "choose";
+
     /**
      * Controller-ilmentymä
      */
     private Controller controller;
 
     /**
-     * Initializes the controller class.
+     * Initializes the CONTROLLER class.
      *
      * @param url URL
      * @param rb ResourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        controller = View.controller;
-        
+        controller = View.CONTROLLER;
+
         luokayttajaNappi.setText(controller.getConfigTeksti("createUser").toUpperCase());
         titleLabel.setText(controller.getConfigTeksti("newUser").toUpperCase());
         emailTextField.setPromptText(controller.getConfigTeksti("emailLabel"));
@@ -85,14 +85,14 @@ public class UusiKayttajaController implements Initializable {
         vanhasalasanaLabel.setText(controller.getConfigTeksti("emailLabel").toUpperCase());
         virheLabel.setText(controller.getConfigTeksti("formError").toUpperCase());
         nimiTextField.setPromptText(controller.getConfigTeksti("name"));
-        valtuudetChoiceBox.getItems().setAll(controller.getConfigTeksti("choose"), controller.getConfigTeksti("employee"), controller.getConfigTeksti("superior"), controller.getConfigTeksti("administrator")) ;
-        valtuudetChoiceBox.setValue(controller.getConfigTeksti("choose"));
+        valtuudetChoiceBox.getItems().setAll(controller.getConfigTeksti(choose), controller.getConfigTeksti("employee"), controller.getConfigTeksti("superior"), controller.getConfigTeksti("administrator"));
+        valtuudetChoiceBox.setValue(controller.getConfigTeksti(choose));
         choiceBoxLabel.setText(controller.getConfigTeksti("userAut"));
         salasanaTextField.setPromptText(controller.getConfigTeksti("passwordLabel"));
         vanhasalasanaLabel1.setText(controller.getConfigTeksti("passwordLabel").toUpperCase());
         kayttajatunnusTextField.setPromptText(controller.getConfigTeksti("kayttajaTunnus"));
         vanhasalasanaLabel11.setText(controller.getConfigTeksti("kayttajaTunnus"));
-        
+
         this.emailTextField.setTooltip(new Tooltip(controller.getConfigTeksti("newUserEmailInfo")));
         this.kayttajatunnusTextField.setTooltip(new Tooltip(controller.getConfigTeksti("newUserIdInfo")));
         this.nimiTextField.setTooltip(new Tooltip(controller.getConfigTeksti("newUserNameInfo")));
@@ -100,7 +100,7 @@ public class UusiKayttajaController implements Initializable {
         this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti("closePopup")));
         this.valtuudetChoiceBox.setTooltip(new Tooltip(controller.getConfigTeksti("chooseUserAutInfo")));
         this.luokayttajaNappi.setTooltip(new Tooltip(controller.getConfigTeksti("createNewUserInfo")));
-       
+
     }
 
     /**
@@ -130,7 +130,7 @@ public class UusiKayttajaController implements Initializable {
      */
     @FXML
     private void luokayttajaNappiPainettu(MouseEvent event) throws MessagingException {
-        if (nimiTextField.getText().isEmpty() || emailTextField.getText().isEmpty() || salasanaTextField.getText().isEmpty() || kayttajatunnusTextField.getText().isEmpty() || valtuudetChoiceBox.getValue().equals(controller.getConfigTeksti("choose"))) {
+        if (nimiTextField.getText().isEmpty() || emailTextField.getText().isEmpty() || salasanaTextField.getText().isEmpty() || kayttajatunnusTextField.getText().isEmpty() || valtuudetChoiceBox.getValue().equals(controller.getConfigTeksti(choose))) {
             virheLabel.setText(controller.getConfigTeksti("newUserErrorLabel1"));
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
@@ -143,12 +143,11 @@ public class UusiKayttajaController implements Initializable {
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
         } else {
-            Kayttaja J = new Kayttaja(nimiTextField.getText(), controller.salasananCryptaus(salasanaTextField.getText()), kayttajatunnusTextField.getText(), emailTextField.getText(), controller.readCb(valtuudetChoiceBox));
-            System.out.println(J.getNimi() + " | " + J.getSalasana() + " | " + J.getKayttajatunnus() + " | " + J.getSahkoposti() + " | " + J.getValtuudet());
-            controller.luoKayttaja(J);
+            Kayttaja kayttaja = new Kayttaja(nimiTextField.getText(), controller.salasananCryptaus(salasanaTextField.getText()), kayttajatunnusTextField.getText(), emailTextField.getText(), controller.readCb(valtuudetChoiceBox));
+            controller.luoKayttaja(kayttaja);
 
-            controller.lahetaSahkoposti(J.getSahkoposti(), controller.getConfigTeksti("newUserEmail")
-                    + J.getKayttajatunnus() + "\n"
+            controller.lahetaSahkoposti(kayttaja.getSahkoposti(), controller.getConfigTeksti("newUserEmail")
+                    + kayttaja.getKayttajatunnus() + "\n"
                     + controller.getConfigTeksti("newUserEmailP")
                     + controller.getConfigTeksti("newUserEmailCon"));
 
@@ -156,9 +155,9 @@ public class UusiKayttajaController implements Initializable {
 
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
             Window nakyma = popup.getOwnerWindow();
-            TableView kayttajaTableView = (TableView) nakyma.getScene().lookup("#kayttajaTableView");
-            kayttajaTableView.getItems().clear();
-            kayttajaTableView.getItems().addAll(kayttajat);
+            TableView kaytTableView = (TableView) nakyma.getScene().lookup("#kayttajaTableView");
+            kaytTableView.getItems().clear();
+            kaytTableView.getItems().addAll(kayttajat);
             popup.hide();
         }
     }
@@ -174,9 +173,9 @@ public class UusiKayttajaController implements Initializable {
         Kayttaja[] kayttajat = controller.haeKaikkiKayttajat();
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
         Window nakyma = popup.getOwnerWindow();
-        TableView kayttajaTableView = (TableView) nakyma.getScene().lookup("#kayttajaTableView");
-        kayttajaTableView.getItems().clear();
-        kayttajaTableView.getItems().addAll(kayttajat);
+        TableView kaytTableView = (TableView) nakyma.getScene().lookup("#kayttajaTableView");
+        kaytTableView.getItems().clear();
+        kaytTableView.getItems().addAll(kayttajat);
         popup.hide();
     }
 }

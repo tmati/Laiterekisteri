@@ -13,7 +13,7 @@ import controller.Controller;
  */
 public class SalasananPalautus {
     private Controller controller;
-    private static final String merkit = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    private static final String MERKIT = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                     + "0123456789"
                                     + "abcdefghijklmnopqrstuvxyz"; 
     private final StringBuilder sb = new StringBuilder(8);
@@ -39,8 +39,8 @@ public class SalasananPalautus {
     
     private String getRandomSalasana(){
          for (int i = 0; i < 9; i++) { 
-            int index = (int)(merkit.length() * Math.random()); 
-            sb.append(merkit.charAt(index)); 
+            int index = (int)(MERKIT.length() * Math.random()); 
+            sb.append(MERKIT.charAt(index)); 
         } 
         return sb.toString(); 
     }

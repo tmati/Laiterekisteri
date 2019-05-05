@@ -45,7 +45,7 @@ public class UusiResurssiController implements Initializable {
     @FXML
     private TextField tyyppiTextField;
     @FXML
-    private ChoiceBox<String> LuvanvaraisuusChoiceBox;
+    private ChoiceBox<String> luvanvaraisuusChoiceBox;
     @FXML
     private Label virheLabel;
     @FXML
@@ -56,19 +56,20 @@ public class UusiResurssiController implements Initializable {
     private Label tyyppiLabel;
     @FXML
     private Label lupaLabel;
+    
+    private String choose = "choose";
     Controller controller;
 
    
     /**
-     * Initializes the controller class.
+     * Initializes the CONTROLLER class.
      *
      * @param url URL
      * @param rb ResourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        controller = View.controller;
+        controller = View.CONTROLLER;
         
         itemLabel.setText(controller.getConfigTeksti("giveInfo"));
         uusiresurssiNappi.setText(controller.getConfigTeksti("createNewResource"));
@@ -76,15 +77,15 @@ public class UusiResurssiController implements Initializable {
         kuvausTextbox.setPromptText(controller.getConfigTeksti("description"));
         nimiTextField.setPromptText(controller.getConfigTeksti("name"));
         tyyppiTextField.setPromptText(controller.getConfigTeksti("type"));
-        LuvanvaraisuusChoiceBox.getItems().setAll(controller.getConfigTeksti("choose"), controller.getConfigTeksti("freeUse"), controller.getConfigTeksti("supApproved"), controller.getConfigTeksti("adApproved")) ;
-        LuvanvaraisuusChoiceBox.setValue(controller.getConfigTeksti("choose"));
+        luvanvaraisuusChoiceBox.getItems().setAll(controller.getConfigTeksti(choose), controller.getConfigTeksti("freeUse"), controller.getConfigTeksti("supApproved"), controller.getConfigTeksti("adApproved")) ;
+        luvanvaraisuusChoiceBox.setValue(controller.getConfigTeksti(choose));
         nimiLabel.setText(controller.getConfigTeksti("name").toUpperCase());
         tyyppiLabel.setText(controller.getConfigTeksti("type").toUpperCase());
         lupaLabel.setText(controller.getConfigTeksti("permission").toUpperCase());
         kuvausLabel.setText(controller.getConfigTeksti("description").toUpperCase());
         virheLabel.setText(controller.getConfigTeksti("passwordChangeErrormsg").toUpperCase());
         
-        this.LuvanvaraisuusChoiceBox.setTooltip(new Tooltip(controller.getConfigTeksti("newResourceChoiceBoxInfo")));
+        this.luvanvaraisuusChoiceBox.setTooltip(new Tooltip(controller.getConfigTeksti("newResourceChoiceBoxInfo")));
         this.kuvausTextbox.setTooltip(new Tooltip(controller.getConfigTeksti("newResourceTextBoxInfo")));
         this.nimiTextField.setTooltip(new Tooltip(controller.getConfigTeksti("newResourceNameInfo")));
         this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti("closePopup")));
@@ -120,19 +121,18 @@ public class UusiResurssiController implements Initializable {
      */
     @FXML
     private void uusiresurssiNappiPainettu(MouseEvent event) {
-        if (nimiTextField.getText() != null && tyyppiTextField.getText() != null && !LuvanvaraisuusChoiceBox.getValue().equals(controller.getConfigTeksti("choose")) && kuvausTextbox.getText() != null) {
-            //System.out.println("Luodaan uusi resurssi!");
-            Resurssit R = new Resurssit(true, nimiTextField.getText(), tyyppiTextField.getText(), controller.readCb(LuvanvaraisuusChoiceBox), kuvausTextbox.getText());
-            System.out.println(R.getNimi() + " | " + R.getTyyppi() + " | " + R.getLuvanvaraisuus() + " | " + R.getKuvaus());
-            controller.luoResurssi(R);
+        if (nimiTextField.getText() != null && tyyppiTextField.getText() != null && !luvanvaraisuusChoiceBox.getValue().equals(controller.getConfigTeksti(choose)) && kuvausTextbox.getText() != null) {
+            Resurssit resurssi = new Resurssit(true, nimiTextField.getText(), tyyppiTextField.getText(), controller.readCb(luvanvaraisuusChoiceBox), kuvausTextbox.getText());
+      
+            controller.luoResurssi(resurssi);
             virheLabel.setDisable(true);
             virheLabel.setOpacity(0);
             Resurssit[] resurssit = controller.haeKaikkiResurssit();
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
             Window nakyma = popup.getOwnerWindow();
-            TableView ResurssitTableView = (TableView) nakyma.getScene().lookup("#kaikkiTableView");
-            ResurssitTableView.getItems().clear();
-            ResurssitTableView.getItems().addAll(resurssit);
+            TableView resurssitTableView = (TableView) nakyma.getScene().lookup("#kaikkiTableView");
+            resurssitTableView.getItems().clear();
+            resurssitTableView.getItems().addAll(resurssit);
             popup.hide();
 
         } else {
@@ -151,9 +151,9 @@ public class UusiResurssiController implements Initializable {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
         Resurssit[] resurssit = controller.haeKaikkiResurssit();
         Window nakyma = popup.getOwnerWindow();
-        TableView ResurssitTableView = (TableView) nakyma.getScene().lookup("#kaikkiTableView");
-        ResurssitTableView.getItems().clear();
-        ResurssitTableView.getItems().addAll(resurssit);
+        TableView resurssitTableView = (TableView) nakyma.getScene().lookup("#kaikkiTableView");
+        resurssitTableView.getItems().clear();
+        resurssitTableView.getItems().addAll(resurssit);
         popup.hide();
 
 

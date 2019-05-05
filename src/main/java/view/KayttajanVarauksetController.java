@@ -35,7 +35,7 @@ import javafx.util.converter.IntegerStringConverter;
 
 /**
  * FXML Controller class Käyttäjien varausten tutkimiseen käytettävän näkymän
- * controller-luokka
+ CONTROLLER-luokka
  *
  * @author tmati
  */
@@ -73,7 +73,7 @@ public class KayttajanVarauksetController implements Initializable {
     Controller controller;
 
     /**
-     * Initializes the controller class.
+     * Initializes the CONTROLLER class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -143,7 +143,7 @@ public class KayttajanVarauksetController implements Initializable {
         hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(hyvaksyntaController));
 
         usernameLabel.setText(View.loggedIn.getNimi());
-        bizName.setText(View.bizName);
+        bizName.setText(View.BIZNAME);
         kayttajaString.setText(controller.getConfigTeksti("user1") + " " + View.selected.getNimi() + " " + controller.getConfigTeksti("reservations"));
         kayttajaTable.getItems().addAll(View.selected.getVarauksets());
 

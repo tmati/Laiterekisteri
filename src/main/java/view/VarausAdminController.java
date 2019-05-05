@@ -111,7 +111,7 @@ public class VarausAdminController implements Initializable {
     private TabPane tabPane;
 
     /**
-     * Initializes the controller class.
+     * Initializes the CONTROLLER class.
      *
      * @param url URL
      * @param rb ResourceBundle
@@ -120,7 +120,7 @@ public class VarausAdminController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         poistaBtn.setOpacity(0);
         poistaBtn.setDisable(true);
-        controller = View.controller;
+        controller = View.CONTROLLER;
         BooleanConverter aktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive").toUpperCase(), controller.getConfigTeksti("isnActive").toUpperCase());
         BooleanConverter hyvaksyntaController = new BooleanConverter(controller.getConfigTeksti("acknowledged").toUpperCase(), controller.getConfigTeksti("hylatty").toUpperCase());
         
@@ -201,7 +201,7 @@ public class VarausAdminController implements Initializable {
         kuvausColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("kuvaus"));
         kuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        bizName.setText(View.bizName);
+        bizName.setText(View.BIZNAME);
         usernameLabel.setText(View.loggedIn.getNimi());
 
         Varaukset[] varaukset = controller.haeKasittelemattomatVaraukset();

@@ -77,7 +77,7 @@ public class KayttajaAdminController implements Initializable {
     private Button kayttajanvarauksetNappi;
 
     /**
-     * Initializes the controller class.
+     * Initializes the CONTROLLER class.
      *
      * @param url url
      * @param rb resourcebundle
@@ -87,7 +87,7 @@ public class KayttajaAdminController implements Initializable {
         /**
          * Kontrollerin ilmentymä
          */
-        kontrolleri = View.controller;
+        kontrolleri = View.CONTROLLER;
 
         LuvanvaraisuusConverter kayLC = new LuvanvaraisuusConverter(kontrolleri.getConfigTeksti("employee"), kontrolleri.getConfigTeksti("superior"), kontrolleri.getConfigTeksti("administrator"));
 
@@ -111,7 +111,7 @@ public class KayttajaAdminController implements Initializable {
         kayttajatunnusColumn.setText(kontrolleri.getConfigTeksti("accountName").toUpperCase());
         
         kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
-        bizName.setText(View.bizName);
+        bizName.setText(View.BIZNAME);
         usernameLabel.setText(View.loggedIn.getNimi());
         
         lisaaBtn.setText(kontrolleri.getConfigTeksti("newUser").toUpperCase());
