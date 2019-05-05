@@ -47,7 +47,7 @@ public class SalasananvaihtoController implements Initializable {
     private TextField uusisalasana2TextField;
     @FXML
     private Label uusisalasana2Label;
-    private static final String UUSISALASANA = "newPassword";
+    private static final String UUSI = "newPassword";
     Controller controller;
 
     /**
@@ -64,11 +64,11 @@ public class SalasananvaihtoController implements Initializable {
         vaihdasalasanaNappi.setText(controller.getConfigTeksti("changePassword").toUpperCase());
         titleLabel.setText(controller.getConfigTeksti("changePasswordTitle").toUpperCase());
         vanhasalasanaTextField.setPromptText(controller.getConfigTeksti("oldPassword"));
-        uusisalasana1TextField.setPromptText(controller.getConfigTeksti(UUSISALASANA));
-        uusisalasanaLabel.setText(controller.getConfigTeksti(UUSISALASANA).toUpperCase());
+        uusisalasana1TextField.setPromptText(controller.getConfigTeksti(UUSI));
+        uusisalasanaLabel.setText(controller.getConfigTeksti(UUSI).toUpperCase());
         vanhasalasanaLabel.setText(controller.getConfigTeksti("oldPassword").toUpperCase());
-        uusisalasana2TextField.setPromptText(controller.getConfigTeksti(UUSISALASANA));
-        uusisalasana2Label.setText(controller.getConfigTeksti(UUSISALASANA).toUpperCase());
+        uusisalasana2TextField.setPromptText(controller.getConfigTeksti(UUSI));
+        uusisalasana2Label.setText(controller.getConfigTeksti(UUSI).toUpperCase());
         virheLabel.setText(controller.getConfigTeksti("passwordChangeErrormsg").toUpperCase());
         
         this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti("closePopup")));
