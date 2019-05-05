@@ -88,7 +88,9 @@ public class KayttajaAdminController implements Initializable {
          * Kontrollerin ilmentymä
          */
         kontrolleri = View.controller;
-        LuvanvaraisuusConverter KayLC = new LuvanvaraisuusConverter(kontrolleri.getConfigTeksti("freeUse"), kontrolleri.getConfigTeksti("supApproved"), kontrolleri.getConfigTeksti("adApproved"));
+
+        LuvanvaraisuusConverter KayLC = new LuvanvaraisuusConverter(kontrolleri.getConfigTeksti("employee"), kontrolleri.getConfigTeksti("superior"), kontrolleri.getConfigTeksti("administrator"));
+
         //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -115,7 +117,7 @@ public class KayttajaAdminController implements Initializable {
         lisaaBtn.setText(kontrolleri.getConfigTeksti("newUser").toUpperCase());
         kayttajanvarauksetNappi.setText(kontrolleri.getConfigTeksti("userReservation").toUpperCase());
         poistaBtn.setText(kontrolleri.getConfigTeksti("removeUser").toUpperCase());
-        takaisinBtn.setText(kontrolleri.getConfigTeksti("back").toUpperCase());
+        takaisinBtn.setText(kontrolleri.getConfigTeksti("returnButton").toUpperCase());
         logoutBtn.setText(kontrolleri.getConfigTeksti("Logout").toUpperCase());
         bizName1.setText(kontrolleri.getConfigTeksti("user").toUpperCase());
         

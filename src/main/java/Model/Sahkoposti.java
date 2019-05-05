@@ -5,14 +5,13 @@
  */
 package Model;
 
+import controller.Controller;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -25,14 +24,17 @@ public class Sahkoposti {
     private Properties emailProperties;
     private static final String emailHost = "smtp.gmail.com";
     private static final String fromUser = "keychainems@gmail.com";
-    private static final String fromUserEmailPassword = "kissatkoiria";
+    private final String fromUserEmailPassword;
     private static final String emailSubject = "KeyChain automatic message";
+
  
     /**
      * Konstruktori
      * Kutsuu setMailServerProperties()
+     * @param controller viittaus controller -luokkaan
      */
-    public Sahkoposti() {
+    public Sahkoposti(Controller controller) {
+        fromUserEmailPassword = controller.getConfigTeksti("kissatkoiria");
         setMailServerProperties();
     }
     

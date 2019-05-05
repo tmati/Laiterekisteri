@@ -279,6 +279,7 @@ public class VarausAdminController implements Initializable {
         varauskuvausColumn.setText(controller.getConfigTeksti("description").toUpperCase());
         palautettuColumn.setText(controller.getConfigTeksti("activity").toUpperCase());
         hyvaksyntaColumn.setText(controller.getConfigTeksti("approval").toUpperCase());
+        poistaBtn.setText(controller.getConfigTeksti("remove").toUpperCase());
         
         this.LogoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
         this.hylkaaBtn.setTooltip(new Tooltip(controller.getConfigTeksti("hylkaaBtn")));

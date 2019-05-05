@@ -97,30 +97,10 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
                         erotusp = erotusp + 30 - alkupvm.getDayOfMonth();
                         break;
                 }
-            switch ((paatymispvm.getMonthValue())) {
-                    case 1:
-                    case 3:
-                    case 5:
-                    case 7:
-                    case 8:
-                    case 10:
-                    case 12:
-                        erotusp = erotusp + paatymispvm.getDayOfMonth();
-                        break;
-                    case 2:
-                        if ((((alkupvm.getYear()) % 4 == 0) && ((alkupvm.getYear()) % 100 != 0)) || ((alkupvm.getYear()) % 400 == 0)) {
-                            erotusp = erotusp + paatymispvm.getDayOfMonth();
-                        } else {
-                            erotusp = erotusp + paatymispvm.getDayOfMonth();
-                        }
-                        break;
-                    case 4:
-                    case 6:
-                    case 9:
-                    case 11:
-                        erotusp = erotusp + paatymispvm.getDayOfMonth();
-                        break;
-                }
+            
+            erotusp = erotusp + paatymispvm.getDayOfMonth();
+            
+            
         }
         return erotusp;
     }

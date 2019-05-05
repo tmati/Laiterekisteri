@@ -128,13 +128,13 @@ removeuserpor = Remover do utilizador
 
 backfi = Takaisin
 backen = Back
-backpor = De volta
+backpor = atr·s
 
 userInfofi = K‰ytt‰j‰n tiedot 
 userInfoen = User info
 userInfopor = Do utilizador info
 
-Logoutfi = Kirjaudu ulos
+Logoutfi = Logout
 Logouten = Logout
 Logoutpor = Sair
 
@@ -152,7 +152,7 @@ addUserpor = Avrir aparecer para adicionando do utilizador
 
 removeUserfi = Poista valittu k‰ytt‰j‰n
 removeUseren = Remove chosen user
-removeUserpor = Remover escolhido do utilizador
+removeUserpor = Remover escolhido o usu·rio
 
 returnButtonfi = Palauttaa p‰‰n‰kym‰‰n
 returnButtonen = Return to main view
@@ -630,3 +630,49 @@ hylataVarausConfpor = Tem certeza de que deseja rejeitar a reserva?
 hylataVarausEmailfi = on hyl‰tty.\n \nT‰m‰ on automaattinen viesti, johon ei tarvitse vastata.
 hylataVarausEmailen = has been rejected.\n \nThis is an automatic message that does not need to be answered.
 hylataVarausEmailpor = foi rejeitado.\n \nEsta È uma mensagem autom·tica que n„o precisa ser respondida.
+
+logInfi = Kirjaudu sis‰‰n
+logInen = Log in
+logInpor = Entrar
+
+kissatkoiriafi = kissatkoiria
+kissatkoiriaen = kissatkoiria
+kissatkoiriapor = kissatkoiria
+
+saatavillafi = Saatavilla
+saatavillaen = At hand
+saatavillapor = ¿ m„o
+
+alertConfirmationRemoveReservationfi = Oletko varma, ett‰ haluat poistaa varauksen?
+alertConfirmationRemoveReservationen = Are you sure you want to remove the reservation?
+alertConfirmationRemoveReservationpor = Tem certeza de que deseja remover o reserva?
+
+alertRemoveOldReservationfi = Et voi poistaa varausta, joka on vanhentunut tai alkanut!
+alertRemoveOldReservationen = You cannot delete a reservation that is out of date or has started!
+alertRemoveOldReservationpor = VocÍ n„o pode excluir uma reserva desatualizada ou iniciada!
+
+emailReturnPasswordfi = Hei,\n\nSalasanasi on resetoitu.\nUusi salasanasi on: 
+emailReturnPassworden = Hi,\n\nYour password has been reset.\nYour new password is: 
+emailReturnPasswordpor = Oi,\n\nSua senha foi redefinida.\nSua nova senha È: 
+
+emailReturnPasswordConfi = \nMuistathan vaihtaa salasanasi, kun kirjaudut sis‰‰n.\n\nT‰m‰ on automaattinen viesti, johon ei tarvitse vastata.
+emailReturnPasswordConen = \nRemember to change your password when you sign in.\n\nThis is an automatic message that does not need to be answered.
+emailReturnPasswordConpor = \nLembre-se de alterar sua senha quando vocÍ entrar.\n\nEsta È uma mensagem autom·tica que n„o precisa ser respondida.
+
+emailReservaEndfi =  on p‰‰ttynyt. Muistathan palauttaa varaamasi resurssin.\n\nT‰m‰ on automaattinen viesti, johon ei tarvitse vastata.
+emailReservaEnden =  has ended. Please remember to return the resource you have booked.\n\nThis is an automatic message that does not need to be answered.
+emailReservaEndpor = terminou. Por favor, lembre-se de devolver o recurso que vocÍ reservou.\n\nEsta È uma mensagem autom·tica que n„o precisa ser respondida.
+
+emailReservaFailfi =  on poistunut, koska sit‰ ei hyv‰ksytty ajoissa.\n\nT‰m‰ on automaattinen viesti, johon ei tarvitse vastata.
+emailReservaFailen = has disappeared because it was not accepted on time.\n\nThis is an automatic message that does not need to be answered.
+emailReservaFailpor = desapareceu porque n„o foi aceite a tempo.\n\nEsta È uma mensagem autom·tica que n„o precisa ser respondida.
+
+emailReservationTimefi = Hei,\n\nVarauksesi resurssille 
+emailReservationTimeen = Hi,\n\nReserve your resource
+emailReservationTimepor = Oi,\n\nReserve seu recurso
+
+forTimefi =  ajalle 
+forTimeen =  over 
+forTimepor =  sobre 
+
+

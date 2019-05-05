@@ -36,16 +36,15 @@ public class PoistaBtnToiminnot {
      * @return true jos poisto onnistuu
      */
     public boolean varauksetPoistaBtn(Varaukset toDelete) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Oletko varma, että haluat poistaa varauksen?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, controller.getConfigTeksti("alertConfirmationRemoveReservation"), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
             if (!controller.onkoVarausAlkanut(toDelete)) {
                 controller.poistaVaraus(toDelete.getId());
-                controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + " on poistettu esimiehen tai ylläpitäjän toimesta."
-                        + "\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.");
+                controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + controller.getConfigTeksti("emailFordeletingReservation"));
                 return true;
             } else {
-                alert = new Alert(Alert.AlertType.WARNING, "Et voi poistaa varausta, joka on vanhentunut tai alkanut!");
+                alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("alertRemoveOldReservation"));
                 alert.showAndWait();
                 return false;
             }

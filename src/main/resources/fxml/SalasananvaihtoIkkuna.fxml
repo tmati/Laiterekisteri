@@ -13,7 +13,7 @@
                 <Font name="Futura Bk BT Book" size="25.0" />
             </font>
         </Label>
-        <Button fx:id="vaihdasalasanaNappi" alignment="CENTER" contentDisplay="CENTER" layoutX="142.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#vaihdasalasanaNappiPainettu" prefWidth="207.0" text="VAIHDA SALASANA">
+        <Button fx:id="vaihdasalasanaNappi" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#vaihdasalasanaNappiPainettu" prefHeight="49.0" prefWidth="290.0" text="VAIHDA SALASANA">
             <font>
                 <Font name="Futura Bk BT Book" size="15.0" />
             </font>

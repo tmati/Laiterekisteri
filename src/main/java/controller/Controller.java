@@ -60,22 +60,23 @@ public class Controller {
     /**
      * Controllerin konstruktio
      */
-    public Controller() {
+    public Controller() {        
+        tekstit = LanguageText.getInstance();
+
         kayttajaDAO = new KayttajaAccessObject();
         kayttajaTarkistus = new KayttajaTarkistus(this);
         resurssiDAO = new ResurssitAccessObject();
         varausDAO = new VarauksetAccessObject();
         login = new LoginUtils(this);
-        cbutils = new ChoiceboxUtils();
+        cbutils = new ChoiceboxUtils(this);
         cellfactory = new DayCellFactory();
         aikalaskuri = new VarauksenAikaLaskuri();
         varausKasittely = new VarausKasittely(varausDAO, this);
         resurssikasittely = new ResurssiKasittely(this);
         kalenteriApu = new KalenterinTarvitsematToimenpiteet();
-        sahkoposti = new Sahkoposti();
+        sahkoposti = new Sahkoposti(this);
         salasananPalautus = new SalasananPalautus(this);
         poistaBtnToiminnot = new PoistaBtnToiminnot(this);
-        tekstit = LanguageText.getInstance();
         crypter = new PasswordConverter();
     }
 

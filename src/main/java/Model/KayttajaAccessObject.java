@@ -154,8 +154,6 @@ public class KayttajaAccessObject implements KayttajaDAOIF {
             Kayttaja poistettava = (Kayttaja) s.get(Kayttaja.class, valittu.getId());
             if (poistettava != null) {
                 s.delete(poistettava);
-            } else {
-                System.out.println("Ei löytynyt poistettavaa käyttäjää!");
             }
             s.getTransaction().commit();
         } catch (Exception e) {

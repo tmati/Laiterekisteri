@@ -48,11 +48,11 @@ public class VarausKasittely {
             } else if (v.isPalautettu()) {
                 v.setPalautettu(false);
                 controller.lahetaSahkoposti(v.getKayttaja().getSahkoposti(), controller.getVarausAikaString(v)
-                        + " on päättynyt. Muistathan palauttaa varaamasi resurssin.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.");
+                        + " " + controller.getConfigTeksti("emailReservaEnd"));
                 dao.updateVaraus(v);
             } else if (!v.getHyvaksytty() && LocalDateTime.now().isAfter(v.getAlkuAika())) {
                 controller.lahetaSahkoposti(v.getKayttaja().getSahkoposti(), controller.getVarausAikaString(v)
-                        + " on poistunut, koska sitä ei hyväksytty ajoissa.\n\nTämä on automaattinen viesti, johon ei tarvitse vastata.");
+                        + " " + controller.getConfigTeksti("emailReservaFail"));
                 controller.poistaVaraus(v.getId());
             }
         }
@@ -127,9 +127,11 @@ public class VarausKasittely {
      * @return String, jossa näkyy varattavan laitteen nimi ja varauksen
      * ajankohta.
      */
+
     public String getVarausAikaString(Varaukset varaus) {
-        return "Hei,\n\nVarauksesi resurssille " + varaus.getNimi() + " ajalle " + varaus.getAlkuAika().getHour() + "." + varaus.getAlkuAika().getDayOfMonth() + "."
+        return controller.getConfigTeksti("emailReservationTime") + varaus.getNimi() + " " + controller.getConfigTeksti("forTime")+ " " + varaus.getAlkuAika().getHour() + "." + varaus.getAlkuAika().getDayOfMonth() + "."
                 + varaus.getAlkuAika().getYear() + "-" + varaus.getLoppuAika().getHour() + "." + varaus.getLoppuAika().getDayOfMonth()
                 + "." + varaus.getLoppuAika().getYear();
+
     }
 }

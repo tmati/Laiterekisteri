@@ -17,7 +17,7 @@
                 <Font name="Futura Bk BT Book" size="25.0" />
             </font>
         </Label>
-        <Button fx:id="uusiresurssiNappi" layoutX="147.0" layoutY="435.0" mnemonicParsing="false" onMouseClicked="#uusiresurssiNappiPainettu" text="LUO UUSI RESURSSI">
+        <Button fx:id="uusiresurssiNappi" layoutX="12.0" layoutY="435.0" mnemonicParsing="false" onMouseClicked="#uusiresurssiNappiPainettu" prefHeight="49.0" prefWidth="472.0" text="LUO UUSI RESURSSI">
             <font>
                 <Font name="Futura Bk BT Book" size="15.0" />
             </font>
