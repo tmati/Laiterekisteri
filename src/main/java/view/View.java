@@ -42,7 +42,7 @@ public class View extends Application {
     /**
      * Controller - ilmentymä
      */
-    public static final Controller CONTROLLER;
+    public static final Controller CONTROLLER = new Controller();
 
     /**
      *
@@ -52,7 +52,7 @@ public class View extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        CONTROLLER = new Controller();
+
 
         stage.setMaximized(true);
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Loginwindow.fxml"));
