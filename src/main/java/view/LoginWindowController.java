@@ -70,7 +70,7 @@ public class LoginWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
+        Image image = new Image(getClass().getResourceAsStream("/keychain.png"));
         logoView.setImage(image);
         centerImage(logoView);
         controller = new Controller();

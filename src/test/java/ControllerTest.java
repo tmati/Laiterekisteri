@@ -194,6 +194,12 @@ public class ControllerTest {
         //DayCellFacotry joka paöauttaa datepickerille muokatutpäivät
         assertTrue("dayCellFactory: ei onnistunut",
                 kont.dayCellFactory(kont.haeKaikkiVaraukset(), LocalDate.now()) != null);
+        
+        //kielen vaihto
+        kont.setMaa("fi");
+        
 
     }
+      
+    
 }
