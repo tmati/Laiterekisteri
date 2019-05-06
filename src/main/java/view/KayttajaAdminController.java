@@ -124,7 +124,7 @@ public class KayttajaAdminController implements Initializable {
         this.logoutBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("LogoutInfo")));
         this.lisaaBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("addUser")));
         this.poistaBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("removeUser")));
-        this.takaisinBtn.setTooltip((new Tooltip(kontrolleri.getConfigTeksti("returnButton"))));
+        this.takaisinBtn.setTooltip((new Tooltip(kontrolleri.getConfigTeksti("returnButtonInfo"))));
         this.kayttajanvarauksetNappi.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("userReservationTooltip")));
        
     }

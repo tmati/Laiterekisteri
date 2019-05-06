@@ -146,7 +146,17 @@ public class ModelTest {
     @Test
     public void varausAikaLaskuriTest(){
         VarauksenAikaLaskuri val = new VarauksenAikaLaskuri();
-        
-        
+        assertTrue("Virhe 30 päivän kuukauksissa",
+               val.paivaKesto(LocalDateTime.of(2015, 11, 6, 0, 0), LocalDateTime.of(2015, 12, 6, 0, 0)) == 30);
+        assertTrue("Virhe toisessa kuukauksissa",
+               val.paivaKesto(LocalDateTime.of(2015, 2, 6, 0, 0), LocalDateTime.of(2015, 3, 6, 0, 0)) == 28);
+        assertTrue("Virhe karkausvuosissa",
+               val.paivaKesto(LocalDateTime.of(2016, 2, 6, 0, 0), LocalDateTime.of(2016, 3, 6, 0, 0)) == 29);
+        assertTrue("Virhe 31 kuukauksissa",
+               val.paivaKesto(LocalDateTime.of(2016, 1, 6, 0, 0), LocalDateTime.of(2016, 2, 6, 0, 0)) == 31);
+        assertTrue("Virhe saman kuukauden aikana",
+               val.paivaKesto(LocalDateTime.of(2016, 2, 6, 0, 0), LocalDateTime.of(2016, 2, 26, 0, 0)) == 20);
+        assertTrue("Virhe vuoden laskuissa",
+               val.paivaKesto(LocalDateTime.of(2015, 12, 6, 0, 0), LocalDateTime.of(2016, 1, 6, 0, 0)) == 31);
     }
 }

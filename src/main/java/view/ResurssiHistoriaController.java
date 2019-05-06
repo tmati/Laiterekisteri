@@ -159,7 +159,7 @@ public class ResurssiHistoriaController implements Initializable {
         varausTable.getItems().addAll(controller.getVarausTaulukko(controller.resurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
 
         this.logoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
-        this.takaisinBtn.setTooltip(new Tooltip(controller.getConfigTeksti("returnButton")));
+        this.takaisinBtn.setTooltip(new Tooltip(controller.getConfigTeksti("returnButtonInfo")));
 
     }    
 
