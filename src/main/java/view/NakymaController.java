@@ -171,7 +171,7 @@ public class NakymaController implements Initializable {
         BooleanConverter aktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
         BooleanConverter hyvaksyntaController = new BooleanConverter(controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));
         LuvanvaraisuusConverter resLC = new LuvanvaraisuusConverter(controller.getConfigTeksti("freeUse"), controller.getConfigTeksti("supApproved"), controller.getConfigTeksti("adApproved"));
-        Image image = new Image(getClass().getResourceAsStream("/Long beach.png"));
+        Image image = new Image(getClass().getResourceAsStream("/keychain.png"));
         logoView.setImage(image);
 
         //Resurssitaulun columnien live-edit
