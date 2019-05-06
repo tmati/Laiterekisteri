@@ -9,6 +9,7 @@ import com.sun.media.jfxmedia.logging.Logger;
 import controller.Controller;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -74,7 +75,15 @@ public class LoginWindowController implements Initializable {
         centerImage(logoView);
         controller = new Controller();
         usernameField.setId("usernameField");
+        Locale.setDefault(new Locale("en-GB"));
+        setText();
+        
+    }
 
+    /**
+     * Vaihtaa UI:n tekstit halutulle kielelle kaikille tooltipeille ja muutujille.
+     */
+    private void setText(){
         this.passwordField.setTooltip(new Tooltip(controller.getConfigTeksti("passwordFieldTooltip")));
         this.usernameField.setTooltip(new Tooltip(controller.getConfigTeksti("userNameFieldTooltip")));
         testBtn.setText(controller.getConfigTeksti("returnPasswordButon").toUpperCase());
@@ -84,7 +93,6 @@ public class LoginWindowController implements Initializable {
         usernameField.setPromptText(controller.getConfigTeksti("userLabel"));
         loginBtn.setText(controller.getConfigTeksti("logIn").toUpperCase());
     }
-
     /**
      * Keskittää kuvan imageviewissä. Netistä haettu.
      * @param i Kuva joka halutaan keskittää.
@@ -223,14 +231,8 @@ public class LoginWindowController implements Initializable {
     @FXML
     private void fiBtnPainettu(MouseEvent event) {
         controller.setMaa("fi");
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGINFXML));
-            Stage stage = (Stage) logoView.getScene().getWindow();
-            Parent root = loader.load();
-            stage.getScene().setRoot(root);
-        } catch (IOException e) {
-             Logger.logMsg(0, e.getMessage());
-        }
+        Locale.setDefault(new Locale("fi", "FI"));
+        setText();
     }
 
     /**
@@ -239,15 +241,10 @@ public class LoginWindowController implements Initializable {
      */
     @FXML
     private void engBtnPainettu(MouseEvent event) {
-    controller.setMaa("en");
-            try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGINFXML));
-            Stage stage = (Stage) logoView.getScene().getWindow();
-            Parent root = loader.load();
-            stage.getScene().setRoot(root);
-        } catch (IOException e) {
-             Logger.logMsg(0, e.getMessage());
-        }
+        controller.setMaa("en");
+        Locale.setDefault(new Locale("en", "GB"));
+        setText();
+
     }
     
     /**
@@ -256,14 +253,9 @@ public class LoginWindowController implements Initializable {
      */
     @FXML
     private void porBtnPainettu(MouseEvent event) {
-    controller.setMaa("por");
-            try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGINFXML));
-            Stage stage = (Stage) logoView.getScene().getWindow();
-            Parent root = loader.load();
-            stage.getScene().setRoot(root);
-        } catch (IOException e) {
-             Logger.logMsg(0, e.getMessage());
-        }
+        controller.setMaa("por");
+        Locale.setDefault(new Locale("pt", "PT"));
+        setText();
+
     }
 }
