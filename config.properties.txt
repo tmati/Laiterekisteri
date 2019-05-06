@@ -154,9 +154,9 @@ removeUserfi = Poista valittu k‰ytt‰j‰
 removeUseren = Remove chosen user
 removeUserpor = Remover escolhido o usu·rio
 
-returnButtonfi = Palauttaa p‰‰n‰kym‰‰n
-returnButtonen = Return to main view
-returnButtonpor = Retorna para a principal vis„o
+returnButtonInfofi = Palauttaa p‰‰n‰kym‰‰n
+returnButtonInfoen = Return to main view
+returnButtonInfopor = Retorna para a principal vis„o
 
 userReservationTooltipfi = Avaa n‰kym‰n, jossa n‰et valitsemasi k‰ytt‰j‰n varaukset
 userReservationTooltipen = Open a view where you can see selected user's reservations
@@ -219,7 +219,7 @@ reservationsen = Reservations
 reservationspor = Reservas
 
 logoutInfofi = Logout
-logoutInfoen = Log out
+logoutInfoen = Logout
 logoutInfopor = Sair
 
 removeReservationInfofi = Poistaa valitun varauksen ja l‰hett‰‰ ilmoituksen k‰ytt‰j‰lle
