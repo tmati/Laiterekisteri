@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: black; -fx-background-radius: 15px;" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UusiResurssiController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: black; -fx-background-radius: 15px;" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UusiResurssiController">
     <children>
         <Label fx:id="itemLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="63.0" prefHeight="30.0" prefWidth="500.0" text="ANNA TIEDOT:" textAlignment="CENTER" textFill="WHITE">
             <font>
@@ -47,7 +47,7 @@
                 <Font size="16.0" />
             </font>
         </TextField>
-        <ChoiceBox fx:id="LuvanvaraisuusChoiceBox" layoutX="261.0" layoutY="214.0" prefHeight="37.0" prefWidth="225.0" value="Valitse...">
+        <ChoiceBox fx:id="luvanvaraisuusChoiceBox" layoutX="261.0" layoutY="214.0" prefHeight="37.0" prefWidth="225.0" value="Valitse...">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Valitse..." />

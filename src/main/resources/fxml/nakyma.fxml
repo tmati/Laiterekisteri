@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="815.0" prefWidth="1947.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.NakymaController">
+<GridPane prefHeight="815.0" prefWidth="1947.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.NakymaController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="486.00001831054686" minWidth="0.0" prefWidth="28.39999389648437" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="507.60000610351557" minWidth="0.0" prefWidth="507.60000610351557" />
@@ -189,7 +189,7 @@
       <DatePicker fx:id="datePicker" disable="true" opacity="0.0" prefHeight="35.0" prefWidth="330.0" GridPane.columnIndex="3" />
       <HBox prefHeight="26.0" prefWidth="234.0" GridPane.columnIndex="7" GridPane.valignment="BOTTOM">
          <children>
-            <Button fx:id="LogoutBtn" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="30.0" prefWidth="107.0" text="LOGOUT" textOverrun="CLIP">
+            <Button fx:id="logoutBtn" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="30.0" prefWidth="107.0" text="LOGOUT" textOverrun="CLIP">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane id="bgPane" stylesheets="@../styles/Styles.css" prefHeight="1166.0" prefWidth="2044.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.KayttajanVarauksetController">
+<GridPane id="bgPane" stylesheets="@../styles/Styles.css" prefHeight="1166.0" prefWidth="2044.0" style="-fx-background-image: url(&quot;/bgLarge.png&quot;);" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.KayttajanVarauksetController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.8" minWidth="0.0" prefWidth="127.20001220703126" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1623.00009765625" minWidth="10.0" prefWidth="1623.00009765625" />
@@ -27,17 +27,17 @@
    <children>
       <GridPane prefHeight="123.0" prefWidth="1541.0" GridPane.columnSpan="2147483647">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.6000030517578" minWidth="10.0" prefWidth="124.80000000000001" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1283.9999755859376" minWidth="10.0" prefWidth="1190.2" />
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="1479.8" minWidth="10.0" prefWidth="409.20002441406245" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.2000732421875" minWidth="0.0" prefWidth="98.79997558593755" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.6000030517578" minWidth="10.0" prefWidth="279.0000366210937" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1283.9999755859376" minWidth="10.0" prefWidth="1128.599963378906" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="1479.8" minWidth="10.0" prefWidth="220.8000732421874" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.2000732421875" minWidth="0.0" prefWidth="310.3999267578124" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="60.8" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="67.99999885559082" minHeight="10.0" prefHeight="55.4" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="takaisinBtn" mnemonicParsing="false" onMouseClicked="#takaisinBtnPainettu" prefHeight="35.0" prefWidth="126.0" text="TAKAISIN" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Button fx:id="takaisinBtn" mnemonicParsing="false" onMouseClicked="#takaisinBtnPainettu" prefHeight="50.0" prefWidth="158.0" text="TAKAISIN" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -53,7 +53,7 @@
                   <Insets right="20.0" />
                </padding>
             </Label>
-            <Button fx:id="LogoutBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="35.0" prefWidth="85.0" text="LOGOUT" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Button fx:id="logoutBtn" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="50.0" prefWidth="118.0" text="LOGOUT" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -61,7 +61,7 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Button>
-            <Label fx:id="bizName" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="1262.0" text="YRITYS OY" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Label fx:id="bizName" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="794.0" text="YRITYS OY" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>
@@ -74,7 +74,7 @@
             <Insets right="50.0" />
          </GridPane.margin>
       </GridPane>
-      <Label fx:id="kayttajaString" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="1038.0" text="KÄYTTÄJÄT" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Label fx:id="kayttajaString" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="1415.0" text="KÄYTTÄJÄT" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="26.0" />
          </font>

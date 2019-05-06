@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" stylesheets="@../styles/Styles.css" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: black; -fx-background-radius: 15px;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.palautasalasanaController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: black; -fx-background-radius: 15px;" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.PalautasalasanaController">
    <children>
-      <Label fx:id="uusisalasanaLabel" layoutX="126.0" layoutY="43.0" prefHeight="116.0" prefWidth="361.0" text="Anna sähköpostiosoitteesi. Tähän osoitteeseen liittyvän käyttäjän salasana palautetaan." textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+      <Label fx:id="uusisalasanaLabel" layoutX="148.0" layoutY="48.0" prefHeight="97.0" prefWidth="318.0" text="Anna sähköpostiosoitteesi. Tähän osoitteeseen liittyvän käyttäjän salasana palautetaan." textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
          <font>
             <Font size="15.0" />
          </font>
