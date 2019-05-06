@@ -75,7 +75,7 @@ public class LoginWindowController implements Initializable {
         centerImage(logoView);
         controller = new Controller();
         usernameField.setId("usernameField");
-        Locale.setDefault(new Locale("en-GB"));
+        Locale.setDefault(new Locale("en", "EN"));
         setText();
         
     }
