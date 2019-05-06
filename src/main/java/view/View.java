@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author tmati
  */
-public class View extends Application {
+public class View extends Application implements ViewIf {
 
     /**
      * Sovelluksen käytäjän tiedot.
@@ -24,10 +24,6 @@ public class View extends Application {
      */
     public static Kayttaja loggedIn = null;
 
-    /**
-     * Yrityksen nimi
-     */
-    public static final String BIZNAME = "KeyChain Enterprise Management";
     
     /**
      * Käyttäjän varausten tarkastelua varten tallennettava olio
@@ -39,10 +35,6 @@ public class View extends Application {
      */
     public static Resurssit booking = null;
 
-    /**
-     * Controller - ilmentymä
-     */
-    public static final Controller CONTROLLER = new Controller();
 
     /**
      *

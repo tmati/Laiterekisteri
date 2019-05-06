@@ -5,13 +5,12 @@
  */
 package view;
 
-import controller.Controller;
+import controller.ControllerIf;
 import model.Kayttaja;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -28,7 +27,7 @@ import javafx.stage.Window;
  *
  * @author tmati
  */
-public class UusiKayttajaController implements Initializable {
+public class UusiKayttajaController implements UusiKayttajaControllerIf {
 
     @FXML
     private Button luokayttajaNappi;
@@ -66,7 +65,7 @@ public class UusiKayttajaController implements Initializable {
     /**
      * Controller-ilmentymä
      */
-    private Controller controller;
+    private ControllerIf controller;
 
     /**
      * Initializes the CONTROLLER class.

@@ -5,7 +5,7 @@
  */
 package model;
 
-import controller.Controller;
+import controller.ControllerIf;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.MonthDay;
@@ -19,7 +19,7 @@ import javafx.util.Callback;
  *
  * @author jukka
  */
-public class DayCellFactory {
+public class DayCellFactory implements DayCellFactoryIf {
 
     private int erotusp;
     private int seuraavaKuukausi;
@@ -38,7 +38,8 @@ public class DayCellFactory {
      * @param today mistä päivästä alkaen ei voi valita
      * @return päivät jotka ovat muokattu
      */
-    public Callback dayCellFactory(Controller controller, Varaukset[] varaukset, LocalDate today) {
+    @Override
+    public Callback dayCellFactory(ControllerIf controller, Varaukset[] varaukset, LocalDate today) {
         String oranssi = "-fx-background-color: #FFA500;";
         return new Callback<DatePicker, DateCell>() {
             public DateCell call(final DatePicker datePicker) {

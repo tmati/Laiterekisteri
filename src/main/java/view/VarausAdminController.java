@@ -6,7 +6,7 @@
 package view;
 
 import com.sun.media.jfxmedia.logging.Logger;
-import controller.Controller;
+import controller.ControllerIf;
 import model.BooleanConverter;
 import model.Kayttaja;
 import model.Resurssit;
@@ -50,7 +50,7 @@ import javax.mail.MessagingException;
  *
  * @author tmati
  */
-public class VarausAdminController implements Initializable {
+public class VarausAdminController implements VarausAdminControllerIf {
 
     @FXML
     private Label usernameLabel;
@@ -106,7 +106,7 @@ public class VarausAdminController implements Initializable {
     private Tab kaikkiTab;
     @FXML
     private Button poistaBtn;
-    private Controller controller;
+    private ControllerIf controller;
     
     @FXML
     private TabPane tabPane;
@@ -318,6 +318,7 @@ public class VarausAdminController implements Initializable {
      * Päivittää napin ulkonäön.
      * @param event Painikkeen klikkaus.
      */
+    @Override
     public void updateBtnPainettu(MouseEvent event) {
         varauksetTableView.getItems().clear();
         Varaukset[] varaukset = controller.haeKasittelemattomatVaraukset();
@@ -329,6 +330,7 @@ public class VarausAdminController implements Initializable {
      * @param event Painikkeen klikkaus
      * @throws IOException IOException
      */
+    @Override
     public void logout(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
         Stage stage = (Stage) logoutBtn.getScene().getWindow();

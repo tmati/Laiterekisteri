@@ -6,7 +6,7 @@
 package view;
 
 import com.sun.media.jfxmedia.logging.Logger;
-import controller.Controller;
+import controller.ControllerIf;
 import model.BooleanConverter;
 import model.Varaukset;
 import java.io.IOException;
@@ -38,7 +38,7 @@ import javafx.util.converter.IntegerStringConverter;
  *
  * @author tmati
  */
-public class ResurssiHistoriaController implements Initializable {
+public class ResurssiHistoriaController implements ResurssiHistoriaControllerIf {
 
     @FXML
     private Button takaisinBtn;
@@ -69,14 +69,14 @@ public class ResurssiHistoriaController implements Initializable {
     @FXML
     private Button poistavarausBtn;
     
-    private Controller controller;
+    private ControllerIf controller;
 
     /**
      * Initializes the CONTROLLER class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-     controller = new Controller();
+     controller = View.CONTROLLER;
         ChoiceBoxTableCell cc = new ChoiceBoxTableCell();
         BooleanConverter aktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
         BooleanConverter hyvaksyntaController = new BooleanConverter(controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));

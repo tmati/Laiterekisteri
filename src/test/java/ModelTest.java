@@ -1,6 +1,7 @@
 
 
 import controller.Controller;
+import controller.ControllerIf;
 import java.time.LocalDateTime;
 import model.BooleanConverter;
 import model.Kayttaja;
@@ -33,10 +34,11 @@ import org.junit.Test;
  * @author Tommi
  */
 
+@Ignore
 
 public class ModelTest {
 
-    private static Controller controller = new Controller();
+    private static ControllerIf controller = new Controller();
     private static Kayttaja k;
     private static Resurssit res;
     private static Varaukset var;

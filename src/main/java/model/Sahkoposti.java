@@ -5,7 +5,7 @@
  */
 package model;
 
-import controller.Controller;
+import controller.ControllerIf;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,7 +19,7 @@ import javax.mail.internet.MimeMessage;
  * Luokka sähköposti ilmoitusten lähettämistä varten.
  * @author Tommi
  */
-public class Sahkoposti {
+public class Sahkoposti implements SahkopostiIf {
 
     private Properties emailProperties;
     private static final String EMAILHOST = "smtp.gmail.com";
@@ -33,7 +33,7 @@ public class Sahkoposti {
      * Kutsuu setMailServerProperties()
      * @param controller viittaus controller -luokkaan
      */
-    public Sahkoposti(Controller controller) {
+    public Sahkoposti(ControllerIf controller) {
         fromUserEmailPassword = controller.getConfigTeksti("kissatkoiria");
         setMailServerProperties();
     }
@@ -85,6 +85,7 @@ public class Sahkoposti {
      * @param viesti lähetettävä viesti
      * @return true jos lähetys onnistuu
      */
+    @Override
     public boolean lahetaSahkoposti(String vastaanottaja, String viesti){
         ExecutorService emailExecutor = Executors.newSingleThreadExecutor();
         

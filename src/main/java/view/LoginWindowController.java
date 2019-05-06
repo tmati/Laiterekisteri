@@ -37,7 +37,7 @@ import javafx.stage.Window;
  * Kirjautumisikkunan toiminnallisuus.
  * @author tmati
  */
-public class LoginWindowController implements Initializable {
+public class LoginWindowController implements LoginWindowControllerIf {
 
    @FXML
    private Button loginBtn;
@@ -97,6 +97,7 @@ public class LoginWindowController implements Initializable {
      * Keskittää kuvan imageviewissä. Netistä haettu.
      * @param i Kuva joka halutaan keskittää.
      */
+    @Override
     public void centerImage(ImageView i) {
         Image img = i.getImage();
         if (img != null) {

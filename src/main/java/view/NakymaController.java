@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.Controller;
+import controller.ControllerIf;
 import model.BooleanConverter;
 import model.LuvanvaraisuusConverter;
 import model.Resurssit;
@@ -26,7 +26,6 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -66,7 +65,7 @@ import javax.transaction.Transactional;
  *
  * @author tmati
  */
-public class NakymaController implements Initializable {
+public class NakymaController implements NakymaControllerIf {
 
     @FXML
     private Label usernameLabel;
@@ -148,7 +147,7 @@ public class NakymaController implements Initializable {
     @FXML
     private Button historiaBtn;
 
-    private Controller controller;
+    private ControllerIf controller;
     private DatePicker picker;
     private DatePickerSkin dps;
     private static Node calContent;
@@ -164,6 +163,7 @@ public class NakymaController implements Initializable {
      * @param rb rb
      */
     @Transactional
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         controller = View.CONTROLLER;
         kalenterinPienentamaResurssiLista = controller.haeKaikkiResurssit();
@@ -394,6 +394,7 @@ public class NakymaController implements Initializable {
      *
      * @return uusi datepicker, jolla on muutoksiin kuuntelia.
      */
+    @Override
     public DatePicker picker() {
         DatePicker p = new DatePicker();
         p.valueProperty().addListener((ov, oldValue, newValue) -> {
@@ -428,6 +429,7 @@ public class NakymaController implements Initializable {
      *
      * @param varaus poistettava varaus
      */
+    @Override
     public void completeRemove(Varaukset varaus) {
         if (controller.poistaVarausBtnToiminto(varaus)) {
             omatTable.getItems().remove(varaus);
@@ -440,6 +442,7 @@ public class NakymaController implements Initializable {
      *
      */
     @FXML
+    @Override
     public void update() {
         kaikkiTableView.getItems().clear();
         omatTable.getItems().clear();
@@ -456,6 +459,7 @@ public class NakymaController implements Initializable {
      * @throws IOException Tiedostoja luettaessa varauduttava poikkeus.
      */
     @FXML
+    @Override
     public void varausNappiPainettu(MouseEvent event) throws IOException {
         View.booking = kaikkiTableView.getSelectionModel().getSelectedItem();
         if (View.booking != null) {
@@ -487,6 +491,7 @@ public class NakymaController implements Initializable {
      * @throws IOException Tiedostoja luettaessa varauduttava poikkeus.
      */
     @FXML
+    @Override
     public void lisaaresurssiNappiPainettu(MouseEvent event) throws IOException {
         if (popup == null || !popup.isShowing()) {
             popup = new Popup();
@@ -507,6 +512,7 @@ public class NakymaController implements Initializable {
      * @throws IOException Tiedostoja käsitellessä varauduttava poikkeus.
      */
     @FXML
+    @Override
     public void salasananvaihtoNappiPainettu(MouseEvent event) throws IOException {
         if (popup == null || !popup.isShowing()) {
             popup = new Popup();
@@ -527,6 +533,7 @@ public class NakymaController implements Initializable {
      * @throws IOException Tiedostoja käsiteltäessä varauduttava poikkeus.
      */
     @FXML
+    @Override
     public void logout(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
         Stage stage = (Stage) logoutBtn.getScene().getWindow();
@@ -542,6 +549,7 @@ public class NakymaController implements Initializable {
      * @throws IOException Tiedostoja käsitellessä varauduttava poikkeus.
      */
     @FXML
+    @Override
     public void hallinnoiBtnPainettu(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/VarausAdmin.fxml"));
         Stage stage = (Stage) logoutBtn.getScene().getWindow();
@@ -556,6 +564,7 @@ public class NakymaController implements Initializable {
      * @throws IOException Tiedostoja käsiteltäessä varauduttava poikkeus.
      */
     @FXML
+    @Override
     public void henkilostoBtnPainettu(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KayttajaAdmin.fxml"));
         Stage stage = (Stage) logoutBtn.getScene().getWindow();
@@ -564,6 +573,7 @@ public class NakymaController implements Initializable {
     }
 
     @FXML
+    @Override
     public void historiaBtnPainettu(MouseEvent event) throws IOException {
         View.booking = kaikkiTableView.getSelectionModel().getSelectedItem();
         if (View.booking != null) {
@@ -584,6 +594,7 @@ public class NakymaController implements Initializable {
      * @throws IOException Tiedostoja käsiteltäessä varauduttava poikkeus.
      */
     @FXML
+    @Override
     public void poistaresurssiNappiPainettu(MouseEvent event) throws IOException {
         Resurssit toDelete = kaikkiTableView.getSelectionModel().getSelectedItem();
         if (toDelete != null) {

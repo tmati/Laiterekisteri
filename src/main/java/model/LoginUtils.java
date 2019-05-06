@@ -5,7 +5,7 @@
  */
 package model;
 
-import controller.Controller;
+import controller.ControllerIf;
 import view.View;
 
 
@@ -14,11 +14,11 @@ import view.View;
  *
  * @author tmati
  */
-public class LoginUtils {
+public class LoginUtils implements LoginUtilsIf {
 
-    private Controller kontrolleri;
+    private ControllerIf kontrolleri;
 
-    public LoginUtils(Controller kontrolleri) {
+    public LoginUtils(ControllerIf kontrolleri) {
         this.kontrolleri = kontrolleri;
     }
 
@@ -29,8 +29,9 @@ public class LoginUtils {
      * @param passWord password-kentän sisältö
      * @return true jos käyttäjä/salasanapari on oikea.
      */
+    @Override
     public boolean loginProcess(String userName, String passWord) {
-        kontrolleri = new Controller();
+        //kontrolleri = new Controller();
         boolean found = false;
         Kayttaja[] users = kontrolleri.haeKaikkiKayttajat();
         for (Kayttaja user : users) {

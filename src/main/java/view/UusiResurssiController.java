@@ -5,13 +5,12 @@
  */
 package view;
 
-import controller.Controller;
+import controller.ControllerIf;
 import model.Resurssit;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -28,7 +27,7 @@ import javafx.stage.Window;
  *
  * @author tmati
  */
-public class UusiResurssiController implements Initializable {
+public class UusiResurssiController implements UusiResurssiControllerIf {
 
     @FXML
     private Label itemLabel;
@@ -58,7 +57,7 @@ public class UusiResurssiController implements Initializable {
     private Label lupaLabel;
     
     private String choose = "choose";
-    Controller controller;
+    ControllerIf controller;
 
    
     /**

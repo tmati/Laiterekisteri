@@ -28,6 +28,7 @@ public class BooleanConverter extends StringConverter<Boolean> {
         this.falseString = falseString;
     }
     
+    @Override
     public String toString(Boolean object) {
         if (object) {
             return trueString;

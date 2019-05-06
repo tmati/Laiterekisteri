@@ -3,7 +3,7 @@
  */
 package view;
 
-import controller.Controller;
+import controller.ControllerIf;
 import model.Kayttaja;
 import model.LuvanvaraisuusConverter;
 import java.io.IOException;
@@ -11,7 +11,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,7 +36,7 @@ import javafx.stage.Window;
  *
  * @author tmati
  */
-public class KayttajaAdminController implements Initializable {
+public class KayttajaAdminController implements KayttajaAdminControllerIf {
 
     @FXML
     private Label usernameLabel;
@@ -71,7 +70,7 @@ public class KayttajaAdminController implements Initializable {
     Popup popup;
  
 
-    private Controller kontrolleri;
+    private ControllerIf kontrolleri;
     
     @FXML
     private Button kayttajanvarauksetNappi;
@@ -134,6 +133,7 @@ public class KayttajaAdminController implements Initializable {
      *
      */
     @FXML
+    @Override
     public void updateBtnPainettu() {
         kayttajaTableView.getItems().clear();
         kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
@@ -146,6 +146,7 @@ public class KayttajaAdminController implements Initializable {
      * @throws IOException IOException
      */
     @FXML
+    @Override
     public void logout(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Loginwindow.fxml"));
         Stage stage = (Stage) logoutBtn.getScene().getWindow();

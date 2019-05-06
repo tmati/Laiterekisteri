@@ -5,18 +5,18 @@
  */
 package model;
 
-import controller.Controller;
+import controller.ControllerIf;
 import javafx.scene.control.ChoiceBox;
 
 /**
  *
  * @author tmati
  */
-public class ChoiceboxUtils {
-    private Controller controller;
+public class ChoiceboxUtils implements ChoiceboxUtilsIf {
+    private ControllerIf controller;
     
 
-    public ChoiceboxUtils(Controller controller) {
+    public ChoiceboxUtils(ControllerIf controller) {
         this.controller = controller;
     }
 
@@ -26,6 +26,7 @@ public class ChoiceboxUtils {
      * @param cb Käsiteltävä choicebox.
      * @return Luvanvaraisuustasoa vastaava numeroarvo.
      */
+    @Override
     public int tulkitseChoiceBox(ChoiceBox cb) {
         int selectedOption = -1;
         if (cb.getValue().equals(controller.getConfigTeksti("freeUse")) || cb.getValue().equals(controller.getConfigTeksti("employee"))) {
@@ -38,10 +39,12 @@ public class ChoiceboxUtils {
         return selectedOption;
     }
 
+    @Override
     public boolean tulkitseBooleanBox(String cb) {
         return cb.equals(controller.getConfigTeksti("saatavilla"));
     }
 
+    @Override
     public void teeLuettava(ChoiceBox cb) {
         if (cb.getValue().equals("true")) {
             cb.setValue(controller.getConfigTeksti("notBookable"));

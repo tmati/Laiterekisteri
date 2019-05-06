@@ -5,7 +5,7 @@
  */
 package model;
 
-import controller.Controller;
+import controller.ControllerIf;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -15,9 +15,9 @@ import java.util.Objects;
  *
  * @author Tommi
  */
-public class VarausKasittely {
+public class VarausKasittely implements VarausKasittelyIf {
     
-    private final Controller controller;
+    private final ControllerIf controller;
     private final VarauksetDAOIF dao;
 
     /**
@@ -26,7 +26,7 @@ public class VarausKasittely {
      * @param dao viittaus varausDAO:oon
      * @param c viittaus Controlleriin
      */
-    public VarausKasittely(VarauksetDAOIF dao, Controller c) {
+    public VarausKasittely(VarauksetDAOIF dao, ControllerIf c) {
         this.dao = dao;
         this.controller = c;
     }
@@ -38,6 +38,7 @@ public class VarausKasittely {
      *
      * @return true kun tietokanta on käyty läpi
      */
+    @Override
     public boolean tarkistaAktiivisuudet() {
         for (Varaukset v : dao.readVaraukset()) {
             if (LocalDateTime.now().isAfter(v.getAlkuAika()) && LocalDateTime.now().isBefore(v.getLoppuAika()) && v.getHyvaksytty()) {
@@ -65,6 +66,7 @@ public class VarausKasittely {
      * @param k käyttäjä jonka varaukset halutaan
      * @return taulukko käyttäjän varauksista
      */
+    @Override
     public Varaukset[] haeKayttajanVaraukset(Kayttaja k) {
         
         Varaukset[] kaikkiV = controller.haeKaikkiVaraukset();
@@ -83,6 +85,7 @@ public class VarausKasittely {
      * @param id Kayttaja, jonka varaukset poistetaan
      * @return true jos poisto onnistui
      */
+    @Override
     public boolean poistaKayttajanVaraukset(int id) {
         boolean tarkistus = true;
         for (Varaukset v : controller.haeKaikkiVaraukset()) {
@@ -102,6 +105,7 @@ public class VarausKasittely {
      *
      * @return taulukko käsittelemättömistä varauksista.
      */
+    @Override
     public Varaukset[] haeKasittelemattomat() {
         ArrayList<Varaukset> list = new ArrayList<>();
         for (Varaukset v : controller.haeKaikkiVaraukset()) {
@@ -116,6 +120,7 @@ public class VarausKasittely {
      * @param varaus tarkastettava varaus
      * @return true jos varauksen alkuaika on jo mennyt
      */
+    @Override
     public boolean tarkistaOnkoVarausAlkanut(Varaukset varaus) {
         return (varaus.getAlkuAika().isBefore(LocalDateTime.now()));
     }
@@ -128,6 +133,7 @@ public class VarausKasittely {
      * ajankohta.
      */
 
+    @Override
     public String getVarausAikaString(Varaukset varaus) {
         return controller.getConfigTeksti("emailReservationTime") + varaus.getNimi() + " " + controller.getConfigTeksti("forTime")+ " " + varaus.getAlkuAika().getHour() + "." + varaus.getAlkuAika().getDayOfMonth() + "."
                 + varaus.getAlkuAika().getYear() + "-" + varaus.getLoppuAika().getHour() + "." + varaus.getLoppuAika().getDayOfMonth()

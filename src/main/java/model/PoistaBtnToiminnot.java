@@ -5,7 +5,7 @@
  */
 package model;
 
-import controller.Controller;
+import controller.ControllerIf;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -16,16 +16,16 @@ import javafx.scene.control.ButtonType;
  *
  * Luokka eri poistanappi toimintoja varten
  */
-public class PoistaBtnToiminnot {
+public class PoistaBtnToiminnot implements PoistaBtnToiminnotIf {
 
-    private Controller controller;
+    private ControllerIf controller;
 
     /**
      * Konstruktori
      *
      * @param controller viittaus controller luokkaan
      */
-    public PoistaBtnToiminnot(Controller controller) {
+    public PoistaBtnToiminnot(ControllerIf controller) {
         this.controller = controller;
     }
 
@@ -35,6 +35,7 @@ public class PoistaBtnToiminnot {
      * @param toDelete poistettava varaus
      * @return true jos poisto onnistuu
      */
+    @Override
     public boolean varauksetPoistaBtn(Varaukset toDelete) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, controller.getConfigTeksti("alertConfirmationRemoveReservation"), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();

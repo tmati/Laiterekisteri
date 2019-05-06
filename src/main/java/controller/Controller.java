@@ -25,38 +25,47 @@ import model.SalasananPalautus;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Callback;
+import model.ChoiceboxUtilsIf;
+import model.DayCellFactoryIf;
+import model.KalenterinTarvitsematToimenpiteetIf;
 import model.KayttajaDAOIF;
+import model.KayttajaTarkistusIf;
+import model.LanguageTextIf;
+import model.LoginUtilsIf;
+import model.PoistaBtnToiminnotIf;
+import model.ResurssiKasittelyIf;
 import model.ResurssitDAOIF;
+import model.SahkopostiIf;
+import model.SalasananPalautusIf;
 import model.VarauksetDAOIF;
+import model.VarausKasittelyIf;
 
 /**
  * Controlleri
  *
  * @author Tommi
  */
-public class Controller {
+public class Controller implements ControllerIf {
 
     private final KayttajaDAOIF kayttajaDAO;
     private final ResurssitDAOIF resurssiDAO;
     private final VarauksetDAOIF varausDAO;
-    private final KayttajaTarkistus kayttajaTarkistus;
+    private final KayttajaTarkistusIf kayttajaTarkistus;
     private final PasswordConverterInterface crypter;
-    private final LoginUtils login;
-    private final ChoiceboxUtils cbutils;
-    private final DayCellFactory cellfactory;
+    private final LoginUtilsIf login;
+    private final ChoiceboxUtilsIf cbutils;
+    private final DayCellFactoryIf cellfactory;
     private final VarauksenAikaLaskuriInterface aikalaskuri;
-    private final VarausKasittely varausKasittely;
-    private final ResurssiKasittely resurssikasittely;
-    private final KalenterinTarvitsematToimenpiteet kalenteriApu;
-    private final Sahkoposti sahkoposti;
-    private final SalasananPalautus salasananPalautus;
-    private final PoistaBtnToiminnot poistaBtnToiminnot;
-    private final LanguageText tekstit;
+    private final VarausKasittelyIf varausKasittely;
+    private final ResurssiKasittelyIf resurssikasittely;
+    private final KalenterinTarvitsematToimenpiteetIf kalenteriApu;
+    private final SahkopostiIf sahkoposti;
+    private final SalasananPalautusIf salasananPalautus;
+    private final PoistaBtnToiminnotIf poistaBtnToiminnot;
+    private final LanguageTextIf tekstit;
 
     /**
      * Controllerin konstruktio
@@ -87,6 +96,7 @@ public class Controller {
      * @param password Encryptattava salasana.
      * @return Palautaa encryptattatun salasanan.
      */
+    @Override
     public String salasananCryptaus(String password) {
         return crypter.passwordConverter(password);
     }
@@ -96,6 +106,7 @@ public class Controller {
      *
      * @return Palauttaa taulukon kaikista käyttäjistä
      */
+    @Override
     public Kayttaja[] haeKaikkiKayttajat() {
         return kayttajaDAO.readKayttajat();
     }
@@ -106,6 +117,7 @@ public class Controller {
      * @param id haetun käyttäjän id
      * @return palauttaa käyttäjä-olion
      */
+    @Override
     public Kayttaja haeKayttaja(int id) {
         return kayttajaDAO.readKayttaja(id);
     }
@@ -116,6 +128,7 @@ public class Controller {
      * @param kayttaja tietokantaan vietävä kayttaja-olio
      * @return palauttaa true jos käyttäjän vienti tietokantaan onnistui
      */
+    @Override
     public boolean luoKayttaja(Kayttaja kayttaja) {
         return kayttajaDAO.createKayttaja(kayttaja);
     }
@@ -126,6 +139,7 @@ public class Controller {
      * @param kayttaja päivitettävä kayttaja -olio
      * @return palauttaa true jos käyttäjän päivitys tietokantaan onnistui
      */
+    @Override
     public boolean paivitaKayttaja(Kayttaja kayttaja) {
         return kayttajaDAO.updateKayttaja(kayttaja);
     }
@@ -137,6 +151,7 @@ public class Controller {
      * @param id poistettavan käyttäjän id
      * @return palauttaa true jos käyttäjän poista tietokannasta onnistui
      */
+    @Override
     public boolean poistaKayttaja(int id) {
         varausKasittely.poistaKayttajanVaraukset(id);
         return kayttajaDAO.deleteKayttaja(id);
@@ -148,6 +163,7 @@ public class Controller {
      * @param username tarkistettava käyttäjätunnus
      * @return palauttaa true jos käyttäjätunnusta ei löydy tietokannasta
      */
+    @Override
     public boolean tarkistaUsername(String username) {
         return kayttajaTarkistus.usernameTarkastus(username);
     }
@@ -158,6 +174,7 @@ public class Controller {
      * @param email tarkistettava sähköposti
      * @return palauttaa true jos sähköpostia ei löydy tietokannasta
      */
+    @Override
     public boolean tarkistaEmail(String email) {
         return kayttajaTarkistus.emailTarkastus(email);
     }
@@ -167,6 +184,7 @@ public class Controller {
      *
      * @return palauttaa taulukon kaikista resurssi -olioista
      */
+    @Override
     public Resurssit[] haeKaikkiResurssit() {
         return resurssiDAO.readResurssit();
     }
@@ -177,6 +195,7 @@ public class Controller {
      *
      * @return palauttaa taulukon kaikista varaus -olioista
      */
+    @Override
     public Varaukset[] haeKaikkiVaraukset() {
         this.tarkistaVarausAktiivisuudet();
         return varausDAO.readVaraukset();
@@ -187,6 +206,7 @@ public class Controller {
      *
      * @return true jos onnistuu
      */
+    @Override
     public boolean tarkistaVarausAktiivisuudet() {
         return varausKasittely.tarkistaAktiivisuudet();
     }
@@ -197,6 +217,7 @@ public class Controller {
      * @param kayttaja kayttaja -olio jonka varaukset haetaan
      * @return palauttaa taulukon kaikista käyttäjän varaus -olioista
      */
+    @Override
     public Varaukset[] haeKayttajanVaraukset(Kayttaja kayttaja) {
         return varausKasittely.haeKayttajanVaraukset(kayttaja);
     }
@@ -208,6 +229,7 @@ public class Controller {
      * @param r tietokannasta poistettava resurssi
      * @return palauttaa true jos resurssin poisto tietokannasta onnistui
      */
+    @Override
     public boolean poistaResurssi(Resurssit r) {
         resurssikasittely.poistaResurssinVaraukset(r);
         return resurssiDAO.deleteResurssi(r.getId());
@@ -219,6 +241,7 @@ public class Controller {
      * @param r päivitettävä resurssi -olio
      * @return palauttaa true jos resurssin päivitys tietokantaan onnistui
      */
+    @Override
     public boolean paivitaResurssi(Resurssit r) {
         return resurssiDAO.updateResurssi(r);
     }
@@ -229,6 +252,7 @@ public class Controller {
      * @param v päivitettävä varaus -olio
      * @return palauttaa true jos varauksen päivitys tietokantaan onnistui
      */
+    @Override
     public boolean paivitaVaraus(Varaukset v) {
         return varausDAO.updateVaraus(v);
     }
@@ -239,6 +263,7 @@ public class Controller {
      * @param v tietokantaan vietävä varaus -olio
      * @return palauttaa true jos varauksen vienti tietokantaan onnistui
      */
+    @Override
     public boolean luoVaraus(Varaukset v) {
         return varausDAO.createVaraus(v);
     }
@@ -249,6 +274,7 @@ public class Controller {
      * @param r tietokantaan vietävä resurssi -olio
      * @return palauttaa true jos resurssin vienti tietokantaan onnistui
      */
+    @Override
     public boolean luoResurssi(Resurssit r) {
         return resurssiDAO.createResurssi(r);
     }
@@ -260,6 +286,7 @@ public class Controller {
      * @param passWord salasana
      * @return true jos kirjautumistiedot oikein
      */
+    @Override
     public boolean login(String userName, String passWord) {
         return login.loginProcess(userName, this.salasananCryptaus(passWord));
     }
@@ -270,6 +297,7 @@ public class Controller {
      * @param id haetun varauksen id
      * @return palauttaa varaus-olion
      */
+    @Override
     public Varaukset haeVaraus(int id) {
         return varausDAO.readVaraus(id);
     }
@@ -280,6 +308,7 @@ public class Controller {
      * @param id tietokannasta poistettavan varauksen id
      * @return palauttaa true jos varauksen poisto tietokannasta onnistui
      */
+    @Override
     public boolean poistaVaraus(int id) {
         return varausDAO.deleteVaraus(id);
     }
@@ -290,6 +319,7 @@ public class Controller {
      * @param cb choice box elementti jota tulkitaan
      * @return choice boxia vastaavan kokonais luvun
      */
+    @Override
    public int readCb(ChoiceBox cb) {
         return cbutils.tulkitseChoiceBox(cb);
 
@@ -303,6 +333,7 @@ public class Controller {
      * @param loppumispvm milloin varaus loppuu
      * @return alkupvm ja loppupvm erotuksen
      */
+    @Override
     public int paivaLaskuri(LocalDateTime alkupvm, LocalDateTime loppumispvm) {
         return aikalaskuri.paivaKesto(alkupvm, loppumispvm);
     }
@@ -314,6 +345,7 @@ public class Controller {
      * @param today mistä päivästä eteenpäin voi päiviä valita.
      * @return Callbackin jossa on muokatuja päiviä.
      */
+    @Override
     public Callback dayCellFactory(Varaukset[] varaukset, LocalDate today) {
         return cellfactory.dayCellFactory(this, varaukset, today);
     }
@@ -323,6 +355,7 @@ public class Controller {
      *
      * @return BooleanConverter-olio
      */
+    @Override
     public BooleanConverter getBoolConv() {
         return new BooleanConverter();
     }
@@ -333,6 +366,7 @@ public class Controller {
      * @param aVaraukset Varaus ArrayListasta josta halutaan tehdä array.
      * @return Varaukset Array:na.
      */
+    @Override
     public Varaukset[] getVarausTaulukko(List<Varaukset> aVaraukset) {
         return kalenteriApu.getVarausTaulukko(aVaraukset);
     }
@@ -346,6 +380,7 @@ public class Controller {
      * @param varaukset Varaus array josta halutaan saada resursin varaukset.
      * @return ArrayListan jossa on resursin varaukset Arraysta.
      */
+    @Override
     public List<Varaukset> resurssinVaraukset(int resurssiId, Varaukset[] varaukset) {
         return kalenteriApu.resurssinVaraukset(resurssiId, varaukset);
     }
@@ -361,6 +396,7 @@ public class Controller {
      * @return true jos vraus on mahdollista ja falsen jos varaus menee toisen
      * varauksen päälle.
      */
+    @Override
     public boolean onnistuu(List<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate) {
         return kalenteriApu.onnistuu(aVaraukset, endDate, startDate);
     }
@@ -370,6 +406,7 @@ public class Controller {
      *
      * @return taulukko käsittelemättömistä varaus -oloista.
      */
+    @Override
     public Varaukset[] haeKasittelemattomatVaraukset() {
         return varausKasittely.haeKasittelemattomat();
     }
@@ -382,6 +419,7 @@ public class Controller {
      * @return true jos lähetys onnistuu
      *
      */
+    @Override
     public boolean lahetaSahkoposti(String vastaanottaja, String viesti) {
         return sahkoposti.lahetaSahkoposti(vastaanottaja, viesti);
     }
@@ -393,6 +431,7 @@ public class Controller {
      * @return String, jossa näkyy varattavan laitteen nimi ja varauksen
      * ajankohta.
      */
+    @Override
     public String getVarausAikaString(Varaukset v) {
         return varausKasittely.getVarausAikaString(v);
     }
@@ -403,6 +442,7 @@ public class Controller {
      * @param email Sähköposti palautetaan
      * @return true jos palautus onnistui
      */
+    @Override
     public boolean palautaSalasana(String email) {
         return salasananPalautus.palautaSalasana(email);
     }
@@ -413,6 +453,7 @@ public class Controller {
      * @param varaus tarkistettava varaus
      * @return true jos varauksen alkamisaika on mennyt jo
      */
+    @Override
     public boolean onkoVarausAlkanut(Varaukset varaus) {
         return varausKasittely.tarkistaOnkoVarausAlkanut(varaus);
     }
@@ -423,6 +464,7 @@ public class Controller {
      * @param toDelete poistettava varaus
      * @return true jos poisto onnistuu
      */
+    @Override
     public boolean poistaVarausBtnToiminto(Varaukset toDelete) {
         return poistaBtnToiminnot.varauksetPoistaBtn(toDelete);
     }
@@ -432,6 +474,7 @@ public class Controller {
      * @param mihin mistä kohtaaa tiedostosta otetaan tietoja
      * @return Stringin joka on halutulla kielellä jos ei löydy antaa nullin
      */
+    @Override
     public String getConfigTeksti(String mihin) {
         return tekstit.getText(mihin);
     }
@@ -440,6 +483,7 @@ public class Controller {
      * Asettaa LanguageTextin Maa parametrin käy vain fi, en, por tai pt
      * @param maa mihin kieleen vaihdetaan
      */
+    @Override
     public void setMaa(String maa){
         tekstit.setMaa(maa);
     }

@@ -5,12 +5,11 @@
  */
 package view;
 
-import controller.Controller;
+import controller.ControllerIf;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -23,7 +22,7 @@ import javafx.stage.Popup;
  *
  * @author tmati
  */
-public class SalasananvaihtoController implements Initializable {
+public class SalasananvaihtoController implements SalasananvaihtoControllerIf {
 
     @FXML
     private Label usernameLabel;
@@ -48,7 +47,7 @@ public class SalasananvaihtoController implements Initializable {
     @FXML
     private Label uusisalasana2Label;
     private static final String UUSI = "newPassword";
-    Controller controller;
+    ControllerIf controller;
 
     /**
      * Initializes the CONTROLLER class.

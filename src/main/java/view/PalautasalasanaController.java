@@ -5,13 +5,12 @@
  */
 package view;
 
-import controller.Controller;
+import controller.ControllerIf;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -24,7 +23,7 @@ import javafx.stage.Popup;
  *
  * @author tmati
  */
-public class PalautasalasanaController implements Initializable {
+public class PalautasalasanaController implements PalautasalasanaControllerIf {
 
     @FXML
     private Label uusisalasanaLabel;
@@ -40,7 +39,7 @@ public class PalautasalasanaController implements Initializable {
     private Label vanhasalasanaLabel;
     @FXML
     private Label virheLabel;
-    private Controller controller;
+    private ControllerIf controller;
 
     /**
      * Initializes the CONTROLLER class.

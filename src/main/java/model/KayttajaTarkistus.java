@@ -5,23 +5,23 @@
  */
 package model;
 
-import controller.Controller;
+import controller.ControllerIf;
 
 /**
  * Luokka käyttäjän tietojen tarkistukseen
  *
  * @author Tommi
  */
-public class KayttajaTarkistus {
+public class KayttajaTarkistus implements KayttajaTarkistusIf {
 
-    private Controller kontrolleri;
+    private ControllerIf kontrolleri;
 
     /**
      * Konstruktori
      *
      * @param kontrolleri viittaus controlleriin
      */
-    public KayttajaTarkistus(Controller kontrolleri) {
+    public KayttajaTarkistus(ControllerIf kontrolleri) {
         this.kontrolleri = kontrolleri;
     }
 
@@ -31,6 +31,7 @@ public class KayttajaTarkistus {
      * @param tarkastettavaSyote uuden käyttäjän parametri
      * @return true jos uniikki
      */
+    @Override
     public boolean usernameTarkastus(String tarkastettavaSyote) {
         Kayttaja[] kayttajat = kontrolleri.haeKaikkiKayttajat();
         for (Kayttaja kayttaja : kayttajat) {
@@ -47,6 +48,7 @@ public class KayttajaTarkistus {
      * @param tarkastettavaSyote uuden käyttäjän parametri
      * @return true jos uniikki
      */
+    @Override
     public boolean emailTarkastus(String tarkastettavaSyote) {
         Kayttaja[] kayttajat = kontrolleri.haeKaikkiKayttajat();
         for (Kayttaja kayttaja : kayttajat) {

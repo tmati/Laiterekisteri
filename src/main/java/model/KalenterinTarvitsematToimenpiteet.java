@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author jukka
  */
-public class KalenterinTarvitsematToimenpiteet {
+public class KalenterinTarvitsematToimenpiteet implements KalenterinTarvitsematToimenpiteetIf {
 
     /**
      * Antaa valitusta resurssin kaikki varaukset ArrayListana.
@@ -23,6 +23,7 @@ public class KalenterinTarvitsematToimenpiteet {
      * @param varaukset Kaikki varaukset.
      * @return ArrayListan jossa on kaikki resursin varaukset.
      */
+    @Override
     public List<Varaukset> resurssinVaraukset(int resurssiId, Varaukset[] varaukset) {
         ArrayList<Varaukset> aVaraukset = new ArrayList<>();
         for (int i = 0; i < varaukset.length; i++) {
@@ -44,6 +45,7 @@ public class KalenterinTarvitsematToimenpiteet {
      * @return Truen jos ei ole päälekäisyyksiä varaksen kohdalla ja Fasle jos
      * on.
      */
+    @Override
     public boolean onnistuu(List<Varaukset> aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate) {
         if (startDate.isAfter(endDate)) {
             return false;
@@ -70,6 +72,7 @@ public class KalenterinTarvitsematToimenpiteet {
      * varauksista.
      * @return varaus Array
      */
+    @Override
     public Varaukset[] getVarausTaulukko(List<Varaukset> aVaraukset) {
         Varaukset[] varaus = new Varaukset[aVaraukset.size()];
         for (int i = 0; i < aVaraukset.size(); i++) {

@@ -5,22 +5,22 @@
  */
 package model;
 
-import controller.Controller;
+import controller.ControllerIf;
 import java.util.Objects;
 
 /**
  * Luokka resurssien käsittelyä varten
  * @author Tommi
  */
-public class ResurssiKasittely {
+public class ResurssiKasittely implements ResurssiKasittelyIf {
 
-    Controller controller;
+    ControllerIf controller;
 
     /**
      *  Konstruktori
      * @param c viite controller -luokkaan
      */
-    public ResurssiKasittely(Controller c) {
+    public ResurssiKasittely(ControllerIf c) {
         this.controller = c;
     }
 
@@ -30,6 +30,7 @@ public class ResurssiKasittely {
      * @return true jos poisto onnistui
      */
     
+    @Override
     public boolean poistaResurssinVaraukset(Resurssit r){
         Varaukset[] varaukset = controller.haeKaikkiVaraukset();
         boolean tarkistus = true;

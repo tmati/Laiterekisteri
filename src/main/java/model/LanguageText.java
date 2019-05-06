@@ -14,7 +14,7 @@ import java.util.Properties;
  * Luokka jonka tarkoitus on käydä config.properties.txt tiedoston läpi ja hakee tietyt kohdat sieltä stringinä muille.
  * @author jukka
  */
-public class LanguageText {
+public class LanguageText implements LanguageTextIf {
     
     private static LanguageText instace = null;
     private final Properties properties = new Properties();
@@ -55,6 +55,7 @@ public class LanguageText {
      * @param whichText Kertoo mille osalle pitää antaa tekstin
      * @return tekstin halutulle osalle. Palautaa tyhjän Stringin jos whichText ei osoita mitään tiedostosta.
      */
+    @Override
     public String getText(String whichText){
         return properties.getProperty(whichText.concat(maa));
     }
@@ -63,6 +64,7 @@ public class LanguageText {
      * Muutaa kieltä, jolla tiedostosta haetaan.
      * @param maa hyväksyttyä stringejä ovat fi, en ja por ja se kertoo mille kielelle käyttöliittymä asetetaan.
      */
+    @Override
     public void setMaa(String maa){
         if("fi".equals(maa) || "en".equals(maa) || "por".equals(maa)){
             this.maa = maa;
@@ -76,6 +78,7 @@ public class LanguageText {
      * getteri kielelle, joka käytössä
      * @return kieli, joka valittuna
      */
+    @Override
     public String getMaa(){
         return maa;
     }

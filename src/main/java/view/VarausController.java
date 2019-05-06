@@ -1,6 +1,6 @@
 package view;
 
-import controller.Controller;
+import controller.ControllerIf;
 import model.Varaukset;
 import java.net.URL;
 import java.time.LocalDate;
@@ -13,7 +13,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -34,7 +33,7 @@ import javafx.scene.control.Tooltip;
  *
  * @author tmati
  */
-public class VarausController implements Initializable {
+public class VarausController implements VarausControllerIf {
 
     @FXML
     private Pane varausPane;
@@ -63,7 +62,7 @@ public class VarausController implements Initializable {
     @FXML
     private Label lisatiedotLabel;
 
-    private Controller controller;
+    private ControllerIf controller;
     
     private List<Varaukset> aVaraukset;
 

@@ -5,23 +5,24 @@
  */
 package model;
 
-import controller.Controller;
+import controller.ControllerIf;
 
 /**
  *
  * @author Tommi
  */
-public class SalasananPalautus {
-    private Controller controller;
+public class SalasananPalautus implements SalasananPalautusIf {
+    private ControllerIf controller;
     private static final String MERKIT = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                     + "0123456789"
                                     + "abcdefghijklmnopqrstuvxyz"; 
     private final StringBuilder sb = new StringBuilder(8);
     
-    public SalasananPalautus(Controller c){
+    public SalasananPalautus(ControllerIf c){
         this.controller = c;
     }
     
+    @Override
     public boolean palautaSalasana(String email){
         Kayttaja[] kayttajat = controller.haeKaikkiKayttajat();
         for(Kayttaja k : kayttajat){
