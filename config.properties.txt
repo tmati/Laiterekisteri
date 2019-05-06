@@ -42,12 +42,12 @@ returnEmailTooltipfi = Palauttaa uuden salasanan sähköpostiin
 returnEmailTooltipen = Returns new password to email
 returnEmailTooltippor = Retorna nova senha para o email
 
-noEmailfi = Sähköposti puutuu
+noEmailfi = Sähköposti puuttuu
 noEmailen = Email is missing
 noEmailpor = O email é ausência de
 
 newPasswordLabelfi = Anna sähköpostiosoitteesi. Tähän osoitteeseen liittyvän käyttäjän salasana palautetaan.
-newPasswordLabelen = Give your email to which password is returned.
+newPasswordLabelen = Submit your account email. The password is returned to this email address.
 newPasswordLabelpor = Dar seu o email para qual senho é retornou.
 
 emailLabelfi = Sähköpostiosoite
@@ -55,7 +55,7 @@ emailLabelen = Email address
 emailLabelpor = O email
 
 formErrorfi = TIETOJA PUUTTUU. TÄYTÄ LOPUT KOHDAT JA YRITÄ UUDELLEEN!
-formErroren = Items missing. Fill rest and try again!
+formErroren = Missing information. Fill all the fields and try again!
 formErrorpor = Unid ausência de. Preencher descansar e experimentar novamente!
 
 reservationButtonfi = Tee varaus
@@ -71,14 +71,14 @@ fromen = From
 frompor = De
 
 wherefi = Mihin
-whereen = Where
+whereen = To
 wherepor = Onde
 
 additionalInformationfi = LISÄTIEDOT:
 additionalInformationen = Additional information:
 additionalInformationpor = Informação adicional:
 
-alertFailedReservationfi = Varauksen teko epäonnistui, koska varauksen aika meni toisen varauksen kanssa päälekäin.
+alertFailedReservationfi = Varauksen teko epäonnistui. Varauksen aika meni toisen varauksen kanssa päällekkäin.
 alertFailedReservationen = Reservation failed because it overlapped other reservation.
 alertFailedReservationpor = Reserva falhou porque isto sobreposto de outros reserva.
 
@@ -131,7 +131,7 @@ backen = Back
 backpor = atrás
 
 userInfofi = Käyttäjän tiedot 
-userInfoen = User info
+userInfoen = User information
 userInfopor = Do utilizador info
 
 Logoutfi = Logout
@@ -147,10 +147,10 @@ useren = User
 userpor = Do utilizador
 
 addUserfi = Avaa popupin käyttäjän lisäämistä varten
-addUseren = Open popup for adding user
+addUseren = Open popup for new user
 addUserpor = Avrir aparecer para adicionando do utilizador
 
-removeUserfi = Poista valittu käyttäjän
+removeUserfi = Poista valittu käyttäjä
 removeUseren = Remove chosen user
 removeUserpor = Remover escolhido o usuário
 
@@ -159,7 +159,7 @@ returnButtonen = Return to main view
 returnButtonpor = Retorna para a principal visão
 
 userReservationTooltipfi = Avaa näkymän, jossa näet valitsemasi käyttäjän varaukset
-userReservationTooltipen = Open a view where you can see selected user reservation
+userReservationTooltipen = Open a view where you can see selected user's reservations
 userReservationTooltippor = Abrir uma visão onde você posso vejo selecionado do utilizador reserva
 
 confDeleteUserfi = Oletko varma, että haluat poistaa käyttäjän?
@@ -218,8 +218,8 @@ reservationsfi = Varaukset
 reservationsen = Reservations
 reservationspor = Reservas
 
-logoutInfofi = Ulos kirjautumunen
-logoutInfoen = Logging out
+logoutInfofi = Logout
+logoutInfoen = Log out
 logoutInfopor = Sair
 
 removeReservationInfofi = Poistaa valitun varauksen ja lähettää ilmoituksen käyttäjälle
@@ -231,11 +231,11 @@ returnUsersWindowen = Return to user control view
 returnUsersWindowpor = Retornar para a visualização de controle do usuário
 
 confirmationRemoveReservationfi = Oletko varma, että haluat poistaa varauksen?
-confirmationRemoveReservationen = Are you sure that you want remove reservation?
+confirmationRemoveReservationen = Are you sure that you want remove this reservation?
 confirmationRemoveReservationpor = Tem certeza de que deseja remover a reserva?
 
 emailFordeletingReservationfi =  on poistettu esimiehen tai ylläpitäjän toimesta.\n \nTämä on automaattinen viesti, johon ei tarvitse vastata.
-emailFordeletingReservationen = has been removed by the manager or administrator.\n \nThis is an automatic message that does not need to be answered.
+emailFordeletingReservationen = has been removed by the manager or administrator.\n \nThis is an automated message that does not need to be answered.
 emailFordeletingReservationpor = foi removido pelo gerente ou pelo administrador. \ n \ nEsta é uma mensagem automática que não precisa ser respondida.
 
 errorDeleteReservationfi = Et voi poistaa varausta, joka on vanhentunut tai alkanut!
@@ -247,15 +247,15 @@ errorChooseReservationen = Choose reservation!
 errorChooseReservationpor = Escolha a reserva!
 
 isActivefi = Aktiivinen
-isActiveen = Is active
-isActivepor = Está ativo
+isActiveen = Active
+isActivepor = Ativo
 
 isnActivefi = Ei aktiivinen
-isnActiveen = Isn't active
+isnActiveen = Inactive
 isnActivepor = Não é ativo
 
 acknowledgedfi = HYVÄKSYTTY
-acknowledgeden = Acknowledged
+acknowledgeden = Approved
 acknowledgedpor = Reconhecido
 
 inProgressfi = Käsittelyssä
@@ -279,7 +279,7 @@ supApproveden = Approved by the supervisor
 supApprovedpor = Aprovado pelo supervisor
 
 adApprovedfi = Ylläpitäjän hyväksyttävä
-adApproveden = Admin acceptable
+adApproveden = Approved by admin
 adApprovedpor = Admin Aceitável
 
 searchfi = Hae...
@@ -363,7 +363,7 @@ ownTableTooltipen = All resources in the system
 ownTableTooltippor = Todos os recursos no sistema
 
 hallinnoiBtnTooltipfi = Avaa varauksien hallinta -näkymän
-hallinnoiBtnTooltipen = Opens the Manage Reserves view
+hallinnoiBtnTooltipen = Opens the reservation management view
 hallinnoiBtnTooltippor = Abre a visualização Gerenciar Reservas
 
 henkilostoBtnTooltipfi = Avaa käyttäjien hallinta -näkymän
@@ -386,8 +386,8 @@ searchBarTooltipfi = Hakukenttä resursseja tai varauksia varten
 searchBarTooltipen = Search box for resources or reservations
 searchBarTooltippor = Caixa de pesquisa de recursos ou reservas
 
-varausBtnTooltipfi = Avaa popupin varauksen luontia varten, valitse resurssi ensin
-varausBtnTooltipen = Open a popup to create a reservation, select a resource first
+varausBtnTooltipfi = Avaa popupin varauksen luontia varten. Valitse resurssi ensin
+varausBtnTooltipen = Open a popup to create a reservation for selected resource
 varausBtnTooltippor = Abra um pop-up para criar uma reserva, selecione um recurso primeiro
 
 kalenteriStackPaneTooltipfi = Voit hakea resursseja päivän mukaan\n valitsemalla halutun päivän kalenterissa. Sen mukaan kalenteri näytää resurssit,\n jotka ovat sinäpäivinnä vapaina.
@@ -415,7 +415,7 @@ resursinen = Resource's
 resursinpor = Recursos
 
 passwordChangeErrormsgfi = TIETOJA PUUTTUU. TÄYTÄ LOPUT KOHDAT JA YRITÄ UUDELLEEN!
-passwordChangeErrormsgen = Information missing. COMPLETE FINAL ITEMS AND TRY IT!
+passwordChangeErrormsgen = Information missing. FILL EMPTY FIELDS AND TRY AGAIN!
 passwordChangeErrormsgpor = Informação em falta. COMPLETE ITENS FINAL E TENTE!
 
 changePasswordfi = Vaihda salasana
@@ -451,7 +451,7 @@ changePasswordInfoen = Change password
 changePasswordInfopor = Mudar senha
 
 newPasswordError1fi = Uusi salasana ei täsmää tekstikentissä.
-newPasswordError1en = The new password does not match the text fields.
+newPasswordError1en = The new password does not match in the text fields.
 newPasswordError1por = A nova senha não corresponde aos campos de texto.
 
 newPasswordError2fi = Vanha salasana väärin.
@@ -467,7 +467,7 @@ newUseren = New user
 newUserpor = Neo usuário
 
 userNamefi = Käyttäjän nimi
-userNameen = User's name
+userNameen = Username
 userNamepor = Nome do usuário
 
 choosefi = Valitse...
@@ -488,10 +488,10 @@ administratorpor = Administrador
 
 userAutfi = KÄYTTÄJÄN VALTUUDET:
 userAuten = USER AUTHORIZATIONS:
-userAutpor = AUTORIZAÇÕES DO USUÁRIO:
+userAutpor = AUTORIZAÇÕES:
 
 kayttajaTunnusfi = Käyttäjätunnus
-kayttajaTunnusen = User name
+kayttajaTunnusen = Username
 kayttajaTunnuspor = Nome de usuário
 
 newUserEmailInfofi = Kenttä sähköpostia varten, ei saa olla olemassa oleva.
@@ -503,7 +503,7 @@ newUserIdInfoen = The field for user name must not be an existing one.
 newUserIdInfopor = O campo para nome de usuário não deve ser um existente.
 
 newUserNameInfofi = Kenttä käyttäjän nimeä varten.
-newUserNameInfoen = Field for user real name.
+newUserNameInfoen = Field for the user's real name.
 newUserNameInfopor = Campo para nome de usuário.
 
 newUserPasswordInfofi = Kenttä väliaikaista salasanaa varten.
@@ -515,7 +515,7 @@ chooseUserAutInfoen = Select the user authorization level
 chooseUserAutInfopor = Selecione o nível de autorização do usuário
 
 createNewUserInfofi = Luo käyttäjän ja lähettää sähköposti ilmoituksen
-createNewUserInfoen = Create a user and send an email notification
+createNewUserInfoen = Creates the user and sends an email notification
 createNewUserInfopor = Crie um usuário e envie uma notificação por email
 
 newUserErrorLabel1fi = Tietoja puuttuu. Täytä kaikki kohdat ja yritä uudelleen.
@@ -523,11 +523,11 @@ newUserErrorLabel1en = Missing information. Fill in all the points and try again
 newUserErrorLabel1por = Faltando informação. Preencha todos os pontos e tente novamente.
 
 newUserErrorLabel2fi = Käyttäjätunnus on jo varattu. Kokeile toista tunnusta.
-newUserErrorLabel2en = Your username has already been reserved. Try another ID.
+newUserErrorLabel2en = Your username has already been taken. Try another ID.
 newUserErrorLabel2por = Seu nome de usuário já foi reservado. Tente outro ID.
 
 newUserErrorLabel3fi = Sähköposti on jo varattu. Kokeile toista osoitetta.
-newUserErrorLabel3en = Email is already busy. Try another address.
+newUserErrorLabel3en = Email is already taken. Try another address.
 newUserErrorLabel3por = O email já está ocupado. Tente outro endereço.
 
 newUserEmailfi = Hei,\n\nsinulle on luotu keyChain käyttäjä.\nKäyttäjätunnus: 
@@ -572,12 +572,12 @@ newResourceTypeInfoen = Field for resource type, eg computer
 newResourceTypeInfopor = Campo para o tipo de recurso, por exemplo, computador
 
 newResourceInfofi = Lisää resurssin järjestelmään
-newResourceInfoen = Add a resource to your system
+newResourceInfoen = Add the resource to your system
 newResourceInfopor = Adicione um recurso ao seu sistema
 
 hylattyfi = Hylätty
-hylattyen = Abandoned
-hylattypor = Abandonado
+hylattyen = Rejected
+hylattypor = Rejeitado
 
 acceptfi = Hyväksy
 accepten = accept
