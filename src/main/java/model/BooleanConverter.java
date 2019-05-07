@@ -16,18 +16,31 @@ public class BooleanConverter extends StringConverter<Boolean> {
  
      private String trueString;
      private String falseString;
-    /**
-     * Muuttaa boolean-arvot selkolukuisiksi.
-     * 
-     */
+     
+     /**
+      * Tyhjä konstruktio
+      */
     public BooleanConverter(){
     }
     
+     /**
+      * BooleanConverterin construktori johon asetetaan kaksi Stringiä jotka muutetaan true tai falseksi
+      * @param trueString Stringin jonka arvoksi tulee true
+      * @param falseString String jonka arvoksi tulee false
+      */
     public BooleanConverter (String trueString, String falseString) {
         this.trueString = trueString;
         this.falseString = falseString;
     }
+
     
+   
+    
+    /**
+     * Antaa booleania vastaava stringin
+     * @param object Boolaen arvo josta halutaan sitä vastaava String
+     * @return Stringin joka vastaa boolean arvoa
+     */
     @Override
     public String toString(Boolean object) {
         if (object) {
@@ -36,8 +49,13 @@ public class BooleanConverter extends StringConverter<Boolean> {
         return falseString;
     }
 
+    /**
+     * Vertaa onko string sama kuin true string
+     * @param string verratava string
+     * @return truen jos on sama kuin tosi String ja false muissa tapauksissa
+     */
      @Override
     public Boolean fromString(String string) {
-        return string.equals(trueString);
+        return trueString.equals(string);
     }
 }

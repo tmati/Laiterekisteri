@@ -18,10 +18,19 @@ public class SalasananPalautus implements SalasananPalautusIf {
                                     + "abcdefghijklmnopqrstuvxyz"; 
     private final StringBuilder sb = new StringBuilder(8);
     
+/**
+     * SalasananPalautus luokan constructori
+     * @param controller controlleri jota tämä käyttää
+     */
     public SalasananPalautus(Controller controller){
         this.controller = controller;
     }
     
+    /**
+     * lähettää sähköpostin käyttäjälle jonka sähköposti on sama kuin tämän medotin email
+     * @param email mihin sähköposti osoiteeseen lähetetään posti
+     * @return palautaa truen jos lähetys onnistui
+     */
     @Override
     public boolean palautaSalasana(String email){
         Kayttaja[] kayttajat = controller.haeKaikkiKayttajat();
@@ -36,8 +45,12 @@ public class SalasananPalautus implements SalasananPalautusIf {
             }
         }
     return false;
-}
+    }
     
+    /**
+     * Luo random generoidun salasanan jonka se palauttaa
+     * @return random generoidu salasana
+     */
     private String getRandomSalasana(){
          for (int i = 0; i < 9; i++) { 
             int index = (int)(MERKIT.length() * Math.random()); 
