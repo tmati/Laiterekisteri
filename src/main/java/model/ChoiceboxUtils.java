@@ -39,11 +39,20 @@ public class ChoiceboxUtils implements ChoiceboxUtilsIf {
         return selectedOption;
     }
 
+    /**
+     * Tulkitsee onko cb saatavilla jos on palautaa true
+     * @param cb Stringi jota verataan
+     * @return truen jos sen on saatavilla
+     */
     @Override
     public boolean tulkitseBooleanBox(String cb) {
         return cb.equals(controller.getConfigTeksti("saatavilla"));
     }
 
+    /**
+     * Laitaa choice boxiin valuen riipuen siitä jos se on true tai false
+     * @param cb jonka arvon muutetaan
+     */
     @Override
     public void teeLuettava(ChoiceBox cb) {
         if (cb.getValue().equals("true")) {

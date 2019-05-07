@@ -113,8 +113,7 @@ public class ModelTest {
 
     @Test
     public void luvanVaraisuusConverterTest() {
-        LuvanvaraisuusConverter l = new LuvanvaraisuusConverter();
-        l = new LuvanvaraisuusConverter("0", "1", "2");
+        LuvanvaraisuusConverter l = new LuvanvaraisuusConverter("0", "1", "2");
         assertTrue("toString: väärä",
                 l.toString(0).equals("0"));
         assertTrue("toString: väärä",

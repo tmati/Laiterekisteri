@@ -18,6 +18,10 @@ public class LoginUtils implements LoginUtilsIf {
 
     private ControllerIf kontrolleri;
 
+    /**
+     * Konstruktori LoginUtils luokalle
+     * @param kontrolleri controlleri jota tämä luokka käyttää
+     */
     public LoginUtils(ControllerIf kontrolleri) {
         this.kontrolleri = kontrolleri;
     }
