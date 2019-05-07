@@ -3,7 +3,7 @@
  */
 package view;
 
-import controller.ControllerIf;
+import controller.*;
 import model.Kayttaja;
 import model.LuvanvaraisuusConverter;
 import java.io.IOException;
@@ -70,7 +70,7 @@ public class KayttajaAdminController implements KayttajaAdminControllerIf {
     Popup popup;
  
 
-    private ControllerIf kontrolleri;
+    private ControllerIf controller;
     
     @FXML
     private Button kayttajanvarauksetNappi;
@@ -86,45 +86,45 @@ public class KayttajaAdminController implements KayttajaAdminControllerIf {
         /**
          * Kontrollerin ilmentymä
          */
-        kontrolleri = View.CONTROLLER;
+        controller = Controller.getInstance();
 
-        LuvanvaraisuusConverter kayLC = new LuvanvaraisuusConverter(kontrolleri.getConfigTeksti("employee"), kontrolleri.getConfigTeksti("superior"), kontrolleri.getConfigTeksti("administrator"));
+        LuvanvaraisuusConverter kayLC = new LuvanvaraisuusConverter(controller.getConfigTeksti("employee"), controller.getConfigTeksti("superior"), controller.getConfigTeksti("administrator"));
 
         //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
         nimiColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("nimi"));
         nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        nimiColumn.setText(kontrolleri.getConfigTeksti("name").toUpperCase());
+        nimiColumn.setText(controller.getConfigTeksti("name").toUpperCase());
         
         emailColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("sahkoposti"));
         emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        emailColumn.setText(kontrolleri.getConfigTeksti("emailLabel").toUpperCase());
+        emailColumn.setText(controller.getConfigTeksti("emailLabel").toUpperCase());
         
         ChoiceBoxTableCell cc = new ChoiceBoxTableCell();
         cc.setConverter(kayLC);
         valtuudetColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, Integer>("valtuudet"));
         valtuudetColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(cc.getConverter(), 0,1,2));
-        valtuudetColumn.setText(kontrolleri.getConfigTeksti("authorization").toUpperCase());
+        valtuudetColumn.setText(controller.getConfigTeksti("authorization").toUpperCase());
         
         kayttajatunnusColumn.setCellValueFactory(new PropertyValueFactory<Kayttaja, String>("kayttajatunnus"));
         kayttajatunnusColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        kayttajatunnusColumn.setText(kontrolleri.getConfigTeksti("accountName").toUpperCase());
+        kayttajatunnusColumn.setText(controller.getConfigTeksti("accountName").toUpperCase());
         
-        kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
-        bizName.setText(View.BIZNAME);
-        usernameLabel.setText(View.loggedIn.getNimi());
+        kayttajaTableView.getItems().addAll(controller.haeKaikkiKayttajat());
+        bizName.setText(controller.getBizname());
+        usernameLabel.setText(controller.getLoggedIn().getNimi());
         
-        lisaaBtn.setText(kontrolleri.getConfigTeksti("newUser").toUpperCase());
-        kayttajanvarauksetNappi.setText(kontrolleri.getConfigTeksti("userReservation").toUpperCase());
-        poistaBtn.setText(kontrolleri.getConfigTeksti("removeUser").toUpperCase());
-        takaisinBtn.setText(kontrolleri.getConfigTeksti("returnButton").toUpperCase());
-        logoutBtn.setText(kontrolleri.getConfigTeksti("Logout").toUpperCase());
-        bizName1.setText(kontrolleri.getConfigTeksti("user").toUpperCase());
+        lisaaBtn.setText(controller.getConfigTeksti("newUser").toUpperCase());
+        kayttajanvarauksetNappi.setText(controller.getConfigTeksti("userReservation").toUpperCase());
+        poistaBtn.setText(controller.getConfigTeksti("removeUser").toUpperCase());
+        takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
+        logoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
+        bizName1.setText(controller.getConfigTeksti("user").toUpperCase());
         
-        this.logoutBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("LogoutInfo")));
-        this.lisaaBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("addUser")));
-        this.poistaBtn.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("removeUser")));
-        this.takaisinBtn.setTooltip((new Tooltip(kontrolleri.getConfigTeksti("returnButtonInfo"))));
-        this.kayttajanvarauksetNappi.setTooltip(new Tooltip(kontrolleri.getConfigTeksti("userReservationTooltip")));
+        this.logoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("LogoutInfo")));
+        this.lisaaBtn.setTooltip(new Tooltip(controller.getConfigTeksti("addUser")));
+        this.poistaBtn.setTooltip(new Tooltip(controller.getConfigTeksti("removeUser")));
+        this.takaisinBtn.setTooltip((new Tooltip(controller.getConfigTeksti("returnButtonInfo"))));
+        this.kayttajanvarauksetNappi.setTooltip(new Tooltip(controller.getConfigTeksti("userReservationTooltip")));
        
     }
 
@@ -136,7 +136,7 @@ public class KayttajaAdminController implements KayttajaAdminControllerIf {
     @Override
     public void updateBtnPainettu() {
         kayttajaTableView.getItems().clear();
-        kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
+        kayttajaTableView.getItems().addAll(controller.haeKaikkiKayttajat());
     }
 
     /**
@@ -152,7 +152,7 @@ public class KayttajaAdminController implements KayttajaAdminControllerIf {
         Stage stage = (Stage) logoutBtn.getScene().getWindow();
         Parent root = loader.load();
         stage.getScene().setRoot(root);
-        View.loggedIn = null;
+        controller.setLoggedIn(null);
     }
     
     /**
@@ -199,14 +199,14 @@ public class KayttajaAdminController implements KayttajaAdminControllerIf {
     private void poistaBtnPainettu(MouseEvent event) {
         Kayttaja k = kayttajaTableView.getSelectionModel().getSelectedItem();
         if (k != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, kontrolleri.getConfigTeksti("confDeleteUser") , ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, controller.getConfigTeksti("confDeleteUser") , ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
-                kontrolleri.poistaKayttaja(k.getId());
+                controller.poistaKayttaja(k.getId());
                 this.updateBtnPainettu();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, kontrolleri.getConfigTeksti("chooseUser"));
+            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("chooseUser"));
             alert.showAndWait();
         }
     }
@@ -214,13 +214,13 @@ public class KayttajaAdminController implements KayttajaAdminControllerIf {
     @FXML private void kayttajanvarauksetNappiPainettu(MouseEvent event) throws IOException {
     Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();
         if (kayttaja != null) {
-            View.selected = kayttaja;
+            controller.setSelected(kayttaja);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KayttajanVaraukset.fxml"));
             Stage stage = (Stage) logoutBtn.getScene().getWindow();
             Parent root = loader.load();
             stage.getScene().setRoot(root);
     }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING, kontrolleri.getConfigTeksti("chooseUser"));
+            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("chooseUser"));
             alert.showAndWait();
         }
     }
@@ -235,7 +235,7 @@ public class KayttajaAdminController implements KayttajaAdminControllerIf {
     private void nimiEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
         Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();
         kayttaja.setNimi(event.getNewValue());
-        kontrolleri.paivitaKayttaja(kayttaja);
+        controller.paivitaKayttaja(kayttaja);
     }
 
     /**
@@ -246,15 +246,15 @@ public class KayttajaAdminController implements KayttajaAdminControllerIf {
      */
     @FXML
     private void emailEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
-        if (!kontrolleri.tarkistaEmail(event.getNewValue())) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, kontrolleri.getConfigTeksti("emailDublicate"));
+        if (!controller.tarkistaEmail(event.getNewValue())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("emailDublicate"));
             alert.showAndWait();
             kayttajaTableView.getItems().clear();
-            kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
+            kayttajaTableView.getItems().addAll(controller.haeKaikkiKayttajat());
         } else {
             Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();
             kayttaja.setSahkoposti(event.getNewValue());
-            kontrolleri.paivitaKayttaja(kayttaja);
+            controller.paivitaKayttaja(kayttaja);
         }
     }
 
@@ -268,7 +268,7 @@ public class KayttajaAdminController implements KayttajaAdminControllerIf {
     private void valtuudetEditCommit(TableColumn.CellEditEvent<Kayttaja, Integer> event) {
         Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();
         kayttaja.setValtuudet(event.getNewValue());
-        kontrolleri.paivitaKayttaja(kayttaja);
+        controller.paivitaKayttaja(kayttaja);
     }
 
     /**
@@ -279,15 +279,15 @@ public class KayttajaAdminController implements KayttajaAdminControllerIf {
      */
     @FXML
     private void kayttajatunnusEditCommit(TableColumn.CellEditEvent<Kayttaja, String> event) {
-        if (!kontrolleri.tarkistaUsername(event.getNewValue())) {
+        if (!controller.tarkistaUsername(event.getNewValue())) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Käyttäjätunnus on jo käytössä!");
             alert.showAndWait();
             kayttajaTableView.getItems().clear();
-            kayttajaTableView.getItems().addAll(kontrolleri.haeKaikkiKayttajat());
+            kayttajaTableView.getItems().addAll(controller.haeKaikkiKayttajat());
         } else {
             Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();
             kayttaja.setKayttajatunnus(event.getNewValue());
-            kontrolleri.paivitaKayttaja(kayttaja);
+            controller.paivitaKayttaja(kayttaja);
         }
     }
 }

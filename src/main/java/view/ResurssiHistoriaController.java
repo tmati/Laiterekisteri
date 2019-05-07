@@ -6,7 +6,7 @@
 package view;
 
 import com.sun.media.jfxmedia.logging.Logger;
-import controller.ControllerIf;
+import controller.*;
 import model.BooleanConverter;
 import model.Varaukset;
 import java.io.IOException;
@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -76,7 +75,7 @@ public class ResurssiHistoriaController implements ResurssiHistoriaControllerIf 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-     controller = View.CONTROLLER;
+     controller = Controller.getInstance();
         ChoiceBoxTableCell cc = new ChoiceBoxTableCell();
         BooleanConverter aktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
         BooleanConverter hyvaksyntaController = new BooleanConverter(controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));
@@ -140,8 +139,8 @@ public class ResurssiHistoriaController implements ResurssiHistoriaControllerIf 
         hyvaksyntaColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("hyvaksytty"));
         hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(hyvaksyntaController));
 
-        usernameLabel.setText(View.loggedIn.getNimi());
-        bizName.setText(View.BIZNAME);
+        usernameLabel.setText(controller.getLoggedIn().getNimi());
+        bizName.setText(controller.getBizname());
 
         
         varaajaColumn.setText(controller.getConfigTeksti("varaaja").toUpperCase());
@@ -155,8 +154,8 @@ public class ResurssiHistoriaController implements ResurssiHistoriaControllerIf 
         logoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
 
         poistavarausBtn.setText(controller.getConfigTeksti("removeReservation").toUpperCase());
-        varausString.setText(controller.getConfigTeksti("resursin") + " " + View.booking.getNimi() + " " + controller.getConfigTeksti("reservations").toLowerCase());
-        varausTable.getItems().addAll(controller.getVarausTaulukko(controller.resurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
+        varausString.setText(controller.getConfigTeksti("resursin") + " " + controller.getBooking().getNimi() + " " + controller.getConfigTeksti("reservations").toLowerCase());
+        varausTable.getItems().addAll(controller.getVarausTaulukko(controller.resurssinVaraukset(controller.getBooking().getId(), controller.haeKaikkiVaraukset())));
 
         this.logoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti("logoutInfo")));
         this.takaisinBtn.setTooltip(new Tooltip(controller.getConfigTeksti("returnButtonInfo")));
@@ -170,7 +169,7 @@ public class ResurssiHistoriaController implements ResurssiHistoriaControllerIf 
      */
     @FXML
     private void takaisinBtnPainettu(MouseEvent event) throws IOException {
-        View.booking = null;
+        controller.setBooking(null);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nakyma.fxml"));
         Stage stage = (Stage) varausString.getScene().getWindow();
         Parent root = loader.load();
@@ -189,8 +188,8 @@ public class ResurssiHistoriaController implements ResurssiHistoriaControllerIf 
         Stage stage = (Stage) logoutBtn.getScene().getWindow();
         Parent root = loader.load();
         stage.getScene().setRoot(root);
-        View.loggedIn = null;
-        View.booking = null;
+        controller.setLoggedIn(null);
+        controller.setBooking(null);
     }
 
     /**
@@ -203,7 +202,7 @@ public class ResurssiHistoriaController implements ResurssiHistoriaControllerIf 
         if (toDelete != null) {
             controller.poistaVarausBtnToiminto(toDelete);
             varausTable.getItems().clear();
-            varausTable.getItems().addAll(controller.getVarausTaulukko(controller.resurssinVaraukset(View.booking.getId(), controller.haeKaikkiVaraukset())));
+            varausTable.getItems().addAll(controller.getVarausTaulukko(controller.resurssinVaraukset(controller.getBooking().getId(), controller.haeKaikkiVaraukset())));
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("errorChooseReservation"));
             alert.showAndWait();

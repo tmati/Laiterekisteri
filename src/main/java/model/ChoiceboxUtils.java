@@ -5,7 +5,7 @@
  */
 package model;
 
-import controller.ControllerIf;
+import controller.*;
 import javafx.scene.control.ChoiceBox;
 
 /**
@@ -16,7 +16,7 @@ public class ChoiceboxUtils implements ChoiceboxUtilsIf {
     private ControllerIf controller;
     
 
-    public ChoiceboxUtils(ControllerIf controller) {
+    public ChoiceboxUtils(Controller controller) {
         this.controller = controller;
     }
 

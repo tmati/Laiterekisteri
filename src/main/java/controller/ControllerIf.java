@@ -18,9 +18,9 @@ import model.Varaukset;
 
 /**
  *
- * @author jukka
+ * @author Tommi
  */
-public interface ControllerIf {
+public interface ControllerIf{
 
     /**
      * Palauttaa datepickerille muokatut päivät.
@@ -30,6 +30,18 @@ public interface ControllerIf {
      * @return Callbackin jossa on muokatuja päiviä.
      */
     Callback dayCellFactory(Varaukset[] varaukset, LocalDate today);
+
+    /**
+     * Yrityksen nimeä hakeva medodi, istunto.bizname
+     * @return yrityksen nimi
+     */
+    String getBizname();
+
+    /**
+     * Palauttaa istunto.booking jossa säilytetään taulukosta valittua resurssia
+     * @return valittu resurssi
+     */
+    Resurssit getBooking();
 
     /**
      * Hakee modelista BooleanConverter-ilmentymän
@@ -44,6 +56,18 @@ public interface ControllerIf {
      * @return Stringin joka on halutulla kielellä jos ei löydy antaa nullin
      */
     String getConfigTeksti(String mihin);
+
+    /**
+     * Metodi palauttaa istunto.loggedin, jossa säilytetään kirjautunutta käyttäjää
+     * @return kirjautunut käyttäjä
+     */
+    Kayttaja getLoggedIn();
+
+    /**
+     * Palauttaa istunto.selected jossa säilytetään taulukosta valittu käyttäjä
+     * @return valittu käyttäjä
+     */
+    Kayttaja getSelected();
 
     /**
      * Kutsuu VarausKasittely.getVarausAikaString
@@ -283,10 +307,28 @@ public interface ControllerIf {
     String salasananCryptaus(String password);
 
     /**
+     * Metodi booking resurssin asettamiseen, jossa säilytetään taulukosta valittu resurssi
+     * @param booking valittu resurssi
+     */
+    void setBooking(Resurssit booking);
+
+    /**
+     * Metodi kirjautuneen käyttäjän asettamiseen
+     * @param kayttaja kirjautunut käyttäjä
+     */
+    void setLoggedIn(Kayttaja kayttaja);
+
+    /**
      * Asettaa LanguageTextin Maa parametrin käy vain fi, en, por tai pt
      * @param maa mihin kieleen vaihdetaan
      */
     void setMaa(String maa);
+
+    /**
+     * Metodi selected käyttäjä asettamiseen, jossa säilytetään taulukosta valittu käyttäjä
+     * @param kayttaja valittu käyttäjä
+     */
+    void setSelected(Kayttaja kayttaja);
 
     /**
      * Kutsuu KayttajaTarkistus.emailTarkistus

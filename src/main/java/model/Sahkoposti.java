@@ -5,7 +5,7 @@
  */
 package model;
 
-import controller.ControllerIf;
+import controller.*;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,7 +33,7 @@ public class Sahkoposti implements SahkopostiIf {
      * Kutsuu setMailServerProperties()
      * @param controller viittaus controller -luokkaan
      */
-    public Sahkoposti(ControllerIf controller) {
+    public Sahkoposti(Controller controller) {
         fromUserEmailPassword = controller.getConfigTeksti("kissatkoiria");
         setMailServerProperties();
     }

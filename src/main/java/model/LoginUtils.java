@@ -5,8 +5,8 @@
  */
 package model;
 
-import controller.ControllerIf;
-import view.View;
+import controller.*;
+
 
 
 /**
@@ -16,10 +16,10 @@ import view.View;
  */
 public class LoginUtils implements LoginUtilsIf {
 
-    private ControllerIf kontrolleri;
+    private ControllerIf controller;
 
-    public LoginUtils(ControllerIf kontrolleri) {
-        this.kontrolleri = kontrolleri;
+    public LoginUtils(Controller controller) {
+        this.controller = controller;
     }
 
     /**
@@ -33,10 +33,10 @@ public class LoginUtils implements LoginUtilsIf {
     public boolean loginProcess(String userName, String passWord) {
         //kontrolleri = new Controller();
         boolean found = false;
-        Kayttaja[] users = kontrolleri.haeKaikkiKayttajat();
+        Kayttaja[] users = controller.haeKaikkiKayttajat();
         for (Kayttaja user : users) {
             if (user.getKayttajatunnus().equals(userName) && user.getSalasana().equals(passWord)) {
-                View.loggedIn = user;
+                controller.setLoggedIn(user);
                 return true;
             }
         }

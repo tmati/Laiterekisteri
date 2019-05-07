@@ -16,7 +16,7 @@ import java.util.Properties;
  */
 public class LanguageText implements LanguageTextIf {
     
-    private static LanguageText instace = null;
+    private static LanguageText instance = null;
     private final Properties properties = new Properties();
     private String maa = "en";
     
@@ -32,11 +32,11 @@ public class LanguageText implements LanguageTextIf {
      * @return Instansin LanguageText luokasta
      */
     public static LanguageText getInstance() {
-        if(instace == null){
-            instace = new LanguageText();
-            instace.propertiesConstructor();
+        if(instance == null){
+            instance = new LanguageText();
+            instance.propertiesConstructor();
         }
-        return instace;
+        return instance;
     }
     
     /**

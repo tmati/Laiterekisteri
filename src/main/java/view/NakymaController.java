@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.ControllerIf;
+import controller.*;
 import model.BooleanConverter;
 import model.LuvanvaraisuusConverter;
 import model.Resurssit;
@@ -165,7 +165,7 @@ public class NakymaController implements NakymaControllerIf {
     @Transactional
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        controller = View.CONTROLLER;
+        controller = Controller.getInstance();
         kalenterinPienentamaResurssiLista = controller.haeKaikkiResurssit();
         BooleanConverter varattavissaController = new BooleanConverter(controller.getConfigTeksti("bookable"), controller.getConfigTeksti("notBookable"));
         BooleanConverter aktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
@@ -317,12 +317,12 @@ public class NakymaController implements NakymaControllerIf {
         
         
         
-        usernameLabel.setText(View.loggedIn.getNimi());
-        bizName.setText(View.BIZNAME);
+        usernameLabel.setText(controller.getLoggedIn().getNimi());
+        bizName.setText(controller.getBizname());
 
         Resurssit[] res = controller.haeKaikkiResurssit();
         kaikkiTableView.getItems().addAll(res);
-        Varaukset[] varauksetArr = controller.haeKayttajanVaraukset(View.loggedIn);
+        Varaukset[] varauksetArr = controller.haeKayttajanVaraukset(controller.getLoggedIn());
         omatTable.getItems().addAll(varauksetArr);
 
         picker = picker();
@@ -361,7 +361,7 @@ public class NakymaController implements NakymaControllerIf {
         //Rajoittaa käyttöliittymän elementtejä eritason käyttäjille
         
         //Työntekijä
-       if(View.loggedIn.getValtuudet()==0){
+       if(controller.getLoggedIn().getValtuudet()==0){
            this.henkilostoBtn.setDisable(true);
            this.henkilostoBtn.setOpacity(0);
            this.hallnnoiBtn.setDisable(true);
@@ -379,7 +379,7 @@ public class NakymaController implements NakymaControllerIf {
            this.tyyppiColumn.setEditable(false);
            
            //Esimies
-       }else if(View.loggedIn.getValtuudet()==1){
+       }else if(controller.getLoggedIn().getValtuudet()==1){
            this.henkilostoBtn.setDisable(true);
            this.henkilostoBtn.setOpacity(0);
        }
@@ -448,7 +448,7 @@ public class NakymaController implements NakymaControllerIf {
         omatTable.getItems().clear();
         Resurssit[] res = controller.haeKaikkiResurssit();
         kaikkiTableView.getItems().addAll(res);
-        Varaukset[] varauksetArr = controller.haeKayttajanVaraukset(View.loggedIn);
+        Varaukset[] varauksetArr = controller.haeKayttajanVaraukset(controller.getLoggedIn());
         omatTable.getItems().addAll(varauksetArr);
     }
 
@@ -461,9 +461,9 @@ public class NakymaController implements NakymaControllerIf {
     @FXML
     @Override
     public void varausNappiPainettu(MouseEvent event) throws IOException {
-        View.booking = kaikkiTableView.getSelectionModel().getSelectedItem();
-        if (View.booking != null) {
-            if (View.booking.isStatus()) {
+        controller.setBooking(kaikkiTableView.getSelectionModel().getSelectedItem());
+        if (controller.getBooking() != null) {
+            if (controller.getBooking().isStatus()) {
                 if (popup == null || !popup.isShowing()) {
                     popup = new Popup();
                     Object source = event.getSource();
@@ -539,7 +539,7 @@ public class NakymaController implements NakymaControllerIf {
         Stage stage = (Stage) logoutBtn.getScene().getWindow();
         Parent root = loader.load();
         stage.getScene().setRoot(root);
-        View.loggedIn = null;
+        controller.setLoggedIn(null);
     }
 
     /**
@@ -575,8 +575,8 @@ public class NakymaController implements NakymaControllerIf {
     @FXML
     @Override
     public void historiaBtnPainettu(MouseEvent event) throws IOException {
-        View.booking = kaikkiTableView.getSelectionModel().getSelectedItem();
-        if (View.booking != null) {
+        controller.setBooking(kaikkiTableView.getSelectionModel().getSelectedItem());
+        if (controller.getBooking() != null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ResurssiHistoria.fxml"));
             Stage stage = (Stage) logoutBtn.getScene().getWindow();
             Parent root = loader.load();
@@ -705,7 +705,7 @@ public class NakymaController implements NakymaControllerIf {
         }
 
         if (tabText.equals(controller.getConfigTeksti(OMAT)) && selectedCategory.equals(controller.getConfigTeksti("name").toUpperCase())) {
-            Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(View.loggedIn);
+            Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(controller.getLoggedIn());
             omatTable.getItems().clear();
             for (Varaukset varaus : omatVaraukset) {
                 String resurssiPienella = varaus.getResurssit().getNimi().toLowerCase();
@@ -716,7 +716,7 @@ public class NakymaController implements NakymaControllerIf {
                 }
             }
         } else if (tabText.equals(controller.getConfigTeksti(OMAT)) && selectedCategory.equals(controller.getConfigTeksti(CATEGORY).toUpperCase())) {
-            Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(View.loggedIn);
+            Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(controller.getLoggedIn());
             omatTable.getItems().clear();
             for (Varaukset varaus : omatVaraukset) {
                 String resurssiPienella = varaus.getResurssit().getTyyppi().toLowerCase();

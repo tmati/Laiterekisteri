@@ -5,7 +5,7 @@
  */
 package model;
 
-import controller.ControllerIf;
+import controller.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -24,11 +24,11 @@ public class VarausKasittely implements VarausKasittelyIf {
      * Konstruktori
      *
      * @param dao viittaus varausDAO:oon
-     * @param c viittaus Controlleriin
+     * @param controller viittaus Controlleriin
      */
-    public VarausKasittely(VarauksetDAOIF dao, ControllerIf c) {
+    public VarausKasittely(Controller controller, VarauksetDAOIF dao) {
         this.dao = dao;
-        this.controller = c;
+        this.controller = controller;
     }
 
     /**

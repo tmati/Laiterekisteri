@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.ControllerIf;
+import controller.*;
 import model.Resurssit;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -57,7 +57,7 @@ public class UusiResurssiController implements UusiResurssiControllerIf {
     private Label lupaLabel;
     
     private String choose = "choose";
-    ControllerIf controller;
+    private ControllerIf controller;
 
    
     /**
@@ -68,7 +68,7 @@ public class UusiResurssiController implements UusiResurssiControllerIf {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        controller = View.CONTROLLER;
+        controller = Controller.getInstance();
         
         itemLabel.setText(controller.getConfigTeksti("giveInfo"));
         uusiresurssiNappi.setText(controller.getConfigTeksti("createNewResource"));

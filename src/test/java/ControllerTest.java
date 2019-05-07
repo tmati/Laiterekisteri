@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-import controller.Controller;
+import controller.*;
 import model.Kayttaja;
 import model.Resurssit;
 import model.Varaukset;
@@ -22,17 +22,17 @@ import org.junit.Ignore;
  * @author Tommi
  */
 
-@Ignore
+
 
 public class ControllerTest {
 
-    static Controller kont;
+    static ControllerIf kont;
     boolean tulos;
     Kayttaja[] kay = kont.haeKaikkiKayttajat();
 
     @BeforeClass
     public static void setUpClass() {
-        kont = new Controller();
+        kont = Controller.getInstance();
 
         //lähettää sähköpostin säikeessä, täytyy käydä tarkistamassa manuaalisesti
         kont.lahetaSahkoposti("keychainems@gmail.com", "testi");

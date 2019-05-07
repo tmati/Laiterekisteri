@@ -1,6 +1,6 @@
 package view;
 
-import controller.ControllerIf;
+import controller.*;
 import model.Varaukset;
 import java.net.URL;
 import java.time.LocalDate;
@@ -76,12 +76,12 @@ public class VarausController implements VarausControllerIf {
     public void initialize(URL url, ResourceBundle rb) {
        
         
-        controller = View.CONTROLLER; 
+        controller = Controller.getInstance();
         
 
         //Katsoo kaikki varaaukset sille tuoteelle.
         Varaukset[] varaukset = controller.haeKaikkiVaraukset();
-        aVaraukset = controller.resurssinVaraukset(View.booking.getId(), varaukset);
+        aVaraukset = controller.resurssinVaraukset(controller.getBooking().getId(), varaukset);
 
         Varaukset[] varaus = controller.getVarausTaulukko(aVaraukset);
        
@@ -167,7 +167,7 @@ public class VarausController implements VarausControllerIf {
         };
 
 
-        itemLabel.setText(View.booking.getNimi());
+        itemLabel.setText(controller.getBooking().getNimi());
 
         //ValueFactoryiden määrittäminen spinnereilleen.
         mistaSpinner.setValueFactory(mistaFactory);
@@ -211,18 +211,18 @@ public class VarausController implements VarausControllerIf {
             //Lisätiedot
             String info = lisatiedotTextbox.getText();
             boolean b = false;
-            if(View.booking.getLuvanvaraisuus() == 0){
+            if(controller.getBooking().getLuvanvaraisuus() == 0){
                 b = true;
             }
-            Varaukset varaus = new Varaukset(View.loggedIn, View.booking, startStamp, endStamp, info, false, View.booking.getNimi(), b);
+            Varaukset varaus = new Varaukset(controller.getLoggedIn(), controller.getBooking(), startStamp, endStamp, info, false, controller.getBooking().getNimi(), b);
             controller.luoVaraus(varaus);
-            Varaukset[] varaukset = controller.haeKayttajanVaraukset(View.loggedIn);
+            Varaukset[] varaukset = controller.haeKayttajanVaraukset(controller.getLoggedIn());
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
             Window nakyma = popup.getOwnerWindow();
             TableView omatTableView = (TableView) nakyma.getScene().lookup("#omatTable");
             omatTableView.getItems().clear();
             omatTableView.getItems().addAll(varaukset);
-            View.booking = null;
+            controller.setBooking(null);
             this.sulkuNappiPainettu(event);
         }else{
             Alert a = new Alert(AlertType.INFORMATION);
@@ -241,7 +241,7 @@ public class VarausController implements VarausControllerIf {
     @FXML
     private void sulkuNappiPainettu(ActionEvent event) {
         Popup popup = (Popup) sulkuNappi.getScene().getWindow();
-        Varaukset[] varaukset = controller.haeKayttajanVaraukset(View.loggedIn);
+        Varaukset[] varaukset = controller.haeKayttajanVaraukset(controller.getLoggedIn());
         Window nakyma = popup.getOwnerWindow();
         TableView omatTableView = (TableView) nakyma.getScene().lookup("#omatTable");
         omatTableView.getItems().clear();

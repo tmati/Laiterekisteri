@@ -30,6 +30,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.util.Callback;
 import model.ChoiceboxUtilsIf;
 import model.DayCellFactoryIf;
+import model.Istunto;
+import model.IstuntoIF;
 import model.KalenterinTarvitsematToimenpiteetIf;
 import model.KayttajaDAOIF;
 import model.KayttajaTarkistusIf;
@@ -49,7 +51,7 @@ import model.VarausKasittelyIf;
  * @author Tommi
  */
 public class Controller implements ControllerIf {
-
+    private static Controller instance = null;
     private final KayttajaDAOIF kayttajaDAO;
     private final ResurssitDAOIF resurssiDAO;
     private final VarauksetDAOIF varausDAO;
@@ -66,13 +68,15 @@ public class Controller implements ControllerIf {
     private final SalasananPalautusIf salasananPalautus;
     private final PoistaBtnToiminnotIf poistaBtnToiminnot;
     private final LanguageTextIf tekstit;
+    private final IstuntoIF istunto;
+    
 
     /**
      * Controllerin konstruktio
+     * 
      */
-    public Controller() {        
+    private Controller(){        
         tekstit = LanguageText.getInstance();
-
         kayttajaDAO = new KayttajaAccessObject();
         kayttajaTarkistus = new KayttajaTarkistus(this);
         resurssiDAO = new ResurssitAccessObject();
@@ -81,13 +85,21 @@ public class Controller implements ControllerIf {
         cbutils = new ChoiceboxUtils(this);
         cellfactory = new DayCellFactory();
         aikalaskuri = new VarauksenAikaLaskuri();
-        varausKasittely = new VarausKasittely(varausDAO, this);
+        varausKasittely = new VarausKasittely(this,varausDAO);
         resurssikasittely = new ResurssiKasittely(this);
         kalenteriApu = new KalenterinTarvitsematToimenpiteet();
         sahkoposti = new Sahkoposti(this);
         salasananPalautus = new SalasananPalautus(this);
         poistaBtnToiminnot = new PoistaBtnToiminnot(this);
         crypter = new PasswordConverter();
+        istunto = new Istunto(this);
+    }
+    
+    public static Controller getInstance() {
+        if(instance == null){
+            instance = new Controller();
+        }
+        return instance;
     }
 
     /**
@@ -347,7 +359,7 @@ public class Controller implements ControllerIf {
      */
     @Override
     public Callback dayCellFactory(Varaukset[] varaukset, LocalDate today) {
-        return cellfactory.dayCellFactory(this, varaukset, today);
+        return cellfactory.dayCellFactory(this,varaukset, today);
     }
 
     /**
@@ -487,4 +499,69 @@ public class Controller implements ControllerIf {
     public void setMaa(String maa){
         tekstit.setMaa(maa);
     }
+    
+    /**
+     * Palauttaa istunto.selected jossa säilytetään taulukosta valittu käyttäjä
+     * @return valittu käyttäjä
+     */
+    @Override
+    public Kayttaja getSelected(){
+        return istunto.getSelected();
+    }
+    
+    /**
+     * Metodi selected käyttäjä asettamiseen, jossa säilytetään taulukosta valittu käyttäjä
+     * @param kayttaja valittu käyttäjä
+     */
+    @Override
+    public void setSelected(Kayttaja kayttaja){
+        istunto.setSelected(kayttaja);
+    }
+    
+    /**
+     * Palauttaa istunto.booking jossa säilytetään taulukosta valittua resurssia
+     * @return valittu resurssi
+     */
+    @Override
+    public Resurssit getBooking(){
+        return istunto.getBooking();
+    }
+    
+    /**
+     * Metodi booking resurssin asettamiseen, jossa säilytetään taulukosta valittu resurssi
+     * @param booking valittu resurssi
+     */
+    @Override
+    public void setBooking(Resurssit booking){
+        istunto.setBooking(booking);
+    }
+    
+    /**
+     * Yrityksen nimeä hakeva medodi, istunto.bizname
+     * @return yrityksen nimi
+     */
+    @Override
+    public String getBizname(){
+        return istunto.getBizname();
+    }
+    
+    /**
+     * Metodi palauttaa istunto.loggedin, jossa säilytetään kirjautunutta käyttäjää
+     * @return kirjautunut käyttäjä
+     */
+    @Override
+    public Kayttaja getLoggedIn(){
+        return istunto.getLoggedIn();
+    }
+    
+    /**
+     * Metodi kirjautuneen käyttäjän asettamiseen
+     * @param kayttaja kirjautunut käyttäjä
+     */
+    @Override
+    public void setLoggedIn(Kayttaja kayttaja){
+        istunto.setLoggedIn(kayttaja);
+    }
+    
+    
 }

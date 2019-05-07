@@ -6,7 +6,7 @@
 package view;
 
 import com.sun.media.jfxmedia.logging.Logger;
-import controller.ControllerIf;
+import controller.*;
 import model.BooleanConverter;
 import model.Kayttaja;
 import model.Resurssit;
@@ -22,7 +22,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -121,7 +120,7 @@ public class VarausAdminController implements VarausAdminControllerIf {
     public void initialize(URL url, ResourceBundle rb) {
         poistaBtn.setOpacity(0);
         poistaBtn.setDisable(true);
-        controller = View.CONTROLLER;
+        controller = Controller.getInstance();
         BooleanConverter aktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive").toUpperCase(), controller.getConfigTeksti("isnActive").toUpperCase());
         BooleanConverter hyvaksyntaController = new BooleanConverter(controller.getConfigTeksti("acknowledged").toUpperCase(), controller.getConfigTeksti("hylatty").toUpperCase());
         
@@ -202,8 +201,8 @@ public class VarausAdminController implements VarausAdminControllerIf {
         kuvausColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, String>("kuvaus"));
         kuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        bizName.setText(View.BIZNAME);
-        usernameLabel.setText(View.loggedIn.getNimi());
+        bizName.setText(controller.getBizname());
+        usernameLabel.setText(controller.getLoggedIn().getNimi());
 
         Varaukset[] varaukset = controller.haeKasittelemattomatVaraukset();
         varauksetTableView.getItems().addAll(varaukset);
@@ -336,7 +335,7 @@ public class VarausAdminController implements VarausAdminControllerIf {
         Stage stage = (Stage) logoutBtn.getScene().getWindow();
         Parent root = loader.load();
         stage.getScene().setRoot(root);
-        View.loggedIn = null;
+        controller.setLoggedIn(null);
     }
 
     /**

@@ -6,7 +6,7 @@
 package view;
 
 import com.sun.media.jfxmedia.logging.Logger;
-import controller.ControllerIf;
+import controller.*;
 import model.BooleanConverter;
 import model.Varaukset;
 import java.io.IOException;
@@ -77,7 +77,7 @@ public class KayttajanVarauksetController implements KayttajanVarauksetControlle
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        controller = View.CONTROLLER;
+        controller = Controller.getInstance();
         ChoiceBoxTableCell cc = new ChoiceBoxTableCell();
         BooleanConverter aktiivisuusController = new BooleanConverter(controller.getConfigTeksti("isActive"), controller.getConfigTeksti("isnActive"));
         BooleanConverter hyvaksyntaController = new BooleanConverter(controller.getConfigTeksti("acknowledged"), controller.getConfigTeksti("inProgress"));
@@ -142,10 +142,10 @@ public class KayttajanVarauksetController implements KayttajanVarauksetControlle
         hyvaksyntaColumn.setCellValueFactory(new PropertyValueFactory<Varaukset, Boolean>("hyvaksytty"));
         hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(hyvaksyntaController));
 
-        usernameLabel.setText(View.loggedIn.getNimi());
-        bizName.setText(View.BIZNAME);
-        kayttajaString.setText(controller.getConfigTeksti("user1") + " " + View.selected.getNimi() + " " + controller.getConfigTeksti("reservations"));
-        kayttajaTable.getItems().addAll(View.selected.getVarauksets());
+        usernameLabel.setText(controller.getLoggedIn().getNimi());
+        bizName.setText(controller.getBizname());
+        kayttajaString.setText(controller.getConfigTeksti("user1") + " " + controller.getSelected().getNimi() + " " + controller.getConfigTeksti("reservations"));
+        kayttajaTable.getItems().addAll(controller.getSelected().getVarauksets());
 
         takaisinBtn.setText(controller.getConfigTeksti("returnButton").toUpperCase());
         logoutBtn.setText(controller.getConfigTeksti("Logout").toUpperCase());
@@ -172,7 +172,7 @@ public class KayttajanVarauksetController implements KayttajanVarauksetControlle
      */
     @FXML
     private void takaisinBtnPainettu(MouseEvent event) throws IOException {
-        View.selected = null;
+        controller.setSelected(null);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KayttajaAdmin.fxml"));
         Stage stage = (Stage) kayttajaString.getScene().getWindow();
         Parent root = loader.load();
@@ -192,8 +192,8 @@ public class KayttajanVarauksetController implements KayttajanVarauksetControlle
         Stage stage = (Stage) logoutBtn.getScene().getWindow();
         Parent root = loader.load();
         stage.getScene().setRoot(root);
-        View.loggedIn = null;
-        View.selected = null;
+        controller.setLoggedIn(null);
+        controller.setSelected(null);
     }
 
     /**
@@ -213,7 +213,7 @@ public class KayttajanVarauksetController implements KayttajanVarauksetControlle
                     controller.poistaVaraus(toDelete.getId());
                     controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + controller.getConfigTeksti("emailFordeletingReservation"));
                     kayttajaTable.getItems().clear();
-                    kayttajaTable.getItems().addAll(controller.haeKayttajanVaraukset(View.selected));
+                    kayttajaTable.getItems().addAll(controller.haeKayttajanVaraukset(controller.getSelected()));
                 }else {
                     Alert alert1 = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti("errorChooseReservation"));
                     alert1.showAndWait();

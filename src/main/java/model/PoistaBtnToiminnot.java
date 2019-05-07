@@ -5,7 +5,7 @@
  */
 package model;
 
-import controller.ControllerIf;
+import controller.*;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -25,7 +25,7 @@ public class PoistaBtnToiminnot implements PoistaBtnToiminnotIf {
      *
      * @param controller viittaus controller luokkaan
      */
-    public PoistaBtnToiminnot(ControllerIf controller) {
+    public PoistaBtnToiminnot(Controller controller) {
         this.controller = controller;
     }
 

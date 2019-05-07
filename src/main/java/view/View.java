@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import controller.ControllerIf;
 import model.Kayttaja;
 import model.Resurssit;
 import javafx.application.Application;
@@ -16,35 +17,16 @@ import javafx.stage.Stage;
  *
  * @author tmati
  */
-public class View extends Application implements ViewIf {
-
-    /**
-     * Sovelluksen käytäjän tiedot.
-     *
-     */
-    public static Kayttaja loggedIn = null;
-
+public class View extends Application{
     
-    /**
-     * Käyttäjän varausten tarkastelua varten tallennettava olio
-     */
-    public static Kayttaja selected = null;
     
-    /**
-     * Varaukseen vietävä resurssi
-     */
-    public static Resurssit booking = null;
-
-
     /**
      *
      * @param stage Stage
      * @throws Exception Varauduttava poikkeus
      */
-
     @Override
     public void start(Stage stage) throws Exception {
-
 
         stage.setMaximized(true);
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Loginwindow.fxml"));
@@ -62,4 +44,7 @@ public class View extends Application implements ViewIf {
     public static void main(String[] args) {
         launch();
     }
+
+    
+    
 }

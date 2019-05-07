@@ -5,7 +5,7 @@
  */
 package model;
 
-import controller.ControllerIf;
+import controller.*;
 import java.util.Objects;
 
 /**
@@ -14,14 +14,14 @@ import java.util.Objects;
  */
 public class ResurssiKasittely implements ResurssiKasittelyIf {
 
-    ControllerIf controller;
+    private ControllerIf controller;
 
     /**
      *  Konstruktori
-     * @param c viite controller -luokkaan
+     * @param controller viite controller -luokkaan
      */
-    public ResurssiKasittely(ControllerIf c) {
-        this.controller = c;
+    public ResurssiKasittely(Controller controller) {
+        this.controller = controller;
     }
 
     /**

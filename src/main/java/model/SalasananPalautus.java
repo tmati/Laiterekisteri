@@ -5,7 +5,7 @@
  */
 package model;
 
-import controller.ControllerIf;
+import controller.*;
 
 /**
  *
@@ -18,8 +18,8 @@ public class SalasananPalautus implements SalasananPalautusIf {
                                     + "abcdefghijklmnopqrstuvxyz"; 
     private final StringBuilder sb = new StringBuilder(8);
     
-    public SalasananPalautus(ControllerIf c){
-        this.controller = c;
+    public SalasananPalautus(Controller controller){
+        this.controller = controller;
     }
     
     @Override

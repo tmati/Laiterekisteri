@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.ControllerIf;
+import controller.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -47,7 +47,7 @@ public class PalautasalasanaController implements PalautasalasanaControllerIf {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
   
-        controller = View.CONTROLLER;
+        controller = Controller.getInstance();
         
         this.emailTextField.setTooltip(new Tooltip(controller.getConfigTeksti("emailTextfield")));
         this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti("closePopup")));

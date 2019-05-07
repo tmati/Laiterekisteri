@@ -34,17 +34,17 @@ import org.junit.Test;
  * @author Tommi
  */
 
-@Ignore
+
 
 public class ModelTest {
 
-    private static ControllerIf controller = new Controller();
+    private static ControllerIf controller = Controller.getInstance();
     private static Kayttaja k;
     private static Resurssit res;
     private static Varaukset var;
     private static Varaukset var1;
     private VarauksetDAOIF dao = new VarauksetAccessObject();
-    private VarausKasittely vk = new VarausKasittely(dao, controller);
+    private VarausKasittely vk = new VarausKasittely(Controller.getInstance(), dao);
 
     @BeforeClass
     public static void setUpClass() {
@@ -90,7 +90,7 @@ public class ModelTest {
 
     @Test
     public void poistaResurssinVaraukset() {
-        ResurssiKasittely rk = new ResurssiKasittely(controller);
+        ResurssiKasittely rk = new ResurssiKasittely(Controller.getInstance());
         assertTrue("poistaResurssinVaraukset: poisto ei onnistunut",
                 rk.poistaResurssinVaraukset(res));
     }

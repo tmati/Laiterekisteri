@@ -6,6 +6,7 @@
 package model;
 
 import controller.ControllerIf;
+import controller.Controller;
 
 /**
  * Luokka käyttäjän tietojen tarkistukseen
@@ -14,15 +15,15 @@ import controller.ControllerIf;
  */
 public class KayttajaTarkistus implements KayttajaTarkistusIf {
 
-    private ControllerIf kontrolleri;
-
+    private ControllerIf controller;
+    
     /**
      * Konstruktori
      *
-     * @param kontrolleri viittaus controlleriin
+     * @param controller viittaus controlleriin
      */
-    public KayttajaTarkistus(ControllerIf kontrolleri) {
-        this.kontrolleri = kontrolleri;
+    public KayttajaTarkistus(Controller controller) {
+        this.controller = controller;
     }
 
     /**
@@ -33,7 +34,7 @@ public class KayttajaTarkistus implements KayttajaTarkistusIf {
      */
     @Override
     public boolean usernameTarkastus(String tarkastettavaSyote) {
-        Kayttaja[] kayttajat = kontrolleri.haeKaikkiKayttajat();
+        Kayttaja[] kayttajat = controller.haeKaikkiKayttajat();
         for (Kayttaja kayttaja : kayttajat) {
             if (kayttaja.getKayttajatunnus().equals(tarkastettavaSyote)) {
                 return false;
@@ -50,7 +51,7 @@ public class KayttajaTarkistus implements KayttajaTarkistusIf {
      */
     @Override
     public boolean emailTarkastus(String tarkastettavaSyote) {
-        Kayttaja[] kayttajat = kontrolleri.haeKaikkiKayttajat();
+        Kayttaja[] kayttajat = controller.haeKaikkiKayttajat();
         for (Kayttaja kayttaja : kayttajat) {
             if (kayttaja.getSahkoposti().equals(tarkastettavaSyote)) {
                 return false;

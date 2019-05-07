@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.ControllerIf;
+import controller.*;
 import model.Kayttaja;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -75,7 +75,7 @@ public class UusiKayttajaController implements UusiKayttajaControllerIf {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        controller = View.CONTROLLER;
+        controller = Controller.getInstance();
 
         luokayttajaNappi.setText(controller.getConfigTeksti("createUser").toUpperCase());
         titleLabel.setText(controller.getConfigTeksti("newUser").toUpperCase());

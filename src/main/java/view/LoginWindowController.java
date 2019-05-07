@@ -6,14 +6,13 @@
 package view;
 
 import com.sun.media.jfxmedia.logging.Logger;
-import controller.Controller;
+import controller.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -59,7 +58,7 @@ public class LoginWindowController implements LoginWindowControllerIf {
     private static final String LOGINFXML = "/fxml/Loginwindow.fxml";
     Popup popup;
     
-    private Controller controller;
+    private ControllerIf controller;
 
     /**
      * Initializes the controller class.
@@ -73,7 +72,7 @@ public class LoginWindowController implements LoginWindowControllerIf {
         Image image = new Image(getClass().getResourceAsStream("/keychain.png"));
         logoView.setImage(image);
         centerImage(logoView);
-        controller = new Controller();
+        controller = Controller.getInstance();
         usernameField.setId("usernameField");
         Locale.setDefault(new Locale("en", "EN"));
         setText();

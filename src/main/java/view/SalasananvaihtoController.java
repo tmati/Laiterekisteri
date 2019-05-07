@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.ControllerIf;
+import controller.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -57,8 +57,9 @@ public class SalasananvaihtoController implements SalasananvaihtoControllerIf {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        usernameLabel.setText(View.loggedIn.getNimi());
-        controller = View.CONTROLLER;
+         controller = Controller.getInstance();
+        usernameLabel.setText(controller.getLoggedIn().getNimi());
+      
         
         vaihdasalasanaNappi.setText(controller.getConfigTeksti("changePassword").toUpperCase());
         titleLabel.setText(controller.getConfigTeksti("changePasswordTitle").toUpperCase());
@@ -86,9 +87,9 @@ public class SalasananvaihtoController implements SalasananvaihtoControllerIf {
     @FXML
     private void vaihdasalasanaNappiPainettu(MouseEvent event) {
         //Sisään kirjautuneena oleva käyttäjä tähän
-        if (controller.salasananCryptaus(vanhasalasanaTextField.getText()).equals(View.loggedIn.getSalasana()) && uusisalasana1TextField.getText().equals(uusisalasana2TextField.getText())) {
-            View.loggedIn.setSalasana(controller.salasananCryptaus(uusisalasana2TextField.getText()));
-            controller.paivitaKayttaja(View.loggedIn);
+        if (controller.salasananCryptaus(vanhasalasanaTextField.getText()).equals(controller.getLoggedIn().getSalasana()) && uusisalasana1TextField.getText().equals(uusisalasana2TextField.getText())) {
+            controller.getLoggedIn().setSalasana(controller.salasananCryptaus(uusisalasana2TextField.getText()));
+            controller.paivitaKayttaja(controller.getLoggedIn());
             virheLabel.setDisable(true);
             virheLabel.setOpacity(0);
             Popup popup = (Popup) sulkuNappi.getScene().getWindow();
@@ -97,7 +98,7 @@ public class SalasananvaihtoController implements SalasananvaihtoControllerIf {
             virheLabel.setText(controller.getConfigTeksti("newPasswordError1"));
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
-        } else if (!vanhasalasanaTextField.getText().equals(View.loggedIn.getSalasana())) {
+        } else if (!vanhasalasanaTextField.getText().equals(controller.getLoggedIn().getSalasana())) {
             virheLabel.setText(controller.getConfigTeksti("newPasswordError2"));
             virheLabel.setDisable(false);
             virheLabel.setOpacity(100);
