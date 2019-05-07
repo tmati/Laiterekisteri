@@ -1,0 +1,21 @@
+KeyChain Enterprise Management System
+======================================
+
+Projektiohjelmiston tarkoitus on hallinnoida pienien ja keskisuurien yrityksien eri materiaalia, kuten tietotekniikkaa tai ajoneuvoja kätevästi yhdestä paikkaa
+Fokus sama kuin OTP1:ssä.
+
+Ohjelmisto sisältää käyttäjäluokittelutoiminnon ja varaustoiminnon.
+Järjestelmänvalvoja voi lisätä uusia resursseja ja käyttäjiä, sekä myös poistaa niitä.
+Resurssi voidaan määrittää luvanvaraiseksi, jolloin esimiestason käyttäjä hyväksyy kaikki ko. resurssille tulevat varaukset.
+Järjestelmään kirjaudutaan sisään käyttäjätunnus - salasanaparilla. Unohtuneen salasanan voi palauttaa sisäänkirjautumisnäkymässä.
+Järjestelmässä voi hakea resurssia joko sille annetun nimen tai kategorian mukaan.
+Resurssien sekä käyttäjien varaushistorioita voidaan seurata.
+Sovelluksen sähköpostipalvelu ilmoittaa käyttäjille hylkääntyvistä varauksista.
+
+Sovellus on JavaFX-projekti Maven - koontiautomaatiolla. Projekti noudattaa MVC-arkkitehtuuria. Model-kansion alta löytyy tietokannan käyttämät oliorakenteet sekä 
+niiden rajapinnat ja tietokannan käyttöön liittyvät luokat. Tänne on myös siirretty View-luokista kaikki niiden vaatima toiminnallisuus. View-kansio sisältää GUI:n käyttöön liittyvät näkymien controller-luokat ja Controller hoitaa view:in ja modelin 
+välisen keskustelun.
+
+Projektin käyttämät kuvatiedostot löytyvät src/main/resource -polun takaa ja FXML-näkymätiedostot löytyvät src/main/resource/fxml -polun takaa. CSS- tiedosto on osoitteessa src/main/resource/styles.
+
+Sovellusta on testattu JUnit 5 - yksikkötestein sekä kirjautumisnäkymää kevyesti TestFX - testityökalulla.
