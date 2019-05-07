@@ -35,7 +35,7 @@ public class LoginUtils implements LoginUtilsIf {
      */
     @Override
     public boolean loginProcess(String userName, String passWord) {
-        //kontrolleri = new Controller();
+       
         boolean found = false;
         Kayttaja[] users = controller.haeKaikkiKayttajat();
         for (Kayttaja user : users) {

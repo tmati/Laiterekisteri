@@ -55,7 +55,7 @@ public class LoginWindowController implements LoginWindowControllerIf {
     
     private boolean loginPossible;
     private static final String LOGINIMPOSSIBLE = "loginImpossible";
-    private static final String LOGINFXML = "/fxml/Loginwindow.fxml";
+   
     Popup popup;
     
     private ControllerIf controller;

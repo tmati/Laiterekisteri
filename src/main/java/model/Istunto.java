@@ -20,7 +20,7 @@ public class Istunto implements IstuntoIF {
     /**
      * Yrityksen nimi
      */
-    private final String BIZNAME = "KeyChain Enterprise Management";
+    private static final String BIZNAME = "KeyChain Enterprise Management";
    
     /**
      * Sovelluksen käytäjän tiedot.

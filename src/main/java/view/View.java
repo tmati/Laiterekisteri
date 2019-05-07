@@ -1,9 +1,5 @@
 package view;
 
-import controller.Controller;
-import controller.ControllerIf;
-import model.Kayttaja;
-import model.Resurssit;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
