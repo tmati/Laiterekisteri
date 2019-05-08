@@ -6,6 +6,7 @@
 package model;
 
 import controller.*;
+import java.util.Random;
 
 /**
  *
@@ -17,6 +18,7 @@ public class SalasananPalautus implements SalasananPalautusIf {
                                     + "0123456789"
                                     + "abcdefghijklmnopqrstuvxyz"; 
     private final StringBuilder sb = new StringBuilder(8);
+    private final Random random = new Random();
     
 /**
      * SalasananPalautus luokan constructori
@@ -53,7 +55,7 @@ public class SalasananPalautus implements SalasananPalautusIf {
      */
     private String getRandomSalasana(){
          for (int i = 0; i < 9; i++) { 
-            int index = (int)(MERKIT.length() * Math.random()); 
+            int index = (int)(MERKIT.length() * random.nextFloat());
             sb.append(MERKIT.charAt(index)); 
         } 
         return sb.toString(); 

@@ -11,7 +11,6 @@ import model.LuvanvaraisuusConverter;
 import model.Resurssit;
 import model.Varaukset;
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
-import com.sun.media.jfxmedia.logging.Logger;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -22,6 +21,7 @@ import java.time.LocalTime;
 import java.time.chrono.ChronoLocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -59,6 +59,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import javax.transaction.Transactional;
+import model.Istunto;
 
 /**
  * Päänäkymän ohjaintoiminnot.
@@ -212,7 +213,7 @@ public class NakymaController implements NakymaControllerIf {
                     return new java.sql.Timestamp(parsedDate.getTime());
                     
                 } catch (Exception e) {
-                    Logger.logMsg(0, e.getMessage());
+                     Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
                 }
                 return null;
             }
@@ -234,7 +235,7 @@ public class NakymaController implements NakymaControllerIf {
                     Date parsedDate = (Date) dateFormat.parse(string);
                     return new java.sql.Timestamp(parsedDate.getTime());
                 } catch (Exception e) {
-                     Logger.logMsg(0, e.getMessage());
+                      Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
                 }
                 return null;
             }

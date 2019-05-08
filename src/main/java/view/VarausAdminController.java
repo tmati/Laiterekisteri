@@ -5,7 +5,6 @@
  */
 package view;
 
-import com.sun.media.jfxmedia.logging.Logger;
 import controller.*;
 import model.BooleanConverter;
 import model.Kayttaja;
@@ -18,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -43,6 +43,7 @@ import javafx.util.StringConverter;
 import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import javax.mail.MessagingException;
+import model.Istunto;
 
 /**
  * Varausten tarkasteluun käytettävän näkymän toiminnot
@@ -169,7 +170,7 @@ public class VarausAdminController implements VarausAdminControllerIf {
                     return new java.sql.Timestamp(parsedDate.getTime());
                 
                 } catch (Exception e) {
-                     Logger.logMsg(0, e.getMessage());
+                      Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
                 }
                 return null;
             }
@@ -192,7 +193,7 @@ public class VarausAdminController implements VarausAdminControllerIf {
                     return new java.sql.Timestamp(parsedDate.getTime());
                     
                 } catch (Exception e) {
-                    Logger.logMsg(0, e.getMessage());
+                     Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
                 }
                 return null;
             }

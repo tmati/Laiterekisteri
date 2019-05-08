@@ -4,9 +4,8 @@
  * and open the template in the editor.
  */
 package model;
-
-import com.sun.media.jfxmedia.logging.Logger;
 import java.util.List;
+import java.util.logging.Level;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,7 +27,7 @@ public class VarauksetAccessObject implements VarauksetDAOIF {
         try {
             sf = HibernateUtil.getSessionFactory();
         } catch (Exception e) {
-             Logger.logMsg(0, e.getMessage());
+              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
         }
     }
 
@@ -47,7 +46,7 @@ public class VarauksetAccessObject implements VarauksetDAOIF {
             s.saveOrUpdate(varaus);
             tran.commit();
         } catch (Exception e) {
-             Logger.logMsg(0, e.getMessage());
+              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
             return false;
         } finally {
             s.close();
@@ -74,7 +73,7 @@ public class VarauksetAccessObject implements VarauksetDAOIF {
             Hibernate.initialize(haettu.getResurssit());
             s.getTransaction().commit();
         } catch (Exception e) {
-             Logger.logMsg(0, e.getMessage());
+              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
         } finally {
             s.close();
         }
@@ -98,7 +97,7 @@ public class VarauksetAccessObject implements VarauksetDAOIF {
             varaukset = result.toArray(new Varaukset[result.size()]);
             s.getTransaction().commit();
         } catch (Exception e) {
-             Logger.logMsg(0, e.getMessage());
+              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
 
         } finally {
             s.close();
@@ -132,7 +131,7 @@ public class VarauksetAccessObject implements VarauksetDAOIF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
-             Logger.logMsg(0, e.getMessage());
+              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
             return false;
 
         } finally {
@@ -159,7 +158,7 @@ public class VarauksetAccessObject implements VarauksetDAOIF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
-             Logger.logMsg(0, e.getMessage());
+              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
             return false;
         } finally {
             s.close();

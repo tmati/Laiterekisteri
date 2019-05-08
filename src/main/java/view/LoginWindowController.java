@@ -5,12 +5,12 @@
  */
 package view;
 
-import com.sun.media.jfxmedia.logging.Logger;
 import controller.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -31,6 +31,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import model.Istunto;
 
 /**
  * Kirjautumisikkunan toiminnallisuus.
@@ -151,7 +152,7 @@ public class LoginWindowController implements LoginWindowControllerIf {
                 Parent root = loader.load();
                 stage.getScene().setRoot(root);
             } catch (IOException e) {
-                Logger.logMsg(0, e.getMessage());
+                Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
 
             }
         } else {
@@ -175,7 +176,7 @@ public class LoginWindowController implements LoginWindowControllerIf {
                     Parent root = loader.load();
                     stage.getScene().setRoot(root);
                 } catch (IOException e) {
-                     Logger.logMsg(0, e.getMessage());
+                     Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
 
                 }
             }else{

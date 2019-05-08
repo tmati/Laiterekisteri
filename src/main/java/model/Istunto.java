@@ -13,6 +13,9 @@ import java.util.logging.Logger;
  * @author Tommi
  */
 public class Istunto implements IstuntoIF {
+    /**
+     * Staattinen loggeri, jota kaikki luokat käyttävät.
+     */
     public static final Logger LOGGER = Logger.getAnonymousLogger();
     /**
      * Viittaus controller instanssiin
@@ -22,7 +25,7 @@ public class Istunto implements IstuntoIF {
     /**
      * Yrityksen nimi
      */
-    private static final String BIZNAME = "KeyChain Enterprise Management";
+    private String bizname = "KeyChain Enterprise Management";
    
     /**
      * Sovelluksen käytäjän tiedot.
@@ -76,7 +79,7 @@ public class Istunto implements IstuntoIF {
     
     @Override
     public String getBizname(){
-        return this.BIZNAME;
+        return this.bizname;
     }
     
 }

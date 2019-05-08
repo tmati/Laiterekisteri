@@ -5,10 +5,10 @@
  */
 package model;
 
-import com.sun.media.jfxmedia.logging.Logger;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Level;
 
 /**
  * Luokka jonka tarkoitus on käydä config.properties.txt tiedoston läpi ja hakee tietyt kohdat sieltä stringinä muille.
@@ -46,7 +46,7 @@ public class LanguageText implements LanguageTextIf {
         try{
             properties.load(new FileInputStream("config.properties.txt"));
         }catch(IOException e){
-             Logger.logMsg(0, e.getMessage());
+              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
         }
     }
     

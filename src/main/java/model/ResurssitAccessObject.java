@@ -5,8 +5,8 @@
  */
 package model;
 
-import com.sun.media.jfxmedia.logging.Logger;
 import java.util.List;
+import java.util.logging.Level;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -27,7 +27,7 @@ public class ResurssitAccessObject implements ResurssitDAOIF {
         try {
             sf = HibernateUtil.getSessionFactory();
         } catch (Exception e) {
-             Logger.logMsg(0, e.getMessage());
+            Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
         }
     }
 
@@ -47,7 +47,7 @@ public class ResurssitAccessObject implements ResurssitDAOIF {
             s.saveOrUpdate(resurssi);
             tran.commit();
         } catch (Exception e) {
-             Logger.logMsg(0, e.getMessage());
+            Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
             return false;
         } finally {
             s.close();
@@ -72,7 +72,7 @@ public class ResurssitAccessObject implements ResurssitDAOIF {
             s.load(haettu, id);
             s.getTransaction().commit();
         } catch (Exception e) {
-             Logger.logMsg(0, e.getMessage());
+            Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
         } finally {
             s.close();
         }
@@ -96,8 +96,7 @@ public class ResurssitAccessObject implements ResurssitDAOIF {
             resurssit = result.toArray(new Resurssit[result.size()]);
             s.getTransaction().commit();
         } catch (Exception e) {
-
-             Logger.logMsg(0, e.getMessage());
+            Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
 
         } finally {
             s.close();
@@ -130,7 +129,7 @@ public class ResurssitAccessObject implements ResurssitDAOIF {
             s.getTransaction().commit();
         } catch (Exception e) {
 
-             Logger.logMsg(0, e.getMessage());
+            Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
             return false;
 
         } finally {
@@ -156,13 +155,13 @@ public class ResurssitAccessObject implements ResurssitDAOIF {
             Resurssit poistettava = (Resurssit) s.get(Resurssit.class, valittu.getId());
             if (poistettava != null) {
                 s.delete(poistettava);
-            }else{
+            } else {
                 tulos = false;
             }
             s.getTransaction().commit();
         } catch (Exception e) {
 
-             Logger.logMsg(0, e.getMessage());
+            Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
             return false;
 
         } finally {
