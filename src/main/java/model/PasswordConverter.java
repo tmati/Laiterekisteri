@@ -5,9 +5,9 @@
  */
 package model;
 
-import com.sun.media.jfxmedia.logging.Logger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
 
 /**
  *
@@ -33,7 +33,7 @@ public class PasswordConverter implements PasswordConverterInterface {
             //Get complete hashed password in hex format
             password = sb.toString();
         } catch (NoSuchAlgorithmException e) {
-             Logger.logMsg(0, e.getMessage());
+              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
         }
         return password;
     }

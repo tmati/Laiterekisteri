@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package model;
-
-import com.sun.media.jfxmedia.logging.Logger;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
 

@@ -5,7 +5,6 @@
  */
 package view;
 
-import com.sun.media.jfxmedia.logging.Logger;
 import controller.*;
 import model.BooleanConverter;
 import model.Varaukset;
@@ -15,6 +14,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,6 +32,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
+import model.Istunto;
 
 /**
  * FXML Controller class Käyttäjien varausten tutkimiseen käytettävän näkymän
@@ -100,7 +101,7 @@ public class KayttajanVarauksetController implements KayttajanVarauksetControlle
                     return new java.sql.Timestamp(parsedDate.getTime());
                   
                 } catch (Exception e) {
-                     Logger.logMsg(0, e.getMessage());
+                      Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
                 }
                 return null;
             }
@@ -123,7 +124,7 @@ public class KayttajanVarauksetController implements KayttajanVarauksetControlle
                     return new java.sql.Timestamp(parsedDate.getTime());
 
                 } catch (Exception e) {
-                     Logger.logMsg(0, e.getMessage());
+                      Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
                 }
                 return null;
             }
