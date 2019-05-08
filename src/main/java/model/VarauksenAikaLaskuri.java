@@ -51,10 +51,7 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
                             erotusp = erotusp + 28;
                         }
                         break;
-                    case 4:
-                    case 6:
-                    case 9:
-                    case 11:
+                    default:
                         erotusp = erotusp + 30;
                         break;
                 }
@@ -90,10 +87,7 @@ public class VarauksenAikaLaskuri implements VarauksenAikaLaskuriInterface{
                             erotusp = erotusp + 28 - alkupvm.getDayOfMonth();
                         }
                         break;
-                    case 4:
-                    case 6:
-                    case 9:
-                    case 11:
+                    default:
                         erotusp = erotusp + 30 - alkupvm.getDayOfMonth();
                         break;
                 }

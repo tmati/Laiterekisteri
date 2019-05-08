@@ -85,14 +85,12 @@ public class DayCellFactory implements DayCellFactoryIf {
                                             }
                                             break;
                                         case 2:
-                                            if (((alkupvm.getDayOfMonth() + i + liikaPaivat) == 29 && !((alkupvm.getYear() + seuraavaVuosi) % 100 != 0)) || ((alkupvm.getYear() + seuraavaVuosi) % 400 == 0)) {
+                                            if (((alkupvm.getDayOfMonth() + i + liikaPaivat) == 29 && ((alkupvm.getYear() + seuraavaVuosi) % 100 == 0)) || ((alkupvm.getYear() + seuraavaVuosi) % 400 != 0)) {
                                                 seuraavaKuukausi++;
                                                 liikaPaivat = liikaPaivat - 28;
-                                            } else if ((alkupvm.getDayOfMonth() + i + liikaPaivat) == 30) {
-                                                if ((((alkupvm.getYear() + seuraavaVuosi) % 4 == 0) && ((alkupvm.getYear() + seuraavaVuosi) % 100 != 0)) || ((alkupvm.getYear() + seuraavaVuosi) % 400 == 0)) {
+                                            } else if ((alkupvm.getDayOfMonth() + i + liikaPaivat) == 30 && (((alkupvm.getYear() + seuraavaVuosi) % 4 == 0) && ((alkupvm.getYear() + seuraavaVuosi) % 100 != 0)) || ((alkupvm.getYear() + seuraavaVuosi) % 400 == 0)) {
                                                     seuraavaKuukausi++;
                                                     liikaPaivat = liikaPaivat - 29;
-                                                }
                                             }
                                             break;
                                         default:

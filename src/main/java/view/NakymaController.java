@@ -683,7 +683,7 @@ public class NakymaController implements NakymaControllerIf {
         String query = searchBar.getText().toLowerCase();
         String tabText = tabPane.getSelectionModel().getSelectedItem().getText();
         String selectedCategory = categorySelect.getSelectionModel().getSelectedItem().toString();
-        if (tabText.equals(controller.getConfigTeksti(RESOURCES)) && selectedCategory.equals(controller.getConfigTeksti("name").toUpperCase())) {
+        if (tabText.equals(controller.getConfigTeksti(RESOURCES)) && selectedCategory.equalsIgnoreCase(controller.getConfigTeksti("name"))) {
             kaikkiTableView.getItems().clear();
             for (Resurssit resurssi : kalenterinPienentamaResurssiLista) {
                 String resurssiPienella = resurssi.getNimi().toLowerCase();
@@ -693,7 +693,7 @@ public class NakymaController implements NakymaControllerIf {
 
                 }
             }
-        } else if (tabText.equals(controller.getConfigTeksti(RESOURCES)) && selectedCategory.equals(controller.getConfigTeksti(CATEGORY).toUpperCase())) {
+        } else if (tabText.equals(controller.getConfigTeksti(RESOURCES)) && selectedCategory.equalsIgnoreCase(controller.getConfigTeksti(CATEGORY))) {
             kaikkiTableView.getItems().clear();
             for (Resurssit resurssi : kalenterinPienentamaResurssiLista) {
                 String resurssiPienella = resurssi.getTyyppi().toLowerCase();
@@ -705,7 +705,7 @@ public class NakymaController implements NakymaControllerIf {
             }
         }
 
-        if (tabText.equals(controller.getConfigTeksti(OMAT)) && selectedCategory.equals(controller.getConfigTeksti("name").toUpperCase())) {
+        if (tabText.equals(controller.getConfigTeksti(OMAT)) && selectedCategory.equalsIgnoreCase(controller.getConfigTeksti("name"))) {
             Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(controller.getLoggedIn());
             omatTable.getItems().clear();
             for (Varaukset varaus : omatVaraukset) {
@@ -716,7 +716,7 @@ public class NakymaController implements NakymaControllerIf {
 
                 }
             }
-        } else if (tabText.equals(controller.getConfigTeksti(OMAT)) && selectedCategory.equals(controller.getConfigTeksti(CATEGORY).toUpperCase())) {
+        } else if (tabText.equals(controller.getConfigTeksti(OMAT)) && selectedCategory.equalsIgnoreCase(controller.getConfigTeksti(CATEGORY))) {
             Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(controller.getLoggedIn());
             omatTable.getItems().clear();
             for (Varaukset varaus : omatVaraukset) {
