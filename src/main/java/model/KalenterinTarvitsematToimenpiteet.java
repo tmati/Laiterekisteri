@@ -54,10 +54,7 @@ public class KalenterinTarvitsematToimenpiteet implements KalenterinTarvitsematT
             return false;
         }
         for (Varaukset varaus : aVaraukset) {
-            if (startDate.isBefore(varaus.getAlkuAika()) && endDate.isBefore(varaus.getLoppuAika())) {
-                return true;
-            } else if (startDate.isAfter(varaus.getAlkuAika()) && endDate.isAfter(varaus.getLoppuAika())) {
-                return true;
+            if ((startDate.isBefore(varaus.getAlkuAika()) && endDate.isBefore(varaus.getLoppuAika())) || startDate.isAfter(varaus.getAlkuAika()) && endDate.isAfter(varaus.getLoppuAika())) {
             } else {
                 return false;
             }
