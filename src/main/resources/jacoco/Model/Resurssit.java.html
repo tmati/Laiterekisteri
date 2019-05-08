@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Resurssit.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">Resurssit.java</span></div><h1>Resurssit.java</h1><pre class="source lang-java linenums">package model;
+// Generated Mar 6, 2019 4:26:26 PM by Hibernate Tools 4.3.1
+
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+/**
+ * Resurssit -luokka ja sen toiminnot
+ */
+@Entity
+@Table(name = &quot;Resurssit&quot;,
+        catalog = &quot;laiterekisteri&quot;
+)
+public class Resurssit implements java.io.Serializable {
+
+    private int id;
+    private boolean status;
+    private String nimi;
+    private String tyyppi;
+    private int luvanvaraisuus;
+    private String kuvaus;
+<span class="fc" id="L30">    private Set&lt;Varaukset&gt; varauksets = new HashSet&lt;&gt;(0);</span>
+
+    /**
+     * Tyhjä konstuktori
+     */
+<span class="fc" id="L35">    public Resurssit() {</span>
+<span class="fc" id="L36">    }</span>
+
+    /**
+     * Konstruktori
+     *
+     * @param status resurssit status: false ei voi varata, true voi varata
+     * @param nimi resurssin nimi
+     * @param tyyppi resurssin tyyppi
+     * @param luvanvaraisuus resurssin luvanvaraisuus: 0 vapaa käyttö, 1 vaatii hyväksynnän
+     * @param kuvaus resurssin kuvaus
+     */
+<span class="fc" id="L47">    public Resurssit(boolean status, String nimi, String tyyppi, int luvanvaraisuus, String kuvaus) {</span>
+<span class="fc" id="L48">        this.status = status;</span>
+<span class="fc" id="L49">        this.nimi = nimi;</span>
+<span class="fc" id="L50">        this.tyyppi = tyyppi;</span>
+<span class="fc" id="L51">        this.luvanvaraisuus = luvanvaraisuus;</span>
+<span class="fc" id="L52">        this.kuvaus = kuvaus;</span>
+<span class="fc" id="L53">    }</span>
+
+   
+
+    /**
+     * Getteri resurssi id:lle
+     *
+     * @return resurssin id
+     */
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+
+    @Column(name = &quot;Id&quot;, unique = true, nullable = false)
+    public Integer getId() {
+<span class="fc" id="L67">        return this.id;</span>
+    }
+
+    /**
+     * Setteri resurssin id:lle
+     *
+     * @param id resurssin id
+     */
+    public void setId(Integer id) {
+<span class="fc" id="L76">        this.id = id;</span>
+<span class="fc" id="L77">    }</span>
+
+    /**
+     * Getteri resurssin statukselle
+     * True = varattavissa, false = ei varattavissa
+     * @return resurssin status
+     */
+    @Column(name = &quot;Status&quot;, nullable = false)
+    public boolean isStatus() {
+<span class="fc" id="L86">        return this.status;</span>
+    }
+
+    /**
+     * Setteri resurssin statukselle
+     * True = varattavissa, false = ei varattavissa
+     *
+     * @param status resurssin status
+     */
+    public void setStatus(boolean status) {
+<span class="fc" id="L96">        this.status = status;</span>
+<span class="fc" id="L97">    }</span>
+
+    /**
+     * Getteri resurssin nimelle
+     *
+     * @return resurssin nimi
+     */
+    @Column(name = &quot;Nimi&quot;, nullable = false, length = 40)
+    public String getNimi() {
+<span class="fc" id="L106">        return this.nimi;</span>
+    }
+
+    /**
+     * Setter resurssin nimelle
+     *
+     * @param nimi resurssin nimi
+     */
+    public void setNimi(String nimi) {
+<span class="fc" id="L115">        this.nimi = nimi;</span>
+<span class="fc" id="L116">    }</span>
+
+    /**
+     * Getteri resurssin tyypille
+     *
+     * @return resurssin tyyppi
+     */
+    @Column(name = &quot;Tyyppi&quot;, nullable = false, length = 40)
+    public String getTyyppi() {
+<span class="fc" id="L125">        return this.tyyppi;</span>
+    }
+
+    /**
+     * Setteri resurssin tyypille
+     *
+     * @param tyyppi resurssin tyyppi
+     */
+    public void setTyyppi(String tyyppi) {
+<span class="fc" id="L134">        this.tyyppi = tyyppi;</span>
+<span class="fc" id="L135">    }</span>
+
+    /**
+     * Getteri resurssin luvanvaraisuudelle
+     *
+     * @return resurssin luvanvaraisuus
+     */
+    @Column(name = &quot;Luvanvaraisuus&quot;, nullable = false)
+    public int getLuvanvaraisuus() {
+<span class="fc" id="L144">        return this.luvanvaraisuus;</span>
+    }
+
+    /**
+     * Setteri resurssin luvanvaraisuudelle
+     *
+     * @param luvanvaraisuus resurssin luvanvaraisuus
+     */
+    public void setLuvanvaraisuus(int luvanvaraisuus) {
+<span class="fc" id="L153">        this.luvanvaraisuus = luvanvaraisuus;</span>
+<span class="fc" id="L154">    }</span>
+
+    /**
+     * Getteri resurssin kuvaukselle
+     *
+     * @return resurssin kuvaus
+     */
+    @Column(name = &quot;Kuvaus&quot;, nullable = false, length = 400)
+    public String getKuvaus() {
+<span class="fc" id="L163">        return this.kuvaus;</span>
+    }
+
+    /**
+     * Setteri resurssin kuvaukselle
+     *
+     * @param kuvaus resurssin kuvaus
+     */
+    public void setKuvaus(String kuvaus) {
+<span class="fc" id="L172">        this.kuvaus = kuvaus;</span>
+<span class="fc" id="L173">    }</span>
+
+    /**
+     * Getteri resurssiin liittyville varauksille
+     *
+     * @return hashSet resurssiin liittyvistä varauksista
+     */
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = &quot;resurssit&quot;)
+    public Set&lt;Varaukset&gt; getVarauksets() {
+<span class="fc" id="L182">        return this.varauksets;</span>
+    }
+
+    /**
+     * Setteri resurssiin liittyville varauksille
+     *
+     * @param varauksets resurssin varaukset
+     */
+    public void setVarauksets(Set&lt;Varaukset&gt; varauksets) {
+<span class="fc" id="L191">        this.varauksets = varauksets;</span>
+<span class="fc" id="L192">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

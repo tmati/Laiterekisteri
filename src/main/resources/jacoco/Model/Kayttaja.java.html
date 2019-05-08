@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Kayttaja.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">Kayttaja.java</span></div><h1>Kayttaja.java</h1><pre class="source lang-java linenums">package model;
+// Generated Mar 6, 2019 4:26:26 PM by Hibernate Tools 4.3.1
+
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+/**
+ * Kayttaja -luokka ja sen toiminnot
+ */
+@Entity
+@Table(name = &quot;Kayttaja&quot;,
+        catalog = &quot;laiterekisteri&quot;
+)
+public class Kayttaja implements java.io.Serializable {
+
+    private Integer id;
+    private String nimi;
+    private String salasana;
+    private int valtuudet;
+    private String kayttajatunnus;
+    private String sahkoposti;
+<span class="fc" id="L30">    private Set&lt;Varaukset&gt; varauksets = new HashSet&lt;&gt;(0);</span>
+
+    /**
+     * Tyhjä konstruktori
+     */
+<span class="fc" id="L35">    public Kayttaja() {</span>
+<span class="fc" id="L36">    }</span>
+
+    /**
+     * Konstruktori
+     *
+     * @param nimi käyttäjän nimi
+     * @param salasana käyttäjän salasana
+     * @param kayttajatunnus käyttäjän käyttäjätunnus
+     * @param sahkoposti käyttäjän sähköposti
+     * @param valtuudet käyttäjän valtuudet 
+     */
+<span class="fc" id="L47">    public Kayttaja(String nimi, String salasana, String kayttajatunnus, String sahkoposti, int valtuudet) {</span>
+<span class="fc" id="L48">        this.nimi = nimi;</span>
+<span class="fc" id="L49">        this.salasana = salasana;</span>
+<span class="fc" id="L50">        this.valtuudet = valtuudet;</span>
+<span class="fc" id="L51">        this.kayttajatunnus = kayttajatunnus;</span>
+<span class="fc" id="L52">        this.sahkoposti = sahkoposti;</span>
+<span class="fc" id="L53">    }</span>
+
+    
+
+    /**
+     * Getteri käyttäjän id:lle
+     *
+     * @return palauttaa käyttäjän id:n
+     */
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+
+    @Column(name = &quot;Id&quot;, unique = true, nullable = false)
+    public Integer getId() {
+<span class="fc" id="L67">        return this.id;</span>
+    }
+
+    /**
+     * Setteri käyttäjän id:lle
+     *
+     * @param id käyttäjän id
+     */
+    public void setId(Integer id) {
+<span class="fc" id="L76">        this.id = id;</span>
+<span class="fc" id="L77">    }</span>
+
+    /**
+     * Getteri käyttäjä nimelle
+     *
+     * @return palauttaa käyttäjän nimen
+     */
+    @Column(name = &quot;Nimi&quot;, nullable = false, length = 40)
+    public String getNimi() {
+<span class="fc" id="L86">        return this.nimi;</span>
+    }
+
+    /**
+     * Setteri käyttäjä nimelle
+     *
+     * @param nimi käyttäjän nimi
+     */
+    public void setNimi(String nimi) {
+<span class="fc" id="L95">        this.nimi = nimi;</span>
+<span class="fc" id="L96">    }</span>
+
+    /**
+     * Getteri käyttäjän salasanalle
+     *
+     * @return palauttaa käyttäjän salasanan
+     */
+    @Column(name = &quot;Salasana&quot;, nullable = false, length = 40)
+    public String getSalasana() {
+<span class="fc" id="L105">        return this.salasana;</span>
+    }
+
+    /**
+     * Setteri käyttäjän salasanalle
+     *
+     * @param salasana käyttäjän salasana
+     */
+    public void setSalasana(String salasana) {
+<span class="fc" id="L114">        this.salasana = salasana;</span>
+<span class="fc" id="L115">    }</span>
+
+    /**
+     * Getteri käyttäjä valtuuksille
+     *
+     * @return palauttaa käyttäjän valtuudet
+     */
+    @Column(name = &quot;Valtuudet&quot;, nullable = false)
+    public int getValtuudet() {
+<span class="fc" id="L124">        return this.valtuudet;</span>
+    }
+
+    /**
+     * Setteri käyttäjän valtuuksille
+     * 0=työntekijä, 1=esimies, 2=ylläpitäjä
+     * @param valtuudet käyttäjän valtuudet
+     */
+    public void setValtuudet(int valtuudet) {
+<span class="fc" id="L133">        this.valtuudet = valtuudet;</span>
+<span class="fc" id="L134">    }</span>
+
+    /**
+     * Getteri käyttäjän käyttäjätunnukselle
+     * 0=työntekijä, 1=esimies, 2=ylläpitäjä
+     * @return palauttaa käyttäjän käyttäjätunnuksen
+     */
+    @Column(name = &quot;Kayttajatunnus&quot;, nullable = false, length = 40)
+    public String getKayttajatunnus() {
+<span class="fc" id="L143">        return this.kayttajatunnus;</span>
+    }
+
+    /**
+     * Setteri käyttäjän käyttäjätunnukselle
+     *
+     * @param kayttajatunnus käyttäjän käyttäjätunnus
+     */
+    public void setKayttajatunnus(String kayttajatunnus) {
+<span class="fc" id="L152">        this.kayttajatunnus = kayttajatunnus;</span>
+<span class="fc" id="L153">    }</span>
+
+    /**
+     * Getteri käyttäjän sähköpostille
+     *
+     * @return palauttaa käyttäjän sähköpostin
+     */
+    @Column(name = &quot;Sahkoposti&quot;, nullable = false, length = 80)
+    public String getSahkoposti() {
+<span class="fc" id="L162">        return this.sahkoposti;</span>
+    }
+
+    /**
+     * Setteri käyttäjän sähköpostille
+     *
+     * @param sahkoposti käyttäjän sähköposti
+     */
+    public void setSahkoposti(String sahkoposti) {
+<span class="fc" id="L171">        this.sahkoposti = sahkoposti;</span>
+<span class="fc" id="L172">    }</span>
+
+    /**
+     * Getteri käyttäjän varauksille
+     *
+     * @return palauttaa hashSetin jossa käyttäjän varaukset
+     */
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = &quot;kayttaja&quot;)
+    public Set&lt;Varaukset&gt; getVarauksets() {
+<span class="fc" id="L181">        return this.varauksets;</span>
+    }
+
+    /**
+     * Setteri käyttäjän varauksille
+     *
+     * @param varauksets käyttäjän varaukset
+     */
+    public void setVarauksets(Set&lt;Varaukset&gt; varauksets) {
+<span class="fc" id="L190">        this.varauksets = varauksets;</span>
+<span class="fc" id="L191">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

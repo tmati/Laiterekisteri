@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VarausController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">VarausController.java</span></div><h1>VarausController.java</h1><pre class="source lang-java linenums">package view;
+
+import controller.*;
+import model.Varaukset;
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.Pane;
+import javafx.stage.Popup;
+import javafx.stage.Window;
+import javafx.util.converter.LocalTimeStringConverter;
+import javafx.scene.control.Tooltip;
+
+/**
+ * Varaus-popupin toiminnot.
+ *
+ * @author tmati
+ */
+<span class="nc" id="L36">public class VarausController implements VarausControllerIf {</span>
+
+    @FXML
+    private Pane varausPane;
+    @FXML
+    private Label itemLabel;
+    @FXML
+    private DatePicker mistaDp;
+    @FXML
+    private Button varausNappi;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Spinner&lt;?&gt; mistaSpinner;
+    @FXML
+    private DatePicker mihinDp;
+    @FXML
+    private Label mihinLabel;
+    @FXML
+    private Spinner&lt;?&gt; mihinSpinner;
+    @FXML
+    private Label mistaLabel;
+    @FXML
+    private TextArea lisatiedotTextbox;
+    @FXML
+    private Button sulkuNappi;
+    @FXML
+    private Label lisatiedotLabel;
+
+    private ControllerIf controller;
+    
+    private List&lt;Varaukset&gt; aVaraukset;
+
+    /**
+     * Initializes the CONTROLLER class.
+     *
+     * @param url URL
+     * @param rb ResourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+       
+        
+<span class="nc" id="L79">        controller = Controller.getInstance();</span>
+        
+
+        //Katsoo kaikki varaaukset sille tuoteelle.
+<span class="nc" id="L83">        Varaukset[] varaukset = controller.haeKaikkiVaraukset();</span>
+<span class="nc" id="L84">        aVaraukset = controller.resurssinVaraukset(controller.getBooking().getId(), varaukset);</span>
+
+<span class="nc" id="L86">        Varaukset[] varaus = controller.getVarausTaulukko(aVaraukset);</span>
+       
+        //Muokaa DatePickereita jotta näkyy varaukset.
+<span class="nc" id="L89">        mihinDp.setDayCellFactory(controller.dayCellFactory(varaus, LocalDate.now()));</span>
+<span class="nc" id="L90">        mistaDp.setDayCellFactory(controller.dayCellFactory(varaus, LocalDate.now()));</span>
+        
+<span class="nc" id="L92">        mistaDp.addEventHandler(ActionEvent.ACTION, </span>
+<span class="nc" id="L93">                    new EventHandler&lt;ActionEvent&gt;() {</span>
+            @Override
+            public void handle(ActionEvent event) {
+<span class="nc bnc" id="L96" title="All 2 branches missed.">                if(mistaDp.getValue() != null){</span>
+
+
+<span class="nc" id="L99">                    mihinDp.setDayCellFactory(controller.dayCellFactory(varaus, mistaDp.getValue()));</span>
+                }else{
+<span class="nc" id="L101">                    mihinDp.setDayCellFactory(controller.dayCellFactory(varaus, LocalDate.now()));</span>
+                }
+<span class="nc" id="L103">            }</span>
+
+        });
+        // Aikaformaatti
+<span class="nc" id="L107">        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;HH:mm&quot;);</span>
+        //Uusi SpinnerValueFactory-olio. Näitä tarvitaan joka spinnerille.
+<span class="nc" id="L109">        SpinnerValueFactory mistaFactory = new SpinnerValueFactory&lt;LocalTime&gt;() {</span>
+            {
+<span class="nc" id="L111">                setConverter(new LocalTimeStringConverter(formatter, null));</span>
+<span class="nc" id="L112">            }</span>
+
+            //Toiminta spinneriä alaspäin klikattaessa.
+            @Override
+            public void decrement(int steps) {
+<span class="nc bnc" id="L117" title="All 2 branches missed.">                if (getValue() == null) {</span>
+<span class="nc" id="L118">                    setValue(LocalTime.NOON);</span>
+                } else {
+<span class="nc" id="L120">                    LocalTime time = (LocalTime) getValue();</span>
+<span class="nc" id="L121">                    setValue(time.minusMinutes(time.getMinute()));</span>
+<span class="nc" id="L122">                    setValue(time.minusHours(steps));</span>
+
+                }
+<span class="nc" id="L125">            }</span>
+
+            //Spinneriä ylöspäin klikatessa.
+            @Override
+            public void increment(int steps) {
+<span class="nc bnc" id="L130" title="All 2 branches missed.">                if (getValue() == null) {</span>
+<span class="nc" id="L131">                    setValue(LocalTime.NOON);</span>
+                } else {
+<span class="nc" id="L133">                    LocalTime time = (LocalTime) getValue();</span>
+<span class="nc" id="L134">                    setValue(time.minusMinutes(time.getMinute()));</span>
+<span class="nc" id="L135">                    setValue(time.plusHours(steps));</span>
+                }
+<span class="nc" id="L137">            }</span>
+
+        };
+        //Mihin - Spinnerin factory
+<span class="nc" id="L141">        SpinnerValueFactory mihinFactory = new SpinnerValueFactory&lt;LocalTime&gt;() {</span>
+            {
+<span class="nc" id="L143">                setConverter(new LocalTimeStringConverter(formatter, null));</span>
+<span class="nc" id="L144">            }</span>
+
+            @Override
+            public void decrement(int steps) {
+<span class="nc bnc" id="L148" title="All 2 branches missed.">                if (getValue() == null) {</span>
+<span class="nc" id="L149">                    setValue(LocalTime.NOON);</span>
+                } else {
+<span class="nc" id="L151">                    LocalTime time = (LocalTime) getValue();</span>
+<span class="nc" id="L152">                    setValue(time.minusHours(steps));</span>
+
+                }
+<span class="nc" id="L155">            }</span>
+
+            @Override
+            public void increment(int steps) {
+<span class="nc bnc" id="L159" title="All 2 branches missed.">                if (getValue() == null) {</span>
+<span class="nc" id="L160">                    setValue(LocalTime.NOON);</span>
+                } else {
+<span class="nc" id="L162">                    LocalTime time = (LocalTime) getValue();</span>
+<span class="nc" id="L163">                    setValue(time.plusHours(steps));</span>
+                }
+<span class="nc" id="L165">            }</span>
+
+        };
+
+
+<span class="nc" id="L170">        itemLabel.setText(controller.getBooking().getNimi());</span>
+
+        //ValueFactoryiden määrittäminen spinnereilleen.
+<span class="nc" id="L173">        mistaSpinner.setValueFactory(mistaFactory);</span>
+<span class="nc" id="L174">        mihinSpinner.setValueFactory(mihinFactory);</span>
+        
+<span class="nc" id="L176">        this.lisatiedotTextbox.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;reservationReason&quot;)));</span>
+<span class="nc" id="L177">        this.mihinDp.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;endDate&quot;)));</span>
+<span class="nc" id="L178">        this.mihinSpinner.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;endTime&quot;)));</span>
+<span class="nc" id="L179">        this.mistaDp.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;startDate&quot;)));</span>
+<span class="nc" id="L180">        this.mistaSpinner.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;startTime&quot;)));</span>
+<span class="nc" id="L181">        this.varausNappi.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;createResrvation&quot;)));</span>
+<span class="nc" id="L182">        this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;closePopup&quot;)));</span>
+        
+<span class="nc" id="L184">        lisatiedotLabel.setText(controller.getConfigTeksti(&quot;additionalInformation&quot;).toUpperCase());</span>
+<span class="nc" id="L185">        mistaLabel.setText(controller.getConfigTeksti(&quot;from&quot;).toUpperCase());        </span>
+<span class="nc" id="L186">        mihinLabel.setText(controller.getConfigTeksti(&quot;where&quot;).toUpperCase());</span>
+<span class="nc" id="L187">        titleLabel.setText(controller.getConfigTeksti(&quot;reservationNew&quot;).toUpperCase());</span>
+<span class="nc" id="L188">        varausNappi.setText(controller.getConfigTeksti(&quot;reservationButton&quot;).toUpperCase());</span>
+<span class="nc" id="L189">    }</span>
+
+    /**
+     * Toiminta varausnappia painettaessa.
+     *
+     * @param event Hiiren klikkaus painikkeeseen.
+     */
+    @FXML
+    private void varausNappiPainettu(ActionEvent event) {
+<span class="nc" id="L198">        LocalDate startDate = mistaDp.getValue();</span>
+<span class="nc" id="L199">        LocalTime startTime = (LocalTime) mistaSpinner.getValue();</span>
+
+<span class="nc" id="L201">        LocalDateTime startStamp = LocalDateTime.of(startDate, startTime);</span>
+        
+        //Loppuen
+<span class="nc" id="L204">        LocalDate endDate = mihinDp.getValue();</span>
+<span class="nc" id="L205">        LocalTime endTime = (LocalTime) mihinSpinner.getValue();</span>
+<span class="nc" id="L206">        LocalDateTime endStamp = LocalDateTime.of(endDate, endTime);</span>
+<span class="nc" id="L207">        ChronoLocalDateTime alku = startDate.atTime(startTime);</span>
+<span class="nc" id="L208">        ChronoLocalDateTime loppu = endDate.atTime(endTime);</span>
+        
+<span class="nc bnc" id="L210" title="All 2 branches missed.">        if(controller.onnistuu(aVaraukset, loppu, alku)){</span>
+            //Lisätiedot
+<span class="nc" id="L212">            String info = lisatiedotTextbox.getText();</span>
+<span class="nc" id="L213">            boolean b = false;</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">            if(controller.getBooking().getLuvanvaraisuus() == 0){</span>
+<span class="nc" id="L215">                b = true;</span>
+            }
+<span class="nc" id="L217">            Varaukset varaus = new Varaukset(controller.getLoggedIn(), controller.getBooking(), startStamp, endStamp, info, false, controller.getBooking().getNimi(), b);</span>
+<span class="nc" id="L218">            controller.luoVaraus(varaus);</span>
+<span class="nc" id="L219">            Varaukset[] varaukset = controller.haeKayttajanVaraukset(controller.getLoggedIn());</span>
+<span class="nc" id="L220">            Popup popup = (Popup) sulkuNappi.getScene().getWindow();</span>
+<span class="nc" id="L221">            Window nakyma = popup.getOwnerWindow();</span>
+<span class="nc" id="L222">            TableView omatTableView = (TableView) nakyma.getScene().lookup(&quot;#omatTable&quot;);</span>
+<span class="nc" id="L223">            omatTableView.getItems().clear();</span>
+<span class="nc" id="L224">            omatTableView.getItems().addAll(varaukset);</span>
+<span class="nc" id="L225">            controller.setBooking(null);</span>
+<span class="nc" id="L226">            this.sulkuNappiPainettu(event);</span>
+<span class="nc" id="L227">        }else{</span>
+<span class="nc" id="L228">            Alert a = new Alert(AlertType.INFORMATION);</span>
+<span class="nc" id="L229">            a.setHeaderText(controller.getConfigTeksti(&quot;alertFailedReservation&quot;));</span>
+<span class="nc" id="L230">            a.show();            </span>
+        }
+        
+        
+<span class="nc" id="L234">    }</span>
+
+    /**
+     * Sulkee popup-näkymän.
+     *
+     * @param event Hiiren klikkaus.
+     */
+    @FXML
+    private void sulkuNappiPainettu(ActionEvent event) {
+<span class="nc" id="L243">        Popup popup = (Popup) sulkuNappi.getScene().getWindow();</span>
+<span class="nc" id="L244">        Varaukset[] varaukset = controller.haeKayttajanVaraukset(controller.getLoggedIn());</span>
+<span class="nc" id="L245">        Window nakyma = popup.getOwnerWindow();</span>
+<span class="nc" id="L246">        TableView omatTableView = (TableView) nakyma.getScene().lookup(&quot;#omatTable&quot;);</span>
+<span class="nc" id="L247">        omatTableView.getItems().clear();</span>
+<span class="nc" id="L248">        omatTableView.getItems().addAll(varaukset);</span>
+<span class="nc" id="L249">        popup.hide();</span>
+<span class="nc" id="L250">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

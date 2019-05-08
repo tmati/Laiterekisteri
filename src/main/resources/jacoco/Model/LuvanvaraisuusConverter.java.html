@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LuvanvaraisuusConverter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">LuvanvaraisuusConverter.java</span></div><h1>LuvanvaraisuusConverter.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+import javafx.util.StringConverter;
+
+/**
+ *
+ * @author tmati
+ */
+public class LuvanvaraisuusConverter extends StringConverter&lt;Integer&gt; {
+    
+     private String low;
+     private String med;
+     private String high;
+     
+    /**
+     * LuvanvaraisuusConverterin construktrio joka ottaa low, med, high arvot(String)
+     * @param low arvo joka palautetaan kun annetaan 0 toString metodilla
+     * @param med arvo joka palautetaan kun annetaan 1 toString metodilla
+     * @param high arvo joka palautetaan kun annetaan 2 toString metodilla
+     */
+<span class="fc" id="L26">    public LuvanvaraisuusConverter(String low, String med, String high) {</span>
+<span class="fc" id="L27">        this.low = low;</span>
+<span class="fc" id="L28">        this.med = med;</span>
+<span class="fc" id="L29">        this.high = high;</span>
+<span class="fc" id="L30">    }</span>
+
+    /**
+     * Antaa stringin lukua vastaan hyväksyy luvut 0, 1 ja 2
+     * @param object luku jota käytäen annetaan String
+     * @return Stringin tai nullin jos int on eri kuin 1, 2 tai 0
+     */
+    @Override
+    public String toString(Integer object) {
+<span class="fc bfc" id="L39" title="All 4 branches covered.">        switch(object) {</span>
+            case 0:
+<span class="fc" id="L41">                return low;</span>
+            case 1:
+<span class="fc" id="L43">                return med;</span>
+            case 2:
+<span class="fc" id="L45">                return high;</span>
+            default:
+                break;
+        }
+<span class="fc" id="L49">        return null;</span>
+    }
+
+    /**
+     * Palautaa luvun stringiä vastaan
+     * @param string stringin josta halutaan sitä vastaavan luvun
+     * @return luvun 0-2 josta 2 on default
+     */
+    @Override
+    public Integer fromString(String string) {
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (string.equals(low)) {</span>
+<span class="fc" id="L60">            return 0;</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        } else if (string.equals(med)) {</span>
+<span class="fc" id="L62">            return 1;</span>
+        } else {
+<span class="fc" id="L64">            return 2;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

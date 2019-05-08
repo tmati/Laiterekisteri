@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>KayttajaAdminController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">KayttajaAdminController.java</span></div><h1>KayttajaAdminController.java</h1><pre class="source lang-java linenums">/**
+ *
+ */
+package view;
+
+import controller.*;
+import model.Kayttaja;
+import model.LuvanvaraisuusConverter;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+
+/**
+ * Käyttäjänäkymään liittyvät toiminnot.
+ *
+ * @author tmati
+ */
+<span class="nc" id="L39">public class KayttajaAdminController implements KayttajaAdminControllerIf {</span>
+
+    @FXML
+    private Label usernameLabel;
+    @FXML
+    private Button logoutBtn;
+    @FXML
+    private Label bizName;
+    @FXML
+    private TableView&lt;Kayttaja&gt; kayttajaTableView;
+    @FXML
+    private TableColumn nimiColumn;
+    @FXML
+    private TableColumn emailColumn;
+    @FXML
+    private TableColumn valtuudetColumn;
+    @FXML
+    private Button takaisinBtn;
+    @FXML
+    private Button lisaaBtn;
+    @FXML
+    private Button poistaBtn;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private GridPane bgPane;
+    @FXML
+    private TableColumn kayttajatunnusColumn;
+    @FXML
+    private Label bizName1;
+    
+    Popup popup;
+ 
+
+    private ControllerIf controller;
+    
+    @FXML
+    private Button kayttajanvarauksetNappi;
+
+    /**
+     * Initializes the CONTROLLER class.
+     *
+     * @param url url
+     * @param rb resourcebundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        /**
+         * Kontrollerin ilmentymä
+         */
+<span class="nc" id="L89">        controller = Controller.getInstance();</span>
+
+<span class="nc" id="L91">        LuvanvaraisuusConverter kayLC = new LuvanvaraisuusConverter(controller.getConfigTeksti(&quot;employee&quot;), controller.getConfigTeksti(&quot;superior&quot;), controller.getConfigTeksti(&quot;administrator&quot;));</span>
+
+        //NÄISSÄ TUON STRING-PARAMETRIN PITÄÄ VASTATA OLION PARAMETRIÄ. MUUTEN EI NÄY!
+<span class="nc" id="L94">        nimiColumn.setCellValueFactory(new PropertyValueFactory&lt;Kayttaja, String&gt;(&quot;nimi&quot;));</span>
+<span class="nc" id="L95">        nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());</span>
+<span class="nc" id="L96">        nimiColumn.setText(controller.getConfigTeksti(&quot;name&quot;).toUpperCase());</span>
+        
+<span class="nc" id="L98">        emailColumn.setCellValueFactory(new PropertyValueFactory&lt;Kayttaja, String&gt;(&quot;sahkoposti&quot;));</span>
+<span class="nc" id="L99">        emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());</span>
+<span class="nc" id="L100">        emailColumn.setText(controller.getConfigTeksti(&quot;emailLabel&quot;).toUpperCase());</span>
+        
+<span class="nc" id="L102">        ChoiceBoxTableCell cc = new ChoiceBoxTableCell();</span>
+<span class="nc" id="L103">        cc.setConverter(kayLC);</span>
+<span class="nc" id="L104">        valtuudetColumn.setCellValueFactory(new PropertyValueFactory&lt;Kayttaja, Integer&gt;(&quot;valtuudet&quot;));</span>
+<span class="nc" id="L105">        valtuudetColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(cc.getConverter(), 0,1,2));</span>
+<span class="nc" id="L106">        valtuudetColumn.setText(controller.getConfigTeksti(&quot;authorization&quot;).toUpperCase());</span>
+        
+<span class="nc" id="L108">        kayttajatunnusColumn.setCellValueFactory(new PropertyValueFactory&lt;Kayttaja, String&gt;(&quot;kayttajatunnus&quot;));</span>
+<span class="nc" id="L109">        kayttajatunnusColumn.setCellFactory(TextFieldTableCell.forTableColumn());</span>
+<span class="nc" id="L110">        kayttajatunnusColumn.setText(controller.getConfigTeksti(&quot;accountName&quot;).toUpperCase());</span>
+        
+<span class="nc" id="L112">        kayttajaTableView.getItems().addAll(controller.haeKaikkiKayttajat());</span>
+<span class="nc" id="L113">        bizName.setText(controller.getBizname());</span>
+<span class="nc" id="L114">        usernameLabel.setText(controller.getLoggedIn().getNimi());</span>
+        
+<span class="nc" id="L116">        lisaaBtn.setText(controller.getConfigTeksti(&quot;newUser&quot;).toUpperCase());</span>
+<span class="nc" id="L117">        kayttajanvarauksetNappi.setText(controller.getConfigTeksti(&quot;userReservation&quot;).toUpperCase());</span>
+<span class="nc" id="L118">        poistaBtn.setText(controller.getConfigTeksti(&quot;removeUser&quot;).toUpperCase());</span>
+<span class="nc" id="L119">        takaisinBtn.setText(controller.getConfigTeksti(&quot;returnButton&quot;).toUpperCase());</span>
+<span class="nc" id="L120">        logoutBtn.setText(controller.getConfigTeksti(&quot;Logout&quot;).toUpperCase());</span>
+<span class="nc" id="L121">        bizName1.setText(controller.getConfigTeksti(&quot;user&quot;).toUpperCase());</span>
+        
+<span class="nc" id="L123">        this.logoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;LogoutInfo&quot;)));</span>
+<span class="nc" id="L124">        this.lisaaBtn.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;addUser&quot;)));</span>
+<span class="nc" id="L125">        this.poistaBtn.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;removeUser&quot;)));</span>
+<span class="nc" id="L126">        this.takaisinBtn.setTooltip((new Tooltip(controller.getConfigTeksti(&quot;returnButtonInfo&quot;))));</span>
+<span class="nc" id="L127">        this.kayttajanvarauksetNappi.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;userReservationTooltip&quot;)));</span>
+       
+<span class="nc" id="L129">    }</span>
+
+    /**
+     * Päivittää käyttäjä -taulun.
+     *
+     */
+    @FXML
+    @Override
+    public void updateBtnPainettu() {
+<span class="nc" id="L138">        kayttajaTableView.getItems().clear();</span>
+<span class="nc" id="L139">        kayttajaTableView.getItems().addAll(controller.haeKaikkiKayttajat());</span>
+<span class="nc" id="L140">    }</span>
+
+    /**
+     * Logout. Palauttaa käyttäjän kirjautumisnäkymään ja kirjaa tämän ulos.
+     *
+     * @param event MouseEvent
+     * @throws IOException IOException
+     */
+    @FXML
+    @Override
+    public void logout(MouseEvent event) throws IOException {
+<span class="nc" id="L151">        FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/Loginwindow.fxml&quot;));</span>
+<span class="nc" id="L152">        Stage stage = (Stage) logoutBtn.getScene().getWindow();</span>
+<span class="nc" id="L153">        Parent root = loader.load();</span>
+<span class="nc" id="L154">        stage.getScene().setRoot(root);</span>
+<span class="nc" id="L155">        controller.setLoggedIn(null);</span>
+<span class="nc" id="L156">    }</span>
+    
+    /**
+     * Käyttäjän painaessa takaisin - painiketta tämä palautetaan takaisin
+     * päänäkymään.
+     *
+     * @param event MouseEvent
+     * @throws IOException IOException
+     */
+    @FXML
+    private void takaisinBtnPainettu(MouseEvent event) throws IOException {
+<span class="nc" id="L167">        FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/nakyma.fxml&quot;));</span>
+<span class="nc" id="L168">        Stage stage = (Stage) logoutBtn.getScene().getWindow();</span>
+<span class="nc" id="L169">        Parent root = loader.load();</span>
+<span class="nc" id="L170">        stage.getScene().setRoot(root);</span>
+<span class="nc" id="L171">    }</span>
+
+    /**
+     * Avaa uuden käyttäjän lisäämisnäkymän.
+     *
+     * @param event Hiiren klikkaus painikkeeseen.
+     * @throws IOException Tiedostosta lukemisen vuoksi varauduttava poikkeus
+     */
+    @FXML
+    private void lisaaBtnPainettu(MouseEvent event) throws IOException {
+<span class="nc bnc" id="L181" title="All 4 branches missed.">        if (popup == null || !popup.isShowing()) {</span>
+<span class="nc" id="L182">            popup = new Popup();</span>
+<span class="nc" id="L183">            Object source = event.getSource();</span>
+<span class="nc" id="L184">            Node node = (Node) source;</span>
+<span class="nc" id="L185">            Scene scene = node.getScene();</span>
+<span class="nc" id="L186">            Window window = scene.getWindow();</span>
+<span class="nc" id="L187">            FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/uusiKayttaja.fxml&quot;));</span>
+<span class="nc" id="L188">            popup.getContent().add((Parent) loader.load());</span>
+<span class="nc" id="L189">            popup.show(window);</span>
+        }
+<span class="nc" id="L191">    }</span>
+
+    /**
+     * Poistaa valitun rivin tietokannasta.
+     *
+     * @param event Hiiren klikkaus painikkeeseen.
+     */
+    @FXML
+    private void poistaBtnPainettu(MouseEvent event) {
+<span class="nc" id="L200">        Kayttaja k = kayttajaTableView.getSelectionModel().getSelectedItem();</span>
+<span class="nc bnc" id="L201" title="All 2 branches missed.">        if (k != null) {</span>
+<span class="nc" id="L202">            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, controller.getConfigTeksti(&quot;confDeleteUser&quot;) , ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);</span>
+<span class="nc" id="L203">            alert.showAndWait();</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">            if (alert.getResult() == ButtonType.YES) {</span>
+<span class="nc" id="L205">                controller.poistaKayttaja(k.getId());</span>
+<span class="nc" id="L206">                this.updateBtnPainettu();</span>
+            }
+<span class="nc" id="L208">        } else {</span>
+<span class="nc" id="L209">            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti(&quot;chooseUser&quot;));</span>
+<span class="nc" id="L210">            alert.showAndWait();</span>
+        }
+<span class="nc" id="L212">    }</span>
+    
+    @FXML private void kayttajanvarauksetNappiPainettu(MouseEvent event) throws IOException {
+<span class="nc" id="L215">    Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();</span>
+<span class="nc bnc" id="L216" title="All 2 branches missed.">        if (kayttaja != null) {</span>
+<span class="nc" id="L217">            controller.setSelected(kayttaja);</span>
+<span class="nc" id="L218">            FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/KayttajanVaraukset.fxml&quot;));</span>
+<span class="nc" id="L219">            Stage stage = (Stage) logoutBtn.getScene().getWindow();</span>
+<span class="nc" id="L220">            Parent root = loader.load();</span>
+<span class="nc" id="L221">            stage.getScene().setRoot(root);</span>
+<span class="nc" id="L222">    }else{</span>
+<span class="nc" id="L223">            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti(&quot;chooseUser&quot;));</span>
+<span class="nc" id="L224">            alert.showAndWait();</span>
+        }
+<span class="nc" id="L226">    }</span>
+    
+    /**
+     * Toiminnallisuus nimi-columnin muokkaamisen päättyessä.
+     *
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa
+     * ENTER - painalluksella.
+     */
+    @FXML
+    private void nimiEditCommit(TableColumn.CellEditEvent&lt;Kayttaja, String&gt; event) {
+<span class="nc" id="L236">        Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L237">        kayttaja.setNimi(event.getNewValue());</span>
+<span class="nc" id="L238">        controller.paivitaKayttaja(kayttaja);</span>
+<span class="nc" id="L239">    }</span>
+
+    /**
+     * Toiminnalisuus sähköposticolumnin muokkaamisen päättyessä.
+     *
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa
+     * ENTER - painalluksella.
+     */
+    @FXML
+    private void emailEditCommit(TableColumn.CellEditEvent&lt;Kayttaja, String&gt; event) {
+<span class="nc bnc" id="L249" title="All 2 branches missed.">        if (!controller.tarkistaEmail(event.getNewValue())) {</span>
+<span class="nc" id="L250">            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti(&quot;emailDublicate&quot;));</span>
+<span class="nc" id="L251">            alert.showAndWait();</span>
+<span class="nc" id="L252">            kayttajaTableView.getItems().clear();</span>
+<span class="nc" id="L253">            kayttajaTableView.getItems().addAll(controller.haeKaikkiKayttajat());</span>
+<span class="nc" id="L254">        } else {</span>
+<span class="nc" id="L255">            Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L256">            kayttaja.setSahkoposti(event.getNewValue());</span>
+<span class="nc" id="L257">            controller.paivitaKayttaja(kayttaja);</span>
+        }
+<span class="nc" id="L259">    }</span>
+
+    /**
+     * Toiminnallisuus valtuudet-columnin muokkaamisen päättyessä.
+     *
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa
+     * ENTER - painalluksella.
+     */
+    @FXML
+    private void valtuudetEditCommit(TableColumn.CellEditEvent&lt;Kayttaja, Integer&gt; event) {
+<span class="nc" id="L269">        Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L270">        kayttaja.setValtuudet(event.getNewValue());</span>
+<span class="nc" id="L271">        controller.paivitaKayttaja(kayttaja);</span>
+<span class="nc" id="L272">    }</span>
+
+    /**
+     * Toiminnallisuus käyttäjätunnus-columnin muokkaamisen päättyessä.
+     *
+     * @param event Toiminta tapahtuu taulukon solun muokkauksen varmistuessa
+     * ENTER - painalluksella
+     */
+    @FXML
+    private void kayttajatunnusEditCommit(TableColumn.CellEditEvent&lt;Kayttaja, String&gt; event) {
+<span class="nc bnc" id="L282" title="All 2 branches missed.">        if (!controller.tarkistaUsername(event.getNewValue())) {</span>
+<span class="nc" id="L283">            Alert alert = new Alert(Alert.AlertType.WARNING, &quot;Käyttäjätunnus on jo käytössä!&quot;);</span>
+<span class="nc" id="L284">            alert.showAndWait();</span>
+<span class="nc" id="L285">            kayttajaTableView.getItems().clear();</span>
+<span class="nc" id="L286">            kayttajaTableView.getItems().addAll(controller.haeKaikkiKayttajat());</span>
+<span class="nc" id="L287">        } else {</span>
+<span class="nc" id="L288">            Kayttaja kayttaja = kayttajaTableView.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L289">            kayttaja.setKayttajatunnus(event.getNewValue());</span>
+<span class="nc" id="L290">            controller.paivitaKayttaja(kayttaja);</span>
+        }
+<span class="nc" id="L292">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

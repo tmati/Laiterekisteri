@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NakymaController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">NakymaController.java</span></div><h1>NakymaController.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package view;
+
+import controller.*;
+import model.BooleanConverter;
+import model.LuvanvaraisuusConverter;
+import model.Resurssit;
+import model.Varaukset;
+import com.sun.javafx.scene.control.skin.DatePickerSkin;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.event.Event;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.Popup;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
+import javafx.util.converter.IntegerStringConverter;
+import javax.transaction.Transactional;
+import model.Istunto;
+
+/**
+ * Päänäkymän ohjaintoiminnot.
+ *
+ * @author tmati
+ */
+<span class="fc" id="L69">public class NakymaController implements NakymaControllerIf {</span>
+
+    @FXML
+    private Label usernameLabel;
+    @FXML
+    private Button logoutBtn;
+    @FXML
+    private ImageView logoView;
+    @FXML
+    private TextField searchBar;
+    @FXML
+    private Label bizName;
+    @FXML
+    private ChoiceBox&lt;String&gt; categorySelect;
+    @FXML
+    private Button searchBtn;
+    @FXML
+    private TabPane tabPane;
+    @FXML
+    private Tab kaikkiTab;
+    @FXML
+    private AnchorPane kaikkiAnchor;
+    @FXML
+    private StackPane kaikkiStack;
+    @FXML
+    private TableView&lt;Resurssit&gt; kaikkiTableView;
+    @FXML
+    private TableColumn nimiColumn;
+    @FXML
+    private TableColumn tyyppiColumn;
+    @FXML
+    private TableColumn luvanvaraisuusColumn;
+    @FXML
+    private TableColumn kuvausColumn;
+    @FXML
+    private TableColumn tilaColumn;
+    @FXML
+    private Tab omatTab;
+    @FXML
+    private AnchorPane omatAnchor;
+    @FXML
+    private StackPane omatStack;
+    @FXML
+    private TableView&lt;Varaukset&gt; omatTable;
+    @FXML
+    private TableColumn alkupvmColumn;
+    @FXML
+    private TableColumn paattymispvmColumn;
+    @FXML
+    private TableColumn varausidColumn;
+    @FXML
+    private TableColumn varauskuvausColumn;
+    @FXML
+    private TableColumn palautettuColumn;
+    @FXML
+    private TableColumn laitenimiColumn;
+    @FXML
+    private Button varausBtn;
+    @FXML
+    private TitledPane kalenteriPane;
+    @FXML
+    private StackPane kalenteriStackPane;
+    @FXML
+    private Button lisaaresurssiBtn;
+    @FXML
+    private Button poistaresurssiBtn;
+    Popup popup;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private Button hallnnoiBtn;
+    @FXML
+    private Button henkilostoBtn;
+    @FXML
+    private Button salasananvaihtoBtn;
+    @FXML
+    private TableColumn hyvaksyntaColumn;
+    @FXML
+    private TableColumn&lt;Varaukset, Varaukset&gt; poistoColumn;
+    @FXML
+    private Button historiaBtn;
+
+    private ControllerIf controller;
+    private DatePicker picker;
+    private DatePickerSkin dps;
+    private static Node calContent;
+    private Resurssit[] kalenterinPienentamaResurssiLista;
+    private static final String CATEGORY = &quot;category&quot;;
+    private static final String RESOURCES = &quot;resources&quot;;
+    private static final String OMAT = &quot;ownReservations&quot;;
+    private static final String CHOOSERESOURCE = &quot;chooseResource&quot;;
+    /**
+     * Initializes the CONTROLLER class.
+     *
+     * @param url url
+     * @param rb rb
+     */
+    @Transactional
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="fc" id="L169">        controller = Controller.getInstance();</span>
+<span class="fc" id="L170">        kalenterinPienentamaResurssiLista = controller.haeKaikkiResurssit();</span>
+<span class="fc" id="L171">        BooleanConverter varattavissaController = new BooleanConverter(controller.getConfigTeksti(&quot;bookable&quot;), controller.getConfigTeksti(&quot;notBookable&quot;));</span>
+<span class="fc" id="L172">        BooleanConverter aktiivisuusController = new BooleanConverter(controller.getConfigTeksti(&quot;isActive&quot;), controller.getConfigTeksti(&quot;isnActive&quot;));</span>
+<span class="fc" id="L173">        BooleanConverter hyvaksyntaController = new BooleanConverter(controller.getConfigTeksti(&quot;acknowledged&quot;), controller.getConfigTeksti(&quot;inProgress&quot;));</span>
+<span class="fc" id="L174">        LuvanvaraisuusConverter resLC = new LuvanvaraisuusConverter(controller.getConfigTeksti(&quot;freeUse&quot;), controller.getConfigTeksti(&quot;supApproved&quot;), controller.getConfigTeksti(&quot;adApproved&quot;));</span>
+<span class="fc" id="L175">        Image image = new Image(getClass().getResourceAsStream(&quot;/keychain.png&quot;));</span>
+<span class="fc" id="L176">        logoView.setImage(image);</span>
+
+        //Resurssitaulun columnien live-edit
+<span class="fc" id="L179">        nimiColumn.setCellValueFactory(new PropertyValueFactory&lt;Resurssit, String&gt;(&quot;nimi&quot;));</span>
+<span class="fc" id="L180">        nimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());</span>
+
+<span class="fc" id="L182">        tyyppiColumn.setCellValueFactory(new PropertyValueFactory&lt;Resurssit, String&gt;(&quot;tyyppi&quot;));</span>
+<span class="fc" id="L183">        tyyppiColumn.setCellFactory(TextFieldTableCell.forTableColumn());</span>
+
+<span class="fc" id="L185">        kuvausColumn.setCellValueFactory(new PropertyValueFactory&lt;Resurssit, String&gt;(&quot;kuvaus&quot;));</span>
+<span class="fc" id="L186">        kuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());</span>
+
+<span class="fc" id="L188">        ChoiceBoxTableCell cc = new ChoiceBoxTableCell();</span>
+<span class="fc" id="L189">        cc.setConverter(resLC);</span>
+<span class="fc" id="L190">        luvanvaraisuusColumn.setCellValueFactory(new PropertyValueFactory&lt;Resurssit, Integer&gt;(&quot;luvanvaraisuus&quot;));</span>
+<span class="fc" id="L191">        luvanvaraisuusColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(cc.getConverter(), 0, 1, 2));</span>
+
+<span class="fc" id="L193">        cc.setConverter(varattavissaController);</span>
+<span class="fc" id="L194">        tilaColumn.setCellValueFactory(new PropertyValueFactory&lt;Resurssit, Boolean&gt;(&quot;status&quot;));</span>
+<span class="fc" id="L195">        tilaColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(cc.getConverter(), true, false));</span>
+
+        //Omat varaukset -taulun live-edit
+<span class="fc" id="L198">        laitenimiColumn.setCellValueFactory(new PropertyValueFactory&lt;Varaukset, String&gt;(&quot;nimi&quot;));</span>
+<span class="fc" id="L199">        laitenimiColumn.setCellFactory(TextFieldTableCell.forTableColumn());</span>
+
+<span class="fc" id="L201">        alkupvmColumn.setCellValueFactory(new PropertyValueFactory&lt;Varaukset, Timestamp&gt;(&quot;alkupvm&quot;));</span>
+<span class="fc" id="L202">        alkupvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter&lt;Timestamp&gt;() {</span>
+            @Override
+            public String toString(Timestamp object) {
+<span class="fc" id="L205">                return new SimpleDateFormat(&quot;dd/MM/yyyy HH:mm&quot;).format(object);</span>
+            }
+
+            @Override
+            public Timestamp fromString(String string) {
+                try {
+<span class="nc" id="L211">                    SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss.SSS&quot;);</span>
+<span class="nc" id="L212">                    Date parsedDate = (Date) dateFormat.parse(string);</span>
+<span class="nc" id="L213">                    return new java.sql.Timestamp(parsedDate.getTime());</span>
+                    
+<span class="nc" id="L215">                } catch (Exception e) {</span>
+<span class="nc" id="L216">                     Istunto.LOGGER.log(Level.SEVERE, e.getMessage());</span>
+                }
+<span class="nc" id="L218">                return null;</span>
+            }
+        }
+        ));
+
+<span class="fc" id="L223">        paattymispvmColumn.setCellValueFactory(new PropertyValueFactory&lt;Varaukset, Timestamp&gt;(&quot;paattymispvm&quot;));</span>
+<span class="fc" id="L224">        paattymispvmColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter&lt;Timestamp&gt;() {</span>
+
+            @Override
+            public String toString(Timestamp object) {
+<span class="fc" id="L228">                return new SimpleDateFormat(&quot;dd/MM/yyyy HH:mm&quot;).format(object);</span>
+            }
+
+            @Override
+            public Timestamp fromString(String string) {
+                try {
+<span class="nc" id="L234">                    SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss.SSS&quot;);</span>
+<span class="nc" id="L235">                    Date parsedDate = (Date) dateFormat.parse(string);</span>
+<span class="nc" id="L236">                    return new java.sql.Timestamp(parsedDate.getTime());</span>
+<span class="nc" id="L237">                } catch (Exception e) {</span>
+<span class="nc" id="L238">                      Istunto.LOGGER.log(Level.SEVERE, e.getMessage());</span>
+                }
+<span class="nc" id="L240">                return null;</span>
+            }
+        }));
+
+<span class="fc" id="L244">        varausidColumn.setCellValueFactory(new PropertyValueFactory&lt;Varaukset, Integer&gt;(&quot;id&quot;));</span>
+<span class="fc" id="L245">        varausidColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));</span>
+
+<span class="fc" id="L247">        varauskuvausColumn.setCellValueFactory(new PropertyValueFactory&lt;Varaukset, String&gt;(&quot;kuvaus&quot;));</span>
+<span class="fc" id="L248">        varauskuvausColumn.setCellFactory(TextFieldTableCell.forTableColumn());</span>
+
+<span class="fc" id="L250">        cc.setConverter(aktiivisuusController);</span>
+<span class="fc" id="L251">        palautettuColumn.setCellValueFactory(new PropertyValueFactory&lt;Varaukset, Boolean&gt;(&quot;palautettu&quot;));</span>
+<span class="fc" id="L252">        palautettuColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(cc.getConverter(), true, false));</span>
+
+<span class="fc" id="L254">        hyvaksyntaColumn.setCellValueFactory(new PropertyValueFactory&lt;Varaukset, Boolean&gt;(&quot;hyvaksytty&quot;));</span>
+<span class="fc" id="L255">        hyvaksyntaColumn.setCellFactory(TextFieldTableCell.forTableColumn(hyvaksyntaController));</span>
+
+<span class="fc" id="L257">        poistoColumn.setCellValueFactory(param -&gt; new ReadOnlyObjectWrapper&lt;&gt;(param.getValue()));</span>
+<span class="fc" id="L258">        poistoColumn.setCellFactory(param -&gt; new TableCell&lt;Varaukset, Varaukset&gt;() {</span>
+            
+<span class="fc" id="L260">            private final Button deleteButton = new Button(controller.getConfigTeksti(&quot;remove&quot;));</span>
+
+            @Override
+            protected void updateItem(Varaukset varaukset, boolean empty) {
+
+
+<span class="fc bfc" id="L266" title="All 2 branches covered.">                if (varaukset == null) {</span>
+
+<span class="fc" id="L268">                    setGraphic(null);</span>
+<span class="fc" id="L269">                    return;</span>
+                }
+<span class="fc" id="L271">                setGraphic(deleteButton);</span>
+<span class="pc" id="L272">                deleteButton.setOnAction(event -&gt; completeRemove(varaukset)</span>
+                        
+                );
+<span class="fc" id="L275">            }</span>
+        });
+
+<span class="fc" id="L278">        searchBar.setPromptText(controller.getConfigTeksti(&quot;search&quot;));</span>
+<span class="fc" id="L279">        categorySelect.getItems().setAll(controller.getConfigTeksti(&quot;name&quot;).toUpperCase(),controller.getConfigTeksti(CATEGORY).toUpperCase()) ;</span>
+<span class="fc" id="L280">        categorySelect.setValue(controller.getConfigTeksti(&quot;name&quot;).toUpperCase());</span>
+<span class="fc" id="L281">        kaikkiTab.setText(controller.getConfigTeksti(RESOURCES));</span>
+<span class="fc" id="L282">        nimiColumn.setText(controller.getConfigTeksti(&quot;name&quot;).toUpperCase());</span>
+<span class="fc" id="L283">        tyyppiColumn.setText(controller.getConfigTeksti(&quot;type&quot;).toUpperCase());</span>
+<span class="fc" id="L284">        luvanvaraisuusColumn.setText(controller.getConfigTeksti(&quot;permission&quot;).toUpperCase());</span>
+<span class="fc" id="L285">        kuvausColumn.setText(controller.getConfigTeksti(&quot;description&quot;).toUpperCase());</span>
+<span class="fc" id="L286">        tilaColumn.setText(controller.getConfigTeksti(&quot;state&quot;).toUpperCase());</span>
+<span class="fc" id="L287">        omatTab.setText(controller.getConfigTeksti(OMAT));</span>
+<span class="fc" id="L288">        laitenimiColumn.setText(controller.getConfigTeksti(&quot;resourceName&quot;).toUpperCase());</span>
+<span class="fc" id="L289">        alkupvmColumn.setText(controller.getConfigTeksti(&quot;reservationStartdate&quot;).toUpperCase());</span>
+<span class="fc" id="L290">        paattymispvmColumn.setText(controller.getConfigTeksti(&quot;reservationEnddate&quot;).toUpperCase());</span>
+<span class="fc" id="L291">        varausidColumn.setText(controller.getConfigTeksti(&quot;reservationId&quot;).toUpperCase());</span>
+<span class="fc" id="L292">        varauskuvausColumn.setText(controller.getConfigTeksti(&quot;description&quot;).toUpperCase());</span>
+<span class="fc" id="L293">        palautettuColumn.setText(controller.getConfigTeksti(&quot;activity&quot;).toUpperCase());</span>
+<span class="fc" id="L294">        hyvaksyntaColumn.setText(controller.getConfigTeksti(&quot;approval&quot;).toUpperCase());</span>
+<span class="fc" id="L295">        poistoColumn.setText(controller.getConfigTeksti(&quot;removeReservation&quot;).toUpperCase());</span>
+<span class="fc" id="L296">        kalenteriPane.setText(controller.getConfigTeksti(&quot;calendar&quot;).toUpperCase());</span>
+<span class="fc" id="L297">        lisaaresurssiBtn.setText(controller.getConfigTeksti(&quot;addResource&quot;).toUpperCase());</span>
+<span class="fc" id="L298">        poistaresurssiBtn.setText(controller.getConfigTeksti(&quot;removeResource&quot;).toUpperCase());</span>
+<span class="fc" id="L299">        hallnnoiBtn.setText(controller.getConfigTeksti(&quot;manageReservations&quot;).toUpperCase());</span>
+<span class="fc" id="L300">        historiaBtn.setText(controller.getConfigTeksti(&quot;resourceHistory&quot;).toUpperCase());</span>
+<span class="fc" id="L301">        henkilostoBtn.setText(controller.getConfigTeksti(&quot;manageUsers&quot;).toUpperCase());</span>
+<span class="fc" id="L302">        logoutBtn.setText(controller.getConfigTeksti(&quot;Logout&quot;).toUpperCase());</span>
+<span class="fc" id="L303">        salasananvaihtoBtn.setText(controller.getConfigTeksti(&quot;passwordChange&quot;).toUpperCase());</span>
+<span class="fc" id="L304">        varausBtn.setText(controller.getConfigTeksti(&quot;makeReservation&quot;).toUpperCase());</span>
+        
+<span class="fc" id="L306">        this.categorySelect.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;searchBy&quot;)));</span>
+<span class="fc" id="L307">        this.omatTable.setTooltip(new Tooltip(controller.getConfigTeksti(OMAT)));</span>
+<span class="fc" id="L308">        this.kaikkiTableView.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;ownTableTooltip&quot;)));</span>
+<span class="fc" id="L309">        this.logoutBtn.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;logoutInfo&quot;)));</span>
+<span class="fc" id="L310">        this.hallnnoiBtn.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;hallinnoiBtnTooltip&quot;)));</span>
+<span class="fc" id="L311">        this.henkilostoBtn.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;henkilostoBtnTooltip&quot;)));</span>
+<span class="fc" id="L312">        this.lisaaresurssiBtn.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;lisaaRTooltip&quot;)));</span>
+<span class="fc" id="L313">        this.poistaresurssiBtn.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;poistaRTooltip&quot;)));</span>
+<span class="fc" id="L314">        this.salasananvaihtoBtn.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;salasanaVaihtoBtn&quot;)));</span>
+<span class="fc" id="L315">        this.searchBar.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;searchBarTooltip&quot;)));</span>
+<span class="fc" id="L316">        this.varausBtn.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;varausBtnTooltip&quot;)));</span>
+<span class="fc" id="L317">        this.kalenteriPane.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;kalenteriStackPaneTooltip&quot;)));</span>
+        
+        
+        
+<span class="fc" id="L321">        usernameLabel.setText(controller.getLoggedIn().getNimi());</span>
+<span class="fc" id="L322">        bizName.setText(controller.getBizname());</span>
+
+<span class="fc" id="L324">        Resurssit[] res = controller.haeKaikkiResurssit();</span>
+<span class="fc" id="L325">        kaikkiTableView.getItems().addAll(res);</span>
+<span class="fc" id="L326">        Varaukset[] varauksetArr = controller.haeKayttajanVaraukset(controller.getLoggedIn());</span>
+<span class="fc" id="L327">        omatTable.getItems().addAll(varauksetArr);</span>
+
+<span class="fc" id="L329">        picker = picker();</span>
+        //Kuuntelija jos taulukosta valitaan varausta
+<span class="fc" id="L331">        kaikkiTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -&gt; {</span>
+<span class="nc bnc" id="L332" title="All 2 branches missed.">            if (newSelection != null) { //Etsii resursin kaikki varaukset.</span>
+
+<span class="nc" id="L334">                Varaukset[] varaukset = controller.haeKaikkiVaraukset();</span>
+<span class="nc" id="L335">                picker = null;</span>
+
+<span class="nc" id="L337">                List&lt;Varaukset&gt; aVaraukset = controller.resurssinVaraukset(kaikkiTableView.getSelectionModel().getSelectedItem().getId(), varaukset);</span>
+
+<span class="nc" id="L339">                Varaukset[] varaus = controller.getVarausTaulukko(aVaraukset);</span>
+
+                // luo uuden datepickerin johon laitetaan day cell factorin
+<span class="nc" id="L342">                Callback&lt;DatePicker, DateCell&gt; dayCellFactory = controller.dayCellFactory(varaus, LocalDate.now());</span>
+<span class="nc" id="L343">                picker = picker();</span>
+<span class="nc" id="L344">                picker.setDayCellFactory(dayCellFactory);</span>
+<span class="nc" id="L345">                dps.dispose();</span>
+<span class="nc" id="L346">                dps = new DatePickerSkin(picker);</span>
+<span class="nc" id="L347">                calContent = dps.getPopupContent();</span>
+<span class="nc" id="L348">                kalenteriStackPane.getChildren().set(0, calContent);</span>
+            }
+<span class="nc" id="L350">        });</span>
+
+        // Luodaan datepicker skin ensimmäisen kerran
+<span class="pc bpc" id="L353" title="1 of 2 branches missed.">        if (picker != null) {</span>
+<span class="fc" id="L354">            dps = new DatePickerSkin(picker);</span>
+        } else {
+<span class="nc" id="L356">            dps = new DatePickerSkin(picker());</span>
+        }
+
+<span class="fc" id="L359">        calContent = dps.getPopupContent();</span>
+<span class="fc" id="L360">        kalenteriStackPane.getChildren().add(calContent);</span>
+        
+        //Rajoittaa käyttöliittymän elementtejä eritason käyttäjille
+        
+        //Työntekijä
+<span class="pc bpc" id="L365" title="1 of 2 branches missed.">       if(controller.getLoggedIn().getValtuudet()==0){</span>
+<span class="nc" id="L366">           this.henkilostoBtn.setDisable(true);</span>
+<span class="nc" id="L367">           this.henkilostoBtn.setOpacity(0);</span>
+<span class="nc" id="L368">           this.hallnnoiBtn.setDisable(true);</span>
+<span class="nc" id="L369">           this.hallnnoiBtn.setOpacity(0);</span>
+<span class="nc" id="L370">           this.lisaaresurssiBtn.setDisable(true);</span>
+<span class="nc" id="L371">           this.lisaaresurssiBtn.setOpacity(0);</span>
+<span class="nc" id="L372">           this.poistaresurssiBtn.setDisable(true);</span>
+<span class="nc" id="L373">           this.poistaresurssiBtn.setOpacity(0);</span>
+<span class="nc" id="L374">           this.historiaBtn.setDisable(true);</span>
+<span class="nc" id="L375">           this.historiaBtn.setOpacity(0);</span>
+<span class="nc" id="L376">           this.kuvausColumn.setEditable(false);</span>
+<span class="nc" id="L377">           this.nimiColumn.setEditable(false);</span>
+<span class="nc" id="L378">           this.tilaColumn.setEditable(false);</span>
+<span class="nc" id="L379">           this.luvanvaraisuusColumn.setEditable(false);</span>
+<span class="nc" id="L380">           this.tyyppiColumn.setEditable(false);</span>
+           
+           //Esimies
+<span class="pc bpc" id="L383" title="1 of 2 branches missed.">       }else if(controller.getLoggedIn().getValtuudet()==1){</span>
+<span class="nc" id="L384">           this.henkilostoBtn.setDisable(true);</span>
+<span class="nc" id="L385">           this.henkilostoBtn.setOpacity(0);</span>
+       }
+       
+
+<span class="fc" id="L389">    }</span>
+
+    /**
+     * Palautaa uuden datepickerin, jolla on muutoksiin kuuntelia. Kuuntelia
+     * rajaa varauksista siten että ne, jotka eivät voi varata sinä päivänä ei
+     * ilmesty tulukkoon.
+     *
+     * @return uusi datepicker, jolla on muutoksiin kuuntelia.
+     */
+    @Override
+    public DatePicker picker() {
+<span class="fc" id="L400">        DatePicker p = new DatePicker();</span>
+<span class="fc" id="L401">        p.valueProperty().addListener((ov, oldValue, newValue) -&gt; {</span>
+<span class="nc" id="L402">            String tabText = tabPane.getSelectionModel().getSelectedItem().getText();</span>
+<span class="nc bnc" id="L403" title="All 4 branches missed.">            if (tabText.equals(controller.getConfigTeksti(RESOURCES)) &amp;&amp; oldValue != newValue) {</span>
+<span class="nc" id="L404">                kaikkiTableView.getItems().clear();</span>
+<span class="nc" id="L405">                LocalDate paiva = p.getValue();</span>
+<span class="nc" id="L406">                Resurssit[] res = controller.haeKaikkiResurssit();</span>
+<span class="nc" id="L407">                Varaukset[] varaukset = controller.haeKaikkiVaraukset();</span>
+
+<span class="nc" id="L409">                ChronoLocalDateTime paivaAlku = paiva.atTime(LocalTime.MIN);</span>
+<span class="nc" id="L410">                ChronoLocalDateTime paivaLoppu = paiva.atTime(LocalTime.MAX);</span>
+<span class="nc bnc" id="L411" title="All 2 branches missed.">                for (Resurssit resurssi : res) {</span>
+<span class="nc bnc" id="L412" title="All 2 branches missed.">                    if (controller.onnistuu(controller.resurssinVaraukset(resurssi.getId(), varaukset), paivaLoppu, paivaAlku)) {</span>
+<span class="nc" id="L413">                        kaikkiTableView.getItems().add(resurssi);</span>
+<span class="nc" id="L414">                        kaikkiTableView.refresh();</span>
+                    }
+                }
+<span class="nc" id="L417">                kalenterinPienentamaResurssiLista = new Resurssit[kaikkiTableView.getItems().size()];</span>
+<span class="nc" id="L418">                int i = 0;</span>
+<span class="nc bnc" id="L419" title="All 2 branches missed.">                for (Resurssit resurssi : kaikkiTableView.getItems()) {</span>
+<span class="nc" id="L420">                    kalenterinPienentamaResurssiLista[i] = resurssi;</span>
+<span class="nc" id="L421">                    i++;</span>
+<span class="nc" id="L422">                }</span>
+            }
+<span class="nc" id="L424">        });</span>
+<span class="fc" id="L425">        return p;</span>
+    }
+
+    /**
+     * Poistaa taulukosta ja tietokannasta sekä päivittää taulukon
+     *
+     * @param varaus poistettava varaus
+     */
+    @Override
+    public void completeRemove(Varaukset varaus) {
+<span class="nc bnc" id="L435" title="All 2 branches missed.">        if (controller.poistaVarausBtnToiminto(varaus)) {</span>
+<span class="nc" id="L436">            omatTable.getItems().remove(varaus);</span>
+<span class="nc" id="L437">            omatTable.refresh();</span>
+        }
+<span class="nc" id="L439">    }</span>
+
+    /**
+     * Päivittää taulukot näkymässä.
+     *
+     */
+    @FXML
+    @Override
+    public void update() {
+<span class="nc" id="L448">        kaikkiTableView.getItems().clear();</span>
+<span class="nc" id="L449">        omatTable.getItems().clear();</span>
+<span class="nc" id="L450">        Resurssit[] res = controller.haeKaikkiResurssit();</span>
+<span class="nc" id="L451">        kaikkiTableView.getItems().addAll(res);</span>
+<span class="nc" id="L452">        Varaukset[] varauksetArr = controller.haeKayttajanVaraukset(controller.getLoggedIn());</span>
+<span class="nc" id="L453">        omatTable.getItems().addAll(varauksetArr);</span>
+<span class="nc" id="L454">    }</span>
+
+    /**
+     * Avaa varaus-popupin
+     *
+     * @param event Hiiren painallus.
+     * @throws IOException Tiedostoja luettaessa varauduttava poikkeus.
+     */
+    @FXML
+    @Override
+    public void varausNappiPainettu(MouseEvent event) throws IOException {
+<span class="nc" id="L465">        controller.setBooking(kaikkiTableView.getSelectionModel().getSelectedItem());</span>
+<span class="nc bnc" id="L466" title="All 2 branches missed.">        if (controller.getBooking() != null) {</span>
+<span class="nc bnc" id="L467" title="All 2 branches missed.">            if (controller.getBooking().isStatus()) {</span>
+<span class="nc bnc" id="L468" title="All 4 branches missed.">                if (popup == null || !popup.isShowing()) {</span>
+<span class="nc" id="L469">                    popup = new Popup();</span>
+<span class="nc" id="L470">                    Object source = event.getSource();</span>
+<span class="nc" id="L471">                    Node node = (Node) source;</span>
+<span class="nc" id="L472">                    Scene scene = node.getScene();</span>
+<span class="nc" id="L473">                    Window window = scene.getWindow();</span>
+<span class="nc" id="L474">                    FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/Varausikkuna.fxml&quot;));</span>
+<span class="nc" id="L475">                    popup.getContent().add((Parent) loader.load());</span>
+<span class="nc" id="L476">                    popup.show(window);</span>
+<span class="nc" id="L477">                }</span>
+            } else {
+<span class="nc" id="L479">                Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti(&quot;resourceNotAbleReservation&quot;));</span>
+<span class="nc" id="L480">                alert.showAndWait();</span>
+<span class="nc" id="L481">            }</span>
+        } else {
+<span class="nc" id="L483">            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti(CHOOSERESOURCE));</span>
+<span class="nc" id="L484">            alert.showAndWait();</span>
+        }
+<span class="nc" id="L486">    }</span>
+
+    /**
+     * Avaa &quot;lisää resurssi&quot; -popupin.
+     *
+     * @param event hiiren painallus.
+     * @throws IOException Tiedostoja luettaessa varauduttava poikkeus.
+     */
+    @FXML
+    @Override
+    public void lisaaresurssiNappiPainettu(MouseEvent event) throws IOException {
+<span class="nc bnc" id="L497" title="All 4 branches missed.">        if (popup == null || !popup.isShowing()) {</span>
+<span class="nc" id="L498">            popup = new Popup();</span>
+<span class="nc" id="L499">            Object source = event.getSource();</span>
+<span class="nc" id="L500">            Node node = (Node) source;</span>
+<span class="nc" id="L501">            Scene scene = node.getScene();</span>
+<span class="nc" id="L502">            Window window = scene.getWindow();</span>
+<span class="nc" id="L503">            FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/uusiResurssi.fxml&quot;));</span>
+<span class="nc" id="L504">            popup.getContent().add((Parent) loader.load());</span>
+<span class="nc" id="L505">            popup.show(window);</span>
+        }
+<span class="nc" id="L507">    }</span>
+
+    /**
+     * Avaa vaihda salasana-popupin
+     *
+     * @param event Hiiren painallus
+     * @throws IOException Tiedostoja käsitellessä varauduttava poikkeus.
+     */
+    @FXML
+    @Override
+    public void salasananvaihtoNappiPainettu(MouseEvent event) throws IOException {
+<span class="nc bnc" id="L518" title="All 4 branches missed.">        if (popup == null || !popup.isShowing()) {</span>
+<span class="nc" id="L519">            popup = new Popup();</span>
+<span class="nc" id="L520">            Object source = event.getSource();</span>
+<span class="nc" id="L521">            Node node = (Node) source;</span>
+<span class="nc" id="L522">            Scene scene = node.getScene();</span>
+<span class="nc" id="L523">            Window window = scene.getWindow();</span>
+<span class="nc" id="L524">            FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/SalasananvaihtoIkkuna.fxml&quot;));</span>
+<span class="nc" id="L525">            popup.getContent().add((Parent) loader.load());</span>
+<span class="nc" id="L526">            popup.show(window);</span>
+        }
+<span class="nc" id="L528">    }</span>
+
+    /**
+     * Kirjaa käyttäjän ulos ja siirtyy kirjautumisnäkymään.
+     *
+     * @param event Hiiren painallus painikkeesta.
+     * @throws IOException Tiedostoja käsiteltäessä varauduttava poikkeus.
+     */
+    @FXML
+    @Override
+    public void logout(MouseEvent event) throws IOException {
+<span class="nc" id="L539">        FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/Loginwindow.fxml&quot;));</span>
+<span class="nc" id="L540">        Stage stage = (Stage) logoutBtn.getScene().getWindow();</span>
+<span class="nc" id="L541">        Parent root = loader.load();</span>
+<span class="nc" id="L542">        stage.getScene().setRoot(root);</span>
+<span class="nc" id="L543">        controller.setLoggedIn(null);</span>
+<span class="nc" id="L544">    }</span>
+
+    /**
+     * Siirtyy varausten hallintanäkymään
+     *
+     * @param event Hiiren painallus painikkeesta.
+     * @throws IOException Tiedostoja käsitellessä varauduttava poikkeus.
+     */
+    @FXML
+    @Override
+    public void hallinnoiBtnPainettu(MouseEvent event) throws IOException {
+<span class="nc" id="L555">        FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/VarausAdmin.fxml&quot;));</span>
+<span class="nc" id="L556">        Stage stage = (Stage) logoutBtn.getScene().getWindow();</span>
+<span class="nc" id="L557">        Parent root = loader.load();</span>
+<span class="nc" id="L558">        stage.getScene().setRoot(root);</span>
+<span class="nc" id="L559">    }</span>
+
+    /**
+     * Siirtyy henkilöstön hallintanäkymään
+     *
+     * @param event Hiiren painallus käyttöliittymässä vastaavasta painikkeesta.
+     * @throws IOException Tiedostoja käsiteltäessä varauduttava poikkeus.
+     */
+    @FXML
+    @Override
+    public void henkilostoBtnPainettu(MouseEvent event) throws IOException {
+<span class="nc" id="L570">        FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/KayttajaAdmin.fxml&quot;));</span>
+<span class="nc" id="L571">        Stage stage = (Stage) logoutBtn.getScene().getWindow();</span>
+<span class="nc" id="L572">        Parent root = loader.load();</span>
+<span class="nc" id="L573">        stage.getScene().setRoot(root);</span>
+<span class="nc" id="L574">    }</span>
+
+    @FXML
+    @Override
+    public void historiaBtnPainettu(MouseEvent event) throws IOException {
+<span class="nc" id="L579">        controller.setBooking(kaikkiTableView.getSelectionModel().getSelectedItem());</span>
+<span class="nc bnc" id="L580" title="All 2 branches missed.">        if (controller.getBooking() != null) {</span>
+<span class="nc" id="L581">            FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/ResurssiHistoria.fxml&quot;));</span>
+<span class="nc" id="L582">            Stage stage = (Stage) logoutBtn.getScene().getWindow();</span>
+<span class="nc" id="L583">            Parent root = loader.load();</span>
+<span class="nc" id="L584">            stage.getScene().setRoot(root);</span>
+<span class="nc" id="L585">        } else {</span>
+<span class="nc" id="L586">            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti(CHOOSERESOURCE));</span>
+<span class="nc" id="L587">            alert.showAndWait();</span>
+        }
+<span class="nc" id="L589">    }</span>
+
+    /**
+     * Poistetaan resurssi
+     *
+     * @param event Hiiren painallus painikkeen kohdalla.
+     * @throws IOException Tiedostoja käsiteltäessä varauduttava poikkeus.
+     */
+    @FXML
+    @Override
+    public void poistaresurssiNappiPainettu(MouseEvent event) throws IOException {
+<span class="nc" id="L600">        Resurssit toDelete = kaikkiTableView.getSelectionModel().getSelectedItem();</span>
+<span class="nc bnc" id="L601" title="All 2 branches missed.">        if (toDelete != null) {</span>
+<span class="nc" id="L602">            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, controller.getConfigTeksti(&quot;alertConfirmationRemoveResource&quot;), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);</span>
+<span class="nc" id="L603">            alert.showAndWait();</span>
+<span class="nc bnc" id="L604" title="All 2 branches missed.">            if (alert.getResult() == ButtonType.YES) {</span>
+<span class="nc" id="L605">                controller.poistaResurssi(toDelete);</span>
+<span class="nc" id="L606">                this.update();</span>
+            }
+<span class="nc" id="L608">        } else {</span>
+<span class="nc" id="L609">            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti(CHOOSERESOURCE));</span>
+<span class="nc" id="L610">            alert.showAndWait();</span>
+        }
+<span class="nc" id="L612">    }</span>
+
+    /**
+     * Toiminnallisuus nimi-columnin muokkaamisen päättyessä.
+     *
+     * @param event ENTER-painallus nimisarakkeen muokkaamisen jälkeen.
+     */
+    @FXML
+    private void nimiOnEditCommit(TableColumn.CellEditEvent&lt;Resurssit, String&gt; event) {
+<span class="nc" id="L621">        Resurssit resurssi = kaikkiTableView.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L622">        resurssi.setNimi(event.getNewValue());</span>
+<span class="nc" id="L623">        controller.paivitaResurssi(resurssi);</span>
+<span class="nc" id="L624">    }</span>
+
+    /**
+     * Toiminnallisuus tyyppi-columnin muokkaamisen päättyessä.
+     *
+     * @param event ENTER-painallus tyyppi-sarakkeen muokkaamisen jälkeen.
+     */
+    @FXML
+    private void tyyppiOnEditCommit(TableColumn.CellEditEvent&lt;Resurssit, String&gt; event) {
+<span class="nc" id="L633">        Resurssit resurssi = kaikkiTableView.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L634">        resurssi.setTyyppi(event.getNewValue());</span>
+<span class="nc" id="L635">        controller.paivitaResurssi(resurssi);</span>
+<span class="nc" id="L636">    }</span>
+
+    /**
+     * Toiminnallisuus luvanvaraisuus-columnin muokkaamisen päättyessä.
+     *
+     * @param event ENTER-painallus luvanvaraisuus-sarakkeen muokkaamisen
+     * jälkeen.
+     */
+    @FXML
+    private void luvanvaraisuusOnEditCommit(TableColumn.CellEditEvent&lt;Resurssit, Integer&gt; event) {
+<span class="nc" id="L646">        Resurssit resurssi = kaikkiTableView.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L647">        resurssi.setLuvanvaraisuus((event.getNewValue()));</span>
+<span class="nc" id="L648">        controller.paivitaResurssi(resurssi);</span>
+<span class="nc" id="L649">    }</span>
+
+    /**
+     * Toiminnallisuus kuvaus-columnin muokkaamisen päättyessä.
+     *
+     * @param event ENTER-painallus kuvaus-sarakkeen muokkaamisen jölkeen.
+     */
+    @FXML
+    private void kuvausOnEditCommit(TableColumn.CellEditEvent&lt;Resurssit, String&gt; event) {
+<span class="nc" id="L658">        Resurssit resurssi = kaikkiTableView.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L659">        resurssi.setKuvaus(event.getNewValue());</span>
+<span class="nc" id="L660">        controller.paivitaResurssi(resurssi);</span>
+<span class="nc" id="L661">    }</span>
+
+    /**
+     * Toiminnallisuus tila-columnin muokkaamisen päättyessä.
+     *
+     * @param event ENTER-painallus tila-sarakkeen muokkaamisen jälkeen.
+     */
+    @FXML
+    private void tilaOnEditCommit(TableColumn.CellEditEvent&lt;Resurssit, Boolean&gt; event) {
+<span class="nc" id="L670">        Resurssit resurssi = kaikkiTableView.getSelectionModel().getSelectedItem();</span>
+<span class="nc" id="L671">        resurssi.setStatus(event.getNewValue());</span>
+<span class="nc" id="L672">        controller.paivitaResurssi(resurssi);</span>
+<span class="nc" id="L673">    }</span>
+
+    /**
+     * Hakutoiminnallisuus. Tulokset haetaan valittuna olevan välilehden ja
+     * kategorian mukaan.
+     *
+     * @param event Näppäimen painallus hakukentän ollessa aktiivinen.
+     */
+    @FXML
+    private void searchFunction(Event event) {
+<span class="nc" id="L683">        String query = searchBar.getText().toLowerCase();</span>
+<span class="nc" id="L684">        String tabText = tabPane.getSelectionModel().getSelectedItem().getText();</span>
+<span class="nc" id="L685">        String selectedCategory = categorySelect.getSelectionModel().getSelectedItem().toString();</span>
+<span class="nc bnc" id="L686" title="All 4 branches missed.">        if (tabText.equals(controller.getConfigTeksti(RESOURCES)) &amp;&amp; selectedCategory.equalsIgnoreCase(controller.getConfigTeksti(&quot;name&quot;))) {</span>
+<span class="nc" id="L687">            kaikkiTableView.getItems().clear();</span>
+<span class="nc bnc" id="L688" title="All 2 branches missed.">            for (Resurssit resurssi : kalenterinPienentamaResurssiLista) {</span>
+<span class="nc" id="L689">                String resurssiPienella = resurssi.getNimi().toLowerCase();</span>
+<span class="nc bnc" id="L690" title="All 2 branches missed.">                if (resurssiPienella.indexOf(query) != -1) {</span>
+<span class="nc" id="L691">                    kaikkiTableView.getItems().add(resurssi);</span>
+<span class="nc" id="L692">                    kaikkiTableView.refresh();</span>
+
+                }
+            }
+<span class="nc bnc" id="L696" title="All 4 branches missed.">        } else if (tabText.equals(controller.getConfigTeksti(RESOURCES)) &amp;&amp; selectedCategory.equalsIgnoreCase(controller.getConfigTeksti(CATEGORY))) {</span>
+<span class="nc" id="L697">            kaikkiTableView.getItems().clear();</span>
+<span class="nc bnc" id="L698" title="All 2 branches missed.">            for (Resurssit resurssi : kalenterinPienentamaResurssiLista) {</span>
+<span class="nc" id="L699">                String resurssiPienella = resurssi.getTyyppi().toLowerCase();</span>
+
+<span class="nc bnc" id="L701" title="All 2 branches missed.">                if (resurssiPienella.indexOf(query) != -1) {</span>
+<span class="nc" id="L702">                    kaikkiTableView.getItems().add(resurssi);</span>
+<span class="nc" id="L703">                    kaikkiTableView.refresh();</span>
+                }
+            }
+        }
+
+<span class="nc bnc" id="L708" title="All 4 branches missed.">        if (tabText.equals(controller.getConfigTeksti(OMAT)) &amp;&amp; selectedCategory.equalsIgnoreCase(controller.getConfigTeksti(&quot;name&quot;))) {</span>
+<span class="nc" id="L709">            Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(controller.getLoggedIn());</span>
+<span class="nc" id="L710">            omatTable.getItems().clear();</span>
+<span class="nc bnc" id="L711" title="All 2 branches missed.">            for (Varaukset varaus : omatVaraukset) {</span>
+<span class="nc" id="L712">                String resurssiPienella = varaus.getResurssit().getNimi().toLowerCase();</span>
+<span class="nc bnc" id="L713" title="All 2 branches missed.">                if (resurssiPienella.indexOf(query) != -1) {</span>
+<span class="nc" id="L714">                    omatTable.getItems().add(varaus);</span>
+<span class="nc" id="L715">                    omatTable.refresh();</span>
+
+                }
+            }
+<span class="nc bnc" id="L719" title="All 4 branches missed.">        } else if (tabText.equals(controller.getConfigTeksti(OMAT)) &amp;&amp; selectedCategory.equalsIgnoreCase(controller.getConfigTeksti(CATEGORY))) {</span>
+<span class="nc" id="L720">            Varaukset[] omatVaraukset = controller.haeKayttajanVaraukset(controller.getLoggedIn());</span>
+<span class="nc" id="L721">            omatTable.getItems().clear();</span>
+<span class="nc bnc" id="L722" title="All 2 branches missed.">            for (Varaukset varaus : omatVaraukset) {</span>
+<span class="nc" id="L723">                String resurssiPienella = varaus.getResurssit().getTyyppi().toLowerCase();</span>
+<span class="nc bnc" id="L724" title="All 2 branches missed.">                if (resurssiPienella.indexOf(query) != -1) {</span>
+<span class="nc" id="L725">                    omatTable.getItems().add(varaus);</span>
+<span class="nc" id="L726">                    omatTable.refresh();</span>
+                }
+            }
+        }
+<span class="nc" id="L730">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

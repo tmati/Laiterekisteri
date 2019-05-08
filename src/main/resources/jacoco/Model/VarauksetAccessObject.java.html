@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VarauksetAccessObject.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">VarauksetAccessObject.java</span></div><h1>VarauksetAccessObject.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+import java.util.List;
+import java.util.logging.Level;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
+/**
+ * Varaus DAO
+ *
+ * @author Tommi
+ */
+public class VarauksetAccessObject implements VarauksetDAOIF {
+
+<span class="fc" id="L21">    SessionFactory sf = null;</span>
+
+    /**
+     * Konstuktori hakee sessionfactoryn
+     */
+<span class="fc" id="L26">    public VarauksetAccessObject() {</span>
+        try {
+<span class="fc" id="L28">            sf = HibernateUtil.getSessionFactory();</span>
+<span class="nc" id="L29">        } catch (Exception e) {</span>
+<span class="nc" id="L30">              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());</span>
+<span class="fc" id="L31">        }</span>
+<span class="fc" id="L32">    }</span>
+
+    /**
+     * Vie varauksen tietokantaan
+     *
+     * @param varaus varaus -olio joka viedään tietokantaan
+     * @return true jos varauksen vienti onnistui
+     */
+    @Override
+    public boolean createVaraus(Varaukset varaus) {
+<span class="fc" id="L42">        Session s = sf.openSession();</span>
+<span class="fc" id="L43">        Transaction tran = null;</span>
+        try {
+<span class="fc" id="L45">            tran = s.beginTransaction();</span>
+<span class="fc" id="L46">            s.saveOrUpdate(varaus);</span>
+<span class="fc" id="L47">            tran.commit();</span>
+<span class="fc" id="L48">        } catch (Exception e) {</span>
+<span class="fc" id="L49">              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());</span>
+<span class="fc" id="L50">            return false;</span>
+        } finally {
+<span class="fc" id="L52">            s.close();</span>
+        }
+<span class="fc" id="L54">        return true;</span>
+
+    }
+
+    /**
+     * Hakee varauksen tietokannasta id:n avulla
+     *
+     * @param id varauksen id
+     * @return varaus -olio
+     */
+    @Override
+    public Varaukset readVaraus(int id) {
+<span class="fc" id="L66">        Session s = sf.openSession();</span>
+<span class="fc" id="L67">        s = sf.openSession();</span>
+<span class="fc" id="L68">        s.beginTransaction();</span>
+<span class="fc" id="L69">        Varaukset haettu = new Varaukset();</span>
+        try {
+<span class="fc" id="L71">            s.load(haettu, id);</span>
+<span class="fc" id="L72">            Hibernate.initialize(haettu.getKayttaja());</span>
+<span class="fc" id="L73">            Hibernate.initialize(haettu.getResurssit());</span>
+<span class="fc" id="L74">            s.getTransaction().commit();</span>
+<span class="fc" id="L75">        } catch (Exception e) {</span>
+<span class="fc" id="L76">              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());</span>
+        } finally {
+<span class="fc" id="L78">            s.close();</span>
+        }
+<span class="fc" id="L80">        return haettu;</span>
+    }
+
+    /**
+     * Lukee kaikki varaukset tietokannasta.
+     *
+     * @return taulukko kaikista varauksista
+     */
+    @Override
+    public Varaukset[] readVaraukset() {
+<span class="fc" id="L90">        Session s = sf.openSession();</span>
+<span class="fc" id="L91">        Varaukset[] varaukset = null;</span>
+        try {
+<span class="fc" id="L93">            s = sf.openSession();</span>
+<span class="fc" id="L94">            s.beginTransaction();</span>
+            @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L96">            List&lt;Varaukset&gt; result = s.createQuery(&quot;from Varaukset&quot;).list();</span>
+<span class="fc" id="L97">            varaukset = result.toArray(new Varaukset[result.size()]);</span>
+<span class="fc" id="L98">            s.getTransaction().commit();</span>
+<span class="nc" id="L99">        } catch (Exception e) {</span>
+<span class="nc" id="L100">              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());</span>
+
+        } finally {
+<span class="fc" id="L103">            s.close();</span>
+        }
+<span class="fc" id="L105">        return varaukset;</span>
+    }
+
+    /**
+     * Päivittää varauksen tietokantaan
+     *
+     * @param varaus varaus, jota päivitetään
+     * @return true jos päivitys onnistui
+     */
+    @Override
+    public boolean updateVaraus(Varaukset varaus) {
+<span class="fc" id="L116">        Session s = sf.openSession();</span>
+        try {
+<span class="fc" id="L118">            s = sf.openSession();</span>
+<span class="fc" id="L119">            s.beginTransaction();</span>
+<span class="fc" id="L120">            Varaukset paivitettava = (Varaukset) s.get(Varaukset.class, varaus.getId());</span>
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">            if (paivitettava != null) {</span>
+<span class="fc" id="L122">                paivitettava.setHyvaksytty(varaus.getHyvaksytty());</span>
+<span class="fc" id="L123">                paivitettava.setKayttaja(varaus.getKayttaja());</span>
+<span class="fc" id="L124">                paivitettava.setResurssit(varaus.getResurssit());</span>
+<span class="fc" id="L125">                paivitettava.setAlkupvm(varaus.getAlkupvm());</span>
+<span class="fc" id="L126">                paivitettava.setPaattymispvm(varaus.getPaattymispvm());</span>
+<span class="fc" id="L127">                paivitettava.setKuvaus(varaus.getKuvaus());</span>
+<span class="fc" id="L128">                paivitettava.setPalautettu(varaus.isPalautettu());</span>
+<span class="fc" id="L129">                paivitettava.setNimi(varaus.getNimi());</span>
+<span class="fc" id="L130">                s.saveOrUpdate(paivitettava);</span>
+            }
+<span class="fc" id="L132">            s.getTransaction().commit();</span>
+<span class="nc" id="L133">        } catch (Exception e) {</span>
+<span class="nc" id="L134">              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());</span>
+<span class="nc" id="L135">            return false;</span>
+
+        } finally {
+<span class="fc" id="L138">            s.close();</span>
+        }
+<span class="fc" id="L140">        return true;</span>
+    }
+
+    /**
+     * Poistaa varauksen tietokannasta id:n perusteella
+     *
+     * @param id varauksen id
+     * @return true jos poisto onnistui
+     */
+    public boolean deleteVaraus(int id) {
+<span class="fc" id="L150">        Session s = sf.openSession();</span>
+        try {
+<span class="fc" id="L152">            s = sf.openSession();</span>
+<span class="fc" id="L153">            s.beginTransaction();</span>
+<span class="fc" id="L154">            Varaukset valittu = readVaraus(id);</span>
+<span class="fc" id="L155">            Varaukset poistettava = (Varaukset) s.get(Varaukset.class, valittu.getId());</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">            if (poistettava != null) {</span>
+<span class="fc" id="L157">                s.delete(poistettava);</span>
+            }
+<span class="fc" id="L159">            s.getTransaction().commit();</span>
+<span class="nc" id="L160">        } catch (Exception e) {</span>
+<span class="nc" id="L161">              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());</span>
+<span class="nc" id="L162">            return false;</span>
+        } finally {
+<span class="fc" id="L164">            s.close();</span>
+        }
+<span class="fc" id="L166">        return true;</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Istunto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">Istunto.java</span></div><h1>Istunto.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+package model;
+import controller.*;
+import java.util.logging.Logger;
+/**
+ *
+ * @author Tommi
+ */
+public class Istunto implements IstuntoIF {
+    /**
+     * Staattinen loggeri, jota kaikki luokat käyttävät.
+     */
+<span class="fc" id="L19">    public static final Logger LOGGER = Logger.getAnonymousLogger();</span>
+    /**
+     * Viittaus controller instanssiin
+     */
+    private ControllerIf controller;
+    
+    /**
+     * Yrityksen nimi
+     */
+<span class="fc" id="L28">    private String bizname = &quot;KeyChain Enterprise Management&quot;;</span>
+   
+    /**
+     * Sovelluksen käytäjän tiedot.
+     *
+     */
+<span class="fc" id="L34">    private Kayttaja loggedIn = null;</span>
+
+    /**
+     * Käyttäjän varausten tarkastelua varten tallennettava olio
+     */
+<span class="fc" id="L39">    private Kayttaja selected = null;</span>
+
+    /**
+     * Varaukseen vietävä resurssi
+     */
+<span class="fc" id="L44">    private Resurssit booking = null;</span>
+
+<span class="fc" id="L46">    public Istunto(Controller controller){</span>
+<span class="fc" id="L47">        this.controller = controller;</span>
+<span class="fc" id="L48">    }</span>
+    
+    @Override
+    public Resurssit getBooking(){
+<span class="fc" id="L52">        return booking;</span>
+    }
+    
+    @Override
+    public void setBooking(Resurssit booking){
+<span class="fc" id="L57">        this.booking = booking;</span>
+<span class="fc" id="L58">    }</span>
+    
+    @Override
+    public Kayttaja getLoggedIn(){
+<span class="fc" id="L62">        return this.loggedIn;</span>
+    }
+    
+    @Override
+    public void setLoggedIn(Kayttaja loggedIn){
+<span class="fc" id="L67">        this.loggedIn = loggedIn;</span>
+<span class="fc" id="L68">    }</span>
+    
+    @Override
+    public Kayttaja getSelected(){
+<span class="fc" id="L72">        return this.selected;</span>
+    }
+    
+    @Override
+    public void setSelected(Kayttaja selected){
+<span class="fc" id="L77">        this.selected = selected;</span>
+<span class="fc" id="L78">    }</span>
+    
+    @Override
+    public String getBizname(){
+<span class="fc" id="L82">        return this.bizname;</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

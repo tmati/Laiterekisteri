@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UusiKayttajaController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">UusiKayttajaController.java</span></div><h1>UusiKayttajaController.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package view;
+
+import controller.*;
+import model.Kayttaja;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Popup;
+import javax.mail.MessagingException;
+import javafx.stage.Window;
+
+/**
+ * Uuden käyttäjän luontipopupin toiminnallisuus
+ *
+ * @author tmati
+ */
+<span class="nc" id="L30">public class UusiKayttajaController implements UusiKayttajaControllerIf {</span>
+
+    @FXML
+    private Button luokayttajaNappi;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Button sulkuNappi;
+    @FXML
+    private TextField emailTextField;
+    @FXML
+    private Label virheLabel;
+    @FXML
+    private TextField nimiTextField;
+    @FXML
+    private TextField salasanaTextField;
+    @FXML
+    private TextField kayttajatunnusTextField;
+    @FXML
+    private ChoiceBox&lt;String&gt; valtuudetChoiceBox;
+    @FXML
+    private TableView&lt;Kayttaja&gt; kayttajaTableView;
+    @FXML
+    private Label uusisalasanaLabel;
+    @FXML
+    private Label vanhasalasanaLabel;
+    @FXML
+    private Label choiceBoxLabel;
+    @FXML
+    private Label vanhasalasanaLabel1;
+    @FXML
+    private Label vanhasalasanaLabel11;
+
+<span class="nc" id="L63">    private String choose = &quot;choose&quot;;</span>
+
+    /**
+     * Controller-ilmentymä
+     */
+    private ControllerIf controller;
+
+    /**
+     * Initializes the CONTROLLER class.
+     *
+     * @param url URL
+     * @param rb ResourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="nc" id="L78">        controller = Controller.getInstance();</span>
+
+<span class="nc" id="L80">        luokayttajaNappi.setText(controller.getConfigTeksti(&quot;createUser&quot;).toUpperCase());</span>
+<span class="nc" id="L81">        titleLabel.setText(controller.getConfigTeksti(&quot;newUser&quot;).toUpperCase());</span>
+<span class="nc" id="L82">        emailTextField.setPromptText(controller.getConfigTeksti(&quot;emailLabel&quot;));</span>
+<span class="nc" id="L83">        uusisalasanaLabel.setText(controller.getConfigTeksti(&quot;userName&quot;).toUpperCase());</span>
+<span class="nc" id="L84">        vanhasalasanaLabel.setText(controller.getConfigTeksti(&quot;emailLabel&quot;).toUpperCase());</span>
+<span class="nc" id="L85">        virheLabel.setText(controller.getConfigTeksti(&quot;formError&quot;).toUpperCase());</span>
+<span class="nc" id="L86">        nimiTextField.setPromptText(controller.getConfigTeksti(&quot;name&quot;));</span>
+<span class="nc" id="L87">        valtuudetChoiceBox.getItems().setAll(controller.getConfigTeksti(choose), controller.getConfigTeksti(&quot;employee&quot;), controller.getConfigTeksti(&quot;superior&quot;), controller.getConfigTeksti(&quot;administrator&quot;));</span>
+<span class="nc" id="L88">        valtuudetChoiceBox.setValue(controller.getConfigTeksti(choose));</span>
+<span class="nc" id="L89">        choiceBoxLabel.setText(controller.getConfigTeksti(&quot;userAut&quot;));</span>
+<span class="nc" id="L90">        salasanaTextField.setPromptText(controller.getConfigTeksti(&quot;passwordLabel&quot;));</span>
+<span class="nc" id="L91">        vanhasalasanaLabel1.setText(controller.getConfigTeksti(&quot;passwordLabel&quot;).toUpperCase());</span>
+<span class="nc" id="L92">        kayttajatunnusTextField.setPromptText(controller.getConfigTeksti(&quot;kayttajaTunnus&quot;));</span>
+<span class="nc" id="L93">        vanhasalasanaLabel11.setText(controller.getConfigTeksti(&quot;kayttajaTunnus&quot;));</span>
+
+<span class="nc" id="L95">        this.emailTextField.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;newUserEmailInfo&quot;)));</span>
+<span class="nc" id="L96">        this.kayttajatunnusTextField.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;newUserIdInfo&quot;)));</span>
+<span class="nc" id="L97">        this.nimiTextField.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;newUserNameInfo&quot;)));</span>
+<span class="nc" id="L98">        this.salasanaTextField.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;newUserPasswordInfo&quot;)));</span>
+<span class="nc" id="L99">        this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;closePopup&quot;)));</span>
+<span class="nc" id="L100">        this.valtuudetChoiceBox.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;chooseUserAutInfo&quot;)));</span>
+<span class="nc" id="L101">        this.luokayttajaNappi.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;createNewUserInfo&quot;)));</span>
+
+<span class="nc" id="L103">    }</span>
+
+    /**
+     * Käännetään choiceboxin arvo tietokantaan sopivaksi
+     *
+     * @param cb
+     * @return
+     */
+    int tulkitseChoiceBox(ChoiceBox cb) {
+<span class="nc" id="L112">        int selectedOption = -1;</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">        if (cb.getValue().equals(controller.getConfigTeksti(&quot;employee&quot;))) {</span>
+<span class="nc" id="L114">            selectedOption = 0;</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        } else if (cb.getValue().equals(controller.getConfigTeksti(&quot;superior&quot;))) {</span>
+<span class="nc" id="L116">            selectedOption = 1;</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        } else if (cb.getValue().equals(controller.getConfigTeksti(&quot;administrator&quot;))) {</span>
+<span class="nc" id="L118">            selectedOption = 2;</span>
+        }
+<span class="nc" id="L120">        return selectedOption;</span>
+    }
+
+    /**
+     * Luo uuden käyttäjän annettujen ehtojen täsmätessä. Herjaa jos ehdot ei
+     * täsmää. Tarkastaa myös sähköpostin ja käyttäjätunnuksen tietokantaa
+     * vasten (ei saa olla samat)
+     *
+     * @param event Hiiren klikkaus painikkeesta.
+     */
+    @FXML
+    private void luokayttajaNappiPainettu(MouseEvent event) throws MessagingException {
+<span class="nc bnc" id="L132" title="All 10 branches missed.">        if (nimiTextField.getText().isEmpty() || emailTextField.getText().isEmpty() || salasanaTextField.getText().isEmpty() || kayttajatunnusTextField.getText().isEmpty() || valtuudetChoiceBox.getValue().equals(controller.getConfigTeksti(choose))) {</span>
+<span class="nc" id="L133">            virheLabel.setText(controller.getConfigTeksti(&quot;newUserErrorLabel1&quot;));</span>
+<span class="nc" id="L134">            virheLabel.setDisable(false);</span>
+<span class="nc" id="L135">            virheLabel.setOpacity(100);</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        } else if (!controller.tarkistaUsername(kayttajatunnusTextField.getText())) {</span>
+<span class="nc" id="L137">            virheLabel.setText(controller.getConfigTeksti(&quot;newUserErrorLabel2&quot;));</span>
+<span class="nc" id="L138">            virheLabel.setDisable(false);</span>
+<span class="nc" id="L139">            virheLabel.setOpacity(100);</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        } else if (!controller.tarkistaEmail(emailTextField.getText())) {</span>
+<span class="nc" id="L141">            virheLabel.setText(controller.getConfigTeksti(&quot;newUserErrorLabel3&quot;));</span>
+<span class="nc" id="L142">            virheLabel.setDisable(false);</span>
+<span class="nc" id="L143">            virheLabel.setOpacity(100);</span>
+        } else {
+<span class="nc" id="L145">            Kayttaja kayttaja = new Kayttaja(nimiTextField.getText(), controller.salasananCryptaus(salasanaTextField.getText()), kayttajatunnusTextField.getText(), emailTextField.getText(), controller.readCb(valtuudetChoiceBox));</span>
+<span class="nc" id="L146">            controller.luoKayttaja(kayttaja);</span>
+
+<span class="nc" id="L148">            controller.lahetaSahkoposti(kayttaja.getSahkoposti(), controller.getConfigTeksti(&quot;newUserEmail&quot;)</span>
+<span class="nc" id="L149">                    + kayttaja.getKayttajatunnus() + &quot;\n&quot;</span>
+<span class="nc" id="L150">                    + controller.getConfigTeksti(&quot;newUserEmailP&quot;)</span>
+<span class="nc" id="L151">                    + controller.getConfigTeksti(&quot;newUserEmailCon&quot;));</span>
+
+<span class="nc" id="L153">            Kayttaja[] kayttajat = controller.haeKaikkiKayttajat();</span>
+
+<span class="nc" id="L155">            Popup popup = (Popup) sulkuNappi.getScene().getWindow();</span>
+<span class="nc" id="L156">            Window nakyma = popup.getOwnerWindow();</span>
+<span class="nc" id="L157">            TableView kaytTableView = (TableView) nakyma.getScene().lookup(&quot;#kayttajaTableView&quot;);</span>
+<span class="nc" id="L158">            kaytTableView.getItems().clear();</span>
+<span class="nc" id="L159">            kaytTableView.getItems().addAll(kayttajat);</span>
+<span class="nc" id="L160">            popup.hide();</span>
+        }
+<span class="nc" id="L162">    }</span>
+
+    /**
+     * Sulkee popupin.
+     *
+     * @param event Hiiren klikkaus painikkeesta.
+     */
+    @FXML
+    private void sulkuNappiPainettu(ActionEvent event) {
+
+<span class="nc" id="L172">        Kayttaja[] kayttajat = controller.haeKaikkiKayttajat();</span>
+<span class="nc" id="L173">        Popup popup = (Popup) sulkuNappi.getScene().getWindow();</span>
+<span class="nc" id="L174">        Window nakyma = popup.getOwnerWindow();</span>
+<span class="nc" id="L175">        TableView kaytTableView = (TableView) nakyma.getScene().lookup(&quot;#kayttajaTableView&quot;);</span>
+<span class="nc" id="L176">        kaytTableView.getItems().clear();</span>
+<span class="nc" id="L177">        kaytTableView.getItems().addAll(kayttajat);</span>
+<span class="nc" id="L178">        popup.hide();</span>
+<span class="nc" id="L179">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

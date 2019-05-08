@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SalasananPalautus.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">SalasananPalautus.java</span></div><h1>SalasananPalautus.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+import controller.*;
+import java.util.Random;
+
+/**
+ *
+ * @author Tommi
+ */
+public class SalasananPalautus implements SalasananPalautusIf {
+    private ControllerIf controller;
+    private static final String MERKIT = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
+                                    + &quot;0123456789&quot;
+                                    + &quot;abcdefghijklmnopqrstuvxyz&quot;; 
+<span class="fc" id="L20">    private final StringBuilder sb = new StringBuilder(8);</span>
+<span class="fc" id="L21">    private final Random random = new Random();</span>
+    
+/**
+     * SalasananPalautus luokan constructori
+     * @param controller controlleri jota tämä käyttää
+     */
+<span class="fc" id="L27">    public SalasananPalautus(Controller controller){</span>
+<span class="fc" id="L28">        this.controller = controller;</span>
+<span class="fc" id="L29">    }</span>
+    
+    /**
+     * lähettää sähköpostin käyttäjälle jonka sähköposti on sama kuin tämän medotin email
+     * @param email mihin sähköposti osoiteeseen lähetetään posti
+     * @return palautaa truen jos lähetys onnistui
+     */
+    @Override
+    public boolean palautaSalasana(String email){
+<span class="fc" id="L38">        Kayttaja[] kayttajat = controller.haeKaikkiKayttajat();</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        for(Kayttaja k : kayttajat){</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">            if (k.getSahkoposti().equals(email)){</span>
+<span class="fc" id="L41">                String salasana = this.getRandomSalasana();</span>
+<span class="fc" id="L42">                k.setSalasana(controller.salasananCryptaus(salasana));</span>
+<span class="fc" id="L43">                controller.paivitaKayttaja(k);</span>
+<span class="fc" id="L44">                controller.lahetaSahkoposti(k.getSahkoposti(), controller.getConfigTeksti(&quot;emailReturnPassword&quot;) + salasana</span>
+<span class="fc" id="L45">                + controller.getConfigTeksti(&quot;emailReturnPasswordCon&quot;));</span>
+<span class="fc" id="L46">                return true;</span>
+            }
+        }
+<span class="fc" id="L49">    return false;</span>
+    }
+    
+    /**
+     * Luo random generoidun salasanan jonka se palauttaa
+     * @return random generoidu salasana
+     */
+    private String getRandomSalasana(){
+<span class="fc bfc" id="L57" title="All 2 branches covered.">         for (int i = 0; i &lt; 9; i++) { </span>
+<span class="fc" id="L58">            int index = random.nextInt(MERKIT.length());</span>
+<span class="fc" id="L59">            sb.append(MERKIT.charAt(index)); </span>
+        } 
+<span class="fc" id="L61">        return sb.toString(); </span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

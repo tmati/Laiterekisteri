@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginWindowController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">LoginWindowController.java</span></div><h1>LoginWindowController.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package view;
+
+import controller.*;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import model.Istunto;
+
+/**
+ * Kirjautumisikkunan toiminnallisuus.
+ * @author tmati
+ */
+<span class="fc" id="L40">public class LoginWindowController implements LoginWindowControllerIf {</span>
+
+   @FXML
+   private Button loginBtn;
+   @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private ImageView logoView;
+    @FXML
+    private Button testBtn;
+    @FXML
+    private Label usernameLabel;
+    @FXML
+    private Label usernameLabel1;
+    
+    private boolean loginPossible;
+    private static final String LOGINIMPOSSIBLE = &quot;loginImpossible&quot;;
+   
+    Popup popup;
+    
+    private ControllerIf controller;
+
+    /**
+     * Initializes the controller class.
+     *
+     * @param url URL
+     * @param rb ResourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+<span class="fc" id="L73">        Image image = new Image(getClass().getResourceAsStream(&quot;/keychain.png&quot;));</span>
+<span class="fc" id="L74">        logoView.setImage(image);</span>
+<span class="fc" id="L75">        centerImage(logoView);</span>
+<span class="fc" id="L76">        controller = Controller.getInstance();</span>
+<span class="fc" id="L77">        usernameField.setId(&quot;usernameField&quot;);</span>
+<span class="fc" id="L78">        Locale.setDefault(new Locale(&quot;en&quot;, &quot;EN&quot;));</span>
+<span class="fc" id="L79">        setText();</span>
+        
+<span class="fc" id="L81">    }</span>
+
+    /**
+     * Vaihtaa UI:n tekstit halutulle kielelle kaikille tooltipeille ja muutujille.
+     */
+    private void setText(){
+<span class="fc" id="L87">        this.passwordField.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;passwordFieldTooltip&quot;)));</span>
+<span class="fc" id="L88">        this.usernameField.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;userNameFieldTooltip&quot;)));</span>
+<span class="fc" id="L89">        testBtn.setText(controller.getConfigTeksti(&quot;returnPasswordButon&quot;).toUpperCase());</span>
+<span class="fc" id="L90">        usernameLabel1.setText(controller.getConfigTeksti(&quot;passwordLabel&quot;).toUpperCase());</span>
+<span class="fc" id="L91">        usernameLabel.setText(controller.getConfigTeksti(&quot;userLabel&quot;).toUpperCase());</span>
+<span class="fc" id="L92">        passwordField.setPromptText(controller.getConfigTeksti(&quot;passwordLabel&quot;));</span>
+<span class="fc" id="L93">        usernameField.setPromptText(controller.getConfigTeksti(&quot;userLabel&quot;));</span>
+<span class="fc" id="L94">        loginBtn.setText(controller.getConfigTeksti(&quot;logIn&quot;).toUpperCase());</span>
+<span class="fc" id="L95">    }</span>
+    /**
+     * Keskittää kuvan imageviewissä. Netistä haettu.
+     * @param i Kuva joka halutaan keskittää.
+     */
+    @Override
+    public void centerImage(ImageView i) {
+<span class="fc" id="L102">        Image img = i.getImage();</span>
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">        if (img != null) {</span>
+<span class="fc" id="L104">            double w = 0;</span>
+<span class="fc" id="L105">            double h = 0;</span>
+
+<span class="fc" id="L107">            double ratioX = i.getFitWidth() / img.getWidth();</span>
+<span class="fc" id="L108">            double ratioY = i.getFitHeight() / img.getHeight();</span>
+
+<span class="fc" id="L110">            double reducCoeff = 0;</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">            if (ratioX &gt;= ratioY) {</span>
+<span class="fc" id="L112">                reducCoeff = ratioY;</span>
+            } else {
+<span class="nc" id="L114">                reducCoeff = ratioX;</span>
+            }
+
+<span class="fc" id="L117">            w = img.getWidth() * reducCoeff;</span>
+<span class="fc" id="L118">            h = img.getHeight() * reducCoeff;</span>
+
+<span class="fc" id="L120">            i.setX((i.getFitWidth() - w) / 2);</span>
+<span class="fc" id="L121">            i.setY((i.getFitHeight() - h) / 2);</span>
+
+        }
+<span class="fc" id="L124">    }</span>
+
+    /**
+     * Heittää herjan jos käyttäjä yrittää kirjautua asettamatta vaadittavia
+     * tietoja.
+     * @param event Hiiren klikkaus
+     */
+    @FXML
+    private void herjaaPuuttuvasta(MouseEvent event) {
+<span class="nc" id="L133">        Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti(LOGINIMPOSSIBLE));</span>
+<span class="nc" id="L134">        alert.showAndWait();</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        if(usernameField.getText().equals(&quot;&quot;)){</span>
+<span class="nc" id="L136">            usernameField.requestFocus();</span>
+        }else{
+<span class="nc" id="L138">            passwordField.requestFocus();</span>
+        }
+<span class="nc" id="L140">    }</span>
+
+    /**
+     * Hiirieventti login-painikkeen klikkaamiseen.
+     * @param event Hiiren klikkaus kirjaudu-sisään painikkeeseen.
+     */
+    @FXML
+    private void loginAttempt(MouseEvent event) {
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        if (controller.login(usernameField.getText(), passwordField.getText())) {</span>
+            try {
+<span class="nc" id="L150">                FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/nakyma.fxml&quot;));</span>
+<span class="nc" id="L151">                Stage stage = (Stage) logoView.getScene().getWindow();</span>
+<span class="nc" id="L152">                Parent root = loader.load();</span>
+<span class="nc" id="L153">                stage.getScene().setRoot(root);</span>
+<span class="nc" id="L154">            } catch (IOException e) {</span>
+<span class="nc" id="L155">                Istunto.LOGGER.log(Level.SEVERE, e.getMessage());</span>
+
+<span class="nc" id="L157">            }</span>
+        } else {
+<span class="nc" id="L159">            Alert alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti(&quot;wrongLogin&quot;));</span>
+<span class="nc" id="L160">            alert.showAndWait();</span>
+        }
+<span class="nc" id="L162">    }</span>
+
+    /**
+     * Enter-painikkeen painaminen login-näkymässä.
+     * @param ke Kuunneltava näppäimistön painallus
+     * @throws IOException Keyeventiin liittyvä poikkeus, johon pitää varautua.
+     */
+    @FXML
+    private void handle(KeyEvent ke) throws IOException {
+<span class="fc bfc" id="L171" title="All 4 branches covered.">        if (ke.getCode() == KeyCode.ENTER &amp;&amp; loginPossible) {</span>
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">            if (controller.login(usernameField.getText(), passwordField.getText())) {</span>
+                try {
+<span class="fc" id="L174">                    FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/nakyma.fxml&quot;));</span>
+<span class="fc" id="L175">                    Stage stage = (Stage) logoView.getScene().getWindow();</span>
+<span class="fc" id="L176">                    Parent root = loader.load();</span>
+<span class="fc" id="L177">                    stage.getScene().setRoot(root);</span>
+<span class="nc" id="L178">                } catch (IOException e) {</span>
+<span class="nc" id="L179">                     Istunto.LOGGER.log(Level.SEVERE, e.getMessage());</span>
+
+<span class="pc" id="L181">                }</span>
+            }else{
+<span class="nc" id="L183">                Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti(LOGINIMPOSSIBLE));</span>
+<span class="nc" id="L184">                alert.showAndWait();</span>
+<span class="nc" id="L185">            }</span>
+<span class="pc bpc" id="L186" title="1 of 4 branches missed.">        } else if (ke.getCode() == KeyCode.ENTER &amp;&amp; !loginPossible) {</span>
+<span class="fc" id="L187">            Alert alert = new Alert(AlertType.WARNING, controller.getConfigTeksti(LOGINIMPOSSIBLE));</span>
+<span class="fc" id="L188">            alert.showAndWait();</span>
+<span class="pc bpc" id="L189" title="1 of 2 branches missed.">            if(usernameField.getText().equals(&quot;&quot;)){</span>
+<span class="fc" id="L190">                usernameField.requestFocus();</span>
+            }else{
+<span class="nc" id="L192">                passwordField.requestFocus();</span>
+            }
+        }
+<span class="fc" id="L195">    }</span>
+
+    /**
+     * Tarkastaa login-kenttien sisällön ja muuttaa kirjautumispainikkeen
+     * aktiivisuutta sen mukaan.
+     * @param event Kuunneltavan näppäimistön painallus
+     * @throws IOException KeyEventiin liittyvä poikkeus.
+     */
+    @FXML
+    private void checkVal(KeyEvent event) throws IOException {
+<span class="fc bfc" id="L205" title="All 4 branches covered.">        if (!usernameField.getText().trim().equals(&quot;&quot;) &amp;&amp; !passwordField.getText().trim().equals(&quot;&quot;)) {</span>
+<span class="fc" id="L206">            loginBtn.setStyle(&quot;-fx-background-color: black;&quot;);</span>
+<span class="fc" id="L207">            loginPossible = true;</span>
+        } else {
+<span class="fc" id="L209">            loginBtn.setStyle(&quot;-fx-background-color: #353535;&quot;);</span>
+<span class="fc" id="L210">            loginPossible = false;</span>
+        }
+<span class="fc" id="L212">    }</span>
+    
+    @FXML
+    private void avaaPalautaSalasana(MouseEvent event) throws IOException {
+<span class="nc bnc" id="L216" title="All 4 branches missed.">        if (popup == null || !popup.isShowing()) {</span>
+<span class="nc" id="L217">            popup = new Popup();</span>
+<span class="nc" id="L218">            Object source = event.getSource();</span>
+<span class="nc" id="L219">            Node node = (Node) source;</span>
+<span class="nc" id="L220">            Scene scene = node.getScene();</span>
+<span class="nc" id="L221">            Window window = scene.getWindow();</span>
+<span class="nc" id="L222">            FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/palautasalasana.fxml&quot;));</span>
+<span class="nc" id="L223">            popup.getContent().add((Parent) loader.load());</span>
+<span class="nc" id="L224">            popup.show(window);</span>
+        }
+<span class="nc" id="L226">    }</span>
+
+    /**
+     * Kielivalinta suomenkieliselle käytölle
+     * @param event hiiren klikkaus
+     */
+    @FXML
+    private void fiBtnPainettu(MouseEvent event) {
+<span class="nc" id="L234">        controller.setMaa(&quot;fi&quot;);</span>
+<span class="nc" id="L235">        Locale.setDefault(new Locale(&quot;fi&quot;, &quot;FI&quot;));</span>
+<span class="nc" id="L236">        setText();</span>
+<span class="nc" id="L237">    }</span>
+
+    /**
+     * Kielivalinta englanninkieliselle käytölle
+     * @param event hiiren klikkaus
+     */
+    @FXML
+    private void engBtnPainettu(MouseEvent event) {
+<span class="nc" id="L245">        controller.setMaa(&quot;en&quot;);</span>
+<span class="nc" id="L246">        Locale.setDefault(new Locale(&quot;en&quot;, &quot;GB&quot;));</span>
+<span class="nc" id="L247">        setText();</span>
+
+<span class="nc" id="L249">    }</span>
+    
+    /**
+     * Kielivalinta portugalinkieliselle käytölle
+     * @param event hiiren klikkaus
+     */
+    @FXML
+    private void porBtnPainettu(MouseEvent event) {
+<span class="nc" id="L257">        controller.setMaa(&quot;por&quot;);</span>
+<span class="nc" id="L258">        Locale.setDefault(new Locale(&quot;pt&quot;, &quot;PT&quot;));</span>
+<span class="nc" id="L259">        setText();</span>
+
+<span class="nc" id="L261">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

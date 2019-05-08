@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VarausKasittely.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">VarausKasittely.java</span></div><h1>VarausKasittely.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+import controller.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Objects;
+
+/**
+ * Luokka varausten käsittelyä varten
+ *
+ * @author Tommi
+ */
+public class VarausKasittely implements VarausKasittelyIf {
+    
+    private final ControllerIf controller;
+    private final VarauksetDAOIF dao;
+
+    /**
+     * Konstruktori
+     *
+     * @param dao viittaus varausDAO:oon
+     * @param controller viittaus Controlleriin
+     */
+<span class="fc" id="L29">    public VarausKasittely(Controller controller, VarauksetDAOIF dao) {</span>
+<span class="fc" id="L30">        this.dao = dao;</span>
+<span class="fc" id="L31">        this.controller = controller;</span>
+<span class="fc" id="L32">    }</span>
+
+    /**
+     * Käy läpi kaikki varaukset tietokannasta ja päivittää niiden aktiivisuuden
+     * oikeaksi. Jos tietokannassa palautettu = true tarkoittaa, että varaus ei
+     * ole aktiivinen ja päinvastoin.
+     *
+     * @return true kun tietokanta on käyty läpi
+     */
+    @Override
+    public boolean tarkistaAktiivisuudet() {
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        for (Varaukset v : dao.readVaraukset()) {</span>
+<span class="pc bpc" id="L44" title="1 of 6 branches missed.">            if (LocalDateTime.now().isAfter(v.getAlkuAika()) &amp;&amp; LocalDateTime.now().isBefore(v.getLoppuAika()) &amp;&amp; v.getHyvaksytty()) {</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">                if (!v.isPalautettu()) {</span>
+<span class="fc" id="L46">                    v.setPalautettu(true);</span>
+<span class="fc" id="L47">                    dao.updateVaraus(v);</span>
+                }
+<span class="fc bfc" id="L49" title="All 2 branches covered.">            } else if (v.isPalautettu()) {</span>
+<span class="fc" id="L50">                v.setPalautettu(false);</span>
+<span class="fc" id="L51">                controller.lahetaSahkoposti(v.getKayttaja().getSahkoposti(), controller.getVarausAikaString(v)</span>
+<span class="fc" id="L52">                        + &quot; &quot; + controller.getConfigTeksti(&quot;emailReservaEnd&quot;));</span>
+<span class="fc" id="L53">                dao.updateVaraus(v);</span>
+<span class="fc bfc" id="L54" title="All 4 branches covered.">            } else if (!v.getHyvaksytty() &amp;&amp; LocalDateTime.now().isAfter(v.getAlkuAika())) {</span>
+<span class="fc" id="L55">                controller.lahetaSahkoposti(v.getKayttaja().getSahkoposti(), controller.getVarausAikaString(v)</span>
+<span class="fc" id="L56">                        + &quot; &quot; + controller.getConfigTeksti(&quot;emailReservaFail&quot;));</span>
+<span class="fc" id="L57">                controller.poistaVaraus(v.getId());</span>
+            }
+        }
+<span class="fc" id="L60">        return true;</span>
+    }
+
+    /**
+     * Siirtää halutun käyttäjän varaukset taulukkoon
+     *
+     * @param k käyttäjä jonka varaukset halutaan
+     * @return taulukko käyttäjän varauksista
+     */
+    @Override
+    public Varaukset[] haeKayttajanVaraukset(Kayttaja k) {
+        
+<span class="fc" id="L72">        Varaukset[] kaikkiV = controller.haeKaikkiVaraukset();</span>
+<span class="fc" id="L73">        ArrayList&lt;Varaukset&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        for (Varaukset v : kaikkiV) {</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">            if (Objects.equals(v.getKayttaja().getId(), k.getId())) {</span>
+<span class="fc" id="L76">                list.add(v);</span>
+            }
+        }
+<span class="fc" id="L79">        return list.toArray(new Varaukset[list.size()]);</span>
+    }
+
+    /**
+     * Poistaa kayttajan kaikki varaukset
+     *
+     * @param id Kayttaja, jonka varaukset poistetaan
+     * @return true jos poisto onnistui
+     */
+    @Override
+    public boolean poistaKayttajanVaraukset(int id) {
+<span class="fc" id="L90">        boolean tarkistus = true;</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        for (Varaukset v : controller.haeKaikkiVaraukset()) {</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">            if (v.getKayttaja().getId() == id) {</span>
+<span class="nc" id="L93">                boolean tulos = controller.poistaVaraus(v.getId());</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">                if (!tulos) {</span>
+<span class="nc" id="L95">                    tarkistus = tulos;</span>
+                }
+            }
+        }
+<span class="fc" id="L99">        return tarkistus;</span>
+    }
+
+    /**
+     * Hakee kaikki varaukset, joissa hyvaksytty -status on false ja laittaa ne
+     * taulukkoon. False tarkoittaa sitä, että varausta ei ole käsitelty
+     *
+     * @return taulukko käsittelemättömistä varauksista.
+     */
+    @Override
+    public Varaukset[] haeKasittelemattomat() {
+<span class="fc" id="L110">        ArrayList&lt;Varaukset&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        for (Varaukset v : controller.haeKaikkiVaraukset()) {</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">            if (!v.getHyvaksytty()) {</span>
+<span class="fc" id="L113">                list.add(v);</span>
+            }
+        }
+<span class="fc" id="L116">        return list.toArray(new Varaukset[list.size()]);</span>
+    }
+    /**
+     *  Tarkistaa onko varauksen alkamis päivämäärä jo mennyt
+     * @param varaus tarkastettava varaus
+     * @return true jos varauksen alkuaika on jo mennyt
+     */
+    @Override
+    public boolean tarkistaOnkoVarausAlkanut(Varaukset varaus) {
+<span class="fc" id="L125">        return (varaus.getAlkuAika().isBefore(LocalDateTime.now()));</span>
+    }
+
+    /**
+     * Kasaa stringin varauksen aikatiedoista sähköpostin lähetystä varten.
+     *
+     * @param varaus Varaus -olio
+     * @return String, jossa näkyy varattavan laitteen nimi ja varauksen
+     * ajankohta.
+     */
+
+    @Override
+    public String getVarausAikaString(Varaukset varaus) {
+<span class="fc" id="L138">        return controller.getConfigTeksti(&quot;emailReservationTime&quot;) + varaus.getNimi() + &quot; &quot; + controller.getConfigTeksti(&quot;forTime&quot;)+ &quot; &quot; + varaus.getAlkuAika().getHour() + &quot;.&quot; + varaus.getAlkuAika().getDayOfMonth() + &quot;.&quot;</span>
+<span class="fc" id="L139">                + varaus.getAlkuAika().getYear() + &quot;-&quot; + varaus.getLoppuAika().getHour() + &quot;.&quot; + varaus.getLoppuAika().getDayOfMonth()</span>
+<span class="fc" id="L140">                + &quot;.&quot; + varaus.getLoppuAika().getYear();</span>
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

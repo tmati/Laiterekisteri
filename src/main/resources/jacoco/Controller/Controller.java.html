@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Controller.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">controller</a> &gt; <span class="el_source">Controller.java</span></div><h1>Controller.java</h1><pre class="source lang-java linenums">package controller;
+
+import model.DayCellFactory;
+import model.Resurssit;
+import model.ResurssiKasittely;
+import model.VarausKasittely;
+import model.Kayttaja;
+import model.ResurssitAccessObject;
+import model.VarauksetAccessObject;
+import model.Sahkoposti;
+import model.BooleanConverter;
+import model.ChoiceboxUtils;
+import model.Varaukset;
+import model.PasswordConverter;
+import model.LanguageText;
+import model.KayttajaAccessObject;
+import model.PoistaBtnToiminnot;
+import model.VarauksenAikaLaskuri;
+import model.KayttajaTarkistus;
+import model.VarauksenAikaLaskuriInterface;
+import model.LoginUtils;
+import model.PasswordConverterInterface;
+import model.KalenterinTarvitsematToimenpiteet;
+import model.SalasananPalautus;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.util.List;
+import javafx.scene.control.ChoiceBox;
+import javafx.util.Callback;
+import model.ChoiceboxUtilsIf;
+import model.DayCellFactoryIf;
+import model.Istunto;
+import model.IstuntoIF;
+import model.KalenterinTarvitsematToimenpiteetIf;
+import model.KayttajaDAOIF;
+import model.KayttajaTarkistusIf;
+import model.LanguageTextIf;
+import model.LoginUtilsIf;
+import model.PoistaBtnToiminnotIf;
+import model.ResurssiKasittelyIf;
+import model.ResurssitDAOIF;
+import model.SahkopostiIf;
+import model.SalasananPalautusIf;
+import model.VarauksetDAOIF;
+import model.VarausKasittelyIf;
+
+/**
+ * Controlleri
+ *
+ * @author Tommi
+ */
+public class Controller implements ControllerIf {
+<span class="fc" id="L54">    private static Controller instance = null;</span>
+    private final KayttajaDAOIF kayttajaDAO;
+    private final ResurssitDAOIF resurssiDAO;
+    private final VarauksetDAOIF varausDAO;
+    private final KayttajaTarkistusIf kayttajaTarkistus;
+    private final PasswordConverterInterface crypter;
+    private final LoginUtilsIf login;
+    private final ChoiceboxUtilsIf cbutils;
+    private final DayCellFactoryIf cellfactory;
+    private final VarauksenAikaLaskuriInterface aikalaskuri;
+    private final VarausKasittelyIf varausKasittely;
+    private final ResurssiKasittelyIf resurssikasittely;
+    private final KalenterinTarvitsematToimenpiteetIf kalenteriApu;
+    private final SahkopostiIf sahkoposti;
+    private final SalasananPalautusIf salasananPalautus;
+    private final PoistaBtnToiminnotIf poistaBtnToiminnot;
+    private final LanguageTextIf tekstit;
+    private final IstuntoIF istunto;
+    
+
+    /**
+     * Controllerin konstruktio
+     * 
+     */
+<span class="fc" id="L78">    private Controller(){        </span>
+<span class="fc" id="L79">        tekstit = LanguageText.getInstance();</span>
+<span class="fc" id="L80">        kayttajaDAO = new KayttajaAccessObject();</span>
+<span class="fc" id="L81">        kayttajaTarkistus = new KayttajaTarkistus(this);</span>
+<span class="fc" id="L82">        resurssiDAO = new ResurssitAccessObject();</span>
+<span class="fc" id="L83">        varausDAO = new VarauksetAccessObject();</span>
+<span class="fc" id="L84">        login = new LoginUtils(this);</span>
+<span class="fc" id="L85">        cbutils = new ChoiceboxUtils(this);</span>
+<span class="fc" id="L86">        cellfactory = new DayCellFactory();</span>
+<span class="fc" id="L87">        aikalaskuri = new VarauksenAikaLaskuri();</span>
+<span class="fc" id="L88">        varausKasittely = new VarausKasittely(this,varausDAO);</span>
+<span class="fc" id="L89">        resurssikasittely = new ResurssiKasittely(this);</span>
+<span class="fc" id="L90">        kalenteriApu = new KalenterinTarvitsematToimenpiteet();</span>
+<span class="fc" id="L91">        sahkoposti = new Sahkoposti(this);</span>
+<span class="fc" id="L92">        salasananPalautus = new SalasananPalautus(this);</span>
+<span class="fc" id="L93">        poistaBtnToiminnot = new PoistaBtnToiminnot(this);</span>
+<span class="fc" id="L94">        crypter = new PasswordConverter();</span>
+<span class="fc" id="L95">        istunto = new Istunto(this);</span>
+<span class="fc" id="L96">    }</span>
+    
+    public static Controller getInstance() {
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        if(instance == null){</span>
+<span class="fc" id="L100">            instance = new Controller();</span>
+        }
+<span class="fc" id="L102">        return instance;</span>
+    }
+
+    /**
+     * Kutsuu PasswordConverterInterface.passwordConverter()
+     *
+     * @param password Encryptattava salasana.
+     * @return Palautaa encryptattatun salasanan.
+     */
+    @Override
+    public String salasananCryptaus(String password) {
+<span class="fc" id="L113">        return crypter.passwordConverter(password);</span>
+    }
+
+    /**
+     * kutsuu KayttajaAccessObject.readKayttaja()
+     *
+     * @return Palauttaa taulukon kaikista käyttäjistä
+     */
+    @Override
+    public Kayttaja[] haeKaikkiKayttajat() {
+<span class="fc" id="L123">        return kayttajaDAO.readKayttajat();</span>
+    }
+
+    /**
+     * Kutsuu KayttajaAccessObject.readKayttaja()
+     *
+     * @param id haetun käyttäjän id
+     * @return palauttaa käyttäjä-olion
+     */
+    @Override
+    public Kayttaja haeKayttaja(int id) {
+<span class="fc" id="L134">        return kayttajaDAO.readKayttaja(id);</span>
+    }
+
+    /**
+     * Kutsuu KayttajaAccessObject.createKayttaja()
+     *
+     * @param kayttaja tietokantaan vietävä kayttaja-olio
+     * @return palauttaa true jos käyttäjän vienti tietokantaan onnistui
+     */
+    @Override
+    public boolean luoKayttaja(Kayttaja kayttaja) {
+<span class="fc" id="L145">        return kayttajaDAO.createKayttaja(kayttaja);</span>
+    }
+
+    /**
+     * Kutsuu KayttajaAccessObject.uptadeKayttaja()
+     *
+     * @param kayttaja päivitettävä kayttaja -olio
+     * @return palauttaa true jos käyttäjän päivitys tietokantaan onnistui
+     */
+    @Override
+    public boolean paivitaKayttaja(Kayttaja kayttaja) {
+<span class="fc" id="L156">        return kayttajaDAO.updateKayttaja(kayttaja);</span>
+    }
+
+    /**
+     * Kutsuu VarausKasittely.poistaKayttajanVaraukset() Kutsuu
+     * KayttajaAccessObject.deleteKayttaja()
+     *
+     * @param id poistettavan käyttäjän id
+     * @return palauttaa true jos käyttäjän poista tietokannasta onnistui
+     */
+    @Override
+    public boolean poistaKayttaja(int id) {
+<span class="fc" id="L168">        varausKasittely.poistaKayttajanVaraukset(id);</span>
+<span class="fc" id="L169">        return kayttajaDAO.deleteKayttaja(id);</span>
+    }
+
+    /**
+     * Kutsuu KayttajaTarkistus.tarkistaUsername()
+     *
+     * @param username tarkistettava käyttäjätunnus
+     * @return palauttaa true jos käyttäjätunnusta ei löydy tietokannasta
+     */
+    @Override
+    public boolean tarkistaUsername(String username) {
+<span class="fc" id="L180">        return kayttajaTarkistus.usernameTarkastus(username);</span>
+    }
+
+    /**
+     * Kutsuu KayttajaTarkistus.emailTarkistus
+     *
+     * @param email tarkistettava sähköposti
+     * @return palauttaa true jos sähköpostia ei löydy tietokannasta
+     */
+    @Override
+    public boolean tarkistaEmail(String email) {
+<span class="fc" id="L191">        return kayttajaTarkistus.emailTarkastus(email);</span>
+    }
+
+    /**
+     * Kutsuu ResurssiAccessObject.readResurssit()
+     *
+     * @return palauttaa taulukon kaikista resurssi -olioista
+     */
+    @Override
+    public Resurssit[] haeKaikkiResurssit() {
+<span class="fc" id="L201">        return resurssiDAO.readResurssit();</span>
+    }
+
+    /**
+     * Kutsuu Controller.tarkistaVarausAKtiivisuudet() Kutsuu
+     * VarausAccessObject.readVaraukset()
+     *
+     * @return palauttaa taulukon kaikista varaus -olioista
+     */
+    @Override
+    public Varaukset[] haeKaikkiVaraukset() {
+<span class="fc" id="L212">        this.tarkistaVarausAktiivisuudet();</span>
+<span class="fc" id="L213">        return varausDAO.readVaraukset();</span>
+    }
+
+    /**
+     * Kutsuu VarausKasittely.tarkistaAktiivisuudet()
+     *
+     * @return true jos onnistuu
+     */
+    @Override
+    public boolean tarkistaVarausAktiivisuudet() {
+<span class="fc" id="L223">        return varausKasittely.tarkistaAktiivisuudet();</span>
+    }
+
+    /**
+     * kutsuu VarausKasittely.haeKayttajanVaraukset()
+     *
+     * @param kayttaja kayttaja -olio jonka varaukset haetaan
+     * @return palauttaa taulukon kaikista käyttäjän varaus -olioista
+     */
+    @Override
+    public Varaukset[] haeKayttajanVaraukset(Kayttaja kayttaja) {
+<span class="fc" id="L234">        return varausKasittely.haeKayttajanVaraukset(kayttaja);</span>
+    }
+
+    /**
+     * Kutsuu ResurssiKasittely.poisteResurssinVaraukset() Kutsuu
+     * ResurssiAccessObject.deleteResurssi()
+     *
+     * @param r tietokannasta poistettava resurssi
+     * @return palauttaa true jos resurssin poisto tietokannasta onnistui
+     */
+    @Override
+    public boolean poistaResurssi(Resurssit r) {
+<span class="fc" id="L246">        resurssikasittely.poistaResurssinVaraukset(r);</span>
+<span class="fc" id="L247">        return resurssiDAO.deleteResurssi(r.getId());</span>
+    }
+
+    /**
+     * Kutsuu ResurssiAccessObject.updateResurssi()
+     *
+     * @param r päivitettävä resurssi -olio
+     * @return palauttaa true jos resurssin päivitys tietokantaan onnistui
+     */
+    @Override
+    public boolean paivitaResurssi(Resurssit r) {
+<span class="fc" id="L258">        return resurssiDAO.updateResurssi(r);</span>
+    }
+
+    /**
+     * Kutsuu VarausAccessObject.updateVaraus()
+     *
+     * @param v päivitettävä varaus -olio
+     * @return palauttaa true jos varauksen päivitys tietokantaan onnistui
+     */
+    @Override
+    public boolean paivitaVaraus(Varaukset v) {
+<span class="fc" id="L269">        return varausDAO.updateVaraus(v);</span>
+    }
+
+    /**
+     * Kutsuu VarausAccessObject.createVaraus()
+     *
+     * @param v tietokantaan vietävä varaus -olio
+     * @return palauttaa true jos varauksen vienti tietokantaan onnistui
+     */
+    @Override
+    public boolean luoVaraus(Varaukset v) {
+<span class="fc" id="L280">        return varausDAO.createVaraus(v);</span>
+    }
+
+    /**
+     * Kutsuu ResurssiAccessObject.createResurssi()
+     *
+     * @param r tietokantaan vietävä resurssi -olio
+     * @return palauttaa true jos resurssin vienti tietokantaan onnistui
+     */
+    @Override
+    public boolean luoResurssi(Resurssit r) {
+<span class="fc" id="L291">        return resurssiDAO.createResurssi(r);</span>
+    }
+
+    /**
+     * Tarkistaa modelista käyttäjänimen ja salasanan.
+     *
+     * @param userName käyttäjänimi
+     * @param passWord salasana
+     * @return true jos kirjautumistiedot oikein
+     */
+    @Override
+    public boolean login(String userName, String passWord) {
+<span class="fc" id="L303">        return login.loginProcess(userName, this.salasananCryptaus(passWord));</span>
+    }
+
+    /**
+     * Kutsuu VarausAccessObject.readVaraus()
+     *
+     * @param id haetun varauksen id
+     * @return palauttaa varaus-olion
+     */
+    @Override
+    public Varaukset haeVaraus(int id) {
+<span class="fc" id="L314">        return varausDAO.readVaraus(id);</span>
+    }
+
+    /**
+     * Kutsuu VarausAccessObject.deleteVaraus()
+     *
+     * @param id tietokannasta poistettavan varauksen id
+     * @return palauttaa true jos varauksen poisto tietokannasta onnistui
+     */
+    @Override
+    public boolean poistaVaraus(int id) {
+<span class="fc" id="L325">        return varausDAO.deleteVaraus(id);</span>
+    }
+
+    /**
+     * Kutsuu ChoiceboxUtils.tulkitseChoiceBox()
+     *
+     * @param cb choice box elementti jota tulkitaan
+     * @return choice boxia vastaavan kokonais luvun
+     */
+    @Override
+   public int readCb(ChoiceBox cb) {
+<span class="nc" id="L336">        return cbutils.tulkitseChoiceBox(cb);</span>
+
+   }
+
+    /**
+     * Vie paivat varauksen kesto laskuriin ja tuo sen jälkeen, kuinka monta
+     * päivää varaus kestää.
+     *
+     * @param alkupvm milloin varaus alkaa
+     * @param loppumispvm milloin varaus loppuu
+     * @return alkupvm ja loppupvm erotuksen
+     */
+    @Override
+    public int paivaLaskuri(LocalDateTime alkupvm, LocalDateTime loppumispvm) {
+<span class="fc" id="L350">        return aikalaskuri.paivaKesto(alkupvm, loppumispvm);</span>
+    }
+
+    /**
+     * Palauttaa datepickerille muokatut päivät.
+     *
+     * @param varaukset varaukset joila on varaukset tietyihin päiville.
+     * @param today mistä päivästä eteenpäin voi päiviä valita.
+     * @return Callbackin jossa on muokatuja päiviä.
+     */
+    @Override
+    public Callback dayCellFactory(Varaukset[] varaukset, LocalDate today) {
+<span class="fc" id="L362">        return cellfactory.dayCellFactory(this,varaukset, today);</span>
+    }
+
+    /**
+     * Hakee modelista BooleanConverter-ilmentymän
+     *
+     * @return BooleanConverter-olio
+     */
+    @Override
+    public BooleanConverter getBoolConv() {
+<span class="fc" id="L372">        return new BooleanConverter();</span>
+    }
+
+    /**
+     * Siirtää ArrayListasta varaus alkiot varaus Array:hin.
+     *
+     * @param aVaraukset Varaus ArrayListasta josta halutaan tehdä array.
+     * @return Varaukset Array:na.
+     */
+    @Override
+    public Varaukset[] getVarausTaulukko(List&lt;Varaukset&gt; aVaraukset) {
+<span class="fc" id="L383">        return kalenteriApu.getVarausTaulukko(aVaraukset);</span>
+    }
+
+    /**
+     * Vie parametrit KalenterinTarvitsematToimenpiteet() luokalle, jossa
+ resurssiId:n avulla varaus Arraysta tehdään ArrayListan jossa on vain sen
+ resursin varaukset.
+     *
+     * @param resurssiId Halutun resursin Id.
+     * @param varaukset Varaus array josta halutaan saada resursin varaukset.
+     * @return ArrayListan jossa on resursin varaukset Arraysta.
+     */
+    @Override
+    public List&lt;Varaukset&gt; resurssinVaraukset(int resurssiId, Varaukset[] varaukset) {
+<span class="fc" id="L397">        return kalenteriApu.resurssinVaraukset(resurssiId, varaukset);</span>
+    }
+
+    /**
+     * Vie parametrit KalenterinTarvitsematToimenpiteet lu9okalle parametrit.
+     * Se kertoo jos varaus sillä ajan hetkellä on mahdollista. Kun verrataan
+     * muihin tuoteen varauksiin.
+     *
+     * @param aVaraukset ArrayLista varattavan tuoteen varauksista.
+     * @param endDate Milloin tuleva varaus loppuu. (päivä)
+     * @param startDate Milloin tuleva varaus alkaa. (päivä)
+     * @return true jos vraus on mahdollista ja falsen jos varaus menee toisen
+     * varauksen päälle.
+     */
+    @Override
+    public boolean onnistuu(List&lt;Varaukset&gt; aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate) {
+<span class="fc" id="L413">        return kalenteriApu.onnistuu(aVaraukset, endDate, startDate);</span>
+    }
+
+    /**
+     * Kutsuu VarausKasittely.haeKasittelemattomat()
+     *
+     * @return taulukko käsittelemättömistä varaus -oloista.
+     */
+    @Override
+    public Varaukset[] haeKasittelemattomatVaraukset() {
+<span class="fc" id="L423">        return varausKasittely.haeKasittelemattomat();</span>
+    }
+
+    /**
+     * Kutsuu Sahkoposti.lähetäSähköposti()
+     *
+     * @param vastaanottaja Sahkopostiosoite johon lähetetään
+     * @param viesti lähettettävä viesti
+     * @return true jos lähetys onnistuu
+     *
+     */
+    @Override
+    public boolean lahetaSahkoposti(String vastaanottaja, String viesti) {
+<span class="fc" id="L436">        return sahkoposti.lahetaSahkoposti(vastaanottaja, viesti);</span>
+    }
+
+    /**
+     * Kutsuu VarausKasittely.getVarausAikaString
+     *
+     * @param v Varaus, jonka tiedoista string kasataan sähköpostia varten
+     * @return String, jossa näkyy varattavan laitteen nimi ja varauksen
+     * ajankohta.
+     */
+    @Override
+    public String getVarausAikaString(Varaukset v) {
+<span class="fc" id="L448">        return varausKasittely.getVarausAikaString(v);</span>
+    }
+
+    /**
+     * Kutsuu SalasananPalautus.palautaSalasana()
+     *
+     * @param email Sähköposti palautetaan
+     * @return true jos palautus onnistui
+     */
+    @Override
+    public boolean palautaSalasana(String email) {
+<span class="fc" id="L459">        return salasananPalautus.palautaSalasana(email);</span>
+    }
+
+    /**
+     * Kutsuu VarausKasittely.tarkistaOnkoVarausAlkanut
+     *
+     * @param varaus tarkistettava varaus
+     * @return true jos varauksen alkamisaika on mennyt jo
+     */
+    @Override
+    public boolean onkoVarausAlkanut(Varaukset varaus) {
+<span class="fc" id="L470">        return varausKasittely.tarkistaOnkoVarausAlkanut(varaus);</span>
+    }
+
+    /**
+     * Kutsuu PoistaBtnToiminnot.varauksetPoistaBtn()
+     *
+     * @param toDelete poistettava varaus
+     * @return true jos poisto onnistuu
+     */
+    @Override
+    public boolean poistaVarausBtnToiminto(Varaukset toDelete) {
+<span class="nc" id="L481">        return poistaBtnToiminnot.varauksetPoistaBtn(toDelete);</span>
+    }
+
+    /**
+     * Tuo tiedostosta tekstiä sillä kielellä mikä maa on
+     * @param mihin mistä kohtaaa tiedostosta otetaan tietoja
+     * @return Stringin joka on halutulla kielellä jos ei löydy antaa nullin
+     */
+    @Override
+    public String getConfigTeksti(String mihin) {
+<span class="fc" id="L491">        return tekstit.getText(mihin);</span>
+    }
+
+    /**
+     * Asettaa LanguageTextin Maa parametrin käy vain fi, en, por tai pt
+     * @param maa mihin kieleen vaihdetaan
+     */
+    @Override
+    public void setMaa(String maa){
+<span class="fc" id="L500">        tekstit.setMaa(maa);</span>
+<span class="fc" id="L501">    }</span>
+    
+    /**
+     * Palauttaa istunto.selected jossa säilytetään taulukosta valittu käyttäjä
+     * @return valittu käyttäjä
+     */
+    @Override
+    public Kayttaja getSelected(){
+<span class="fc" id="L509">        return istunto.getSelected();</span>
+    }
+    
+    /**
+     * Metodi selected käyttäjä asettamiseen, jossa säilytetään taulukosta valittu käyttäjä
+     * @param kayttaja valittu käyttäjä
+     */
+    @Override
+    public void setSelected(Kayttaja kayttaja){
+<span class="fc" id="L518">        istunto.setSelected(kayttaja);</span>
+<span class="fc" id="L519">    }</span>
+    
+    /**
+     * Palauttaa istunto.booking jossa säilytetään taulukosta valittua resurssia
+     * @return valittu resurssi
+     */
+    @Override
+    public Resurssit getBooking(){
+<span class="fc" id="L527">        return istunto.getBooking();</span>
+    }
+    
+    /**
+     * Metodi booking resurssin asettamiseen, jossa säilytetään taulukosta valittu resurssi
+     * @param booking valittu resurssi
+     */
+    @Override
+    public void setBooking(Resurssit booking){
+<span class="fc" id="L536">        istunto.setBooking(booking);</span>
+<span class="fc" id="L537">    }</span>
+    
+    /**
+     * Yrityksen nimeä hakeva medodi, istunto.bizname
+     * @return yrityksen nimi
+     */
+    @Override
+    public String getBizname(){
+<span class="fc" id="L545">        return istunto.getBizname();</span>
+    }
+    
+    /**
+     * Metodi palauttaa istunto.loggedin, jossa säilytetään kirjautunutta käyttäjää
+     * @return kirjautunut käyttäjä
+     */
+    @Override
+    public Kayttaja getLoggedIn(){
+<span class="fc" id="L554">        return istunto.getLoggedIn();</span>
+    }
+    
+    /**
+     * Metodi kirjautuneen käyttäjän asettamiseen
+     * @param kayttaja kirjautunut käyttäjä
+     */
+    @Override
+    public void setLoggedIn(Kayttaja kayttaja){
+<span class="fc" id="L563">        istunto.setLoggedIn(kayttaja);</span>
+<span class="fc" id="L564">    }</span>
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>KalenterinTarvitsematToimenpiteet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">KalenterinTarvitsematToimenpiteet.java</span></div><h1>KalenterinTarvitsematToimenpiteet.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author jukka
+ */
+<span class="fc" id="L17">public class KalenterinTarvitsematToimenpiteet implements KalenterinTarvitsematToimenpiteetIf {</span>
+
+    /**
+     * Antaa valitusta resurssin kaikki varaukset ArrayListana.
+     *
+     * @param resurssiId Halutun resursin Id.
+     * @param varaukset Kaikki varaukset.
+     * @return ArrayListan jossa on kaikki resursin varaukset.
+     */
+    @Override
+    public List&lt;Varaukset&gt; resurssinVaraukset(int resurssiId, Varaukset[] varaukset) {
+<span class="fc" id="L28">        ArrayList&lt;Varaukset&gt; aVaraukset = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        for (int i = 0; i &lt; varaukset.length; i++) {</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">            if (varaukset[i].getResurssit().getId() == resurssiId) {</span>
+<span class="fc" id="L31">                aVaraukset.add(varaukset[i]);</span>
+            }
+        }
+
+<span class="fc" id="L35">        return aVaraukset;</span>
+
+    }
+
+    /**
+     * Kertoo onko varaus mahdollinen edellisten varausten kanssa.
+     *
+     * @param aVaraukset Resursin muut varaukset.
+     * @param endDate Uuden varauksen loppupäivä.
+     * @param startDate Uuden varauksen aloituspäivä.
+     * @return Truen jos ei ole päälekäisyyksiä varaksen kohdalla ja Fasle jos
+     * on.
+     */
+    @Override
+    public boolean onnistuu(List&lt;Varaukset&gt; aVaraukset, ChronoLocalDateTime endDate, ChronoLocalDateTime startDate) {
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (startDate.isAfter(endDate)) {</span>
+<span class="fc" id="L51">            return false;</span>
+        }
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (startDate.isBefore(LocalDateTime.now())) {</span>
+<span class="fc" id="L54">            return false;</span>
+        }
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        for (Varaukset varaus : aVaraukset) {</span>
+<span class="nc bnc" id="L57" title="All 8 branches missed.">            if ((startDate.isBefore(varaus.getAlkuAika()) &amp;&amp; endDate.isBefore(varaus.getLoppuAika())) || startDate.isAfter(varaus.getAlkuAika()) &amp;&amp; endDate.isAfter(varaus.getLoppuAika())) {</span>
+            } else {
+<span class="nc" id="L59">                return false;</span>
+            }
+<span class="nc" id="L61">    }</span>
+<span class="fc" id="L62">        return true;</span>
+    }
+
+    /**
+     * Metodi, joka muuttaa Varaukset ArrayListan Arrayhin.
+     *
+     * @param aVaraukset muutettava ArrayList lista yhden resurssin kaikista
+     * varauksista.
+     * @return varaus Array
+     */
+    @Override
+    public Varaukset[] getVarausTaulukko(List&lt;Varaukset&gt; aVaraukset) {
+<span class="fc" id="L74">        Varaukset[] varaus = new Varaukset[aVaraukset.size()];</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        for (int i = 0; i &lt; aVaraukset.size(); i++) {</span>
+<span class="fc" id="L76">            varaus[i] = aVaraukset.get(i);</span>
+        }
+<span class="fc" id="L78">        return varaus;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

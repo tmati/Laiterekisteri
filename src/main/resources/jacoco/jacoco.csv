@@ -1,0 +1,56 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Laiterekisteri,view,KayttajanVarauksetController,465,0,4,0,64,0,7,0,5,0
+Laiterekisteri,view,PalautasalasanaController,111,0,2,0,20,0,5,0,4,0
+Laiterekisteri,view,NakymaController,994,739,71,3,191,96,55,5,18,5
+Laiterekisteri,view,ResurssiHistoriaController.new StringConverter() {...},37,0,0,0,8,0,3,0,3,0
+Laiterekisteri,view,ResurssiHistoriaController.new StringConverter() {...},37,0,0,0,8,0,3,0,3,0
+Laiterekisteri,view,VarausAdminController,820,0,10,0,125,0,16,0,11,0
+Laiterekisteri,view,NakymaController.new TableCell() {...},5,33,0,2,0,8,1,3,1,2
+Laiterekisteri,view,UusiResurssiController,356,0,14,0,55,0,12,0,5,0
+Laiterekisteri,view,NakymaController.new StringConverter() {...},24,13,0,0,6,2,1,2,1,2
+Laiterekisteri,view,NakymaController.new StringConverter() {...},24,13,0,0,6,2,1,2,1,2
+Laiterekisteri,view,KayttajaAdminController,599,0,14,0,106,0,19,0,12,0
+Laiterekisteri,view,VarausController.new EventHandler() {...},42,0,2,0,5,0,3,0,2,0
+Laiterekisteri,view,VarausController.new SpinnerValueFactory() {...},53,0,4,0,13,0,5,0,3,0
+Laiterekisteri,view,VarausController.new SpinnerValueFactory() {...},67,0,4,0,15,0,5,0,3,0
+Laiterekisteri,view,UusiKayttajaController,462,0,20,0,67,0,15,0,5,0
+Laiterekisteri,view,VarausController,360,0,4,0,63,0,6,0,4,0
+Laiterekisteri,view,KayttajanVarauksetController.new StringConverter() {...},37,0,0,0,8,0,3,0,3,0
+Laiterekisteri,view,KayttajanVarauksetController.new StringConverter() {...},37,0,0,0,8,0,3,0,3,0
+Laiterekisteri,view,View,4,38,0,0,2,10,1,2,1,2
+Laiterekisteri,view,SalasananvaihtoController,245,0,8,0,37,0,8,0,4,0
+Laiterekisteri,view,VarausAdminController.new ChangeListener() {...},98,0,6,0,17,0,5,0,2,0
+Laiterekisteri,view,VarausAdminController.new StringConverter() {...},37,0,0,0,8,0,3,0,3,0
+Laiterekisteri,view,VarausAdminController.new StringConverter() {...},37,0,0,0,8,0,3,0,3,0
+Laiterekisteri,view,VarausAdminController.new StringConverter() {...},21,0,0,0,5,0,3,0,3,0
+Laiterekisteri,view,LoginWindowController,194,261,13,15,46,51,15,11,6,6
+Laiterekisteri,view,VarausAdminController.new StringConverter() {...},21,0,0,0,5,0,3,0,3,0
+Laiterekisteri,view,VarausAdminController.new StringConverter() {...},21,0,0,0,5,0,3,0,3,0
+Laiterekisteri,view,VarausAdminController.new StringConverter() {...},21,0,0,0,5,0,3,0,3,0
+Laiterekisteri,view,ResurssiHistoriaController,410,0,2,0,58,0,6,0,5,0
+Laiterekisteri,controller,Controller,10,323,0,2,2,70,2,44,2,43
+Laiterekisteri,model,SalasananPalautus,0,106,0,6,0,19,0,6,0,3
+Laiterekisteri,model,VarauksetAccessObject,32,210,1,3,10,63,1,7,0,6
+Laiterekisteri,model,Istunto,0,45,0,0,0,18,0,9,0,9
+Laiterekisteri,model,DayCellFactory.new Callback() {...},5,18,0,0,1,1,1,1,1,1
+Laiterekisteri,model,LoginUtils,0,46,1,5,0,10,1,4,0,2
+Laiterekisteri,model,KayttajaTarkistus,0,64,0,8,0,13,0,7,0,3
+Laiterekisteri,model,BooleanConverter,0,27,0,2,0,10,0,5,0,4
+Laiterekisteri,model,PoistaBtnToiminnot,83,6,4,0,11,3,3,1,1,1
+Laiterekisteri,model,DayCellFactory,0,17,0,0,0,4,0,2,0,2
+Laiterekisteri,model,VarauksenAikaLaskuri,0,195,4,19,0,33,4,13,0,4
+Laiterekisteri,model,Kayttaja,0,82,0,0,0,31,0,16,0,16
+Laiterekisteri,model,LuvanvaraisuusConverter,0,45,0,8,0,15,0,8,0,3
+Laiterekisteri,model,Sahkoposti,19,84,0,0,7,25,0,5,0,5
+Laiterekisteri,model,HibernateUtil,9,10,0,0,3,4,1,2,1,2
+Laiterekisteri,model,ChoiceboxUtils,91,6,16,0,14,3,11,1,3,1
+Laiterekisteri,model,KalenterinTarvitsematToimenpiteet,28,72,9,11,3,16,5,9,0,4
+Laiterekisteri,model,PasswordConverter,6,45,0,2,2,10,0,3,0,2
+Laiterekisteri,model,KayttajaAccessObject,42,188,1,3,13,57,1,7,0,6
+Laiterekisteri,model,DayCellFactory.1.new DateCell() {...},699,0,55,0,46,0,31,0,2,0
+Laiterekisteri,model,LanguageText,21,53,7,3,4,17,4,8,0,7
+Laiterekisteri,model,ResurssitAccessObject,42,191,1,3,13,58,1,7,0,6
+Laiterekisteri,model,Resurssit,0,84,0,0,0,31,0,16,0,16
+Laiterekisteri,model,ResurssiKasittely,2,46,1,5,1,10,1,4,0,2
+Laiterekisteri,model,Varaukset,0,143,0,0,0,54,0,25,0,25
+Laiterekisteri,model,VarausKasittely,11,297,4,26,3,38,3,19,0,7

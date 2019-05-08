@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PoistaBtnToiminnot.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">PoistaBtnToiminnot.java</span></div><h1>PoistaBtnToiminnot.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+import controller.*;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
+/**
+ *
+ * @author Tommi
+ *
+ * Luokka eri poistanappi toimintoja varten
+ */
+public class PoistaBtnToiminnot implements PoistaBtnToiminnotIf {
+
+    private ControllerIf controller;
+
+    /**
+     * Konstruktori
+     *
+     * @param controller viittaus controller luokkaan
+     */
+<span class="fc" id="L28">    public PoistaBtnToiminnot(Controller controller) {</span>
+<span class="fc" id="L29">        this.controller = controller;</span>
+<span class="fc" id="L30">    }</span>
+
+    /**
+     * Toiminnallisuus varauksen poisto napeille
+     *
+     * @param toDelete poistettava varaus
+     * @return true jos poisto onnistuu
+     */
+    @Override
+    public boolean varauksetPoistaBtn(Varaukset toDelete) {
+<span class="nc" id="L40">        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, controller.getConfigTeksti(&quot;alertConfirmationRemoveReservation&quot;), ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);</span>
+<span class="nc" id="L41">        alert.showAndWait();</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (alert.getResult() == ButtonType.YES) {</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">            if (!controller.onkoVarausAlkanut(toDelete)) {</span>
+<span class="nc" id="L44">                controller.poistaVaraus(toDelete.getId());</span>
+<span class="nc" id="L45">                controller.lahetaSahkoposti(toDelete.getKayttaja().getSahkoposti(), controller.getVarausAikaString(toDelete) + controller.getConfigTeksti(&quot;emailFordeletingReservation&quot;));</span>
+<span class="nc" id="L46">                return true;</span>
+            } else {
+<span class="nc" id="L48">                alert = new Alert(Alert.AlertType.WARNING, controller.getConfigTeksti(&quot;alertRemoveOldReservation&quot;));</span>
+<span class="nc" id="L49">                alert.showAndWait();</span>
+<span class="nc" id="L50">                return false;</span>
+            }
+        }
+<span class="nc" id="L53">        return false;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

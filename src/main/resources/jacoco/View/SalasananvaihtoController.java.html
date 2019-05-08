@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SalasananvaihtoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">SalasananvaihtoController.java</span></div><h1>SalasananvaihtoController.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package view;
+
+import controller.*;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Popup;
+
+/**
+ * Salasanan vaihdon ohjaintoiminnot
+ *
+ * @author tmati
+ */
+<span class="nc" id="L25">public class SalasananvaihtoController implements SalasananvaihtoControllerIf {</span>
+
+    @FXML
+    private Label usernameLabel;
+    @FXML
+    private Button vaihdasalasanaNappi;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Button sulkuNappi;
+    @FXML
+    private TextField vanhasalasanaTextField;
+    @FXML
+    private TextField uusisalasana1TextField;
+    @FXML
+    private Label uusisalasanaLabel;
+    @FXML
+    private Label vanhasalasanaLabel;
+    @FXML
+    private Label virheLabel;
+    @FXML
+    private TextField uusisalasana2TextField;
+    @FXML
+    private Label uusisalasana2Label;
+    private static final String UUSI = &quot;newPassword&quot;;
+    ControllerIf controller;
+
+    /**
+     * Initializes the CONTROLLER class.
+     *
+     * @param url URL
+     * @param rb ResourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="nc" id="L60">         controller = Controller.getInstance();</span>
+<span class="nc" id="L61">        usernameLabel.setText(controller.getLoggedIn().getNimi());</span>
+      
+        
+<span class="nc" id="L64">        vaihdasalasanaNappi.setText(controller.getConfigTeksti(&quot;changePassword&quot;).toUpperCase());</span>
+<span class="nc" id="L65">        titleLabel.setText(controller.getConfigTeksti(&quot;changePasswordTitle&quot;).toUpperCase());</span>
+<span class="nc" id="L66">        vanhasalasanaTextField.setPromptText(controller.getConfigTeksti(&quot;oldPassword&quot;));</span>
+<span class="nc" id="L67">        uusisalasana1TextField.setPromptText(controller.getConfigTeksti(UUSI));</span>
+<span class="nc" id="L68">        uusisalasanaLabel.setText(controller.getConfigTeksti(UUSI).toUpperCase());</span>
+<span class="nc" id="L69">        vanhasalasanaLabel.setText(controller.getConfigTeksti(&quot;oldPassword&quot;).toUpperCase());</span>
+<span class="nc" id="L70">        uusisalasana2TextField.setPromptText(controller.getConfigTeksti(UUSI));</span>
+<span class="nc" id="L71">        uusisalasana2Label.setText(controller.getConfigTeksti(UUSI).toUpperCase());</span>
+<span class="nc" id="L72">        virheLabel.setText(controller.getConfigTeksti(&quot;passwordChangeErrormsg&quot;).toUpperCase());</span>
+        
+<span class="nc" id="L74">        this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;closePopup&quot;)));</span>
+<span class="nc" id="L75">        this.uusisalasana1TextField.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;newPswFieldInfo&quot;)));</span>
+<span class="nc" id="L76">        this.uusisalasana2TextField.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;repeatPassword&quot;)));</span>
+<span class="nc" id="L77">        this.vanhasalasanaTextField.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;oldPswFieldInfo&quot;)));</span>
+<span class="nc" id="L78">        this.vaihdasalasanaNappi.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;changePasswordInfo&quot;)));</span>
+        
+<span class="nc" id="L80">    }</span>
+
+    /**
+     * Käsittelee salasanan vaihtoa popup-ikkunassa.
+     *
+     * @param event Hiiren klikkaus painikkeeseen.
+     */
+    @FXML
+    private void vaihdasalasanaNappiPainettu(MouseEvent event) {
+        //Sisään kirjautuneena oleva käyttäjä tähän
+<span class="nc bnc" id="L90" title="All 4 branches missed.">        if (controller.salasananCryptaus(vanhasalasanaTextField.getText()).equals(controller.getLoggedIn().getSalasana()) &amp;&amp; uusisalasana1TextField.getText().equals(uusisalasana2TextField.getText())) {</span>
+<span class="nc" id="L91">            controller.getLoggedIn().setSalasana(controller.salasananCryptaus(uusisalasana2TextField.getText()));</span>
+<span class="nc" id="L92">            controller.paivitaKayttaja(controller.getLoggedIn());</span>
+<span class="nc" id="L93">            virheLabel.setDisable(true);</span>
+<span class="nc" id="L94">            virheLabel.setOpacity(0);</span>
+<span class="nc" id="L95">            Popup popup = (Popup) sulkuNappi.getScene().getWindow();</span>
+<span class="nc" id="L96">            popup.hide();</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        } else if (!uusisalasana1TextField.getText().equals(uusisalasana2TextField.getText())) {</span>
+<span class="nc" id="L98">            virheLabel.setText(controller.getConfigTeksti(&quot;newPasswordError1&quot;));</span>
+<span class="nc" id="L99">            virheLabel.setDisable(false);</span>
+<span class="nc" id="L100">            virheLabel.setOpacity(100);</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        } else if (!vanhasalasanaTextField.getText().equals(controller.getLoggedIn().getSalasana())) {</span>
+<span class="nc" id="L102">            virheLabel.setText(controller.getConfigTeksti(&quot;newPasswordError2&quot;));</span>
+<span class="nc" id="L103">            virheLabel.setDisable(false);</span>
+<span class="nc" id="L104">            virheLabel.setOpacity(100);</span>
+
+        }
+<span class="nc" id="L107">    }</span>
+
+    /**
+     * Sulkee popupin.
+     * @param event Hiiren klikkaus painikkeeseen.
+     */
+    @FXML
+    private void sulkuNappiPainettu(ActionEvent event) {
+<span class="nc" id="L115">        Popup popup = (Popup) sulkuNappi.getScene().getWindow();</span>
+<span class="nc" id="L116">        popup.hide();</span>
+<span class="nc" id="L117">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

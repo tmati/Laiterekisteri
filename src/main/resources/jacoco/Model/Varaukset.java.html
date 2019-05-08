@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Varaukset.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">Varaukset.java</span></div><h1>Varaukset.java</h1><pre class="source lang-java linenums">package model;
+// Generated Mar 6, 2019 4:26:26 PM by Hibernate Tools 4.3.1
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ * Varaukset -luokka ja sen toiminnot
+ */
+@Entity
+@Table(name = &quot;Varaukset&quot;,
+        catalog = &quot;laiterekisteri&quot;
+)
+public class Varaukset implements java.io.Serializable {
+
+    private int id;
+    private Kayttaja kayttaja;
+    private Resurssit resurssit;
+    private Timestamp alkupvm;
+    private Timestamp paattymispvm;
+    private String kuvaus;
+    private boolean palautettu;
+    private String nimi;
+    private Boolean hyvaksytty;
+
+    /**
+     * Konstuktori
+     */
+<span class="fc" id="L40">    public Varaukset() {</span>
+<span class="fc" id="L41">    }</span>
+
+    /**
+     * Konstuktori
+     *
+     * @param kayttaja varauksen tehnyt käyttäjä
+     * @param resurssit varaukseen liittyvä resurssi
+     * @param alkupvm alkamisaika
+     * @param paattymispvm loppumisaika
+     * @param kuvaus varauksen kuvaus
+     * @param palautettu palautettu -status: true palautettu, false ei palautettu
+     * @param nimi varaukseen liittyvän resurssin nimi
+     */
+<span class="fc" id="L54">    public Varaukset(Kayttaja kayttaja, Resurssit resurssit, LocalDateTime alkupvm, LocalDateTime paattymispvm, String kuvaus, boolean palautettu, String nimi) {</span>
+<span class="fc" id="L55">        this.kayttaja = kayttaja;</span>
+<span class="fc" id="L56">        this.resurssit = resurssit;</span>
+<span class="fc" id="L57">        this.alkupvm = Timestamp.valueOf(alkupvm);</span>
+<span class="fc" id="L58">        this.paattymispvm = Timestamp.valueOf(paattymispvm);</span>
+<span class="fc" id="L59">        this.kuvaus = kuvaus;</span>
+<span class="fc" id="L60">        this.palautettu = palautettu;</span>
+<span class="fc" id="L61">        this.nimi = resurssit.getNimi();</span>
+<span class="fc" id="L62">    }</span>
+
+    /**
+     * Konstuktori
+     *
+     * @param kayttaja varauksen tehnyt käyttäjä
+     * @param resurssit varaukseen liittyvä resurssi
+     * @param alkupvm alkamisaika
+     * @param paattymispvm loppumisaika
+     * @param kuvaus varauksen kuvaus
+     * @param palautettu palautettu -status: true palautettu, false ei palautettu
+     * @param nimi varaukseen liittyvän resurssin nimi
+     * @param hyvaksytty hyväksytty -status: jos resurssi vaatii hyväksynnän, true hyväksytty
+     */
+<span class="fc" id="L76">    public Varaukset(Kayttaja kayttaja, Resurssit resurssit, LocalDateTime alkupvm, LocalDateTime paattymispvm, String kuvaus, boolean palautettu, String nimi, Boolean hyvaksytty) {</span>
+<span class="fc" id="L77">        this.kayttaja = kayttaja;</span>
+<span class="fc" id="L78">        this.resurssit = resurssit;</span>
+<span class="fc" id="L79">        this.alkupvm = Timestamp.valueOf(alkupvm);</span>
+<span class="fc" id="L80">        this.paattymispvm = Timestamp.valueOf(paattymispvm);</span>
+<span class="fc" id="L81">        this.kuvaus = kuvaus;</span>
+<span class="fc" id="L82">        this.palautettu = palautettu;</span>
+<span class="fc" id="L83">        this.nimi = resurssit.getNimi();</span>
+<span class="fc" id="L84">        this.hyvaksytty = hyvaksytty;</span>
+<span class="fc" id="L85">    }</span>
+
+    /**
+     * Getteri varauksen id:lle
+     *
+     * @return varauksen id
+     */
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+
+    @Column(name = &quot;Id&quot;, unique = true, nullable = false)
+    public Integer getId() {
+<span class="fc" id="L97">        return this.id;</span>
+    }
+
+    /**
+     * Setteri varauksen id:lle
+     *
+     * @param id varauksen id
+     */
+    public void setId(Integer id) {
+<span class="fc" id="L106">        this.id = id;</span>
+<span class="fc" id="L107">    }</span>
+
+    /**
+     * Getteri varaukseen liittyvälle käyttäjälle
+     *
+     * @return kayttajä -olio
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = &quot;KayttajaId&quot;, nullable = false)
+    public Kayttaja getKayttaja() {
+<span class="fc" id="L117">        return this.kayttaja;</span>
+    }
+
+    /**
+     * Setteri varaukseen liittyvälle käyttäjälle
+     *
+     * @param kayttaja varauksen käyttäjä
+     */
+    public void setKayttaja(Kayttaja kayttaja) {
+<span class="fc" id="L126">        this.kayttaja = kayttaja;</span>
+<span class="fc" id="L127">    }</span>
+
+    /**
+     * Getteri varaukseen liittyvälle resurssille
+     *
+     * @return resurssi -olio
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = &quot;ResurssiId&quot;, nullable = false)
+    public Resurssit getResurssit() {
+<span class="fc" id="L137">        return this.resurssit;</span>
+    }
+
+    /**
+     * Setteri varaukseen liittyvälle resurssille
+     *
+     * @param resurssit varauksen resurssi
+     */
+    public void setResurssit(Resurssit resurssit) {
+<span class="fc" id="L146">        this.resurssit = resurssit;</span>
+<span class="fc" id="L147">    }</span>
+
+    /**
+     * Getteri varauksen alkamisajalle
+     *
+     * @return varauksen alkamisaika timestamppinä
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = &quot;Alkupvm&quot;, nullable = false, length = 26)
+    public Timestamp getAlkupvm() {
+<span class="fc" id="L157">        return this.alkupvm;</span>
+    }
+
+    /**
+     * Setteri varauksen alkamisajalle
+     *
+     * @param alkupvm varauksen alkamisaika
+     */
+    public void setAlkupvm(Timestamp alkupvm) {
+<span class="fc" id="L166">        this.alkupvm = alkupvm;</span>
+<span class="fc" id="L167">    }</span>
+
+    /**
+     * Getteri varauksen loppumisajalle
+     *
+     * @return varauksen loppusaika timestamppinä
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = &quot;Paattymispvm&quot;, nullable = false, length = 26)
+    public Timestamp getPaattymispvm() {
+<span class="fc" id="L177">        return this.paattymispvm;</span>
+    }
+
+    /**
+     * Setteri varauksen loppumisajalle
+     *
+     * @param paattymispvm varauksen loppumisaika
+     */
+    public void setPaattymispvm(Timestamp paattymispvm) {
+<span class="fc" id="L186">        this.paattymispvm = paattymispvm;</span>
+<span class="fc" id="L187">    }</span>
+
+    /**
+     * Getteri varauksen kuvaukselle
+     *
+     * @return varauksen kuvaus
+     */
+    @Column(name = &quot;Kuvaus&quot;, nullable = false, length = 40)
+    public String getKuvaus() {
+<span class="fc" id="L196">        return this.kuvaus;</span>
+    }
+
+    /**
+     * Setteri varauksen kuvaukselle
+     *
+     * @param kuvaus varauksen kuvaus
+     */
+    public void setKuvaus(String kuvaus) {
+<span class="fc" id="L205">        this.kuvaus = kuvaus;</span>
+<span class="fc" id="L206">    }</span>
+
+    /**
+     * Getteri varauksen palautettu -statukselle
+     *
+     * @return palautettu -status
+     */
+    @Column(name = &quot;Palautettu&quot;, nullable = false)
+    public boolean isPalautettu() {
+<span class="fc" id="L215">        return this.palautettu;</span>
+    }
+
+    /**
+     * Setteri varauksen palautettu -statukselle
+     *
+     * @param palautettu palautettu -status
+     */
+    public void setPalautettu(boolean palautettu) {
+<span class="fc" id="L224">        this.palautettu = palautettu;</span>
+<span class="fc" id="L225">    }</span>
+
+    /**
+     * Getteri varauksen nimelle
+     *
+     * @return varauksen nimi
+     */
+    @Column(name = &quot;Nimi&quot;, nullable = false, length = 40)
+    public String getNimi() {
+<span class="fc" id="L234">        return this.nimi;</span>
+    }
+
+    /**
+     * Setteri varauksen nimelle
+     *
+     * @param nimi varauksen nimi = resurssin nimi
+     */
+    public void setNimi(String nimi) {
+<span class="fc" id="L243">        this.nimi = nimi;</span>
+<span class="fc" id="L244">    }</span>
+
+    /**
+     * Getteri varauksen hyvaksytty -statukselle
+     *
+     * @return varauksen hyvaksytty -status
+     */
+    @Column(name = &quot;Hyvaksytty&quot;)
+    public Boolean getHyvaksytty() {
+<span class="fc" id="L253">        return this.hyvaksytty;</span>
+    }
+
+    /**
+     * Setteri varauksen hyvaksytty -statukselle
+     *
+     * @param hyvaksytty hyväksytty -status
+     */
+    public void setHyvaksytty(Boolean hyvaksytty) {
+<span class="fc" id="L262">        this.hyvaksytty = hyvaksytty;</span>
+<span class="fc" id="L263">    }</span>
+
+    //käytä näitä purkka settereitä ja gettereitä jos käytät localDateTime
+    /**
+     * Setteri varauksen alkamisajalle LocalDateTime -muodossa
+     *
+     * @param alkupvm alkamisaika
+     */
+    public void setAlkuAika(LocalDateTime alkupvm) {
+<span class="fc" id="L272">        this.alkupvm = Timestamp.valueOf(alkupvm);</span>
+<span class="fc" id="L273">    }</span>
+
+    /**
+     * Getteri varauksen alkamisajalle LocalDateTime -muodossa
+     *
+     * @return alkamisaika LocalDateTime -muodossa
+     */
+    public LocalDateTime getAlkuAika() {
+<span class="fc" id="L281">        return this.alkupvm.toLocalDateTime();</span>
+    }
+
+    /**
+     * Setteri varauksen loppumisajalle LocalDateTime -muodossa
+     *
+     * @param paattymispvm loppumisaika
+     */
+    public void setLoppuAika(LocalDateTime paattymispvm) {
+<span class="fc" id="L290">        this.paattymispvm = Timestamp.valueOf(paattymispvm);</span>
+<span class="fc" id="L291">    }</span>
+
+    /**
+     * Getteri varauksen loppumisajalle LocalDateTime -muodossa
+     *
+     * @return loppumisaika LocalDateTime -muodossa
+     */
+    public LocalDateTime getLoppuAika() {
+<span class="fc" id="L299">        return this.paattymispvm.toLocalDateTime();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UusiResurssiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Laiterekisteri</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">UusiResurssiController.java</span></div><h1>UusiResurssiController.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package view;
+
+import controller.*;
+import model.Resurssit;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Popup;
+import javafx.stage.Window;
+
+/**
+ * Uuden resurssin luomiseen liittyvä toiminnalisuus. Toteutus Popup-ikkunassa.
+ *
+ * @author tmati
+ */
+<span class="nc" id="L30">public class UusiResurssiController implements UusiResurssiControllerIf {</span>
+
+    @FXML
+    private Label itemLabel;
+    @FXML
+    private Button uusiresurssiNappi;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private TextArea kuvausTextbox;
+    @FXML
+    private Button sulkuNappi;
+    @FXML
+    private TextField nimiTextField;
+    @FXML
+    private TextField tyyppiTextField;
+    @FXML
+    private ChoiceBox&lt;String&gt; luvanvaraisuusChoiceBox;
+    @FXML
+    private Label virheLabel;
+    @FXML
+    private Label nimiLabel;
+    @FXML
+    private Label kuvausLabel;
+    @FXML
+    private Label tyyppiLabel;
+    @FXML
+    private Label lupaLabel;
+    
+<span class="nc" id="L59">    private String choose = &quot;choose&quot;;</span>
+    private ControllerIf controller;
+
+   
+    /**
+     * Initializes the CONTROLLER class.
+     *
+     * @param url URL
+     * @param rb ResourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+<span class="nc" id="L71">        controller = Controller.getInstance();</span>
+        
+<span class="nc" id="L73">        itemLabel.setText(controller.getConfigTeksti(&quot;giveInfo&quot;));</span>
+<span class="nc" id="L74">        uusiresurssiNappi.setText(controller.getConfigTeksti(&quot;createNewResource&quot;));</span>
+<span class="nc" id="L75">        titleLabel.setText(controller.getConfigTeksti(&quot;newResource&quot;));</span>
+<span class="nc" id="L76">        kuvausTextbox.setPromptText(controller.getConfigTeksti(&quot;description&quot;));</span>
+<span class="nc" id="L77">        nimiTextField.setPromptText(controller.getConfigTeksti(&quot;name&quot;));</span>
+<span class="nc" id="L78">        tyyppiTextField.setPromptText(controller.getConfigTeksti(&quot;type&quot;));</span>
+<span class="nc" id="L79">        luvanvaraisuusChoiceBox.getItems().setAll(controller.getConfigTeksti(choose), controller.getConfigTeksti(&quot;freeUse&quot;), controller.getConfigTeksti(&quot;supApproved&quot;), controller.getConfigTeksti(&quot;adApproved&quot;)) ;</span>
+<span class="nc" id="L80">        luvanvaraisuusChoiceBox.setValue(controller.getConfigTeksti(choose));</span>
+<span class="nc" id="L81">        nimiLabel.setText(controller.getConfigTeksti(&quot;name&quot;).toUpperCase());</span>
+<span class="nc" id="L82">        tyyppiLabel.setText(controller.getConfigTeksti(&quot;type&quot;).toUpperCase());</span>
+<span class="nc" id="L83">        lupaLabel.setText(controller.getConfigTeksti(&quot;permission&quot;).toUpperCase());</span>
+<span class="nc" id="L84">        kuvausLabel.setText(controller.getConfigTeksti(&quot;description&quot;).toUpperCase());</span>
+<span class="nc" id="L85">        virheLabel.setText(controller.getConfigTeksti(&quot;passwordChangeErrormsg&quot;).toUpperCase());</span>
+        
+<span class="nc" id="L87">        this.luvanvaraisuusChoiceBox.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;newResourceChoiceBoxInfo&quot;)));</span>
+<span class="nc" id="L88">        this.kuvausTextbox.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;newResourceTextBoxInfo&quot;)));</span>
+<span class="nc" id="L89">        this.nimiTextField.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;newResourceNameInfo&quot;)));</span>
+<span class="nc" id="L90">        this.sulkuNappi.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;closePopup&quot;)));</span>
+<span class="nc" id="L91">        this.tyyppiTextField.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;newResourceTypeInfo&quot;)));</span>
+<span class="nc" id="L92">        this.uusiresurssiNappi.setTooltip(new Tooltip(controller.getConfigTeksti(&quot;newResourceInfo&quot;)));</span>
+       
+<span class="nc" id="L94">    }</span>
+
+    /**
+     * Tulkitsee ChoiceBoxin valinnan resurssiparametrin kaipaamaksi numeroksi.
+     *
+     * @param cb Käsiteltävä choicebox.
+     * @return Luvanvaraisuustasoa vastaava numeroarvo.
+     */
+    int tulkitseChoiceBox(ChoiceBox cb) {
+<span class="nc" id="L103">        int selectedOption = -1;</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (cb.getValue().equals(controller.getConfigTeksti(&quot;freeUse&quot;))) {</span>
+<span class="nc" id="L105">            selectedOption = 0;</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        } else if (cb.getValue().equals(controller.getConfigTeksti(&quot;supApproved&quot;))) {</span>
+<span class="nc" id="L107">            selectedOption = 1;</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">        } else if (cb.getValue().equals(controller.getConfigTeksti(&quot;adApproved&quot;))) {</span>
+<span class="nc" id="L109">            selectedOption = 2;</span>
+        }
+<span class="nc" id="L111">        return selectedOption;</span>
+    }
+
+  
+
+    /**
+
+     * Luodaan uusi resurssi ikkunaan annetuista parametreistä. Tietojen puuttuessa heitetään herja. Onnistuneen luonnin yhteysessä suljeataan popup.
+     * @param event Hiiren klikkaus painikkeesta.
+     */
+    @FXML
+    private void uusiresurssiNappiPainettu(MouseEvent event) {
+<span class="nc bnc" id="L123" title="All 8 branches missed.">        if (nimiTextField.getText() != null &amp;&amp; tyyppiTextField.getText() != null &amp;&amp; !luvanvaraisuusChoiceBox.getValue().equals(controller.getConfigTeksti(choose)) &amp;&amp; kuvausTextbox.getText() != null) {</span>
+<span class="nc" id="L124">            Resurssit resurssi = new Resurssit(true, nimiTextField.getText(), tyyppiTextField.getText(), controller.readCb(luvanvaraisuusChoiceBox), kuvausTextbox.getText());</span>
+      
+<span class="nc" id="L126">            controller.luoResurssi(resurssi);</span>
+<span class="nc" id="L127">            virheLabel.setDisable(true);</span>
+<span class="nc" id="L128">            virheLabel.setOpacity(0);</span>
+<span class="nc" id="L129">            Resurssit[] resurssit = controller.haeKaikkiResurssit();</span>
+<span class="nc" id="L130">            Popup popup = (Popup) sulkuNappi.getScene().getWindow();</span>
+<span class="nc" id="L131">            Window nakyma = popup.getOwnerWindow();</span>
+<span class="nc" id="L132">            TableView resurssitTableView = (TableView) nakyma.getScene().lookup(&quot;#kaikkiTableView&quot;);</span>
+<span class="nc" id="L133">            resurssitTableView.getItems().clear();</span>
+<span class="nc" id="L134">            resurssitTableView.getItems().addAll(resurssit);</span>
+<span class="nc" id="L135">            popup.hide();</span>
+
+<span class="nc" id="L137">        } else {</span>
+<span class="nc" id="L138">            virheLabel.setDisable(false);</span>
+<span class="nc" id="L139">            virheLabel.setOpacity(100);</span>
+        }
+<span class="nc" id="L141">    }</span>
+
+       
+    /**
+     * Sulkee popupin. Myös taulukon päivitys.
+     * @param event Hiiren klikkaus painikkeesta.
+     */
+    @FXML
+    private void sulkuNappiPainettu(ActionEvent event) {
+<span class="nc" id="L150">        Popup popup = (Popup) sulkuNappi.getScene().getWindow();</span>
+<span class="nc" id="L151">        Resurssit[] resurssit = controller.haeKaikkiResurssit();</span>
+<span class="nc" id="L152">        Window nakyma = popup.getOwnerWindow();</span>
+<span class="nc" id="L153">        TableView resurssitTableView = (TableView) nakyma.getScene().lookup(&quot;#kaikkiTableView&quot;);</span>
+<span class="nc" id="L154">        resurssitTableView.getItems().clear();</span>
+<span class="nc" id="L155">        resurssitTableView.getItems().addAll(resurssit);</span>
+<span class="nc" id="L156">        popup.hide();</span>
+
+
+<span class="nc" id="L159">}</span>
+
+    }    
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
