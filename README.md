@@ -8,4 +8,4 @@ PuTTY > SSH > tunnels > Add new forwarded port > Täytä tiedot > Add > Session 
 
 ![](Kuvatesti/kuva2.PNG)
 ![](Kuvatesti/kuva1.PNG)
-![](Kuvatesti/testit.PNG)
+![](Kuvatesti/testit.png)
