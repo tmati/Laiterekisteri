@@ -5,8 +5,9 @@
  */
 package model;
 
-import com.sun.media.jfxmedia.logging.Logger;
+
 import java.util.List;
+import java.util.logging.Level;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -19,7 +20,7 @@ import org.hibernate.Transaction;
 public class KayttajaAccessObject implements KayttajaDAOIF {
 
     SessionFactory sf = null;
-
+     
     /**
      * Konstuktori Hakee sessionfacotoryn
      */
@@ -27,7 +28,7 @@ public class KayttajaAccessObject implements KayttajaDAOIF {
         try {
             sf = HibernateUtil.getSessionFactory();
         } catch (Exception e) {
-             Logger.logMsg(0, e.getMessage());
+             Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
         }
     }
 
@@ -47,7 +48,7 @@ public class KayttajaAccessObject implements KayttajaDAOIF {
             s.saveOrUpdate(kayttaja);
             tran.commit();
         } catch (Exception e) {
-            Logger.logMsg(0, e.getMessage());
+             Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
             return false;
         } finally {
             s.close();
@@ -72,7 +73,7 @@ public class KayttajaAccessObject implements KayttajaDAOIF {
             s.load(haettu, id);
             s.getTransaction().commit();
         } catch (Exception e) {
-              Logger.logMsg(0, e.getMessage());
+               Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
         } finally {
             s.close();
         }
@@ -96,7 +97,7 @@ public class KayttajaAccessObject implements KayttajaDAOIF {
             kayttajat = result.toArray(new Kayttaja[result.size()]);
             s.getTransaction().commit();
         } catch (Exception e) {
-             Logger.logMsg(0, e.getMessage());
+              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
         } finally {
             s.close();
         }
@@ -127,7 +128,7 @@ public class KayttajaAccessObject implements KayttajaDAOIF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
-             Logger.logMsg(0, e.getMessage());
+              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
             return false;
 
         } finally {
@@ -159,7 +160,7 @@ public class KayttajaAccessObject implements KayttajaDAOIF {
             }
             s.getTransaction().commit();
         } catch (Exception e) {
-             Logger.logMsg(0, e.getMessage());
+              Istunto.LOGGER.log(Level.SEVERE, e.getMessage());
             return false;
 
         } finally {

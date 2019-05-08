@@ -7,11 +7,13 @@
 
 package model;
 import controller.*;
+import java.util.logging.Logger;
 /**
  *
  * @author Tommi
  */
 public class Istunto implements IstuntoIF {
+    public static final Logger LOGGER = Logger.getAnonymousLogger();
     /**
      * Viittaus controller instanssiin
      */
