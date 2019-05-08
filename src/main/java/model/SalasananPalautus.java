@@ -55,7 +55,7 @@ public class SalasananPalautus implements SalasananPalautusIf {
      */
     private String getRandomSalasana(){
          for (int i = 0; i < 9; i++) { 
-            int index = (int)(MERKIT.length() * random.nextFloat());
+            int index = random.nextInt(MERKIT.length());
             sb.append(MERKIT.charAt(index)); 
         } 
         return sb.toString(); 

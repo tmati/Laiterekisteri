@@ -27,7 +27,7 @@ import controller.*;
  *
  * @author jukka
  */
-@Ignore
+
 public class loginWindowControllerTest extends ApplicationTest {
 
     ControllerIf controller = Controller.getInstance();

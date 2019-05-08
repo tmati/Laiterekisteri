@@ -11,6 +11,7 @@ import model.Varaukset;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
+import java.util.Objects;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
@@ -155,7 +156,7 @@ public class ControllerTest {
         //varausTaulukon luonti
         assertTrue("getVarausTaulukko: haku ei onnistunut",
                 kont.getVarausTaulukko(kont.resurssinVaraukset(t.getResurssit().getId(), kont.haeKaikkiVaraukset())) != null);
-        kont.poistaResurssi(res);
+        
 
         //booleanConverter haku
         assertTrue("getBoolConv: null",
@@ -179,8 +180,7 @@ public class ControllerTest {
                 kont.palautaSalasana("keychaintesti@gmail.com"));
         assertFalse("palautaSalasana: piti tulla false",
                 kont.palautaSalasana("asdfghjkljhgfdsa"));
-        //poistaa testi käyttäjän
-        kont.poistaKayttaja(k.getId());
+        
 
         //kasattu string sähköpostia varten
         assertTrue("getVarausAikaString: string ei ollut oikeanlainen",
@@ -199,7 +199,37 @@ public class ControllerTest {
         //kielen vaihto
         kont.setMaa("fi");
         
-
+        //Kirjautuneen käyttäjän asettaminen ja hakeminen
+        kont.setLoggedIn(k);
+        assertTrue("getLoggedIn: ei onnistunut", Objects.equals(k.getId(), kont.getLoggedIn().getId()));
+        kont.setLoggedIn(null);
+        assertTrue("getLoggedIn: ei onnistunut",
+                null == kont.getLoggedIn());
+        
+        //valitun käyttäjän asettaminen ja haku
+        kont.setSelected(k);
+        assertEquals("getSelected: ei onnistunut", k, kont.getSelected());
+        kont.setSelected(null);
+         assertTrue("getSelected: ei onnistunut",
+               null == kont.getLoggedIn());
+         
+         //valitun resurssin asettaminen ja haku
+         
+         kont.setBooking(res);
+         assertTrue("getBooking: ei onnistunut", Objects.equals(res.getId(), kont.getBooking().getId()));
+         kont.setBooking(null);
+         assertTrue("getBooking: ei onnistunut",
+                 null==kont.getBooking());
+         
+         
+        
+        //poistaa testi käyttäjän ja resurssin
+        kont.poistaKayttaja(k.getId());
+        kont.poistaResurssi(res);
+        
+        //biznamen haku
+        assertTrue("getBizname: ei onnistunut",
+               "KeyChain Enterprise Management".equals(kont.getBizname()));
     }
       
     

@@ -4,6 +4,7 @@ import controller.Controller;
 import controller.ControllerIf;
 import java.time.LocalDateTime;
 import model.BooleanConverter;
+import model.Istunto;
 import model.Kayttaja;
 import model.LanguageText;
 import model.LuvanvaraisuusConverter;
@@ -159,5 +160,11 @@ public class ModelTest {
                val.paivaKesto(LocalDateTime.of(2016, 2, 6, 0, 0), LocalDateTime.of(2016, 2, 26, 0, 0)) == 20);
         assertTrue("Virhe vuoden laskuissa",
                val.paivaKesto(LocalDateTime.of(2015, 12, 6, 0, 0), LocalDateTime.of(2016, 1, 6, 0, 0)) == 31);
+    }
+    
+    @Test
+    public void istuntoTest(){
+        assertTrue("Logger: haku ei onnistunut",
+        null != Istunto.LOGGER);
     }
 }
