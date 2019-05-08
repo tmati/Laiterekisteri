@@ -6,11 +6,11 @@ Fokus sama kuin OTP1:ssä.
 
 Ohjelmisto sisältää käyttäjäluokittelutoiminnon ja varaustoiminnon.
 Järjestelmänvalvoja voi lisätä uusia resursseja ja käyttäjiä, sekä myös poistaa niitä.
-Resurssi voidaan määrittää luvanvaraiseksi, jolloin esimiestason käyttäjä hyväksyy kaikki ko. resurssille tulevat varaukset.
-Järjestelmään kirjaudutaan sisään käyttäjätunnus - salasanaparilla. Unohtuneen salasanan voi palauttaa sisäänkirjautumisnäkymässä.
+Resurssi voidaan määrittää luvanvaraiseksi, jolloin esimiestason käyttäjä hyväksyy tai hylkää kaikki ko. resurssille tulevat varaukset.
+Järjestelmään kirjaudutaan sisään käyttäjätunnus - salasanaparilla. Unohtuneen salasanan voi palauttaa sisäänkirjautumisnäkymässä sähköpostiin.
 Järjestelmässä voi hakea resurssia joko sille annetun nimen tai kategorian mukaan.
 Resurssien sekä käyttäjien varaushistorioita voidaan seurata.
-Sovelluksen sähköpostipalvelu ilmoittaa käyttäjille hylkääntyvistä varauksista.
+Sovelluksen sähköpostipalvelu ilmoittaa käyttäjille jos varaus jostain syystä poistetaan tai hylätään. Myös päättyvistä varauksista tulee muistutusviesti.
 
 Sovellus on JavaFX-projekti Maven - koontiautomaatiolla. Projekti noudattaa MVC-arkkitehtuuria. Model-kansion alta löytyy tietokannan käyttämät oliorakenteet sekä 
 niiden rajapinnat ja tietokannan käyttöön liittyvät luokat. Tänne on myös siirretty View-luokista kaikki niiden vaatima toiminnallisuus. View-kansio sisältää GUI:n käyttöön liittyvät näkymien controller-luokat ja Controller hoitaa view:in ja modelin 
