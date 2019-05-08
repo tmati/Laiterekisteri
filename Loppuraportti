@@ -4,7 +4,7 @@ KeyChain Enterprise Management System
 Projektiohjelmiston tarkoitus on hallinnoida pienien ja keskisuurien yrityksien eri materiaalia, kuten tietotekniikkaa tai ajoneuvoja kätevästi yhdestä paikkaa
 Fokus sama kuin OTP1:ssä.
 
-Ohjelmisto sisältää käyttäjäluokittelutoiminnon ja varaustoiminnon.
+Ohjelmisto sisältää käyttäjäluokittelutoiminnon ja varaustoiminnon. Käyttäjät voivat siis varata itselleen yrityksen kalustoa sitä vaativien työtehtävien ajaksi.
 Järjestelmänvalvoja voi lisätä uusia resursseja ja käyttäjiä, sekä myös poistaa niitä.
 Resurssi voidaan määrittää luvanvaraiseksi, jolloin esimiestason käyttäjä hyväksyy tai hylkää kaikki ko. resurssille tulevat varaukset.
 Järjestelmään kirjaudutaan sisään käyttäjätunnus - salasanaparilla. Unohtuneen salasanan voi palauttaa sisäänkirjautumisnäkymässä sähköpostiin.
@@ -18,4 +18,6 @@ välisen keskustelun.
 
 Projektin käyttämät kuvatiedostot löytyvät src/main/resource -polun takaa ja FXML-näkymätiedostot löytyvät src/main/resource/fxml -polun takaa. CSS- tiedosto on osoitteessa src/main/resource/styles.
 
-Sovellusta on testattu JUnit 5 - yksikkötestein sekä kirjautumisnäkymää kevyesti TestFX - testityökalulla.
+Sovellusta on testattu JUnit 5 - yksikkötestein sekä kirjautumisnäkymää kevyesti TestFX - testityökalulla. Käyttöliittymää on testattu manuaalisesti vastaamaan agilefantiin kirjattuja kysymysmallisia hyväksymiskriteereitä.
+Sovellus rakennetaan myös jatkuvan integraation Jenkins-palvelimella toiminnan varmistamiseksi.
+JaCoCo-analyysin löydät polusta src/main/resources/jacoco ja kuvankaappaus kattavuustyökalun tuloksesta löytyy projektin readme - tiedostosta.
