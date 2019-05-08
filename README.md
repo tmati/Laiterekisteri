@@ -6,5 +6,6 @@ Komentoriviltä:
 PuTTY:n kautta
 PuTTY > SSH > tunnels > Add new forwarded port > Täytä tiedot > Add > Session > Open > Kirjaudu
 
+![](Kuvatesti/kuva2.PNG)
 ![](Kuvatesti/kuva1.PNG)
 ![](Kuvatesti/testit.PNG)
